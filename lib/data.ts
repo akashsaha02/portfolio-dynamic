@@ -39,8 +39,18 @@ function mapProject(p: raw.Project, index: number): Project {
     repo: p.repo,
     cover: p.image,
     phoneShots: p.phone ? [p.phone] : [],
-    // No case studies in the static source yet (work plan 1.8).
-    caseStudy: undefined,
+    caseStudy: p.caseStudy ? mapCaseStudy(p.caseStudy) : undefined,
+  };
+}
+
+function mapCaseStudy(c: raw.CaseStudy): CaseStudy {
+  return {
+    role: c.role,
+    problem: c.problem,
+    built: c.built,
+    how: c.how,
+    outcome: c.outcome,
+    metrics: c.metrics.map((m) => ({ value: m.value, label: m.label })),
   };
 }
 
@@ -95,6 +105,7 @@ export const getSiteContent = cache(async (): Promise<SiteContent> => {
       services: p.services,
       socials: p.socials,
       availability: p.availability,
+      now: p.now,
     },
     site: {
       versionLabel: raw.site.versionLabel,
