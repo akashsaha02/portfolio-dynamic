@@ -63,8 +63,8 @@ Merge order: 0.2 → 0.3 → 0.4.
 
 | ID | Task | Owner | Depends | Done when | Status |
 | --- | --- | --- | --- | --- | --- |
-| 1.1 | Tokens (guide §3), Folio fonts, primitives: `FillButton`, `RoundButton`, `Magnetic`, `Chip`, `Tile`, `Row`, `CurvedEdge`; helpers `useFinePointer`, reduced-motion `matchMedia` | folio-design | 0.G | Primitives correct at all widths on a scratch route | doing |
-| 1.2 | Global shell: top bar ("© Code by Akash", phone shows only "Menu"), fixed burger after hero, menu panel (focus trap, `Esc`, scroll lock, safe areas), footer with curved edge, stacked pills, live Dhaka time | folio-design | 1.1 | Guide §4.1 + footer row of §4.2 at all widths; keyboard-only works | todo |
+| 1.1 | Tokens (guide §3), Folio fonts, primitives: `FillButton`, `RoundButton`, `Magnetic`, `Chip`, `Tile`, `Row`, `CurvedEdge`; helpers `useFinePointer`, reduced-motion `matchMedia` | folio-design | 0.G | Primitives correct at all widths on a scratch route | done |
+| 1.2 | Global shell: top bar ("© Code by Akash", phone shows only "Menu"), fixed burger after hero, menu panel (focus trap, `Esc`, scroll lock, safe areas), footer with curved edge, stacked pills, live Dhaka time | folio-design | 1.1 | Guide §4.1 + footer row of §4.2 at all widths; keyboard-only works | doing |
 | 1.3 | Home sections: hero (name marquee, role, availability), intro + round "About me", recent work tiles, experience (`<details>` on phone), research block | folio-design | 1.2 | Guide §4.2 at 320–1440 | todo |
 | 1.4 | Desktop-only enhancements: list rows + cursor hover modal, row dimming, magnetic, logo text roll; then the preloader (once per session, ≤ 1.6s, skipped on reduced motion) | folio-design | 1.3 | Absent on touch; Lighthouse mobile ≥ 95 | todo |
 | 1.5 | Work index (filters, list ↔ grid on fine pointer) and case-study page (facts row, laptop frame, phone scroll-snap row, next case) | folio-design | 1.3 | Guide §4.3–4.4 | todo |
