@@ -33,10 +33,9 @@ export const profile = {
   } satisfies Image,
   // avatar: pending, square avatar asset (work plan 0.6).
   // resumeUrl: pending, résumé PDF (work plan 0.6); /resume route arrives in 2.7.
-  // TODO(Akash): still at Nyntax (confirmed 2026-10-10) but the work is different now. Replace the
-  // text with what you are building this month; neutral until then. Change `updated` with the text.
+  // From the Nyntax points Akash supplied on 2026-10-10. Change `updated` whenever the text changes.
   now: {
-    text: "Working as a MERN developer at Nyntax.",
+    text: "Integrating Sola Payments as a second payment gateway for the multi-tenant car rental SaaS I work on at Nyntax.",
     updated: "2026-10-10",
   },
   // Guide §3: English, then Bangla (Dhaka), Hindi (studied in India), then the rest.
@@ -114,12 +113,18 @@ const roles: Omit<Role, "period">[] = [
     end: null,
     place: "Dhaka",
     url: "https://www.nyntax.com/",
+    // Points supplied by Akash, 2026-10-10.
     points: [
-      "Build features for a multi-tenant car rental SaaS: quick reservations, car swaps and EZPass toll management.",
-      "Integrated TeqMobility, Axle and Bonzah for insurance processing and licence verification.",
-      "Built deposit handling and payment flows on Stripe, plus pricing logic that sets insurance premiums from vehicle value.",
+      "Develop and maintain features for a multi-tenant car rental SaaS platform used by multiple rental companies.",
+      "Built core booking modules, including Quick Reservation, Car Swap and EZPass toll management.",
+      "Integrated third-party insurance and licence verification APIs (TeqMobility, Axle, Bonzah) into the reservation workflow.",
+      "Implemented Stripe payment workflows, including security deposits and split payments to merchant accounts.",
+      "Currently integrating Sola Payments as an additional payment gateway.",
+      "Fixed bugs in insurance start- and end-date handling so that coverage periods match reservation dates.",
+      "Redesigned key UI screens, improving usability and the customer booking experience.",
+      "Designed dynamic pricing logic that calculates insurance premiums based on vehicle value.",
     ],
-    skills: ["MongoDB", "Express", "React", "Node", "Stripe"],
+    skills: ["MongoDB", "Express", "React", "Node", "Stripe", "Sola Payments"],
   },
   {
     company: "Softvence Agency",
