@@ -33,11 +33,10 @@ export const profile = {
   } satisfies Image,
   // avatar: pending, square avatar asset (work plan 0.6).
   // resumeUrl: pending, résumé PDF (work plan 0.6); /resume route arrives in 2.7.
-  // TODO(Akash): review. Drafted from the Nyntax role below (end: null) and the about text.
-  // Confirm you are still at Nyntax and that this is what you'd say you're building this month;
-  // `updated` is the date this line was drafted, change it whenever you edit the text.
+  // TODO(Akash): still at Nyntax (confirmed 2026-10-10) but the work is different now. Replace the
+  // text with what you are building this month; neutral until then. Change `updated` with the text.
   now: {
-    text: "Building a multi-tenant car rental SaaS at Nyntax: reservations, Stripe deposits and insurance pricing.",
+    text: "Working as a MERN developer at Nyntax.",
     updated: "2026-10-10",
   },
   // Guide §3: English, then Bangla (Dhaka), Hindi (studied in India), then the rest.
@@ -271,17 +270,16 @@ export const projects: Project[] = [
     },
     // TODO(Akash): review. Drafted from github.com/akashsaha02/knowledge-vault (README,
     // docs/architecture.md, docs/testing.md, package.json, .github/workflows/ci.yml,
-    // prisma/schema.prisma, prisma/migrations, source). Confirm:
-    // - role: you are the only contributor on GitHub; a personal project, not client work?
+    // prisma/schema.prisma, prisma/migrations, source).
+    // Akash confirmed (2026-10-10): personal project; workspace roles are supported; no usage
+    // numbers; unsure whether deploys go through the CI job or Vercel's Git integration, so the
+    // outcome no longer claims the deploy waits for tests. Still to confirm:
     // - problem: worded from the landing page ("Stop scattering ideas across apps"). Who is it for
     //   in your words: yourself, developers, anyone?
-    // - built: the schema has shared workspaces with roles, but there's no invite screen, so the
-    //   copy only says the server checks the workspace role. Say so if inviting people works.
-    // - outcome: says nothing about users because the repo doesn't. Add real numbers if you have
-    //   them. "Deploy waits for both test jobs" holds only when the Vercel secrets are set in
-    //   GitHub; if Vercel's Git integration deploys instead, tell us and we'll reword it.
+    // - built: does inviting other people into a workspace work end to end? The copy only says the
+    //   server checks the workspace role.
     caseStudy: {
-      role: "Sole developer: product, frontend, backend and deployment",
+      role: "Owner and sole developer: product, frontend, backend and deployment",
       problem:
         "Notes, code snippets, terminal commands, links, AI prompts and files usually end up scattered across different apps. Nook keeps them in one private, searchable place.",
       built:
@@ -289,7 +287,7 @@ export const projects: Project[] = [
       how:
         "Next.js App Router on Supabase Postgres through Prisma 7, with Better Auth for email and Google sign-in. Each feature is split into server actions, a service and a repository. Every change goes through a server action that validates input with Zod and checks the user's workspace role (owner, admin, member or viewer) before touching data, and one module decides who can see private items, so lists, search and detail pages can't disagree. Search uses a Postgres tsvector column that a trigger keeps current, with titles weighted above body text and a GIN index, and falls back to a simpler query if full-text search is unavailable. Notes use Quill and code uses CodeMirror; notes autosave 1.5 seconds after you stop typing, and Ctrl or Cmd+S saves at once. Attachments live in a private Supabase Storage bucket behind signed download links, and share-link passwords are hashed with scrypt.",
       outcome:
-        "Live on Vercel. On every push and pull request, GitHub Actions type-checks, lints, runs the Vitest unit tests and builds, and a second job runs the Playwright tests against a real Postgres service. The production deploy from main waits for both.",
+        "A personal project, live on Vercel. On every push and pull request, GitHub Actions type-checks, lints, runs the Vitest unit tests and builds, and a second job runs the Playwright tests against a real Postgres service.",
       metrics: [
         { value: "9", label: "Vitest unit test files, run in CI" },
         { value: "3", label: "Playwright end-to-end specs, run in CI against Postgres" },
