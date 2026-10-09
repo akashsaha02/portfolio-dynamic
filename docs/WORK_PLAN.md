@@ -51,7 +51,7 @@ Status key: `todo` · `doing` · `review` · `done`. The lead updates the Status
 | 0.4 | Test harness: Vitest + Playwright (+ axe); projects phone / phone-large / tablet / desktop; smoke test: page loads, no console errors, no horizontal scroll | tester | 0.1 | `npm test`, `npm run test:e2e` pass; job snippet handed to monitoring | done |
 | 0.5 | Baseline Lighthouse + 360px screenshots of today's site → `docs/qa/baseline/` | qa | 0.1 | Report exists | done |
 | 0.6 | Assets: Nook phone screenshots; SoulMatch + Cerebral Insights screenshots (1600×1000, ~560×1212, WebP); square avatar; résumé PDF. Answers to guide §13 (accent, hero photo, public phone number) | **Akash** | — | Files in `assets/incoming/`; answers in §13 | todo |
-| 0.G | **Gate:** contract reviewed by lead + design + backend; CI green | qa | 0.2–0.4 | PASS | doing |
+| 0.G | **Gate:** contract reviewed by lead + design + backend; CI green | qa | 0.2–0.4 | PASS | done |
 
 Merge order: 0.2 → 0.3 → 0.4.
 
