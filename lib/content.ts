@@ -33,7 +33,13 @@ export const profile = {
   } satisfies Image,
   // avatar: pending, square avatar asset (work plan 0.6).
   // resumeUrl: pending, résumé PDF (work plan 0.6); /resume route arrives in 2.7.
-  // now: pending, Akash to write the "Now" line (work plan 1.8).
+  // TODO(Akash): review. Drafted from the Nyntax role below (end: null) and the about text.
+  // Confirm you are still at Nyntax and that this is what you'd say you're building this month;
+  // `updated` is the date this line was drafted, change it whenever you edit the text.
+  now: {
+    text: "Building a multi-tenant car rental SaaS at Nyntax: reservations, Stripe deposits and insurance pricing.",
+    updated: "2026-10-10",
+  },
   // Guide §3: English, then Bangla (Dhaka), Hindi (studied in India), then the rest.
   greetings: [
     { text: "Hello", lang: "en" },
@@ -159,6 +165,18 @@ const roles: Omit<Role, "period">[] = [
 // Most recent first.
 export const experience: Role[] = roles.map((r) => ({ ...r, period: formatPeriod(r.start, r.end) }));
 
+/** Case-study copy for /work/[slug] (guide §4.4). One short paragraph per field. */
+export type CaseStudy = {
+  /** Short, for the facts row. */
+  role: string;
+  problem: string;
+  built: string;
+  how: string;
+  outcome: string;
+  /** Only facts provable from the project's repo. Empty rather than estimated. */
+  metrics: { value: string; label: string }[];
+};
+
 export type Project = {
   name: string;
   /** Stable URL slug for /work/[slug]. */
@@ -179,7 +197,8 @@ export type Project = {
   // Screenshots of the live product.
   image?: Image;
   phone?: Image;
-  // caseStudy: drafted in work plan 1.8 (Abroadly, Nook).
+  /** Projects with a case study get a /work/[slug] page. */
+  caseStudy?: CaseStudy;
 };
 
 // Array order is the display order. First entry is the Editorial featured project.
@@ -204,6 +223,35 @@ export const projects: Project[] = [
       height: 1000,
     },
     phone: { src: "/projects/abroadly-phone.webp", alt: "Abroadly on a phone", width: 560, height: 1212 },
+    // TODO(Akash): review. Drafted from github.com/akashsaha02/study-abroad (README, PROJECT_CONTEXT,
+    // package.json files, .github/workflows, render.yaml, vercel.json, supabase/migrations, source).
+    // Confirm:
+    // - role: you are the only contributor on GitHub; did you also do the design, and was this for a
+    //   real agency (client work) or a product you built on your own? Name the client if it's public.
+    // - problem: the agency workflow is taken from PROJECT_CONTEXT's "Business flow"; reword in your
+    //   own terms if the real brief was different.
+    // - outcome: says nothing about users, agencies or traffic because the repo doesn't. Add real
+    //   results if you have them (an agency using it, leads collected), otherwise keep it as is.
+    // - outcome: mentions writing/speaking grading is not wired yet (evaluation.service.ts returns
+    //   "pending"). Keep it, or drop it if that has shipped since.
+    // - how: GitHub CI lints, type-checks and builds; the IELTS unit tests run only in the local
+    //   pre-push check (scripts/ci-check.mjs), so the copy does not claim tests in CI.
+    caseStudy: {
+      role: "Sole developer: frontend, API, database and deployment",
+      problem:
+        "A study abroad agency has to turn website visitors into leads, give each lead to a counsellor, then follow the student through documents, applications and the visa. Abroadly puts that whole path in one product, so students, counsellors and admins each see their part of the same records, in English or Bangla.",
+      built:
+        "A public site with countries, universities, courses and scholarships, plus an eligibility checker, a cost calculator, a university comparison and consultation booking. Behind it are three dashboards: students upload documents and follow their applications through five phases, counsellors work their assigned leads and students, and admins run the CRM and edit the site's content. An IELTS module adds a question bank with spreadsheet import, timed mock tests, a practice mode and band-score analytics.",
+      how:
+        "A monorepo with three npm workspaces: a Next.js frontend, an Express REST API and a shared TypeScript package. Server Components read data for pages; every write goes through the API, which the frontend proxies under /api so auth cookies stay on one origin. The shared package holds the Zod schemas, the eligibility rules and the application phases, so browser and server validate the same way. Supabase provides Postgres, auth and storage: student documents sit in a private bucket and open through signed links that expire after ten minutes. Resend emails admins about new leads and students about document and application updates. Mock-test answers are queued in IndexedDB until the server confirms them, so a refresh or a dropped connection doesn't lose an answer. GitHub Actions lints, type-checks and builds both apps; the frontend deploys to Vercel and the API to a free Render web service.",
+      outcome:
+        "Live, with the public site on Vercel and the API on Render. Listening and reading are scored automatically against band tables that admins can adjust; writing and speaking answers are saved for grading, with the scoring step left as an extension point.",
+      metrics: [
+        { value: "3", label: "workspaces in the monorepo: web, API and shared" },
+        { value: "12", label: "Express API modules" },
+        { value: "2", label: "languages: English and Bangla" },
+      ],
+    },
   },
   {
     name: "Nook",
@@ -223,6 +271,33 @@ export const projects: Project[] = [
       alt: "Nook home page: Your space for things worth keeping",
       width: 1600,
       height: 1000,
+    },
+    // TODO(Akash): review. Drafted from github.com/akashsaha02/knowledge-vault (README,
+    // docs/architecture.md, docs/testing.md, package.json, .github/workflows/ci.yml,
+    // prisma/schema.prisma, prisma/migrations, source). Confirm:
+    // - role: you are the only contributor on GitHub; a personal project, not client work?
+    // - problem: worded from the landing page ("Stop scattering ideas across apps"). Who is it for
+    //   in your words: yourself, developers, anyone?
+    // - built: the schema has shared workspaces with roles, but there's no invite screen, so the
+    //   copy only says the server checks the workspace role. Say so if inviting people works.
+    // - outcome: says nothing about users because the repo doesn't. Add real numbers if you have
+    //   them. "Deploy waits for both test jobs" holds only when the Vercel secrets are set in
+    //   GitHub; if Vercel's Git integration deploys instead, tell us and we'll reword it.
+    caseStudy: {
+      role: "Sole developer: product, frontend, backend and deployment",
+      problem:
+        "Notes, code snippets, terminal commands, links, AI prompts and files usually end up scattered across different apps. Nook keeps them in one private, searchable place.",
+      built:
+        "A vault with six item types: notes, snippets, commands, bookmarks, prompts and files. Items sort into projects, collections and tags, can be pinned, favourited, archived or trashed, and keep a revision history. There's a command palette, full-text search, share links with optional passwords and expiry, and export of a whole workspace as JSON or a zip, with JSON import back in.",
+      how:
+        "Next.js App Router on Supabase Postgres through Prisma 7, with Better Auth for email and Google sign-in. Each feature is split into server actions, a service and a repository. Every change goes through a server action that validates input with Zod and checks the user's workspace role (owner, admin, member or viewer) before touching data, and one module decides who can see private items, so lists, search and detail pages can't disagree. Search uses a Postgres tsvector column that a trigger keeps current, with titles weighted above body text and a GIN index, and falls back to a simpler query if full-text search is unavailable. Notes use Quill and code uses CodeMirror; notes autosave 1.5 seconds after you stop typing, and Ctrl or Cmd+S saves at once. Attachments live in a private Supabase Storage bucket behind signed download links, and share-link passwords are hashed with scrypt.",
+      outcome:
+        "Live on Vercel. On every push and pull request, GitHub Actions type-checks, lints, runs the Vitest unit tests and builds, and a second job runs the Playwright tests against a real Postgres service. The production deploy from main waits for both.",
+      metrics: [
+        { value: "9", label: "Vitest unit test files, run in CI" },
+        { value: "3", label: "Playwright end-to-end specs, run in CI against Postgres" },
+        { value: "6", label: "item types in one vault" },
+      ],
     },
   },
   {
