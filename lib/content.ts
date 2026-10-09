@@ -211,7 +211,7 @@ export const projects: Project[] = [
     year: "2026", // derived: repo created Jul 2026
     featured: true,
     summary:
-      "A full platform for a study abroad agency: students explore countries and universities, check eligibility and book consultations, in English or Bangla. Built as a monorepo with a Next.js frontend, an Express REST API and a shared types package. Supabase handles auth and data, Resend sends email, and GitHub Actions runs CI before deploying to Vercel and Render.",
+      "My own product for study abroad agencies: students explore countries and universities, check eligibility and book consultations, in English or Bangla. Built as a monorepo with a Next.js frontend, an Express REST API and a shared types package. Supabase handles auth and data, Resend sends email, and GitHub Actions runs CI before deploying to Vercel and Render.",
     stack: ["Next.js", "Express", "TypeScript", "Supabase", "Resend", "GitHub Actions"],
     url: "https://study-abroad-five-mu.vercel.app",
     linkLabel: "Open Abroadly",
@@ -225,27 +225,24 @@ export const projects: Project[] = [
     phone: { src: "/projects/abroadly-phone.webp", alt: "Abroadly on a phone", width: 560, height: 1212 },
     // TODO(Akash): review. Drafted from github.com/akashsaha02/study-abroad (README, PROJECT_CONTEXT,
     // package.json files, .github/workflows, render.yaml, vercel.json, supabase/migrations, source).
-    // Confirm:
-    // - role: you are the only contributor on GitHub; did you also do the design, and was this for a
-    //   real agency (client work) or a product you built on your own? Name the client if it's public.
-    // - problem: the agency workflow is taken from PROJECT_CONTEXT's "Business flow"; reword in your
-    //   own terms if the real brief was different.
-    // - outcome: says nothing about users, agencies or traffic because the repo doesn't. Add real
-    //   results if you have them (an agency using it, leads collected), otherwise keep it as is.
+    // Akash confirmed (2026-10-10): his own passion project, not client work; no agency uses it yet,
+    // it may become operational later. Update outcome when it does.
+    // Still to confirm:
+    // - role: did you also do the design?
     // - outcome: mentions writing/speaking grading is not wired yet (evaluation.service.ts returns
     //   "pending"). Keep it, or drop it if that has shipped since.
     // - how: GitHub CI lints, type-checks and builds; the IELTS unit tests run only in the local
     //   pre-push check (scripts/ci-check.mjs), so the copy does not claim tests in CI.
     caseStudy: {
-      role: "Sole developer: frontend, API, database and deployment",
+      role: "Owner and sole developer: product, frontend, API, database and deployment",
       problem:
-        "A study abroad agency has to turn website visitors into leads, give each lead to a counsellor, then follow the student through documents, applications and the visa. Abroadly puts that whole path in one product, so students, counsellors and admins each see their part of the same records, in English or Bangla.",
+        "I built Abroadly as my own product for study abroad agencies. An agency has to turn website visitors into leads, give each lead to a counsellor, then follow the student through documents, applications and the visa. Abroadly puts that whole path in one product, so students, counsellors and admins each see their part of the same records, in English or Bangla.",
       built:
         "A public site with countries, universities, courses and scholarships, plus an eligibility checker, a cost calculator, a university comparison and consultation booking. Behind it are three dashboards: students upload documents and follow their applications through five phases, counsellors work their assigned leads and students, and admins run the CRM and edit the site's content. An IELTS module adds a question bank with spreadsheet import, timed mock tests, a practice mode and band-score analytics.",
       how:
         "A monorepo with three npm workspaces: a Next.js frontend, an Express REST API and a shared TypeScript package. Server Components read data for pages; every write goes through the API, which the frontend proxies under /api so auth cookies stay on one origin. The shared package holds the Zod schemas, the eligibility rules and the application phases, so browser and server validate the same way. Supabase provides Postgres, auth and storage: student documents sit in a private bucket and open through signed links that expire after ten minutes. Resend emails admins about new leads and students about document and application updates. Mock-test answers are queued in IndexedDB until the server confirms them, so a refresh or a dropped connection doesn't lose an answer. GitHub Actions lints, type-checks and builds both apps; the frontend deploys to Vercel and the API to a free Render web service.",
       outcome:
-        "Live, with the public site on Vercel and the API on Render. Listening and reading are scored automatically against band tables that admins can adjust; writing and speaking answers are saved for grading, with the scoring step left as an extension point.",
+        "Running as a live demo, with the public site on Vercel and the API on Render. It's a personal project with no agency using it yet; it's built so it could go into operation. Listening and reading are scored automatically against band tables that admins can adjust; writing and speaking answers are saved for grading, with the scoring step left as an extension point.",
       metrics: [
         { value: "3", label: "workspaces in the monorepo: web, API and shared" },
         { value: "12", label: "Express API modules" },
