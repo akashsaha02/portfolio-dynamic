@@ -1,0 +1,173 @@
+{
+  "mobile": {
+    "lighthouse": "13.5.0",
+    "runs": [
+      {
+        "perf": 91,
+        "a11y": 96,
+        "bp": 100,
+        "seo": 100,
+        "fcp": 1131,
+        "lcp": 3406,
+        "cls": 0,
+        "tbt": 54,
+        "si": 1672
+      },
+      {
+        "perf": 92,
+        "a11y": 96,
+        "bp": 100,
+        "seo": 100,
+        "fcp": 1167,
+        "lcp": 3171,
+        "cls": 0,
+        "tbt": 41,
+        "si": 3101
+      },
+      {
+        "perf": 89,
+        "a11y": 96,
+        "bp": 100,
+        "seo": 100,
+        "fcp": 1440,
+        "lcp": 3236,
+        "cls": 0,
+        "tbt": 61,
+        "si": 4683
+      }
+    ],
+    "median": {
+      "perf": 91,
+      "a11y": 96,
+      "bp": 100,
+      "seo": 100,
+      "fcp": 1167,
+      "lcp": 3236,
+      "cls": 0,
+      "tbt": 54,
+      "si": 3101
+    },
+    "lcpElement": "<img alt=\"Portrait of Akash Saha\" width=\"1024\" height=\"1024\" decoding=\"async\" data-nimg=\"1\" class=\"hero-fade hero-develop absolute bottom-0 left-1/2 z-10 aspect",
+    "lcpPhases": {
+      "timeToFirstByte": 9,
+      "resourceLoadDelay": 14,
+      "resourceLoadDuration": 20,
+      "elementRenderDelay": 1719
+    },
+    "failingAudits": {
+      "perf": [
+        "first-contentful-paint: 1.2 s",
+        "largest-contentful-paint: 3.2 s",
+        "speed-index: 3.1 s",
+        "forced-reflow-insight: 0",
+        "image-delivery-insight: Est savings of 12 KiB",
+        "lcp-discovery-insight: 0",
+        "legacy-javascript-insight: Est savings of 14 KiB",
+        "network-dependency-tree-insight: 0",
+        "render-blocking-insight: 0.5",
+        "interactive: 3.2 s",
+        "max-potential-fid: 120 ms",
+        "unused-javascript: Est savings of 76 KiB",
+        "mainthread-work-breakdown: 2.1 s"
+      ],
+      "a11y": [
+        "color-contrast: 0",
+        "label-content-name-mismatch: 0"
+      ],
+      "bp": [],
+      "seo": []
+    },
+    "totalBytes": 427730,
+    "scriptTransferBytes": 192678,
+    "imagesAndFonts": [
+      "/_next/static/media/c89730c3ffa99552-s.p.1zjat_zsa1d11.woff2 96KB",
+      "/_next/image?url=%2Fportrait.webp&w=1080&q=75 32KB",
+      "/_next/image?url=%2Fprojects%2Fabroadly.webp&w=750&q=75 25KB",
+      "/_next/image?url=%2Fprojects%2Fabroadly-phone.webp&w=256&q=75 15KB",
+      "/_next/image?url=%2Fprojects%2Fnook.webp&w=750&q=75 10KB"
+    ]
+  },
+  "desktop": {
+    "lighthouse": "13.5.0",
+    "runs": [
+      {
+        "perf": 100,
+        "a11y": 96,
+        "bp": 100,
+        "seo": 100,
+        "fcp": 361,
+        "lcp": 753,
+        "cls": 0,
+        "tbt": 4,
+        "si": 708
+      },
+      {
+        "perf": 100,
+        "a11y": 96,
+        "bp": 100,
+        "seo": 100,
+        "fcp": 356,
+        "lcp": 721,
+        "cls": 0,
+        "tbt": 0,
+        "si": 652
+      },
+      {
+        "perf": 99,
+        "a11y": 96,
+        "bp": 100,
+        "seo": 100,
+        "fcp": 487,
+        "lcp": 865,
+        "cls": 0.019,
+        "tbt": 44,
+        "si": 990
+      }
+    ],
+    "median": {
+      "perf": 100,
+      "a11y": 96,
+      "bp": 100,
+      "seo": 100,
+      "fcp": 361,
+      "lcp": 753,
+      "cls": 0,
+      "tbt": 4,
+      "si": 708
+    },
+    "lcpElement": "<img alt=\"Portrait of Akash Saha\" width=\"1024\" height=\"1024\" decoding=\"async\" data-nimg=\"1\" class=\"hero-fade hero-develop absolute bottom-0 left-1/2 z-10 aspect",
+    "lcpPhases": {
+      "timeToFirstByte": 8,
+      "resourceLoadDelay": 9,
+      "resourceLoadDuration": 21,
+      "elementRenderDelay": 771
+    },
+    "failingAudits": {
+      "perf": [
+        "largest-contentful-paint: 0.7 s",
+        "forced-reflow-insight: 0",
+        "lcp-discovery-insight: 0",
+        "legacy-javascript-insight: Est savings of 14 KiB",
+        "network-dependency-tree-insight: 0",
+        "render-blocking-insight: 0.5",
+        "unused-javascript: Est savings of 76 KiB"
+      ],
+      "a11y": [
+        "color-contrast: 0",
+        "label-content-name-mismatch: 0"
+      ],
+      "bp": [],
+      "seo": []
+    },
+    "totalBytes": 444872,
+    "scriptTransferBytes": 192678,
+    "imagesAndFonts": [
+      "/_next/static/media/c89730c3ffa99552-s.p.1zjat_zsa1d11.woff2 96KB",
+      "/_next/image?url=%2Fportrait.webp&w=1080&q=75 32KB",
+      "/_next/static/media/02f8c82079ee3c71-s.0wv_63afy57i_.woff2 19KB",
+      "/_next/image?url=%2Fprojects%2Fabroadly.webp&w=750&q=75 25KB",
+      "/_next/image?url=%2Fprojects%2Fabroadly-phone.webp&w=256&q=75 15KB",
+      "/_next/image?url=%2Fprojects%2Fnook.webp&w=640&q=75 8KB"
+    ]
+  }
+}

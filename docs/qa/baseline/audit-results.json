@@ -1,0 +1,2867 @@
+{
+  "320x640": {
+    "innerWidth": 320,
+    "scrollWidth": 320,
+    "bodyScrollWidth": 320,
+    "horizontalScroll": false,
+    "offenders": [],
+    "targets": [
+      {
+        "region": "nav",
+        "text": "AS",
+        "w": 40,
+        "h": 40,
+        "x": 8,
+        "right": 48,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "nav",
+        "text": "Work",
+        "w": 65.7,
+        "h": 40,
+        "x": 52,
+        "right": 117,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "nav",
+        "text": "Research",
+        "w": 95.6,
+        "h": 40,
+        "x": 121,
+        "right": 217,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "nav",
+        "text": "Contact",
+        "w": 91.3,
+        "h": 40,
+        "x": 221,
+        "right": 312,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "hero",
+        "text": "See my work",
+        "w": 139,
+        "h": 48,
+        "x": 16,
+        "right": 155,
+        "y": 572,
+        "stretched": false
+      },
+      {
+        "region": "hero",
+        "text": "Email me",
+        "w": 139,
+        "h": 48,
+        "x": 165,
+        "right": 304,
+        "y": 572,
+        "stretched": false
+      },
+      {
+        "region": "work",
+        "text": "Abroadly: Open Abroadly (opens in a new ",
+        "w": 167.8,
+        "h": 67,
+        "x": 36,
+        "right": 204,
+        "y": 1906,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "Code (opens in a new tab)",
+        "w": 90.1,
+        "h": 40,
+        "x": 36,
+        "right": 126,
+        "y": 2462,
+        "stretched": false
+      },
+      {
+        "region": "work",
+        "text": "Nook: Open Nook (opens in a new tab)",
+        "w": 68.3,
+        "h": 51,
+        "x": 36,
+        "right": 104,
+        "y": 2792,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "Code (opens in a new tab)",
+        "w": 90.1,
+        "h": 40,
+        "x": 36,
+        "right": 126,
+        "y": 3122,
+        "stretched": false
+      },
+      {
+        "region": "work",
+        "text": "SoulMatch: Open SoulMatch (opens in a ne",
+        "w": 145.6,
+        "h": 51,
+        "x": 36,
+        "right": 182,
+        "y": 3288,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "CrowdHex: Open CrowdHex (opens in a new ",
+        "w": 139.4,
+        "h": 51,
+        "x": 36,
+        "right": 175,
+        "y": 3695,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "Cerebral Insights: View code on GitHub (",
+        "w": 237.7,
+        "h": 51,
+        "x": 36,
+        "right": 274,
+        "y": 4027,
+        "stretched": true
+      },
+      {
+        "region": "experience",
+        "text": "Nyntax (opens in a new tab)",
+        "w": 114.9,
+        "h": 25.8,
+        "x": 14,
+        "right": 129,
+        "y": 4718,
+        "stretched": false
+      },
+      {
+        "region": "experience",
+        "text": "Softvence Agency (opens in a new tab)",
+        "w": 224.4,
+        "h": 25.8,
+        "x": 14,
+        "right": 238,
+        "y": 5268,
+        "stretched": false
+      },
+      {
+        "region": "experience",
+        "text": "RNPsoft (opens in a new tab)",
+        "w": 124.5,
+        "h": 25.8,
+        "x": 14,
+        "right": 138,
+        "y": 6150,
+        "stretched": false
+      },
+      {
+        "region": "research",
+        "text": "Comparative Performance of Deep Learning",
+        "w": 265,
+        "h": 86.8,
+        "x": 14,
+        "right": 279,
+        "y": 6982,
+        "stretched": false
+      },
+      {
+        "region": "contact",
+        "text": "akashsaha1313@gmail.com",
+        "w": 264,
+        "h": 72,
+        "x": 28,
+        "right": 292,
+        "y": 9418,
+        "stretched": false
+      },
+      {
+        "region": "contact",
+        "text": "GitHub (opens in a new tab)",
+        "w": 120,
+        "h": 48,
+        "x": 28,
+        "right": 148,
+        "y": 9603,
+        "stretched": false
+      },
+      {
+        "region": "contact",
+        "text": "LinkedIn (opens in a new tab)",
+        "w": 129.6,
+        "h": 48,
+        "x": 160,
+        "right": 290,
+        "y": 9603,
+        "stretched": false
+      }
+    ],
+    "lime": [
+      {
+        "tag": "span",
+        "text": "built",
+        "bg": "rgb(40,44,32)",
+        "ratio": 12.26,
+        "fontSize": "48px",
+        "ariaHidden": false
+      },
+      {
+        "tag": "span",
+        "text": "building?",
+        "bg": "rgb(40,44,32)",
+        "ratio": 12.26,
+        "fontSize": "56px",
+        "ariaHidden": false
+      }
+    ],
+    "lenis": true,
+    "heroHeight": 640,
+    "navRect": {
+      "left": 2,
+      "right": 318,
+      "w": 317
+    }
+  },
+  "360x740": {
+    "innerWidth": 360,
+    "scrollWidth": 360,
+    "bodyScrollWidth": 360,
+    "horizontalScroll": false,
+    "offenders": [],
+    "targets": [
+      {
+        "region": "nav",
+        "text": "AS",
+        "w": 40,
+        "h": 40,
+        "x": 28,
+        "right": 68,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "nav",
+        "text": "Work",
+        "w": 65.7,
+        "h": 40,
+        "x": 72,
+        "right": 137,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "nav",
+        "text": "Research",
+        "w": 95.6,
+        "h": 40,
+        "x": 141,
+        "right": 237,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "nav",
+        "text": "Contact",
+        "w": 91.3,
+        "h": 40,
+        "x": 241,
+        "right": 332,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "hero",
+        "text": "See my work",
+        "w": 159,
+        "h": 48,
+        "x": 16,
+        "right": 175,
+        "y": 672,
+        "stretched": false
+      },
+      {
+        "region": "hero",
+        "text": "Email me",
+        "w": 159,
+        "h": 48,
+        "x": 185,
+        "right": 344,
+        "y": 672,
+        "stretched": false
+      },
+      {
+        "region": "work",
+        "text": "Abroadly: Open Abroadly (opens in a new ",
+        "w": 167.8,
+        "h": 67,
+        "x": 36,
+        "right": 204,
+        "y": 1884,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "Code (opens in a new tab)",
+        "w": 90.1,
+        "h": 40,
+        "x": 36,
+        "right": 126,
+        "y": 2384,
+        "stretched": false
+      },
+      {
+        "region": "work",
+        "text": "Nook: Open Nook (opens in a new tab)",
+        "w": 68.3,
+        "h": 51,
+        "x": 36,
+        "right": 104,
+        "y": 2739,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "Code (opens in a new tab)",
+        "w": 90.1,
+        "h": 40,
+        "x": 36,
+        "right": 126,
+        "y": 3069,
+        "stretched": false
+      },
+      {
+        "region": "work",
+        "text": "SoulMatch: Open SoulMatch (opens in a ne",
+        "w": 145.6,
+        "h": 51,
+        "x": 36,
+        "right": 182,
+        "y": 3224,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "CrowdHex: Open CrowdHex (opens in a new ",
+        "w": 139.4,
+        "h": 51,
+        "x": 36,
+        "right": 175,
+        "y": 3605,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "Cerebral Insights: View code on GitHub (",
+        "w": 237.7,
+        "h": 51,
+        "x": 36,
+        "right": 274,
+        "y": 3926,
+        "stretched": true
+      },
+      {
+        "region": "experience",
+        "text": "Nyntax (opens in a new tab)",
+        "w": 114.9,
+        "h": 25.8,
+        "x": 14,
+        "right": 129,
+        "y": 4528,
+        "stretched": false
+      },
+      {
+        "region": "experience",
+        "text": "Softvence Agency (opens in a new tab)",
+        "w": 224.4,
+        "h": 25.8,
+        "x": 14,
+        "right": 238,
+        "y": 5050,
+        "stretched": false
+      },
+      {
+        "region": "experience",
+        "text": "RNPsoft (opens in a new tab)",
+        "w": 124.5,
+        "h": 25.8,
+        "x": 14,
+        "right": 138,
+        "y": 5877,
+        "stretched": false
+      },
+      {
+        "region": "research",
+        "text": "Comparative Performance of Deep Learning",
+        "w": 265,
+        "h": 86.8,
+        "x": 14,
+        "right": 279,
+        "y": 6652,
+        "stretched": false
+      },
+      {
+        "region": "contact",
+        "text": "akashsaha1313@gmail.com",
+        "w": 304,
+        "h": 72,
+        "x": 28,
+        "right": 332,
+        "y": 9034,
+        "stretched": false
+      },
+      {
+        "region": "contact",
+        "text": "GitHub (opens in a new tab)",
+        "w": 120,
+        "h": 48,
+        "x": 28,
+        "right": 148,
+        "y": 9219,
+        "stretched": false
+      },
+      {
+        "region": "contact",
+        "text": "LinkedIn (opens in a new tab)",
+        "w": 129.6,
+        "h": 48,
+        "x": 160,
+        "right": 290,
+        "y": 9219,
+        "stretched": false
+      }
+    ],
+    "lime": [
+      {
+        "tag": "span",
+        "text": "built",
+        "bg": "rgb(40,44,32)",
+        "ratio": 12.26,
+        "fontSize": "48px",
+        "ariaHidden": false
+      },
+      {
+        "tag": "span",
+        "text": "building?",
+        "bg": "rgb(40,44,32)",
+        "ratio": 12.26,
+        "fontSize": "56px",
+        "ariaHidden": false
+      }
+    ],
+    "lenis": true,
+    "heroHeight": 740,
+    "navRect": {
+      "left": 22,
+      "right": 338,
+      "w": 317
+    },
+    "aboutWordOpacityMin": 0.16
+  },
+  "390x844": {
+    "innerWidth": 390,
+    "scrollWidth": 390,
+    "bodyScrollWidth": 390,
+    "horizontalScroll": false,
+    "offenders": [],
+    "targets": [
+      {
+        "region": "nav",
+        "text": "AS",
+        "w": 40,
+        "h": 40,
+        "x": 43,
+        "right": 83,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "nav",
+        "text": "Work",
+        "w": 65.7,
+        "h": 40,
+        "x": 87,
+        "right": 152,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "nav",
+        "text": "Research",
+        "w": 95.6,
+        "h": 40,
+        "x": 156,
+        "right": 252,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "nav",
+        "text": "Contact",
+        "w": 91.3,
+        "h": 40,
+        "x": 256,
+        "right": 347,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "hero",
+        "text": "See my work",
+        "w": 174,
+        "h": 48,
+        "x": 16,
+        "right": 190,
+        "y": 776,
+        "stretched": false
+      },
+      {
+        "region": "hero",
+        "text": "Email me",
+        "w": 174,
+        "h": 48,
+        "x": 200,
+        "right": 374,
+        "y": 776,
+        "stretched": false
+      },
+      {
+        "region": "work",
+        "text": "Abroadly: Open Abroadly (opens in a new ",
+        "w": 177.2,
+        "h": 71,
+        "x": 36,
+        "right": 213,
+        "y": 2006,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "Code (opens in a new tab)",
+        "w": 90.1,
+        "h": 40,
+        "x": 36,
+        "right": 126,
+        "y": 2447,
+        "stretched": false
+      },
+      {
+        "region": "work",
+        "text": "Nook: Open Nook (opens in a new tab)",
+        "w": 68.3,
+        "h": 51,
+        "x": 36,
+        "right": 104,
+        "y": 2821,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "Code (opens in a new tab)",
+        "w": 90.1,
+        "h": 40,
+        "x": 36,
+        "right": 126,
+        "y": 3125,
+        "stretched": false
+      },
+      {
+        "region": "work",
+        "text": "SoulMatch: Open SoulMatch (opens in a ne",
+        "w": 145.6,
+        "h": 51,
+        "x": 36,
+        "right": 182,
+        "y": 3280,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "CrowdHex: Open CrowdHex (opens in a new ",
+        "w": 139.4,
+        "h": 51,
+        "x": 36,
+        "right": 175,
+        "y": 3661,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "Cerebral Insights: View code on GitHub (",
+        "w": 237.7,
+        "h": 51,
+        "x": 36,
+        "right": 274,
+        "y": 3983,
+        "stretched": true
+      },
+      {
+        "region": "experience",
+        "text": "Nyntax (opens in a new tab)",
+        "w": 114.9,
+        "h": 25.8,
+        "x": 14,
+        "right": 129,
+        "y": 4585,
+        "stretched": false
+      },
+      {
+        "region": "experience",
+        "text": "Softvence Agency (opens in a new tab)",
+        "w": 224.4,
+        "h": 25.8,
+        "x": 14,
+        "right": 238,
+        "y": 5079,
+        "stretched": false
+      },
+      {
+        "region": "experience",
+        "text": "RNPsoft (opens in a new tab)",
+        "w": 124.5,
+        "h": 25.8,
+        "x": 14,
+        "right": 138,
+        "y": 5878,
+        "stretched": false
+      },
+      {
+        "region": "research",
+        "text": "Comparative Performance of Deep Learning",
+        "w": 265,
+        "h": 86.8,
+        "x": 14,
+        "right": 279,
+        "y": 6653,
+        "stretched": false
+      },
+      {
+        "region": "contact",
+        "text": "akashsaha1313@gmail.com",
+        "w": 309.3,
+        "h": 72,
+        "x": 28,
+        "right": 337,
+        "y": 8910,
+        "stretched": false
+      },
+      {
+        "region": "contact",
+        "text": "GitHub (opens in a new tab)",
+        "w": 120,
+        "h": 48,
+        "x": 28,
+        "right": 148,
+        "y": 9095,
+        "stretched": false
+      },
+      {
+        "region": "contact",
+        "text": "LinkedIn (opens in a new tab)",
+        "w": 129.6,
+        "h": 48,
+        "x": 160,
+        "right": 290,
+        "y": 9095,
+        "stretched": false
+      }
+    ],
+    "lime": [
+      {
+        "tag": "span",
+        "text": "built",
+        "bg": "rgb(40,44,32)",
+        "ratio": 12.26,
+        "fontSize": "50.7px",
+        "ariaHidden": false
+      },
+      {
+        "tag": "span",
+        "text": "building?",
+        "bg": "rgb(40,44,32)",
+        "ratio": 12.26,
+        "fontSize": "56px",
+        "ariaHidden": false
+      }
+    ],
+    "lenis": true,
+    "heroHeight": 844,
+    "navRect": {
+      "left": 37,
+      "right": 353,
+      "w": 317
+    }
+  },
+  "414x896": {
+    "innerWidth": 414,
+    "scrollWidth": 414,
+    "bodyScrollWidth": 414,
+    "horizontalScroll": false,
+    "offenders": [],
+    "targets": [
+      {
+        "region": "nav",
+        "text": "AS",
+        "w": 40,
+        "h": 40,
+        "x": 55,
+        "right": 95,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "nav",
+        "text": "Work",
+        "w": 65.7,
+        "h": 40,
+        "x": 99,
+        "right": 164,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "nav",
+        "text": "Research",
+        "w": 95.6,
+        "h": 40,
+        "x": 168,
+        "right": 264,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "nav",
+        "text": "Contact",
+        "w": 91.3,
+        "h": 40,
+        "x": 268,
+        "right": 359,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "hero",
+        "text": "See my work",
+        "w": 186,
+        "h": 48,
+        "x": 16,
+        "right": 202,
+        "y": 828,
+        "stretched": false
+      },
+      {
+        "region": "hero",
+        "text": "Email me",
+        "w": 186,
+        "h": 48,
+        "x": 212,
+        "right": 398,
+        "y": 828,
+        "stretched": false
+      },
+      {
+        "region": "work",
+        "text": "Abroadly: Open Abroadly (opens in a new ",
+        "w": 188.1,
+        "h": 76,
+        "x": 36,
+        "right": 224,
+        "y": 2041,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "Code (opens in a new tab)",
+        "w": 90.1,
+        "h": 40,
+        "x": 36,
+        "right": 126,
+        "y": 2460,
+        "stretched": false
+      },
+      {
+        "region": "work",
+        "text": "Nook: Open Nook (opens in a new tab)",
+        "w": 70.7,
+        "h": 53,
+        "x": 36,
+        "right": 107,
+        "y": 2847,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "Code (opens in a new tab)",
+        "w": 90.1,
+        "h": 40,
+        "x": 36,
+        "right": 126,
+        "y": 3128,
+        "stretched": false
+      },
+      {
+        "region": "work",
+        "text": "SoulMatch: Open SoulMatch (opens in a ne",
+        "w": 150.6,
+        "h": 53,
+        "x": 36,
+        "right": 187,
+        "y": 3282,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "CrowdHex: Open CrowdHex (opens in a new ",
+        "w": 144.3,
+        "h": 53,
+        "x": 36,
+        "right": 180,
+        "y": 3638,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "Cerebral Insights: View code on GitHub (",
+        "w": 245.9,
+        "h": 53,
+        "x": 36,
+        "right": 282,
+        "y": 3934,
+        "stretched": true
+      },
+      {
+        "region": "experience",
+        "text": "Nyntax (opens in a new tab)",
+        "w": 114.9,
+        "h": 25.8,
+        "x": 14,
+        "right": 129,
+        "y": 4495,
+        "stretched": false
+      },
+      {
+        "region": "experience",
+        "text": "Softvence Agency (opens in a new tab)",
+        "w": 224.4,
+        "h": 25.8,
+        "x": 14,
+        "right": 238,
+        "y": 4989,
+        "stretched": false
+      },
+      {
+        "region": "experience",
+        "text": "RNPsoft (opens in a new tab)",
+        "w": 124.5,
+        "h": 25.8,
+        "x": 14,
+        "right": 138,
+        "y": 5760,
+        "stretched": false
+      },
+      {
+        "region": "research",
+        "text": "Comparative Performance of Deep Learning",
+        "w": 265,
+        "h": 86.8,
+        "x": 14,
+        "right": 279,
+        "y": 6508,
+        "stretched": false
+      },
+      {
+        "region": "contact",
+        "text": "akashsaha1313@gmail.com",
+        "w": 309.3,
+        "h": 72,
+        "x": 28,
+        "right": 337,
+        "y": 8736,
+        "stretched": false
+      },
+      {
+        "region": "contact",
+        "text": "GitHub (opens in a new tab)",
+        "w": 120,
+        "h": 48,
+        "x": 28,
+        "right": 148,
+        "y": 8921,
+        "stretched": false
+      },
+      {
+        "region": "contact",
+        "text": "LinkedIn (opens in a new tab)",
+        "w": 129.6,
+        "h": 48,
+        "x": 160,
+        "right": 290,
+        "y": 8921,
+        "stretched": false
+      }
+    ],
+    "lime": [
+      {
+        "tag": "span",
+        "text": "built",
+        "bg": "rgb(40,44,32)",
+        "ratio": 12.26,
+        "fontSize": "53.82px",
+        "ariaHidden": false
+      },
+      {
+        "tag": "span",
+        "text": "building?",
+        "bg": "rgb(40,44,32)",
+        "ratio": 12.26,
+        "fontSize": "56px",
+        "ariaHidden": false
+      }
+    ],
+    "lenis": true,
+    "heroHeight": 896,
+    "navRect": {
+      "left": 49,
+      "right": 365,
+      "w": 317
+    }
+  },
+  "768x1024": {
+    "innerWidth": 768,
+    "scrollWidth": 768,
+    "bodyScrollWidth": 768,
+    "horizontalScroll": false,
+    "offenders": [],
+    "targets": [
+      {
+        "region": "nav",
+        "text": "AS",
+        "w": 40,
+        "h": 40,
+        "x": 170,
+        "right": 210,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "nav",
+        "text": "Work",
+        "w": 69.7,
+        "h": 40,
+        "x": 214,
+        "right": 284,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "nav",
+        "text": "Experience",
+        "w": 111.5,
+        "h": 40,
+        "x": 288,
+        "right": 399,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "nav",
+        "text": "Research",
+        "w": 99.6,
+        "h": 40,
+        "x": 403,
+        "right": 503,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "nav",
+        "text": "Contact",
+        "w": 91.3,
+        "h": 40,
+        "x": 507,
+        "right": 598,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "hero",
+        "text": "See my work",
+        "w": 145.7,
+        "h": 48,
+        "x": 450,
+        "right": 596,
+        "y": 936,
+        "stretched": false
+      },
+      {
+        "region": "hero",
+        "text": "Email me",
+        "w": 120.1,
+        "h": 48,
+        "x": 608,
+        "right": 728,
+        "y": 936,
+        "stretched": false
+      },
+      {
+        "region": "work",
+        "text": "Abroadly: Open Abroadly (opens in a new ",
+        "w": 349,
+        "h": 141,
+        "x": 52,
+        "right": 401,
+        "y": 2482,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "Code (opens in a new tab)",
+        "w": 90.1,
+        "h": 40,
+        "x": 52,
+        "right": 142,
+        "y": 2809,
+        "stretched": false
+      },
+      {
+        "region": "work",
+        "text": "Nook: Open Nook (opens in a new tab)",
+        "w": 98.7,
+        "h": 74,
+        "x": 52,
+        "right": 151,
+        "y": 3180,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "Code (opens in a new tab)",
+        "w": 90.1,
+        "h": 40,
+        "x": 52,
+        "right": 142,
+        "y": 3503,
+        "stretched": false
+      },
+      {
+        "region": "work",
+        "text": "SoulMatch: Open SoulMatch (opens in a ne",
+        "w": 210.3,
+        "h": 74,
+        "x": 414,
+        "right": 624,
+        "y": 3258,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "CrowdHex: Open CrowdHex (opens in a new ",
+        "w": 201.4,
+        "h": 74,
+        "x": 52,
+        "right": 253,
+        "y": 3665,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "Cerebral Insights: View code on GitHub (",
+        "w": 173.6,
+        "h": 121.8,
+        "x": 414,
+        "right": 588,
+        "y": 3670,
+        "stretched": true
+      },
+      {
+        "region": "experience",
+        "text": "Nyntax (opens in a new tab)",
+        "w": 114.9,
+        "h": 25.8,
+        "x": 214,
+        "right": 329,
+        "y": 4323,
+        "stretched": false
+      },
+      {
+        "region": "experience",
+        "text": "Softvence Agency (opens in a new tab)",
+        "w": 224.4,
+        "h": 25.8,
+        "x": 214,
+        "right": 438,
+        "y": 4674,
+        "stretched": false
+      },
+      {
+        "region": "experience",
+        "text": "RNPsoft (opens in a new tab)",
+        "w": 124.5,
+        "h": 25.8,
+        "x": 214,
+        "right": 338,
+        "y": 5268,
+        "stretched": false
+      },
+      {
+        "region": "research",
+        "text": "Comparative Performance of Deep Learning",
+        "w": 392.1,
+        "h": 60.4,
+        "x": 277,
+        "right": 669,
+        "y": 6017,
+        "stretched": false
+      },
+      {
+        "region": "contact",
+        "text": "akashsaha1313@gmail.com",
+        "w": 452.5,
+        "h": 96,
+        "x": 56,
+        "right": 509,
+        "y": 8032,
+        "stretched": false
+      },
+      {
+        "region": "contact",
+        "text": "GitHub (opens in a new tab)",
+        "w": 120,
+        "h": 48,
+        "x": 56,
+        "right": 176,
+        "y": 8273,
+        "stretched": false
+      },
+      {
+        "region": "contact",
+        "text": "LinkedIn (opens in a new tab)",
+        "w": 129.6,
+        "h": 48,
+        "x": 188,
+        "right": 318,
+        "y": 8273,
+        "stretched": false
+      }
+    ],
+    "lime": [
+      {
+        "tag": "p",
+        "text": "Akash Saha",
+        "bg": "rgb(235,238,224)",
+        "ratio": 1.01,
+        "fontSize": "84.48px",
+        "ariaHidden": true
+      },
+      {
+        "tag": "span",
+        "text": "built",
+        "bg": "rgb(40,44,32)",
+        "ratio": 12.26,
+        "fontSize": "99.84px",
+        "ariaHidden": false
+      },
+      {
+        "tag": "span",
+        "text": "building?",
+        "bg": "rgb(40,44,32)",
+        "ratio": 12.26,
+        "fontSize": "76.8px",
+        "ariaHidden": false
+      }
+    ],
+    "lenis": true,
+    "heroHeight": 1024,
+    "navRect": {
+      "left": 164,
+      "right": 604,
+      "w": 440
+    }
+  },
+  "1024x1366-touch": {
+    "innerWidth": 1024,
+    "scrollWidth": 1024,
+    "bodyScrollWidth": 1024,
+    "horizontalScroll": false,
+    "offenders": [],
+    "targets": [
+      {
+        "region": "nav",
+        "text": "AS",
+        "w": 40,
+        "h": 40,
+        "x": 298,
+        "right": 338,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "nav",
+        "text": "Work",
+        "w": 69.7,
+        "h": 40,
+        "x": 342,
+        "right": 412,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "nav",
+        "text": "Experience",
+        "w": 111.5,
+        "h": 40,
+        "x": 416,
+        "right": 527,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "nav",
+        "text": "Research",
+        "w": 99.6,
+        "h": 40,
+        "x": 531,
+        "right": 631,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "nav",
+        "text": "Contact",
+        "w": 91.3,
+        "h": 40,
+        "x": 635,
+        "right": 726,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "hero",
+        "text": "See my work",
+        "w": 145.7,
+        "h": 48,
+        "x": 706,
+        "right": 852,
+        "y": 1278,
+        "stretched": false
+      },
+      {
+        "region": "hero",
+        "text": "Email me",
+        "w": 120.1,
+        "h": 48,
+        "x": 864,
+        "right": 984,
+        "y": 1278,
+        "stretched": false
+      },
+      {
+        "region": "work",
+        "text": "Abroadly: Open Abroadly (opens in a new ",
+        "w": 447.4,
+        "h": 181,
+        "x": 68,
+        "right": 515,
+        "y": 3227,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "Code (opens in a new tab)",
+        "w": 90.1,
+        "h": 40,
+        "x": 68,
+        "right": 158,
+        "y": 3625,
+        "stretched": false
+      },
+      {
+        "region": "work",
+        "text": "Nook: Open Nook (opens in a new tab)",
+        "w": 68.3,
+        "h": 51,
+        "x": 711,
+        "right": 779,
+        "y": 2806,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "Code (opens in a new tab)",
+        "w": 90.1,
+        "h": 40,
+        "x": 711,
+        "right": 801,
+        "y": 3162,
+        "stretched": false
+      },
+      {
+        "region": "work",
+        "text": "SoulMatch: Open SoulMatch (opens in a ne",
+        "w": 145.6,
+        "h": 51,
+        "x": 711,
+        "right": 856,
+        "y": 3372,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "CrowdHex: Open CrowdHex (opens in a new ",
+        "w": 139.4,
+        "h": 51,
+        "x": 68,
+        "right": 207,
+        "y": 3824,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "Cerebral Insights: View code on GitHub (",
+        "w": 237.7,
+        "h": 51,
+        "x": 389,
+        "right": 627,
+        "y": 3902,
+        "stretched": true
+      },
+      {
+        "region": "experience",
+        "text": "Nyntax (opens in a new tab)",
+        "w": 116.7,
+        "h": 26.4,
+        "x": 524,
+        "right": 641,
+        "y": 4311,
+        "stretched": false
+      },
+      {
+        "region": "experience",
+        "text": "Softvence Agency (opens in a new tab)",
+        "w": 228.8,
+        "h": 26.4,
+        "x": 524,
+        "right": 753,
+        "y": 4689,
+        "stretched": false
+      },
+      {
+        "region": "experience",
+        "text": "RNPsoft (opens in a new tab)",
+        "w": 126.5,
+        "h": 26.4,
+        "x": 524,
+        "right": 650,
+        "y": 5285,
+        "stretched": false
+      },
+      {
+        "region": "research",
+        "text": "Comparative Performance of Deep Learning",
+        "w": 400.5,
+        "h": 62,
+        "x": 362,
+        "right": 762,
+        "y": 6033,
+        "stretched": false
+      },
+      {
+        "region": "contact",
+        "text": "akashsaha1313@gmail.com",
+        "w": 556.7,
+        "h": 96,
+        "x": 56,
+        "right": 613,
+        "y": 7762,
+        "stretched": false
+      },
+      {
+        "region": "contact",
+        "text": "GitHub (opens in a new tab)",
+        "w": 120,
+        "h": 48,
+        "x": 56,
+        "right": 176,
+        "y": 8003,
+        "stretched": false
+      },
+      {
+        "region": "contact",
+        "text": "LinkedIn (opens in a new tab)",
+        "w": 129.6,
+        "h": 48,
+        "x": 188,
+        "right": 318,
+        "y": 8003,
+        "stretched": false
+      }
+    ],
+    "lime": [
+      {
+        "tag": "p",
+        "text": "Akash Saha",
+        "bg": "rgb(235,238,224)",
+        "ratio": 1.01,
+        "fontSize": "112.64px",
+        "ariaHidden": true
+      },
+      {
+        "tag": "span",
+        "text": "built",
+        "bg": "rgb(40,44,32)",
+        "ratio": 12.26,
+        "fontSize": "133.12px",
+        "ariaHidden": false
+      },
+      {
+        "tag": "span",
+        "text": "building?",
+        "bg": "rgb(40,44,32)",
+        "ratio": 12.26,
+        "fontSize": "102.4px",
+        "ariaHidden": false
+      }
+    ],
+    "lenis": true,
+    "heroHeight": 1366,
+    "navRect": {
+      "left": 292,
+      "right": 732,
+      "w": 440
+    }
+  },
+  "1280x800": {
+    "innerWidth": 1280,
+    "scrollWidth": 1280,
+    "bodyScrollWidth": 1280,
+    "horizontalScroll": false,
+    "offenders": [],
+    "targets": [
+      {
+        "region": "nav",
+        "text": "AS",
+        "w": 40,
+        "h": 40,
+        "x": 426,
+        "right": 466,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "nav",
+        "text": "Work",
+        "w": 69.7,
+        "h": 40,
+        "x": 470,
+        "right": 540,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "nav",
+        "text": "Experience",
+        "w": 111.5,
+        "h": 40,
+        "x": 544,
+        "right": 655,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "nav",
+        "text": "Research",
+        "w": 99.6,
+        "h": 40,
+        "x": 659,
+        "right": 759,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "nav",
+        "text": "Contact",
+        "w": 91.3,
+        "h": 40,
+        "x": 763,
+        "right": 854,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "hero",
+        "text": "See my work",
+        "w": 145.7,
+        "h": 48,
+        "x": 962,
+        "right": 1108,
+        "y": 712,
+        "stretched": false
+      },
+      {
+        "region": "hero",
+        "text": "Email me",
+        "w": 120.1,
+        "h": 48,
+        "x": 1120,
+        "right": 1240,
+        "y": 712,
+        "stretched": false
+      },
+      {
+        "region": "work",
+        "text": "Abroadly: Open Abroadly (opens in a new ",
+        "w": 447.4,
+        "h": 181,
+        "x": 68,
+        "right": 515,
+        "y": 2816,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "Code (opens in a new tab)",
+        "w": 90.1,
+        "h": 40,
+        "x": 715,
+        "right": 805,
+        "y": 3144,
+        "stretched": false
+      },
+      {
+        "region": "work",
+        "text": "Nook: Open Nook (opens in a new tab)",
+        "w": 82.6,
+        "h": 61,
+        "x": 881,
+        "right": 964,
+        "y": 2399,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "Code (opens in a new tab)",
+        "w": 90.1,
+        "h": 40,
+        "x": 881,
+        "right": 971,
+        "y": 2712,
+        "stretched": false
+      },
+      {
+        "region": "work",
+        "text": "SoulMatch: Open SoulMatch (opens in a ne",
+        "w": 176,
+        "h": 61,
+        "x": 881,
+        "right": 1057,
+        "y": 2909,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "CrowdHex: Open CrowdHex (opens in a new ",
+        "w": 168.5,
+        "h": 61,
+        "x": 68,
+        "right": 237,
+        "y": 3341,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "Cerebral Insights: View code on GitHub (",
+        "w": 287.3,
+        "h": 61,
+        "x": 475,
+        "right": 762,
+        "y": 3393,
+        "stretched": true
+      },
+      {
+        "region": "experience",
+        "text": "Nyntax (opens in a new tab)",
+        "w": 135.9,
+        "h": 33,
+        "x": 652,
+        "right": 788,
+        "y": 3811,
+        "stretched": false
+      },
+      {
+        "region": "experience",
+        "text": "Softvence Agency (opens in a new tab)",
+        "w": 276,
+        "h": 33,
+        "x": 652,
+        "right": 928,
+        "y": 4168,
+        "stretched": false
+      },
+      {
+        "region": "experience",
+        "text": "RNPsoft (opens in a new tab)",
+        "w": 148.1,
+        "h": 33,
+        "x": 652,
+        "right": 800,
+        "y": 4749,
+        "stretched": false
+      },
+      {
+        "region": "research",
+        "text": "Comparative Performance of Deep Learning",
+        "w": 498.3,
+        "h": 76.8,
+        "x": 447,
+        "right": 946,
+        "y": 5476,
+        "stretched": false
+      },
+      {
+        "region": "contact",
+        "text": "akashsaha1313@gmail.com",
+        "w": 660.9,
+        "h": 96,
+        "x": 56,
+        "right": 717,
+        "y": 7306,
+        "stretched": false
+      },
+      {
+        "region": "contact",
+        "text": "GitHub (opens in a new tab)",
+        "w": 120,
+        "h": 48,
+        "x": 56,
+        "right": 176,
+        "y": 7547,
+        "stretched": false
+      },
+      {
+        "region": "contact",
+        "text": "LinkedIn (opens in a new tab)",
+        "w": 129.6,
+        "h": 48,
+        "x": 188,
+        "right": 318,
+        "y": 7547,
+        "stretched": false
+      }
+    ],
+    "lime": [
+      {
+        "tag": "p",
+        "text": "Akash Saha",
+        "bg": "rgb(235,238,224)",
+        "ratio": 1.01,
+        "fontSize": "140.8px",
+        "ariaHidden": true
+      },
+      {
+        "tag": "span",
+        "text": "built",
+        "bg": "rgb(40,44,32)",
+        "ratio": 12.26,
+        "fontSize": "136px",
+        "ariaHidden": false
+      },
+      {
+        "tag": "span",
+        "text": "building?",
+        "bg": "rgb(40,44,32)",
+        "ratio": 12.26,
+        "fontSize": "128px",
+        "ariaHidden": false
+      }
+    ],
+    "lenis": true,
+    "heroHeight": 800,
+    "navRect": {
+      "left": 420,
+      "right": 860,
+      "w": 440
+    }
+  },
+  "1440x900": {
+    "innerWidth": 1440,
+    "scrollWidth": 1440,
+    "bodyScrollWidth": 1440,
+    "horizontalScroll": false,
+    "offenders": [],
+    "targets": [
+      {
+        "region": "nav",
+        "text": "AS",
+        "w": 40,
+        "h": 40,
+        "x": 506,
+        "right": 546,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "nav",
+        "text": "Work",
+        "w": 69.7,
+        "h": 40,
+        "x": 550,
+        "right": 620,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "nav",
+        "text": "Experience",
+        "w": 111.5,
+        "h": 40,
+        "x": 624,
+        "right": 735,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "nav",
+        "text": "Research",
+        "w": 99.6,
+        "h": 40,
+        "x": 739,
+        "right": 839,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "nav",
+        "text": "Contact",
+        "w": 91.3,
+        "h": 40,
+        "x": 843,
+        "right": 934,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "hero",
+        "text": "See my work",
+        "w": 145.7,
+        "h": 48,
+        "x": 1122,
+        "right": 1268,
+        "y": 812,
+        "stretched": false
+      },
+      {
+        "region": "hero",
+        "text": "Email me",
+        "w": 120.1,
+        "h": 48,
+        "x": 1280,
+        "right": 1400,
+        "y": 812,
+        "stretched": false
+      },
+      {
+        "region": "work",
+        "text": "Abroadly: Open Abroadly (opens in a new ",
+        "w": 447.4,
+        "h": 181,
+        "x": 68,
+        "right": 515,
+        "y": 2823,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "Code (opens in a new tab)",
+        "w": 90.1,
+        "h": 40,
+        "x": 822,
+        "right": 912,
+        "y": 3151,
+        "stretched": false
+      },
+      {
+        "region": "work",
+        "text": "Nook: Open Nook (opens in a new tab)",
+        "w": 92.9,
+        "h": 69,
+        "x": 988,
+        "right": 1081,
+        "y": 2480,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "Code (opens in a new tab)",
+        "w": 90.1,
+        "h": 40,
+        "x": 988,
+        "right": 1078,
+        "y": 2774,
+        "stretched": false
+      },
+      {
+        "region": "work",
+        "text": "SoulMatch: Open SoulMatch (opens in a ne",
+        "w": 198,
+        "h": 69,
+        "x": 988,
+        "right": 1186,
+        "y": 2970,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "CrowdHex: Open CrowdHex (opens in a new ",
+        "w": 189.6,
+        "h": 69,
+        "x": 68,
+        "right": 258,
+        "y": 3347,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "Cerebral Insights: View code on GitHub (",
+        "w": 323.2,
+        "h": 69,
+        "x": 528,
+        "right": 851,
+        "y": 3399,
+        "stretched": true
+      },
+      {
+        "region": "experience",
+        "text": "Nyntax (opens in a new tab)",
+        "w": 147,
+        "h": 36.8,
+        "x": 732,
+        "right": 879,
+        "y": 3823,
+        "stretched": false
+      },
+      {
+        "region": "experience",
+        "text": "Softvence Agency (opens in a new tab)",
+        "w": 303.4,
+        "h": 36.8,
+        "x": 732,
+        "right": 1035,
+        "y": 4184,
+        "stretched": false
+      },
+      {
+        "region": "experience",
+        "text": "RNPsoft (opens in a new tab)",
+        "w": 160.6,
+        "h": 36.8,
+        "x": 732,
+        "right": 893,
+        "y": 4745,
+        "stretched": false
+      },
+      {
+        "region": "research",
+        "text": "Comparative Performance of Deep Learning",
+        "w": 544.3,
+        "h": 85,
+        "x": 501,
+        "right": 1045,
+        "y": 5475,
+        "stretched": false
+      },
+      {
+        "region": "contact",
+        "text": "akashsaha1313@gmail.com",
+        "w": 721.4,
+        "h": 96,
+        "x": 56,
+        "right": 777,
+        "y": 7363,
+        "stretched": false
+      },
+      {
+        "region": "contact",
+        "text": "GitHub (opens in a new tab)",
+        "w": 120,
+        "h": 48,
+        "x": 56,
+        "right": 176,
+        "y": 7604,
+        "stretched": false
+      },
+      {
+        "region": "contact",
+        "text": "LinkedIn (opens in a new tab)",
+        "w": 129.6,
+        "h": 48,
+        "x": 188,
+        "right": 318,
+        "y": 7604,
+        "stretched": false
+      }
+    ],
+    "lime": [
+      {
+        "tag": "p",
+        "text": "Akash Saha",
+        "bg": "rgb(235,238,224)",
+        "ratio": 1.01,
+        "fontSize": "158.4px",
+        "ariaHidden": true
+      },
+      {
+        "tag": "span",
+        "text": "built",
+        "bg": "rgb(40,44,32)",
+        "ratio": 12.26,
+        "fontSize": "136px",
+        "ariaHidden": false
+      },
+      {
+        "tag": "span",
+        "text": "building?",
+        "bg": "rgb(40,44,32)",
+        "ratio": 12.26,
+        "fontSize": "144px",
+        "ariaHidden": false
+      }
+    ],
+    "lenis": true,
+    "heroHeight": 900,
+    "navRect": {
+      "left": 500,
+      "right": 940,
+      "w": 440
+    }
+  },
+  "740x360-landscape": {
+    "innerWidth": 740,
+    "scrollWidth": 740,
+    "bodyScrollWidth": 740,
+    "horizontalScroll": false,
+    "offenders": [],
+    "targets": [
+      {
+        "region": "nav",
+        "text": "AS",
+        "w": 40,
+        "h": 40,
+        "x": 162,
+        "right": 202,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "nav",
+        "text": "Work",
+        "w": 65.7,
+        "h": 40,
+        "x": 206,
+        "right": 272,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "nav",
+        "text": "Experience",
+        "w": 107.5,
+        "h": 40,
+        "x": 276,
+        "right": 383,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "nav",
+        "text": "Research",
+        "w": 95.6,
+        "h": 40,
+        "x": 387,
+        "right": 483,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "nav",
+        "text": "Contact",
+        "w": 91.3,
+        "h": 40,
+        "x": 487,
+        "right": 578,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "hero",
+        "text": "See my work",
+        "w": 349,
+        "h": 48,
+        "x": 16,
+        "right": 365,
+        "y": 476,
+        "stretched": false
+      },
+      {
+        "region": "hero",
+        "text": "Email me",
+        "w": 349,
+        "h": 48,
+        "x": 375,
+        "right": 724,
+        "y": 476,
+        "stretched": false
+      },
+      {
+        "region": "work",
+        "text": "Abroadly: Open Abroadly (opens in a new ",
+        "w": 336.3,
+        "h": 136,
+        "x": 48,
+        "right": 384,
+        "y": 1797,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "Code (opens in a new tab)",
+        "w": 90.1,
+        "h": 40,
+        "x": 48,
+        "right": 138,
+        "y": 2120,
+        "stretched": false
+      },
+      {
+        "region": "work",
+        "text": "Nook: Open Nook (opens in a new tab)",
+        "w": 98.7,
+        "h": 74,
+        "x": 48,
+        "right": 147,
+        "y": 2704,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "Code (opens in a new tab)",
+        "w": 90.1,
+        "h": 40,
+        "x": 602,
+        "right": 692,
+        "y": 2876,
+        "stretched": false
+      },
+      {
+        "region": "work",
+        "text": "SoulMatch: Open SoulMatch (opens in a ne",
+        "w": 210.3,
+        "h": 74,
+        "x": 48,
+        "right": 258,
+        "y": 3038,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "CrowdHex: Open CrowdHex (opens in a new ",
+        "w": 201.4,
+        "h": 74,
+        "x": 48,
+        "right": 249,
+        "y": 3360,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "Cerebral Insights: View code on GitHub (",
+        "w": 343.3,
+        "h": 74,
+        "x": 48,
+        "right": 391,
+        "y": 3656,
+        "stretched": true
+      },
+      {
+        "region": "experience",
+        "text": "Nyntax (opens in a new tab)",
+        "w": 114.9,
+        "h": 25.8,
+        "x": 14,
+        "right": 129,
+        "y": 4215,
+        "stretched": false
+      },
+      {
+        "region": "experience",
+        "text": "Softvence Agency (opens in a new tab)",
+        "w": 224.4,
+        "h": 25.8,
+        "x": 14,
+        "right": 238,
+        "y": 4626,
+        "stretched": false
+      },
+      {
+        "region": "experience",
+        "text": "RNPsoft (opens in a new tab)",
+        "w": 124.5,
+        "h": 25.8,
+        "x": 14,
+        "right": 138,
+        "y": 5287,
+        "stretched": false
+      },
+      {
+        "region": "research",
+        "text": "Comparative Performance of Deep Learning",
+        "w": 392.1,
+        "h": 60.4,
+        "x": 14,
+        "right": 406,
+        "y": 5981,
+        "stretched": false
+      },
+      {
+        "region": "contact",
+        "text": "akashsaha1313@gmail.com",
+        "w": 401.2,
+        "h": 72,
+        "x": 28,
+        "right": 429,
+        "y": 7769,
+        "stretched": false
+      },
+      {
+        "region": "contact",
+        "text": "GitHub (opens in a new tab)",
+        "w": 120,
+        "h": 48,
+        "x": 28,
+        "right": 148,
+        "y": 7954,
+        "stretched": false
+      },
+      {
+        "region": "contact",
+        "text": "LinkedIn (opens in a new tab)",
+        "w": 129.6,
+        "h": 48,
+        "x": 160,
+        "right": 290,
+        "y": 7954,
+        "stretched": false
+      }
+    ],
+    "lime": [
+      {
+        "tag": "span",
+        "text": "built",
+        "bg": "rgb(40,44,32)",
+        "ratio": 12.26,
+        "fontSize": "96.2px",
+        "ariaHidden": false
+      },
+      {
+        "tag": "span",
+        "text": "building?",
+        "bg": "rgb(40,44,32)",
+        "ratio": 12.26,
+        "fontSize": "74px",
+        "ariaHidden": false
+      }
+    ],
+    "lenis": true,
+    "heroHeight": 544,
+    "navRect": {
+      "left": 156,
+      "right": 584,
+      "w": 428
+    }
+  },
+  "360x740-reduced-motion": {
+    "innerWidth": 360,
+    "scrollWidth": 360,
+    "bodyScrollWidth": 360,
+    "horizontalScroll": false,
+    "offenders": [],
+    "targets": [
+      {
+        "region": "nav",
+        "text": "AS",
+        "w": 40,
+        "h": 40,
+        "x": 28,
+        "right": 68,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "nav",
+        "text": "Work",
+        "w": 65.7,
+        "h": 40,
+        "x": 72,
+        "right": 137,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "nav",
+        "text": "Research",
+        "w": 95.6,
+        "h": 40,
+        "x": 141,
+        "right": 237,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "nav",
+        "text": "Contact",
+        "w": 91.3,
+        "h": 40,
+        "x": 241,
+        "right": 332,
+        "y": 22,
+        "stretched": false
+      },
+      {
+        "region": "hero",
+        "text": "See my work",
+        "w": 159,
+        "h": 48,
+        "x": 16,
+        "right": 175,
+        "y": 672,
+        "stretched": false
+      },
+      {
+        "region": "hero",
+        "text": "Email me",
+        "w": 159,
+        "h": 48,
+        "x": 185,
+        "right": 344,
+        "y": 672,
+        "stretched": false
+      },
+      {
+        "region": "work",
+        "text": "Abroadly: Open Abroadly (opens in a new ",
+        "w": 167.8,
+        "h": 67,
+        "x": 36,
+        "right": 204,
+        "y": 1884,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "Code (opens in a new tab)",
+        "w": 90.1,
+        "h": 40,
+        "x": 36,
+        "right": 126,
+        "y": 2384,
+        "stretched": false
+      },
+      {
+        "region": "work",
+        "text": "Nook: Open Nook (opens in a new tab)",
+        "w": 68.3,
+        "h": 51,
+        "x": 36,
+        "right": 104,
+        "y": 2739,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "Code (opens in a new tab)",
+        "w": 90.1,
+        "h": 40,
+        "x": 36,
+        "right": 126,
+        "y": 3069,
+        "stretched": false
+      },
+      {
+        "region": "work",
+        "text": "SoulMatch: Open SoulMatch (opens in a ne",
+        "w": 145.6,
+        "h": 51,
+        "x": 36,
+        "right": 182,
+        "y": 3224,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "CrowdHex: Open CrowdHex (opens in a new ",
+        "w": 139.4,
+        "h": 51,
+        "x": 36,
+        "right": 175,
+        "y": 3605,
+        "stretched": true
+      },
+      {
+        "region": "work",
+        "text": "Cerebral Insights: View code on GitHub (",
+        "w": 237.7,
+        "h": 51,
+        "x": 36,
+        "right": 274,
+        "y": 3926,
+        "stretched": true
+      },
+      {
+        "region": "experience",
+        "text": "Nyntax (opens in a new tab)",
+        "w": 114.9,
+        "h": 25.8,
+        "x": 14,
+        "right": 129,
+        "y": 4528,
+        "stretched": false
+      },
+      {
+        "region": "experience",
+        "text": "Softvence Agency (opens in a new tab)",
+        "w": 224.4,
+        "h": 25.8,
+        "x": 14,
+        "right": 238,
+        "y": 5050,
+        "stretched": false
+      },
+      {
+        "region": "experience",
+        "text": "RNPsoft (opens in a new tab)",
+        "w": 124.5,
+        "h": 25.8,
+        "x": 14,
+        "right": 138,
+        "y": 5877,
+        "stretched": false
+      },
+      {
+        "region": "research",
+        "text": "Comparative Performance of Deep Learning",
+        "w": 265,
+        "h": 86.8,
+        "x": 14,
+        "right": 279,
+        "y": 6652,
+        "stretched": false
+      },
+      {
+        "region": "contact",
+        "text": "akashsaha1313@gmail.com",
+        "w": 304,
+        "h": 72,
+        "x": 28,
+        "right": 332,
+        "y": 9034,
+        "stretched": false
+      },
+      {
+        "region": "contact",
+        "text": "GitHub (opens in a new tab)",
+        "w": 120,
+        "h": 48,
+        "x": 28,
+        "right": 148,
+        "y": 9219,
+        "stretched": false
+      },
+      {
+        "region": "contact",
+        "text": "LinkedIn (opens in a new tab)",
+        "w": 129.6,
+        "h": 48,
+        "x": 160,
+        "right": 290,
+        "y": 9219,
+        "stretched": false
+      }
+    ],
+    "lime": [
+      {
+        "tag": "span",
+        "text": "built",
+        "bg": "rgb(40,44,32)",
+        "ratio": 12.26,
+        "fontSize": "48px",
+        "ariaHidden": false
+      },
+      {
+        "tag": "span",
+        "text": "building?",
+        "bg": "rgb(40,44,32)",
+        "ratio": 12.26,
+        "fontSize": "56px",
+        "ariaHidden": false
+      }
+    ],
+    "lenis": false,
+    "heroHeight": 740,
+    "navRect": {
+      "left": 22,
+      "right": 338,
+      "w": 317
+    },
+    "reducedMotion": {
+      "lenis": false,
+      "heroRise": {
+        "name": "rise",
+        "duration": "1e-05s",
+        "timeline": "auto"
+      },
+      "heroDevelop": {
+        "name": "develop",
+        "duration": "1e-05s",
+        "timeline": "auto"
+      },
+      "marquee": {
+        "name": "none",
+        "duration": "1e-05s",
+        "timeline": "auto"
+      },
+      "aboutWordOpacityMin": 1,
+      "runningAnimations": [
+        {
+          "id": "fade-in",
+          "state": "finished",
+          "duration": 0.01
+        },
+        {
+          "id": "rise",
+          "state": "finished",
+          "duration": 0.01
+        },
+        {
+          "id": "rise",
+          "state": "finished",
+          "duration": 0.01
+        },
+        {
+          "id": "develop",
+          "state": "finished",
+          "duration": 0.01
+        },
+        {
+          "id": "fade-in",
+          "state": "finished",
+          "duration": 0.01
+        },
+        {
+          "id": "fade-in",
+          "state": "finished",
+          "duration": 0.01
+        }
+      ]
+    }
+  },
+  "keyboard-360x740": [
+    {
+      "tag": "a",
+      "text": "Skip to content",
+      "outline": "solid 2px rgb(40, 44, 32)",
+      "offset": "3px",
+      "inView": true,
+      "w": 149,
+      "h": 40
+    },
+    {
+      "tag": "a",
+      "text": "AS",
+      "outline": "solid 2px rgb(210, 255, 0)",
+      "offset": "3px",
+      "inView": true,
+      "w": 40,
+      "h": 40
+    },
+    {
+      "tag": "a",
+      "text": "Work",
+      "outline": "solid 2px rgb(210, 255, 0)",
+      "offset": "3px",
+      "inView": true,
+      "w": 66,
+      "h": 40
+    },
+    {
+      "tag": "a",
+      "text": "Research",
+      "outline": "solid 2px rgb(210, 255, 0)",
+      "offset": "3px",
+      "inView": true,
+      "w": 96,
+      "h": 40
+    },
+    {
+      "tag": "a",
+      "text": "Contact",
+      "outline": "solid 2px rgb(210, 255, 0)",
+      "offset": "3px",
+      "inView": true,
+      "w": 91,
+      "h": 40
+    },
+    {
+      "tag": "a",
+      "text": "See my work",
+      "outline": "solid 2px rgb(40, 44, 32)",
+      "offset": "3px",
+      "inView": true,
+      "w": 159,
+      "h": 48
+    },
+    {
+      "tag": "a",
+      "text": "Email me",
+      "outline": "solid 2px rgb(40, 44, 32)",
+      "offset": "3px",
+      "inView": true,
+      "w": 159,
+      "h": 48
+    },
+    {
+      "tag": "a",
+      "text": "Abroadly: Open Abroadly (opens in a new ",
+      "outline": "solid 2px rgb(210, 255, 0)",
+      "offset": "3px",
+      "inView": true,
+      "w": 168,
+      "h": 67
+    },
+    {
+      "tag": "a",
+      "text": "Code (opens in a new tab)",
+      "outline": "solid 2px rgb(210, 255, 0)",
+      "offset": "3px",
+      "inView": true,
+      "w": 90,
+      "h": 40
+    },
+    {
+      "tag": "a",
+      "text": "Nook: Open Nook (opens in a new tab)",
+      "outline": "solid 2px rgb(210, 255, 0)",
+      "offset": "3px",
+      "inView": true,
+      "w": 68,
+      "h": 51
+    },
+    {
+      "tag": "a",
+      "text": "Code (opens in a new tab)",
+      "outline": "solid 2px rgb(210, 255, 0)",
+      "offset": "3px",
+      "inView": true,
+      "w": 90,
+      "h": 40
+    },
+    {
+      "tag": "a",
+      "text": "SoulMatch: Open SoulMatch (opens in a ne",
+      "outline": "solid 2px rgb(210, 255, 0)",
+      "offset": "3px",
+      "inView": true,
+      "w": 146,
+      "h": 51
+    },
+    {
+      "tag": "a",
+      "text": "CrowdHex: Open CrowdHex (opens in a new ",
+      "outline": "solid 2px rgb(210, 255, 0)",
+      "offset": "3px",
+      "inView": true,
+      "w": 139,
+      "h": 51
+    },
+    {
+      "tag": "a",
+      "text": "Cerebral Insights: View code on GitHub (",
+      "outline": "solid 2px rgb(210, 255, 0)",
+      "offset": "3px",
+      "inView": true,
+      "w": 238,
+      "h": 51
+    },
+    {
+      "tag": "a",
+      "text": "Nyntax (opens in a new tab)",
+      "outline": "solid 2px rgb(40, 44, 32)",
+      "offset": "3px",
+      "inView": true,
+      "w": 115,
+      "h": 26
+    },
+    {
+      "tag": "a",
+      "text": "Softvence Agency (opens in a new tab)",
+      "outline": "solid 2px rgb(40, 44, 32)",
+      "offset": "3px",
+      "inView": true,
+      "w": 224,
+      "h": 26
+    },
+    {
+      "tag": "a",
+      "text": "RNPsoft (opens in a new tab)",
+      "outline": "solid 2px rgb(40, 44, 32)",
+      "offset": "3px",
+      "inView": true,
+      "w": 124,
+      "h": 26
+    },
+    {
+      "tag": "a",
+      "text": "Comparative Performance of Deep Learning",
+      "outline": "solid 2px rgb(40, 44, 32)",
+      "offset": "3px",
+      "inView": true,
+      "w": 265,
+      "h": 87
+    },
+    {
+      "tag": "a",
+      "text": "akashsaha1313@gmail.com",
+      "outline": "solid 2px rgb(210, 255, 0)",
+      "offset": "3px",
+      "inView": true,
+      "w": 304,
+      "h": 72
+    },
+    {
+      "tag": "a",
+      "text": "GitHub (opens in a new tab)",
+      "outline": "solid 2px rgb(210, 255, 0)",
+      "offset": "3px",
+      "inView": true,
+      "w": 120,
+      "h": 48
+    },
+    {
+      "tag": "a",
+      "text": "LinkedIn (opens in a new tab)",
+      "outline": "solid 2px rgb(210, 255, 0)",
+      "offset": "3px",
+      "inView": true,
+      "w": 130,
+      "h": 48
+    }
+  ],
+  "keyboard-1280x800": [
+    {
+      "tag": "a",
+      "text": "Skip to content",
+      "outline": "solid 2px rgb(40, 44, 32)",
+      "offset": "3px",
+      "inView": true,
+      "w": 149,
+      "h": 40
+    },
+    {
+      "tag": "a",
+      "text": "AS",
+      "outline": "solid 2px rgb(210, 255, 0)",
+      "offset": "3px",
+      "inView": true,
+      "w": 40,
+      "h": 40
+    },
+    {
+      "tag": "a",
+      "text": "Work",
+      "outline": "solid 2px rgb(210, 255, 0)",
+      "offset": "3px",
+      "inView": true,
+      "w": 70,
+      "h": 40
+    },
+    {
+      "tag": "a",
+      "text": "Experience",
+      "outline": "solid 2px rgb(210, 255, 0)",
+      "offset": "3px",
+      "inView": true,
+      "w": 112,
+      "h": 40
+    },
+    {
+      "tag": "a",
+      "text": "Research",
+      "outline": "solid 2px rgb(210, 255, 0)",
+      "offset": "3px",
+      "inView": true,
+      "w": 100,
+      "h": 40
+    },
+    {
+      "tag": "a",
+      "text": "Contact",
+      "outline": "solid 2px rgb(210, 255, 0)",
+      "offset": "3px",
+      "inView": true,
+      "w": 91,
+      "h": 40
+    },
+    {
+      "tag": "a",
+      "text": "See my work",
+      "outline": "solid 2px rgb(40, 44, 32)",
+      "offset": "3px",
+      "inView": true,
+      "w": 146,
+      "h": 48
+    },
+    {
+      "tag": "a",
+      "text": "Email me",
+      "outline": "solid 2px rgb(40, 44, 32)",
+      "offset": "3px",
+      "inView": true,
+      "w": 120,
+      "h": 48
+    },
+    {
+      "tag": "a",
+      "text": "Abroadly: Open Abroadly (opens in a new ",
+      "outline": "solid 2px rgb(210, 255, 0)",
+      "offset": "3px",
+      "inView": true,
+      "w": 447,
+      "h": 181
+    },
+    {
+      "tag": "a",
+      "text": "Code (opens in a new tab)",
+      "outline": "solid 2px rgb(210, 255, 0)",
+      "offset": "3px",
+      "inView": true,
+      "w": 90,
+      "h": 40
+    },
+    {
+      "tag": "a",
+      "text": "Nook: Open Nook (opens in a new tab)",
+      "outline": "solid 2px rgb(210, 255, 0)",
+      "offset": "3px",
+      "inView": true,
+      "w": 83,
+      "h": 61
+    },
+    {
+      "tag": "a",
+      "text": "Code (opens in a new tab)",
+      "outline": "solid 2px rgb(210, 255, 0)",
+      "offset": "3px",
+      "inView": true,
+      "w": 90,
+      "h": 40
+    },
+    {
+      "tag": "a",
+      "text": "SoulMatch: Open SoulMatch (opens in a ne",
+      "outline": "solid 2px rgb(210, 255, 0)",
+      "offset": "3px",
+      "inView": true,
+      "w": 176,
+      "h": 61
+    },
+    {
+      "tag": "a",
+      "text": "CrowdHex: Open CrowdHex (opens in a new ",
+      "outline": "solid 2px rgb(210, 255, 0)",
+      "offset": "3px",
+      "inView": true,
+      "w": 169,
+      "h": 61
+    },
+    {
+      "tag": "a",
+      "text": "Cerebral Insights: View code on GitHub (",
+      "outline": "solid 2px rgb(210, 255, 0)",
+      "offset": "3px",
+      "inView": true,
+      "w": 287,
+      "h": 61
+    },
+    {
+      "tag": "a",
+      "text": "Nyntax (opens in a new tab)",
+      "outline": "solid 2px rgb(40, 44, 32)",
+      "offset": "3px",
+      "inView": true,
+      "w": 136,
+      "h": 33
+    },
+    {
+      "tag": "a",
+      "text": "Softvence Agency (opens in a new tab)",
+      "outline": "solid 2px rgb(40, 44, 32)",
+      "offset": "3px",
+      "inView": true,
+      "w": 276,
+      "h": 33
+    },
+    {
+      "tag": "a",
+      "text": "RNPsoft (opens in a new tab)",
+      "outline": "solid 2px rgb(40, 44, 32)",
+      "offset": "3px",
+      "inView": true,
+      "w": 148,
+      "h": 33
+    },
+    {
+      "tag": "a",
+      "text": "Comparative Performance of Deep Learning",
+      "outline": "solid 2px rgb(40, 44, 32)",
+      "offset": "3px",
+      "inView": true,
+      "w": 498,
+      "h": 77
+    },
+    {
+      "tag": "a",
+      "text": "akashsaha1313@gmail.com",
+      "outline": "solid 2px rgb(210, 255, 0)",
+      "offset": "3px",
+      "inView": true,
+      "w": 661,
+      "h": 96
+    },
+    {
+      "tag": "a",
+      "text": "GitHub (opens in a new tab)",
+      "outline": "solid 2px rgb(210, 255, 0)",
+      "offset": "3px",
+      "inView": true,
+      "w": 120,
+      "h": 48
+    },
+    {
+      "tag": "a",
+      "text": "LinkedIn (opens in a new tab)",
+      "outline": "solid 2px rgb(210, 255, 0)",
+      "offset": "3px",
+      "inView": true,
+      "w": 130,
+      "h": 48
+    }
+  ]
+}
