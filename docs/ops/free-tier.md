@@ -1,0 +1,45 @@
+# Free-tier tracker
+
+The whole stack must stay at $0/month. Limits are from `docs/REBUILD_GUIDE.md` §9.2, checked 2026-10-10; re-check them before launch and whenever a vendor emails about plan changes.
+
+## Services
+
+| Service | Free limit | Where to check usage | Warn at | Action at the warning |
+| --- | --- | --- | --- | --- |
+| Vercel Hobby: data transfer | 100 GB / month | Vercel dashboard > Usage > Fast Data Transfer | 70 GB | Check which assets are heavy (images, video); lower image quality, add long cache headers, move big files off the site |
+| Vercel Hobby: function invocations | 1M / month | Usage > Functions | 700K | Find routes that run per request; make them static or cache with `revalidate` |
+| Vercel Hobby: active CPU / memory | 4 h CPU, 360 GB-hrs memory / month | Usage > Functions | 70% | Same as above; check admin and contact-form traffic for bots |
+| Vercel image optimisation | 5,000 transformations / month, 300K cache reads | Usage > Image Optimization | 3,500 | Pre-size images with `sharp`, trim `deviceSizes`, raise `minimumCacheTTL`. Fallback: Cloudinary free |
+| Vercel Blob | 1 GB storage, 2,000 advanced operations / month | Dashboard > Storage > Blob | 700 MB or 1,400 ops | Delete unused uploads, re-encode to WebP <= 200 KB. At the limit, access is blocked for 30 days |
+| Vercel Web Analytics | 50,000 events / month | Project > Analytics (usage under Usage) | 35,000 | Remove noisy routes; no custom events on Hobby. Collection pauses after a 3-day grace period |
+| Vercel Speed Insights | 10,000 data points / month, one project | Project > Speed Insights | 7,000 | Lower the sample rate in `Telemetry.tsx` (`sampleRate`) |
+| Vercel runtime logs | 1 hour retention | Project > Logs | n/a | Use Sentry (below) if errors need history |
+| MongoDB Atlas M0 | 512 MB storage, 100 ops/s, 500 connections | Atlas > Cluster > Metrics, Data Size | 350 MB | Delete old contact messages, check for runaway collections (rate limit docs need a TTL index) |
+| Resend | 3,000 emails / month, 100 / day, 1 domain | resend.com > Emails, Usage | 70 / day, 2,000 / month | Tighten rate limit and Turnstile; messages still land in the admin inbox if sending pauses |
+| Cloudflare Turnstile | Free, up to 20 widgets | Cloudflare dashboard > Turnstile | n/a | None expected |
+| Upstash Redis (only if used) | 256 MB, 500K commands / month | Upstash console | 350K commands | Go back to the Mongo rate-limit collection |
+| Sentry Developer (optional) | 1 user, 5K errors / month | Sentry > Settings > Usage Stats | 3,500 errors | Lower the sample rate, add `ignoreErrors`, fix the top noisy issue |
+| UptimeRobot (optional) | 50 monitors, 5-minute checks, non-commercial | UptimeRobot dashboard | 40 monitors | Delete stale monitors |
+| GitHub Actions | Free minutes on public repos; monthly allowance on private repos | GitHub > Settings > Billing > Usage | 70% of allowance | Cancel superseded runs (already set), trim Lighthouse runs, make the repo public if that is acceptable |
+| Domain | `*.vercel.app` or `*.is-a.dev` free; custom domain about $10-15 / year | Registrar | Renewal date | The only optional paid item. Skip it to stay at $0 |
+
+Vercel Hobby is personal and non-commercial only (guide §9.3): no payments, no ads, no priced service packages.
+
+## Monthly check (first Monday of the month, about 10 minutes)
+
+- [ ] Vercel > Usage: transfer, functions, image transformations, Blob. Note the numbers below.
+- [ ] Vercel > Analytics and Speed Insights: event counts against 50K / 10K.
+- [ ] Atlas: data size and connection count.
+- [ ] Resend: peak daily sends and monthly total.
+- [ ] Sentry (if enabled): errors this month, top issue.
+- [ ] UptimeRobot (if enabled): any downtime, response times.
+- [ ] GitHub > Billing: Actions minutes used (private repo only).
+- [ ] Latest Lighthouse CI run on `main`: performance >= 95, accessibility 100, LCP <= 2.0 s, CLS <= 0.05.
+- [ ] Anything over its warning threshold: take the action in the table and record it.
+- [ ] Re-read vendor pricing pages once a quarter; update this file if limits changed.
+
+## Usage log
+
+| Month | Vercel transfer | Image transforms | Function calls | Blob | Atlas | Resend peak / day | Analytics events | Notes |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2026-10 | - | - | - | - | - | - | - | Not launched yet |
