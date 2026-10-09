@@ -28,6 +28,10 @@ jobs:
           node-version: 22
           cache: npm
 
+      # Match the npm major used locally; npm 10 and 11 disagree on optional peer entries in the lockfile.
+      - name: Use npm 11
+        run: npm install -g npm@11
+
       - run: npm ci
 
       - name: Lint
@@ -71,6 +75,11 @@ jobs:
         with:
           node-version: 22
           cache: npm
+
+      # Match the npm major used locally; npm 10 and 11 disagree on optional peer entries in the lockfile.
+      - name: Use npm 11
+        if: steps.has-pw.outputs.present == 'true'
+        run: npm install -g npm@11
 
       - name: Install dependencies
         if: steps.has-pw.outputs.present == 'true'
@@ -134,6 +143,10 @@ jobs:
         with:
           node-version: 22
           cache: npm
+
+      # Match the npm major used locally; npm 10 and 11 disagree on optional peer entries in the lockfile.
+      - name: Use npm 11
+        run: npm install -g npm@11
 
       - run: npm ci
 
