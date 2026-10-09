@@ -1,0 +1,127 @@
+// Contact form contract: types, field names, limits and pure validation.
+//
+// No "use server" here on purpose: this module exports constants and a sync function, and is
+// safe to import from Client Components (field names, limits, initial state) and from unit tests.
+// The Server Action lives in lib/actions/contact.ts.
+
+export const CONTACT_INTENTS = ["full-time", "freelance", "research"] as const;
+export type ContactIntent = (typeof CONTACT_INTENTS)[number];
+
+/** Labels for the "What are you looking for?" options (guide §4.6). */
+export const CONTACT_INTENT_LABELS: Record<ContactIntent, string> = {
+  "full-time": "Full-time role",
+  freelance: "Freelance",
+  research: "Research",
+};
+
+/** A validated, normalised submission. */
+export type ContactInput = {
+  name: string;
+  email: string;
+  intent: ContactIntent;
+  message: string;
+};
+
+export type ContactField = keyof ContactInput;
+
+/**
+ * Form `name` attributes. `honeypot` must be rendered visually hidden (off-screen, not
+ * display:none), with tabIndex={-1}, autoComplete="off" and aria-hidden on its wrapper, so people
+ * never fill it and bots do.
+ */
+export const CONTACT_FIELDS = {
+  name: "name",
+  email: "email",
+  intent: "intent",
+  message: "message",
+  honeypot: "website",
+} as const;
+
+export const CONTACT_LIMITS = {
+  nameMax: 100,
+  emailMax: 254,
+  messageMin: 10,
+  messageMax: 5000,
+} as const;
+
+/** Return type of `submitContact`, and the state shape for `useActionState`. */
+export type ContactState = {
+  status: "idle" | "error" | "success";
+  /** One message per invalid field, shown under that field. */
+  fieldErrors?: Partial<Record<ContactField, string>>;
+  /** Form-level message: a summary on error, the confirmation on success. */
+  message?: string;
+  /**
+   * What the visitor typed, returned on error so inputs can use it as `defaultValue`
+   * (React resets uncontrolled forms after an action). Never includes the honeypot.
+   */
+  values?: Partial<Record<ContactField, string>>;
+};
+
+export const initialContactState: ContactState = { status: "idle" };
+
+export type ContactValidation =
+  | { kind: "valid"; data: ContactInput }
+  | {
+      kind: "invalid";
+      fieldErrors: Partial<Record<ContactField, string>>;
+      values: Partial<Record<ContactField, string>>;
+    }
+  | { kind: "spam" };
+
+type FormSource = FormData | Record<string, unknown>;
+
+function read(source: FormSource, key: string): string {
+  const value = source instanceof FormData ? source.get(key) : source[key];
+  return typeof value === "string" ? value : "";
+}
+
+// Control characters other than tab and newline. Single-line fields also reject \t and \n.
+const CONTROL_MULTILINE = /[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/;
+const CONTROL_SINGLE_LINE = /[\u0000-\u001F\u007F]/;
+// Pragmatic check: one @, no spaces, a dot in the domain. Real verification is the reply.
+const EMAIL = /^[^\s@]+@[^\s@.]+(\.[^\s@.]+)+$/;
+
+function isIntent(value: string): value is ContactIntent {
+  return (CONTACT_INTENTS as readonly string[]).includes(value);
+}
+
+/**
+ * Validates a contact submission. Pure: no I/O, safe to unit test.
+ *
+ * - Honeypot filled → `spam` (the action reports success without doing anything).
+ * - Otherwise each field is trimmed and checked; all errors are reported at once.
+ */
+export function validateContact(source: FormSource): ContactValidation {
+  if (read(source, CONTACT_FIELDS.honeypot).trim() !== "") return { kind: "spam" };
+
+  const name = read(source, CONTACT_FIELDS.name).trim();
+  const email = read(source, CONTACT_FIELDS.email).trim();
+  const intent = read(source, CONTACT_FIELDS.intent).trim();
+  const message = read(source, CONTACT_FIELDS.message).replace(/\r\n?/g, "\n").trim();
+
+  const fieldErrors: Partial<Record<ContactField, string>> = {};
+
+  if (name === "") fieldErrors.name = "Please tell me your name.";
+  else if (name.length > CONTACT_LIMITS.nameMax)
+    fieldErrors.name = `Please keep your name under ${CONTACT_LIMITS.nameMax} characters.`;
+  else if (CONTROL_SINGLE_LINE.test(name)) fieldErrors.name = "Please write your name on one line.";
+
+  if (email === "") fieldErrors.email = "Please add your email so I can reply.";
+  else if (email.length > CONTACT_LIMITS.emailMax || !EMAIL.test(email) || CONTROL_SINGLE_LINE.test(email))
+    fieldErrors.email = "That email doesn’t look right. Check it and try again.";
+
+  if (!isIntent(intent)) fieldErrors.intent = "Please pick what you’re looking for.";
+
+  if (message.length < CONTACT_LIMITS.messageMin)
+    fieldErrors.message = `Please write at least ${CONTACT_LIMITS.messageMin} characters.`;
+  else if (message.length > CONTACT_LIMITS.messageMax)
+    fieldErrors.message = `Please keep it under ${CONTACT_LIMITS.messageMax} characters.`;
+  else if (CONTROL_MULTILINE.test(message)) fieldErrors.message = "Your message contains characters I can’t accept.";
+
+  if (Object.keys(fieldErrors).length > 0 || !isIntent(intent)) {
+    return { kind: "invalid", fieldErrors, values: { name, email, intent, message } };
+  }
+
+  return { kind: "valid", data: { name, email, intent, message } };
+}
