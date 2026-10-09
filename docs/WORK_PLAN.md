@@ -63,14 +63,14 @@ Merge order: 0.2 → 0.3 → 0.4.
 
 | ID | Task | Owner | Depends | Done when | Status |
 | --- | --- | --- | --- | --- | --- |
-| 1.1 | Tokens (guide §3), Folio fonts, primitives: `FillButton`, `RoundButton`, `Magnetic`, `Chip`, `Tile`, `Row`, `CurvedEdge`; helpers `useFinePointer`, reduced-motion `matchMedia` | folio-design | 0.G | Primitives correct at all widths on a scratch route | todo |
+| 1.1 | Tokens (guide §3), Folio fonts, primitives: `FillButton`, `RoundButton`, `Magnetic`, `Chip`, `Tile`, `Row`, `CurvedEdge`; helpers `useFinePointer`, reduced-motion `matchMedia` | folio-design | 0.G | Primitives correct at all widths on a scratch route | doing |
 | 1.2 | Global shell: top bar ("© Code by Akash", phone shows only "Menu"), fixed burger after hero, menu panel (focus trap, `Esc`, scroll lock, safe areas), footer with curved edge, stacked pills, live Dhaka time | folio-design | 1.1 | Guide §4.1 + footer row of §4.2 at all widths; keyboard-only works | todo |
 | 1.3 | Home sections: hero (name marquee, role, availability), intro + round "About me", recent work tiles, experience (`<details>` on phone), research block | folio-design | 1.2 | Guide §4.2 at 320–1440 | todo |
 | 1.4 | Desktop-only enhancements: list rows + cursor hover modal, row dimming, magnetic, logo text roll; then the preloader (once per session, ≤ 1.6s, skipped on reduced motion) | folio-design | 1.3 | Absent on touch; Lighthouse mobile ≥ 95 | todo |
 | 1.5 | Work index (filters, list ↔ grid on fine pointer) and case-study page (facts row, laptop frame, phone scroll-snap row, next case) | folio-design | 1.3 | Guide §4.3–4.4 | todo |
 | 1.6 | About (statement, portrait, 01/02/03, toolkit, education, Now) and Contact (numbered conversational form wired to the **stub** `submitContact`, `useActionState` pending/error/success) | folio-design | 1.2 | Guide §4.5–4.6; form states visible with the stub | todo |
 | 1.7 | Page transitions (view-transition crossfade), 404 page | folio-design | 1.5, 1.6 | Smooth on phone; reduced motion → no motion | todo |
-| 1.8 | Static content for the new pages: case studies for Abroadly and Nook (drafted from the repos' READMEs, flagged for Akash), services, greetings, Now line, new screenshots from 0.6 | backend | 0.2, 0.6 | `lib/content.ts` complete; nothing left as placeholder | todo |
+| 1.8 | Static content for the new pages: case studies for Abroadly and Nook (drafted from the repos' READMEs, flagged for Akash), services, greetings, Now line, new screenshots from 0.6 | backend | 0.2, 0.6 | `lib/content.ts` complete; nothing left as placeholder | doing |
 | 1.9 | Vercel preview deploys per branch (Akash links the GitHub repo once) so the UI can be checked on a real phone | monitoring | 0.3 | Preview URL posted for each merge | todo |
 | 1.G | **Gate:** design review against guide §4–§6 at every width, axe, Lighthouse mobile per page, reduced motion; Akash checks the preview on his phone | qa + **Akash** | 1.1–1.9 | PASS + Akash's OK on the look | todo |
 
@@ -139,7 +139,7 @@ Merge order: 3.1 → 3.2 → 3.3 → 3.4 → 3.5; 3.6 alongside.
 | ID | Task | Owner | Depends | Done when | Status |
 | --- | --- | --- | --- | --- | --- |
 | 5.1 | Polish: sliding image rows (static on phone), curved menu-edge morph, footer curve tween, BibTeX copy, micro-interaction timing pass (one easing family, durations from tokens) | folio-design | 4.G | Budgets still met | todo |
-| 5.2 | Performance pass: home JS ≤ 120 KB gzipped, LCP ≤ 2.0s on phone, image sizes, font subsetting | folio-design + backend | 4.G | Lighthouse numbers in the QA report meet §5 | todo |
+| 5.2 | Performance pass: site JS ≤ 60 KB gzipped excluding the React/Next runtime, motion libraries loaded after first paint, LCP ≤ 2.0s on phone, image sizes, font subsetting | folio-design + backend | 4.G | Lighthouse numbers in the QA report meet §5 | todo |
 | 5.3 | Content pass with Akash in `/admin`: case-study facts, copy, screenshots, résumé, availability | **Akash** + backend | 4.G | Every page reviewed by Akash | todo |
 | 5.4 | Real-device test: Android Chrome (low-end), iPhone Safari, landscape, reduced motion, VoiceOver/TalkBack on menu and form | **Akash** with qa's checklist | 5.1–5.3 | Checklist signed off | todo |
 | 5.5 | Launch: production env vars, production deploy (Akash approves), optional free domain (`*.is-a.dev`), UptimeRobot monitor, `docs/ops/runbook.md` (backup, key rotation, quota limits) | monitoring | 5.4 | Live URL; monitor green; runbook complete | todo |

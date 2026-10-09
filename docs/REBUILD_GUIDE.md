@@ -194,7 +194,7 @@ Conversational numbered form like Dennis: **01 What's your name? · 02 What's yo
 8. **Fluid type with `clamp()`**, line length 45–75ch, `text-wrap: balance` on headings (already global), `pretty` on paragraphs.
 9. **Images:** `next/image` with honest `sizes` (phone tiles `100vw`, md `50vw`); hero portrait `preload`; everything else lazy. Screenshots ≤ 120 KB WebP/AVIF.
 10. **Reduced motion:** marquee stops (static name), no preloader, reveals become instant, view transitions become crossfades. Already have a global CSS kill-switch; JS effects must check too.
-11. **Performance budget (phone, Moto G-class, 4G):** LCP ≤ 2.0s, CLS ≤ 0.05, INP ≤ 200ms, home JS ≤ 120 KB gzipped. Lighthouse mobile ≥ 95 performance, 100 accessibility.
+11. **Performance budget (phone, Moto G-class, 4G):** LCP ≤ 2.0s, CLS ≤ 0.05, INP ≤ 200ms. **JS budget (decided 2026-10-10):** the site's own JS on any page ≤ 60 KB gzipped, *excluding* the React/Next.js runtime (~119 KB gz, fixed cost); GSAP, ScrollTrigger and Lenis must not be in the initial bundle: load them after first paint (dynamic `import()` once the page is idle or on first scroll), and never on reduced motion where they're not needed. Lighthouse mobile ≥ 95 performance, 100 accessibility.
 12. **Keyboard + screen reader:** skip link (exists), visible focus, menu panel focus trap, decorative motion `aria-hidden`, marquee name duplicated copy `aria-hidden` with the real `<h1>` sr-only.
 
 ---
