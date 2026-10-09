@@ -1,0 +1,350 @@
+/*
+ * Folio template styles (guide §3, §6). Imported by app/globals.css, so this file is linked on
+ * every route, including the Editorial template: everything below is either scoped to
+ * `.tpl-folio`, uses an `f-` class, or is a Tailwind @utility (emitted only where used).
+ *
+ * Surfaces: put `surface-paper`, `surface-ink` or `surface-lime` on a section and the primitives
+ * inside pick their colours, hairlines, dots and focus ring from it. No primitive needs a
+ * "on dark" prop.
+ */
+
+/* ---------------------------------------------------------------------------------------------
+ * Surfaces
+ * ------------------------------------------------------------------------------------------- */
+
+@utility surface-paper {
+  background-color: var(--paper);
+  color: var(--ink);
+  --fg-muted: var(--muted);
+  --rule: var(--hairline);
+  --dot: var(--ink); /* lime on paper is 1:1 (baseline B-16) */
+  --btn-bg: var(--ink);
+  --btn-fg: var(--on-ink);
+  --btn-dot: var(--lime);
+  --fill: var(--lime);
+  --fill-fg: var(--ink);
+  --focus-ring: var(--ink);
+  --focus-halo: var(--paper);
+}
+
+@utility surface-ink {
+  background-color: var(--ink);
+  color: var(--on-ink);
+  --fg-muted: rgb(244 244 237 / 0.68);
+  --rule: var(--hairline-on-ink);
+  --dot: var(--lime);
+  --btn-bg: var(--on-ink);
+  --btn-fg: var(--ink);
+  --btn-dot: var(--ink);
+  --fill: var(--lime);
+  --fill-fg: var(--ink);
+  --focus-ring: var(--lime);
+  --focus-halo: var(--ink);
+}
+
+/* Lime is a fill, never a section. Used for a filled card or the skip link. */
+@utility surface-lime {
+  background-color: var(--lime);
+  color: var(--ink);
+  --fg-muted: var(--ink-2);
+  --rule: rgb(40 44 32 / 0.3);
+  --dot: var(--ink);
+  --btn-bg: var(--ink);
+  --btn-fg: var(--on-ink);
+  --btn-dot: var(--lime);
+  --fill: var(--on-ink); /* lime-on-lime would be invisible */
+  --fill-fg: var(--ink);
+  --focus-ring: var(--ink);
+  --focus-halo: var(--lime);
+}
+
+/* ---------------------------------------------------------------------------------------------
+ * Root, focus, reduced motion
+ * ------------------------------------------------------------------------------------------- */
+
+.tpl-folio {
+  --fg-muted: var(--muted);
+  --rule: var(--hairline);
+  --dot: var(--ink);
+  --btn-bg: var(--ink);
+  --btn-fg: var(--on-ink);
+  --btn-dot: var(--lime);
+  --fill: var(--lime);
+  --fill-fg: var(--ink);
+  --focus-ring: var(--ink);
+  --focus-halo: var(--paper);
+}
+
+/*
+ * Two-tone ring: a halo in the surface colour, then the ring. It follows the element's radius
+ * (no border-radius here, baseline B-15: `revert-layer` undoes the global 4px rule so Tailwind's
+ * rounded-* wins) and the colours come from the surface the element sits on (B-03).
+ */
+.tpl-folio :focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px var(--focus-halo);
+  border-radius: revert-layer;
+}
+
+/* Tiles draw the ring around the whole tile, not the (stretched) name link. */
+.tpl-folio .f-tile-link:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+.tpl-folio .f-tile:has(.f-tile-link:focus-visible) {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 6px;
+  box-shadow: 0 0 0 6px var(--focus-halo);
+}
+
+/* The global kill-switch zeroes durations only; delays would still hold content back (B-08). */
+@media (prefers-reduced-motion: reduce) {
+  .tpl-folio,
+  .tpl-folio *,
+  .tpl-folio *::before,
+  .tpl-folio *::after {
+    animation-delay: 0s !important;
+    transition-delay: 0s !important;
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------
+ * Type. Sentence case at wdth 100 everywhere; wdth 75 uppercase only for the hero name marquee.
+ * ------------------------------------------------------------------------------------------- */
+
+@utility type-marquee {
+  font-variation-settings: "wdth" 75;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 0.84;
+}
+
+/* Footer "Let's work together", page titles. ~2.85rem at 360, ~6.3rem at 1440. */
+@utility type-display {
+  font-variation-settings: "wdth" 100;
+  font-weight: 500;
+  font-size: clamp(2.75rem, 1.5rem + 6vw, 7.5rem);
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+
+/* Section statements and h2s. 1.75rem on phone, 3rem at lg (guide §4.2 intro). */
+@utility type-heading {
+  font-variation-settings: "wdth" 100;
+  font-weight: 450;
+  font-size: clamp(1.75rem, 1.25rem + 2vw, 3rem);
+  letter-spacing: -0.025em;
+  line-height: 1.12;
+}
+
+/* Project names in rows and tiles, case-study titles. */
+@utility type-title {
+  font-variation-settings: "wdth" 100;
+  font-weight: 450;
+  font-size: clamp(1.5rem, 0.75rem + 3.5vw, 4.5rem);
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+@utility type-lead {
+  font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+/* Eyebrows and meta ("Recent work", "kind · year"). */
+@utility type-label {
+  font-size: 0.875rem;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+  color: var(--fg-muted);
+}
+
+/* ---------------------------------------------------------------------------------------------
+ * Primitives
+ * ------------------------------------------------------------------------------------------- */
+
+@layer components {
+  /* Small round indicator. Its colour comes from the surface (`--dot`). */
+  .f-dot {
+    display: inline-block;
+    flex: none;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+    background: var(--dot);
+  }
+
+  /* FillButton / RoundButton: an ellipse rises from the bottom on hover (fine pointer only). */
+  .f-btn {
+    position: relative;
+    isolation: isolate; /* keeps the ::before fill under the label; fixes Safari radius clipping */
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 1px solid transparent;
+    border-radius: 9999px;
+    font-weight: 500;
+    line-height: 1.2;
+    white-space: nowrap;
+    text-align: center;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      transform var(--dur-fast) var(--ease-inout),
+      color var(--dur) var(--ease-inout),
+      border-color var(--dur) var(--ease-inout);
+  }
+  .f-btn::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: -25%;
+    top: -50%;
+    width: 150%;
+    height: 200%;
+    border-radius: 50%;
+    background: var(--fill);
+    transform: translate3d(0, 76%, 0);
+    transition: transform var(--dur-smooth) var(--ease-inout);
+  }
+  .f-btn:active {
+    transform: scale(0.96);
+  }
+  .f-btn[aria-disabled="true"],
+  .f-btn:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .f-btn-solid {
+    background: var(--btn-bg);
+    color: var(--btn-fg);
+  }
+  .f-btn-outline {
+    border-color: color-mix(in srgb, currentColor 32%, transparent);
+    color: inherit;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .f-btn:hover::before {
+      transform: translate3d(0, 0, 0);
+    }
+    .f-btn:hover {
+      color: var(--fill-fg);
+      border-color: var(--fill);
+    }
+  }
+
+  /*
+   * Label roll: the label slides up and an aria-hidden copy rises in from below. Put `f-roll-host`
+   * on whatever should trigger it (buttons do this for you; the top-bar logo will too).
+   */
+  .f-roll {
+    position: relative;
+    display: inline-flex;
+    overflow: hidden;
+    /* room for descenders inside the clip */
+    padding-block: 0.1em;
+    margin-block: -0.1em;
+  }
+  .f-roll > span {
+    display: block;
+    transition: transform var(--dur-smooth) var(--ease-inout);
+  }
+  .f-roll > span + span {
+    position: absolute;
+    inset: 0.1em 0 auto 0;
+    transform: translate3d(0, 110%, 0);
+  }
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .f-roll-host:hover .f-roll > span {
+      transform: translate3d(0, -110%, 0);
+    }
+    .f-roll-host:hover .f-roll > span + span {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  /* Chip: status (span) or filter toggle (button with aria-pressed). */
+  .f-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid color-mix(in srgb, currentColor 32%, transparent);
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+  .f-chip-solid {
+    border-color: transparent;
+    background: var(--btn-bg);
+    color: var(--btn-fg);
+    /* the chip is its own small ink (or paper) surface: lime dot only on ink */
+    --dot: var(--btn-dot);
+  }
+  .f-chip-toggle {
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      transform var(--dur-fast) var(--ease-inout),
+      background-color var(--dur-fast) var(--ease-inout),
+      color var(--dur-fast) var(--ease-inout),
+      border-color var(--dur-fast) var(--ease-inout);
+  }
+  .f-chip-toggle:active {
+    transform: scale(0.96);
+  }
+  .f-chip-toggle[aria-pressed="true"] {
+    border-color: transparent;
+    background: var(--btn-bg);
+    color: var(--btn-fg);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .f-chip-toggle[aria-pressed="false"]:hover {
+      border-color: currentColor;
+    }
+  }
+
+  /* Tile: the whole tile is the link (stretched ::after); the ring goes around the tile. */
+  .f-tile {
+    position: relative;
+    border-radius: 1rem;
+  }
+  .f-tile-link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+  .f-tile-media img {
+    transition: transform var(--dur-slow) var(--ease-inout);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .f-tile:hover .f-tile-media img {
+      transform: scale(1.03);
+    }
+  }
+
+  /* Rows: hairline list. On a fine pointer, hovering one row dims the others. */
+  .f-row-link > * {
+    transition:
+      opacity var(--dur) var(--ease-inout),
+      transform var(--dur) var(--ease-inout);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .f-rows:has(.f-row-link:hover) .f-row-link:not(:hover) > * {
+      opacity: 0.35;
+    }
+    .f-row-link:hover .f-row-name {
+      transform: translate3d(-0.5rem, 0, 0);
+    }
+    .f-row-link:hover .f-row-meta {
+      transform: translate3d(0.5rem, 0, 0);
+    }
+  }
+}

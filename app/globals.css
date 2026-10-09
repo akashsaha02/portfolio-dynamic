@@ -1,4 +1,6 @@
 @import "tailwindcss";
+/* Folio template styles (guide §3). Scoped to .tpl-folio / f- classes; linked on every route. */
+@import "../templates/folio/folio.css";
 
 :root {
   --paper: #ebeee0;
@@ -9,6 +11,24 @@
   --line: #c8cbbd;
   --lime: #d2ff00;
   --on-ink: #f4f4ed;
+
+  /* Folio motion and layout tokens (guide §3). Phone values first, md override below. */
+  --ease-inout: cubic-bezier(0.7, 0, 0.3, 1);
+  --dur-fast: 0.3s;
+  --dur: 0.5s;
+  --dur-smooth: 0.7s;
+  --dur-slow: 0.9s;
+  --section-y: max(2.5rem, 12svh);
+  --gutter: clamp(1.25rem, 4vw, 2.5rem);
+  --hairline: rgb(40 44 32 / 0.18);
+  --hairline-on-ink: rgb(244 244 237 / 0.2);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --section-y: clamp(5rem, 21svh, 12rem);
+    --gutter: clamp(2.5rem, 8vw, 8rem);
+  }
 }
 
 @theme inline {
@@ -23,6 +43,12 @@
   --font-sans: var(--font-mona);
   --font-script: var(--font-signature);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  /* Folio: ease-inout, px-gutter / py-section, border-hairline. */
+  --ease-inout: cubic-bezier(0.7, 0, 0.3, 1);
+  --spacing-gutter: var(--gutter);
+  --spacing-section: var(--section-y);
+  --color-hairline: var(--hairline);
+  --color-hairline-on-ink: var(--hairline-on-ink);
 }
 
 html {
