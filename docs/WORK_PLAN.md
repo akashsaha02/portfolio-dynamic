@@ -1,4 +1,4 @@
-| doing || doing || done || done || done |# Work plan
+# Work plan
 
 How the rebuild in [REBUILD_GUIDE.md](REBUILD_GUIDE.md) gets built, in seven phases:
 
@@ -66,12 +66,12 @@ Merge order: 0.2 → 0.3 → 0.4.
 | 1.1 | Tokens (guide §3), Folio fonts, primitives: `FillButton`, `RoundButton`, `Magnetic`, `Chip`, `Tile`, `Row`, `CurvedEdge`; helpers `useFinePointer`, reduced-motion `matchMedia` | folio-design | 0.G | Primitives correct at all widths on a scratch route | done |
 | 1.2 | Global shell: top bar ("© Code by Akash", phone shows only "Menu"), fixed burger after hero, menu panel (focus trap, `Esc`, scroll lock, safe areas), footer with curved edge, stacked pills, live Dhaka time | folio-design | 1.1 | Guide §4.1 + footer row of §4.2 at all widths; keyboard-only works | done |
 | 1.3 | Home sections: hero (name marquee, role, availability), intro + round "About me", recent work tiles, experience (`<details>` on phone), research block | folio-design | 1.2 | Guide §4.2 at 320–1440 | done |
-| 1.4 | Desktop-only enhancements: list rows + cursor hover modal, row dimming, magnetic, logo text roll; then the preloader (once per session, ≤ 1.6s, skipped on reduced motion) | folio-design | 1.3 | Absent on touch; Lighthouse mobile ≥ 95 | doing |
-| 1.5 | Work index (filters, list ↔ grid on fine pointer) and case-study page (facts row, laptop frame, phone scroll-snap row, next case) | folio-design | 1.3 | Guide §4.3–4.4 | todo |
-| 1.6 | About (statement, portrait, 01/02/03, toolkit, education, Now) and Contact (numbered conversational form wired to the **stub** `submitContact`, `useActionState` pending/error/success) | folio-design | 1.2 | Guide §4.5–4.6; form states visible with the stub | todo |
-| 1.7 | Page transitions (view-transition crossfade), 404 page | folio-design | 1.5, 1.6 | Smooth on phone; reduced motion → no motion | doing |
+| 1.4 | Desktop-only enhancements: list rows + cursor hover modal, row dimming, magnetic, logo text roll; then the preloader (once per session, ≤ 1.6s, skipped on reduced motion) | folio-design | 1.3 | Absent on touch; Lighthouse mobile ≥ 95 | done |
+| 1.5 | Work index (filters, list ↔ grid on fine pointer) and case-study page (facts row, laptop frame, phone scroll-snap row, next case) | folio-design | 1.3 | Guide §4.3–4.4 | done |
+| 1.6 | About (statement, portrait, 01/02/03, toolkit, education, Now) and Contact (numbered conversational form wired to the **stub** `submitContact`, `useActionState` pending/error/success) | folio-design | 1.2 | Guide §4.5–4.6; form states visible with the stub | done |
+| 1.7 | Page transitions (view-transition crossfade), 404 page | folio-design | 1.5, 1.6 | Smooth on phone; reduced motion → no motion | done |
 | 1.8 | Static content for the new pages: case studies for Abroadly and Nook (drafted from the repos' READMEs, flagged for Akash), services, greetings, Now line, new screenshots from 0.6 | backend | 0.2, 0.6 | `lib/content.ts` complete; nothing left as placeholder | doing |
-| 1.9 | Vercel preview deploys per branch (Akash links the GitHub repo once) so the UI can be checked on a real phone | monitoring | 0.3 | Preview URL posted for each merge | todo |
+| 1.9 | Vercel preview deploys per branch (Akash links the GitHub repo once) so the UI can be checked on a real phone | monitoring | 0.3 | Preview URL posted for each merge | done |
 | 1.G | **Gate:** design review against guide §4–§6 at every width, axe, Lighthouse mobile per page, reduced motion; Akash checks the preview on his phone | qa + **Akash** | 1.1–1.9 | PASS + Akash's OK on the look | doing |
 
 Merge order: 1.1 → 1.2 → 1.8 → 1.3 → 1.6 → 1.5 → 1.4 → 1.7. Task 1.9 can merge any time.
