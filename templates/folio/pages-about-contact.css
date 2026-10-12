@@ -1,0 +1,488 @@
+/*
+ * Folio About and Contact (work plan 1.6, guide §4.5–§4.6). Imported by pages/About.tsx and
+ * pages/Contact.tsx rather than by globals.css, and kept out of folio.css so the page work can
+ * land without touching shared files. Everything is scoped to `.tpl-folio` and `f-` classes.
+ *
+ * This file is not run through Tailwind (no @import "tailwindcss"), so it uses plain CSS only.
+ * The layer statement repeats Tailwind's order, so `components` stays below `utilities` even if
+ * this chunk is parsed before globals.css: a utility class on the same element still wins.
+ */
+
+@layer theme, base, components, utilities;
+
+@layer components {
+  /* -------------------------------------------------------------------------------------------
+   * About: statement, portrait and the rest of the about text.
+   * Phone: one column. md: statement and text on the left (7 of 12), portrait on the right (5).
+   * ----------------------------------------------------------------------------------------- */
+
+  .tpl-folio .f-about-intro {
+    display: grid;
+    row-gap: 2.5rem;
+    padding-top: max(2rem, 8svh);
+    padding-bottom: var(--section-y);
+  }
+
+  .tpl-folio .f-about-statement {
+    font-variation-settings: "wdth" 100;
+    font-weight: 450;
+    /* ~2.25rem at 360, ~3.2rem at 768, ~5.3rem at 1440 */
+    font-size: clamp(2.125rem, 1.35rem + 3.9vw, 5.75rem);
+    letter-spacing: -0.035em;
+    line-height: 1.04;
+  }
+
+  .tpl-folio .f-about-portrait {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: clip;
+    border-radius: 1rem;
+    background: var(--paper-2);
+  }
+
+  @media (min-width: 768px) {
+    .tpl-folio .f-about-intro {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: 2rem;
+      row-gap: 3rem;
+      padding-top: max(3rem, 12svh);
+    }
+    .tpl-folio .f-about-statement {
+      grid-column: 1 / span 7;
+      grid-row: 1;
+    }
+    .tpl-folio .f-about-portrait {
+      grid-column: 8 / span 5;
+      grid-row: 1 / span 2;
+      align-self: start;
+    }
+    .tpl-folio .f-about-text {
+      grid-column: 1 / span 6;
+      grid-row: 2;
+      align-self: end;
+    }
+  }
+  @media (min-width: 1024px) {
+    .tpl-folio .f-about-intro {
+      column-gap: 3rem;
+    }
+  }
+
+  /* -------------------------------------------------------------------------------------------
+   * Services 01 / 02 / 03: hairline rows on phone, three columns from lg, each under its own line.
+   * ----------------------------------------------------------------------------------------- */
+
+  /* No closing line: the Toolkit hairline below closes the list. */
+  .tpl-folio .f-about-services {
+    display: grid;
+  }
+  .tpl-folio .f-about-service {
+    display: grid;
+    align-content: start;
+    gap: 0.75rem;
+    padding-block: 1.75rem 2.25rem;
+    border-top: 1px solid var(--rule);
+  }
+  .tpl-folio .f-about-service-title {
+    font-variation-settings: "wdth" 100;
+    font-weight: 450;
+    font-size: clamp(1.5rem, 1.2rem + 1.3vw, 2.25rem);
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+  }
+  .tpl-folio .f-about-service-title + p {
+    margin-top: 0.25rem;
+  }
+
+  @media (min-width: 1024px) {
+    .tpl-folio .f-about-services {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      column-gap: 3rem;
+    }
+    .tpl-folio .f-about-service {
+      gap: 1rem;
+      padding-block: 2rem 0;
+    }
+  }
+
+  /* -------------------------------------------------------------------------------------------
+   * Toolkit, Education, Now: a hairline, the label, then the content (label left from md).
+   * ----------------------------------------------------------------------------------------- */
+
+  /* The footer adds its own curve margin above, so half a section is enough. */
+  .tpl-folio .f-about-section:last-child {
+    padding-bottom: calc(var(--section-y) / 2);
+  }
+  .tpl-folio .f-about-block {
+    display: grid;
+    gap: 1.5rem;
+    padding-block: 2.5rem;
+    border-top: 1px solid var(--rule);
+  }
+  @media (min-width: 768px) {
+    .tpl-folio .f-about-block {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: 2rem;
+      padding-block: 3.5rem;
+    }
+    .tpl-folio .f-about-block > :first-child {
+      grid-column: 1 / span 3;
+    }
+    .tpl-folio .f-about-block > :last-child {
+      grid-column: 4 / span 9;
+    }
+  }
+  @media (min-width: 1024px) {
+    .tpl-folio .f-about-block {
+      column-gap: 3rem;
+      padding-block: 4.5rem;
+    }
+  }
+
+  .tpl-folio .f-about-toolkit {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem 1.5rem;
+  }
+  @media (min-width: 1024px) {
+    .tpl-folio .f-about-toolkit {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      column-gap: 2rem;
+    }
+  }
+
+  .tpl-folio .f-about-entry-title {
+    font-size: clamp(1.375rem, 1.1rem + 1vw, 2rem);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  .tpl-folio .f-about-now {
+    max-width: 34ch;
+    font-variation-settings: "wdth" 100;
+    font-weight: 450;
+    font-size: clamp(1.375rem, 1.1rem + 1.2vw, 2.25rem);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    text-wrap: pretty;
+  }
+
+  /* -------------------------------------------------------------------------------------------
+   * Contact page: heading, then form + details. Details follow the form on phone and md; from
+   * lg they get their own sticky column at a width the email pill fits in.
+   * ----------------------------------------------------------------------------------------- */
+
+  .tpl-folio .f-contact {
+    padding-top: max(2rem, 8svh);
+    padding-bottom: var(--section-y);
+  }
+  .tpl-folio .f-contact-grid {
+    display: grid;
+    gap: 4rem;
+    margin-top: 3rem;
+  }
+  @media (min-width: 768px) {
+    .tpl-folio .f-contact {
+      padding-top: max(3rem, 12svh);
+    }
+    .tpl-folio .f-contact-grid {
+      margin-top: 5rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .tpl-folio .f-contact-grid:not([data-solo]) {
+      grid-template-columns: minmax(0, 1fr) minmax(17.5rem, 22rem);
+      column-gap: clamp(3rem, 7vw, 9rem);
+    }
+    .tpl-folio .f-contact-grid:not([data-solo]) .f-contact-details {
+      position: sticky;
+      top: 2rem;
+      align-self: start;
+    }
+  }
+
+  .tpl-folio .f-contact-details {
+    display: grid;
+    align-content: start;
+    gap: 2.5rem;
+  }
+  @media (min-width: 768px) {
+    .tpl-folio .f-contact-details {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 2rem;
+    }
+    .tpl-folio .f-contact-detail-email {
+      grid-column: 1 / -1;
+    }
+  }
+  @media (min-width: 1024px) {
+    .tpl-folio .f-contact-grid:not([data-solo]) .f-contact-details {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    /* No form: the three groups share one row under the heading. */
+    .tpl-folio .f-contact-grid[data-solo] .f-contact-details {
+      grid-template-columns: repeat(3, minmax(0, auto));
+      justify-content: start;
+      column-gap: clamp(3rem, 7vw, 8rem);
+    }
+    .tpl-folio .f-contact-grid[data-solo] .f-contact-detail-email {
+      grid-column: auto;
+    }
+  }
+
+  /* -------------------------------------------------------------------------------------------
+   * The numbered questions. The number hangs in the left padding; the label is the question.
+   * Inputs are borderless with an underline that clears 3:1 against paper (WCAG 1.4.11) and
+   * turns into a 2px ink line on focus, which is the focus indicator.
+   * ----------------------------------------------------------------------------------------- */
+
+  .tpl-folio .f-contact-form {
+    --f-q-num: 2.25rem;
+    --f-field-line: rgb(40 44 32 / 0.56);
+    position: relative;
+    display: grid;
+    gap: 2.75rem;
+  }
+  @media (min-width: 768px) {
+    .tpl-folio .f-contact-form {
+      --f-q-num: 4.5rem;
+      gap: 3.5rem;
+    }
+  }
+
+  .tpl-folio .f-q {
+    position: relative;
+    min-width: 0;
+    margin: 0;
+    padding: 0 0 0 var(--f-q-num);
+    border: 0;
+  }
+  .tpl-folio .f-q-label {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 0;
+    font-variation-settings: "wdth" 100;
+    font-weight: 450;
+    font-size: clamp(1.375rem, 1.15rem + 1vw, 2rem);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+  /* A legend sits on the fieldset's border by default; floating it makes it an ordinary block. */
+  .tpl-folio legend.f-q-label {
+    float: left;
+  }
+  .tpl-folio legend.f-q-label + * {
+    clear: both;
+  }
+  .tpl-folio .f-q-num {
+    position: absolute;
+    left: calc(-1 * var(--f-q-num));
+    top: 0.5em;
+    font-size: 0.875rem;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    font-variant-numeric: tabular-nums;
+    color: var(--fg-muted);
+    transition: color var(--dur) var(--ease-inout);
+  }
+  .tpl-folio .f-q:focus-within .f-q-num {
+    color: var(--ink);
+  }
+
+  .tpl-folio .f-q-input {
+    display: block;
+    width: 100%;
+    margin-top: 0.75rem;
+    padding: 0.5rem 0 0.75rem;
+    border: 0;
+    border-bottom: 1px solid var(--f-field-line);
+    border-radius: 0;
+    background: transparent;
+    color: inherit;
+    /* ≥ 16px everywhere, so iOS never zooms in on focus */
+    font: inherit;
+    font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem);
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    appearance: none;
+    transition: border-color var(--dur-fast) var(--ease-inout);
+  }
+  .tpl-folio .f-q-input:focus,
+  .tpl-folio .f-q-input:focus-visible {
+    outline: none;
+    box-shadow: none;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: calc(0.75rem - 1px);
+  }
+  .tpl-folio .f-q-input[aria-invalid="true"] {
+    border-bottom-color: var(--ink);
+  }
+  /* Autofill paints its own background; keep the paper. */
+  .tpl-folio .f-q-input:-webkit-autofill {
+    -webkit-box-shadow: inset 0 0 0 100px var(--paper);
+    -webkit-text-fill-color: var(--ink);
+    caret-color: var(--ink);
+  }
+
+  .tpl-folio .f-q-textarea {
+    min-height: 7.5rem;
+    resize: vertical;
+  }
+  /* Grows with the message where supported (Chromium); Firefox and Safari keep rows=4 + resize. */
+  @supports (field-sizing: content) {
+    .tpl-folio .f-q-textarea {
+      field-sizing: content;
+      resize: none;
+    }
+  }
+
+  .tpl-folio .f-q-error {
+    display: flex;
+    align-items: baseline;
+    gap: 0.625rem;
+    margin-top: 0.75rem;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+  .tpl-folio .f-q-error > .f-dot {
+    transform: translateY(-0.1em);
+  }
+
+  /* Intent: real radios under pill labels. The input covers its pill, so taps and screen-reader
+     touch exploration both land on it; the mark fills when checked, so state is not colour only. */
+  /* Padding, not margin: after the floated legend, clearance would swallow a margin. */
+  .tpl-folio .f-choices {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+    padding-top: 1.25rem;
+  }
+  .tpl-folio .f-choice {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    min-height: 3rem;
+    padding: 0 1.25rem 0 1rem;
+    border: 1px solid var(--f-field-line);
+    border-radius: 9999px;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.2;
+    white-space: nowrap;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      transform var(--dur-fast) var(--ease-inout),
+      background-color var(--dur-fast) var(--ease-inout),
+      color var(--dur-fast) var(--ease-inout),
+      border-color var(--dur-fast) var(--ease-inout);
+  }
+  .tpl-folio .f-choice > input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    border-radius: inherit;
+    opacity: 0;
+    appearance: none;
+    cursor: pointer;
+  }
+  .tpl-folio .f-choice > input:focus-visible {
+    outline: none;
+    box-shadow: none;
+  }
+  .tpl-folio .f-choice:has(> input:focus-visible) {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px var(--focus-halo);
+  }
+  .tpl-folio .f-choice:active {
+    transform: scale(0.96);
+  }
+  .tpl-folio .f-choice-mark {
+    flex: none;
+    width: 0.75rem;
+    height: 0.75rem;
+    border: 1.5px solid currentColor;
+    border-radius: 9999px;
+    transition: background-color var(--dur-fast) var(--ease-inout);
+  }
+  .tpl-folio .f-choice:has(> input:checked) {
+    border-color: transparent;
+    background: var(--btn-bg);
+    color: var(--btn-fg);
+  }
+  .tpl-folio .f-choice:has(> input:checked) .f-choice-mark {
+    border-color: var(--btn-dot);
+    background: var(--btn-dot);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .tpl-folio .f-choice:not(:has(> input:checked)):hover {
+      border-color: currentColor;
+    }
+  }
+
+  /* Honeypot: off-screen, not display:none or visibility:hidden, so naive bots still fill it. */
+  .tpl-folio .f-hp {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  /* The send row: a hairline with the round button on it (RoundButton lg sizes). */
+  .tpl-folio .f-contact-end {
+    --f-cta: 9rem;
+    position: relative;
+    margin-top: calc(var(--f-cta) / 2);
+    height: calc(var(--f-cta) / 2);
+    border-top: 1px solid var(--rule);
+  }
+  @media (min-width: 768px) {
+    .tpl-folio .f-contact-end {
+      --f-cta: 11rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .tpl-folio .f-contact-end {
+      --f-cta: 13rem;
+    }
+  }
+  .tpl-folio .f-contact-send {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate3d(0, -50%, 0);
+  }
+  @media (min-width: 768px) {
+    .tpl-folio .f-contact-send {
+      right: 8%;
+    }
+  }
+
+  /* Error summary: a small ink card at the top of the form, focused after a failed send. */
+  .tpl-folio .f-contact-summary {
+    padding: 1.25rem 1.5rem 0.75rem;
+    border-radius: 1rem;
+  }
+
+  /* Sent: the form's place is taken by the confirmation. */
+  .tpl-folio .f-contact-sent {
+    padding-block: 1rem 2rem;
+  }
+  .tpl-folio .f-contact-sent-icon {
+    display: grid;
+    place-items: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 9999px;
+    color: var(--lime);
+  }
+}
