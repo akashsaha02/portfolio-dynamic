@@ -1,5 +1,6 @@
 // "Folio" template (guide §3–§6). Work plan 1.1: tokens, type and primitives (ui/, motion/,
-// folio.css). Work plan 1.2: the global shell (shell/). One file per page under pages/.
+// folio.css). Work plan 1.2: the global shell (shell/). Work plan 1.3: the Home sections
+// (sections/). One file per page under pages/.
 //
 // Contract: pages receive `{ content, settings }` (TemplateProps) and never import
 // lib/content.ts. Each page wraps its content in `<FolioShell {...props} current="…">` (which
