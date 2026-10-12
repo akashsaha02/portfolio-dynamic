@@ -39,9 +39,11 @@ export default function SiteLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${mona.variable} antialiased`}>
       <body>
+        {/* min-h-11: 44px hit area (guide §5); flex centres the label. -translate-y-24 (96px)
+            still clears top-4 + 44px, so it stays fully off-screen until focused. */}
         <a
           href="#main"
-          className="fixed left-4 top-4 z-50 -translate-y-24 rounded-full bg-lime px-4 py-2 font-semibold text-ink focus:translate-y-0"
+          className="fixed left-4 top-4 z-50 inline-flex min-h-11 -translate-y-24 items-center justify-center rounded-full bg-lime px-4 py-2 font-semibold text-ink focus:translate-y-0"
         >
           Skip to content
         </a>
