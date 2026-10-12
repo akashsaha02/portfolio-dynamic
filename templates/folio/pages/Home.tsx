@@ -1,38 +1,23 @@
-// Folio Home (work plan 1.1): a minimal content listing plus the primitives showcase. The real
-// shell (1.2) and Home sections (1.3) replace the listing; the showcase is removed in 1.3.
+// Folio Home: a minimal content listing plus the primitives showcase, inside the global shell
+// (1.2). The Home sections (1.3) replace the listing; the showcase is removed in 1.3.
 
-import Link from "next/link";
 import type { TemplateProps } from "../../types";
 import { Showcase } from "../showcase/Showcase";
+import { FolioShell } from "../shell/FolioShell";
 import { Chip } from "../ui/Chip";
-import { CurvedEdge } from "../ui/CurvedEdge";
 import { FillButton } from "../ui/FillButton";
-import { ArrowDownRight, ArrowUpRight } from "../ui/icons";
+import { ArrowDownRight } from "../ui/icons";
 import { Magnetic } from "../ui/Magnetic";
 import { RoundButton } from "../ui/RoundButton";
 import { Row, RowList } from "../ui/Row";
 import { Tile } from "../ui/Tile";
 
 export default function Home({ content, settings }: TemplateProps) {
-  const { profile, site, projects, experience, publications, education } = content;
+  const { profile, projects, experience, publications, education } = content;
   const featured = projects.filter((p) => p.featured);
-  const firstName = profile.name.split(" ")[0];
 
   return (
-    <div className="tpl-folio surface-paper min-h-svh overflow-x-clip">
-      {settings.announcement ? (
-        <p role="status" className="surface-ink px-gutter py-3 text-center text-sm">
-          {settings.announcement.text}
-        </p>
-      ) : null}
-
-      <header className="flex items-center justify-between px-gutter pt-[max(0.75rem,env(safe-area-inset-top))]">
-        <Link href="/" className="inline-flex min-h-11 items-center font-medium">
-          © Code by {firstName}
-        </Link>
-        <p className="type-label">Work plan 1.1 preview</p>
-      </header>
-
+    <FolioShell content={content} settings={settings} current="home">
       <main id="main" tabIndex={-1} className="outline-none">
         <section aria-labelledby="intro-title" className="px-gutter py-section">
           <p className="flex items-center gap-2 type-label">
@@ -135,37 +120,6 @@ export default function Home({ content, settings }: TemplateProps) {
 
         <Showcase content={content} />
       </main>
-
-      <footer aria-labelledby="footer-title" className="relative surface-ink mt-[7svh] px-gutter pt-section md:mt-[12svh]">
-        <CurvedEdge edge="top" fill="var(--ink)" />
-        <h2 id="footer-title" className="max-w-[12ch] type-display">
-          Let&rsquo;s work together
-        </h2>
-        <div className="mt-10 grid gap-3 md:flex md:flex-wrap">
-          <FillButton href={`mailto:${profile.email}`} variant="outline" size="lg" block className="md:w-auto">
-            {profile.email}
-          </FillButton>
-          {profile.phone ? (
-            <FillButton href={`tel:${profile.phone}`} variant="outline" size="lg" block className="md:w-auto">
-              {profile.phone}
-            </FillButton>
-          ) : null}
-        </div>
-        <div className="mt-section flex flex-col gap-6 border-t border-(--rule) py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] md:flex-row md:items-center md:justify-between">
-          <p className="type-label">
-            Version {site.versionLabel} · Local time zone {profile.timezone}
-          </p>
-          <ul aria-label="Social links" className="flex flex-wrap gap-2">
-            {profile.socials.map((s) => (
-              <li key={s.url}>
-                <FillButton href={s.url} external variant="outline" icon={<ArrowUpRight />}>
-                  {s.label}
-                </FillButton>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </footer>
-    </div>
+    </FolioShell>
   );
 }

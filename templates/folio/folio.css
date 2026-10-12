@@ -98,7 +98,12 @@
   box-shadow: 0 0 0 6px var(--focus-halo);
 }
 
-/* The global kill-switch zeroes durations only; delays would still hold content back (B-08). */
+/*
+ * The global kill-switch zeroes durations only; delays would still hold content back (B-08).
+ * It also turns every element's default `transition: all 0s` into a 0.01ms transition of *all*
+ * properties, inherited `visibility` included, so a just-opened menu's buttons were still
+ * "hidden" (unfocusable) when focus moved in. In Folio nothing transitions with reduced motion.
+ */
 @media (prefers-reduced-motion: reduce) {
   .tpl-folio,
   .tpl-folio *,
@@ -106,6 +111,7 @@
   .tpl-folio *::after {
     animation-delay: 0s !important;
     transition-delay: 0s !important;
+    transition-property: none !important;
   }
 }
 
@@ -346,5 +352,274 @@
     .f-row-link:hover .f-row-meta {
       transform: translate3d(0.5rem, 0, 0);
     }
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------
+ * Shell (work plan 1.2, templates/folio/shell/): top bar, fixed burger, menu panel, footer.
+ * Safe areas on every edge that can meet a notch or a home indicator (guide §5 rule 5).
+ * ------------------------------------------------------------------------------------------- */
+
+/* Scroll lock while the menu is open; the body takes over the scrollbar's width (MenuPanel). */
+html[data-folio-menu-open] {
+  overflow: hidden;
+}
+html[data-folio-menu-open] body {
+  padding-right: var(--folio-scrollbar, 0px);
+}
+
+@layer components {
+  /* Side padding that also clears a landscape notch. */
+  .f-bleed,
+  .f-bar {
+    padding-left: max(var(--gutter), env(safe-area-inset-left));
+    padding-right: max(var(--gutter), env(safe-area-inset-right));
+  }
+  .f-bar {
+    padding-top: max(1rem, env(safe-area-inset-top));
+  }
+  @media (min-width: 768px) {
+    .f-bar {
+      padding-top: max(1.75rem, env(safe-area-inset-top));
+    }
+  }
+
+  /* The © turns and the text rolls (fine pointer, motion allowed). Plain on touch. */
+  .f-logo-mark {
+    display: inline-block;
+    transition: transform var(--dur-slow) var(--ease-inout);
+  }
+
+  /* Top-bar link dot: ink on paper under the current page; a hover previews it. */
+  .f-navlink-dot {
+    position: absolute;
+    left: 50%;
+    bottom: 0.25rem;
+    margin-left: -0.25rem;
+    transform: scale(0);
+    transition: transform var(--dur) var(--ease-inout);
+  }
+  .f-navlink[aria-current="page"] .f-navlink-dot {
+    transform: scale(1);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .f-navlink:hover .f-navlink-dot {
+      transform: scale(1);
+    }
+  }
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .f-logo:hover .f-logo-mark {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Where the burger sits, and the panel's close button on top of it. */
+  .f-corner {
+    top: max(1rem, env(safe-area-inset-top));
+    right: max(1rem, env(safe-area-inset-right));
+  }
+  @media (min-width: 768px) {
+    .f-corner {
+      top: max(1.5rem, env(safe-area-inset-top));
+      right: max(1.5rem, env(safe-area-inset-right));
+    }
+  }
+  @media (min-width: 1024px) {
+    .f-corner {
+      top: 2rem;
+      right: max(2rem, env(safe-area-inset-right));
+    }
+  }
+
+  /* Fixed burger: scales in below the hero. Hidden = not focusable, not announced. */
+  .f-burger {
+    transform: scale(0);
+    visibility: hidden;
+    transition:
+      transform var(--dur) var(--ease-inout),
+      visibility 0s linear var(--dur);
+  }
+  /* Opening states never transition `visibility`: with reduced motion the kill-switch turns 0s
+     into 0.01ms, and an element still "hidden" at that instant can't take focus. */
+  .f-burger[data-shown] {
+    transform: none;
+    visibility: visible;
+    transition: transform var(--dur) var(--ease-inout);
+  }
+  /* Ink on an ink section would vanish: a hairline keeps the circle readable everywhere. */
+  .f-burger .f-btn {
+    box-shadow: 0 0 0 1px var(--hairline-on-ink);
+  }
+
+  /*
+   * Menu panel. Closed: pushed off to the right (past the curve) and hidden after the slide, so
+   * it is out of the tab order even before `inert` applies. Phone: full screen. md+: a column
+   * with a static curved left edge over a dimmed backdrop.
+   */
+  .f-menu {
+    position: fixed;
+    z-index: 50;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    transform: translate3d(calc(100% + 6rem), 0, 0);
+    visibility: hidden;
+    transition:
+      transform var(--dur-smooth) var(--ease-inout),
+      visibility 0s linear var(--dur-smooth);
+  }
+  .f-menu[data-open] {
+    transform: none;
+    visibility: visible;
+    transition: transform var(--dur-smooth) var(--ease-inout);
+  }
+  @media (min-width: 768px) {
+    .f-menu {
+      width: min(34rem, 72vw);
+    }
+  }
+  @media (min-width: 1024px) {
+    .f-menu {
+      width: max(28rem, 40vw);
+    }
+  }
+
+  .f-menu-backdrop {
+    display: none;
+    position: fixed;
+    z-index: 45;
+    inset: 0;
+    background: rgb(40 44 32 / 0.45);
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity var(--dur-smooth) var(--ease-inout),
+      visibility 0s linear var(--dur-smooth);
+  }
+  .f-menu-backdrop[data-open] {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity var(--dur-smooth) var(--ease-inout);
+  }
+  @media (min-width: 768px) {
+    .f-menu-backdrop {
+      display: block;
+    }
+  }
+
+  /* The panel scrolls on its own (landscape phones); the curve and close button stay put. */
+  .f-menu-scroll {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding-top: calc(max(1rem, env(safe-area-inset-top)) + 3.5rem + 1.5rem);
+    padding-right: max(var(--gutter), env(safe-area-inset-right));
+    padding-bottom: max(2rem, env(safe-area-inset-bottom));
+    padding-left: max(var(--gutter), env(safe-area-inset-left));
+  }
+  @media (min-width: 768px) {
+    .f-menu-scroll {
+      padding-top: 7rem;
+      padding-left: 3rem;
+      padding-right: max(3rem, env(safe-area-inset-right));
+      padding-bottom: max(3rem, env(safe-area-inset-bottom));
+    }
+  }
+  @media (min-width: 1024px) {
+    .f-menu-scroll {
+      padding-top: 8rem;
+      padding-left: 4rem;
+      padding-right: max(4rem, env(safe-area-inset-right));
+    }
+  }
+
+  /* Big links slide in after the panel, one after another. */
+  .f-menu-item {
+    transform: translate3d(4rem, 0, 0);
+    transition: transform var(--dur-slow) var(--ease-inout);
+  }
+  .f-menu[data-open] .f-menu-item {
+    transform: none;
+    transition-delay: calc(0.12s + var(--i, 0) * 0.05s);
+  }
+  .f-menu-link {
+    font-variation-settings: "wdth" 100;
+    font-weight: 450;
+    font-size: clamp(2.75rem, 2rem + 3vw, 4.5rem);
+    letter-spacing: -0.035em;
+    line-height: 1.05;
+  }
+  .f-menu-dot {
+    width: 0.75rem;
+    height: 0.75rem;
+    transform: scale(0);
+    transition: transform var(--dur) var(--ease-inout);
+  }
+  .f-menu-link[aria-current="page"] .f-menu-dot {
+    transform: scale(1);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .f-menu-link:hover .f-menu-dot {
+      transform: scale(1);
+    }
+  }
+
+  /*
+   * Footer. `--f-cta` is the round "Get in touch" size (RoundButton lg); the hairline and the
+   * pills keep half of it clear above and below, so the button can sit on the line.
+   */
+  .f-footer {
+    --f-cta: 9rem;
+  }
+  @media (min-width: 768px) {
+    .f-footer {
+      --f-cta: 11rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .f-footer {
+      --f-cta: 13rem;
+    }
+  }
+  .f-footer-rule {
+    margin-top: calc(var(--f-cta) / 2 + 2rem);
+  }
+  .f-footer-pills {
+    padding-top: calc(var(--f-cta) / 2 + 1.5rem);
+  }
+  .f-footer-bottom {
+    padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+  }
+
+  /* Copy pill: both labels share one cell, so the pill keeps its width when "Copied" shows. */
+  .f-copy {
+    display: grid;
+  }
+  .f-copy > span {
+    grid-area: 1 / 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition:
+      opacity var(--dur-fast) var(--ease-inout),
+      transform var(--dur) var(--ease-inout);
+  }
+  .f-copy > span + span {
+    opacity: 0;
+    transform: translate3d(0, 60%, 0);
+  }
+  [data-copied] .f-copy > span:first-child {
+    opacity: 0;
+    transform: translate3d(0, -60%, 0);
+  }
+  [data-copied] .f-copy > span + span {
+    opacity: 1;
+    transform: none;
   }
 }
