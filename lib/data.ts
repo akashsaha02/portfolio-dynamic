@@ -7,6 +7,7 @@ import { cache } from "react";
 import * as raw from "./content";
 import type {
   CaseStudy,
+  ImageAsset,
   Experience,
   Project,
   Publication,
@@ -90,7 +91,8 @@ function mapPublication(p: raw.Publication): Publication {
  * 'use cache' is not available yet. Never read cookies()/headers() inside the cached function.
  */
 export const getSiteContent = cache(async (): Promise<SiteContent> => {
-  const p = raw.profile;
+  // Optional fields aren't in lib/content.ts until Akash supplies them (work plan 0.6).
+  const p: typeof raw.profile & { phone?: string; avatar?: ImageAsset; resumeUrl?: string } = raw.profile;
   return {
     profile: {
       name: p.name,
@@ -98,12 +100,15 @@ export const getSiteContent = cache(async (): Promise<SiteContent> => {
       location: p.location,
       timezone: p.timezone,
       email: p.email,
+      ...(p.phone && { phone: p.phone }),
       intro: p.intro,
       about: p.about,
       portrait: p.portrait,
+      ...(p.avatar && { avatar: p.avatar }),
       greetings: p.greetings,
       services: p.services,
       socials: p.socials,
+      ...(p.resumeUrl && { resumeUrl: p.resumeUrl }),
       availability: p.availability,
       now: p.now,
     },

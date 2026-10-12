@@ -15,7 +15,7 @@ export const templates: Record<TemplateId, TemplateDefinition> = {
     meta: {
       id: "folio",
       name: "Folio",
-      description: "Mobile-first multi-page template (guide §3–§4). Placeholder until work plan 1.1.",
+      description: "Mobile-first multi-page template (guide §3–§4), in progress during Phase 1.",
       status: "placeholder",
     },
     load: () => import("./folio"),
