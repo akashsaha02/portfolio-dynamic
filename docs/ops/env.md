@@ -6,8 +6,9 @@ CI (GitHub Actions) currently needs no secrets. Lighthouse CI uses temporary pub
 
 | Variable | Purpose | Secret | Needed from | Local (`.env.local`) | GitHub secrets | Vercel | Set by |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `SITE_TEMPLATE` | Which template renders (`folio` by default) | No | Phase 1 | Optional | Not needed | Optional (Production, Preview) | Akash, or backend in code defaults |
-| `NEXT_PUBLIC_SITE_URL` | Canonical URL for metadata, sitemap, OG images | No | Phase 1 | `http://localhost:3000` | Only if e2e or build needs it | Production = real URL; Preview = Vercel URL | Akash in Vercel; lead locally |
+| `SITE_TEMPLATE` | Which template renders: `editorial` or `folio`. Code default when unset is `editorial`. Read at build time; unknown value fails the build | No | Phase 1 | Optional | Not needed (CI sets it per job) | `folio` in **Preview only** now; leave unset in Production (stays editorial) until launch, then add `folio` to Production and redeploy | Akash (see `docs/ops/vercel-setup.md` step 3) |
+| `NEXT_PUBLIC_SITE_URL` | Canonical URL for metadata, sitemap, OG images. Falls back to `http://localhost:3000` | No | Phase 1 | `http://localhost:3000` | Not needed | Production and Preview: the production URL (for example `https://portfolio-dynamic.vercel.app`). Only affects meta tags | Akash in Vercel; lead locally |
+| `NEXT_DIST_DIR` | Build output folder (e2e runs Folio in `.next-folio`) | No | Phase 1 | Optional | Set in the e2e job only | Never set on Vercel (it expects `.next`) | CI |
 | `PAYLOAD_SECRET` | Payload session and token signing | Yes | Phase 2 | Yes (random 32+ chars) | Only if CI builds with Payload | Production and Preview, different values | Akash (generate with `openssl rand -hex 32`) |
 | `DATABASE_URI` | MongoDB Atlas connection string | Yes | Phase 2 | Yes (dev database) | Only if CI needs a DB; prefer a mock | Production and Preview | Akash (Atlas user with least privilege) |
 | `BLOB_READ_WRITE_TOKEN` | Vercel Blob uploads from admin | Yes | Phase 2 | Yes (from `vercel env pull`) | No | Auto-added when the Blob store is connected | Akash (connects the store in Vercel) |
@@ -16,6 +17,10 @@ CI (GitHub Actions) currently needs no secrets. Lighthouse CI uses temporary pub
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Turnstile widget (public) | No | Phase 3 | Yes (Cloudflare test key) | No | Production and Preview | Akash |
 | `TURNSTILE_SECRET_KEY` | Turnstile server verification | Yes | Phase 3 | Yes (Cloudflare test secret) | No | Production and Preview | Akash |
 | `SENTRY_DSN` / `NEXT_PUBLIC_SENTRY_DSN` | Error reporting (optional) | DSN is low-risk, treat as config | Phase 4, optional | Optional | No | Production | Akash, after creating a Sentry project |
+
+## Vercel scopes
+
+Vercel has three scopes per variable: Production (pushes to `main`), Preview (every other branch and PR), Development (`vercel dev`/`vercel env pull`). A change only applies to deployments built after it, so redeploy. The click-by-click steps are in `docs/ops/vercel-setup.md`. Config type is fine for the variables above; use Secret type for everything marked Secret.
 
 ## Rules
 

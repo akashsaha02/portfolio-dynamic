@@ -25,6 +25,14 @@ The whole stack must stay at $0/month. Limits are from `docs/REBUILD_GUIDE.md` ย
 
 Vercel Hobby is personal and non-commercial only (guide ยง9.3): no payments, no ads, no priced service packages.
 
+Also from the Hobby plan page (https://vercel.com/docs/plans/hobby, checked 2026-10-12):
+
+- 100 deployments per day (each push to a branch or PR is one preview deployment; warn at 70). Build machine 2 vCPU, 8 GB.
+- 1,000,000 CDN requests and 10 GB Fast Origin Transfer a month, in addition to the 100 GB Fast Data Transfer.
+- Speed Insights is 10,000 events over the last 30 days, shared across the team.
+- Over a limit, you generally wait 30 days; Web Analytics collection resumes after 7 days.
+- Deployment Protection: Vercel Authentication and one shareable link per account are free; Password Protection is Pro only. One external viewer per account for access requests.
+
 ## Monthly check (first Monday of the month, about 10 minutes)
 
 - [ ] Vercel > Usage: transfer, functions, image transformations, Blob. Note the numbers below.
