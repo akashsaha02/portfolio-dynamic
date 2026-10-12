@@ -397,7 +397,8 @@ html[data-folio-menu-open] body {
     transition: transform var(--dur-slow) var(--ease-inout);
   }
 
-  /* Top-bar link dot: ink on paper under the current page; a hover previews it. */
+  /* Top-bar link dot: ink on paper under the current page or section ("true" on a case study);
+     a hover previews it. */
   .f-navlink-dot {
     position: absolute;
     left: 50%;
@@ -406,7 +407,7 @@ html[data-folio-menu-open] body {
     transform: scale(0);
     transition: transform var(--dur) var(--ease-inout);
   }
-  .f-navlink[aria-current="page"] .f-navlink-dot {
+  .f-navlink:is([aria-current="page"], [aria-current="true"]) .f-navlink-dot {
     transform: scale(1);
   }
 
@@ -567,7 +568,7 @@ html[data-folio-menu-open] body {
     transform: scale(0);
     transition: transform var(--dur) var(--ease-inout);
   }
-  .f-menu-link[aria-current="page"] .f-menu-dot {
+  .f-menu-link:is([aria-current="page"], [aria-current="true"]) .f-menu-dot {
     transform: scale(1);
   }
   @media (hover: hover) and (pointer: fine) {

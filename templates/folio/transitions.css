@@ -1,0 +1,53 @@
+/*
+ * Folio page transitions (guide §4.1 "Page transitions", work plan 1.7). Imported by
+ * shell/FolioShell.tsx, so it is only linked on Folio pages; every selector is a Folio view
+ * transition class, so nothing here can touch Editorial.
+ *
+ * FolioShell wraps each page in <ViewTransition enter="f-page-in" exit="f-page-out">. A client
+ * navigation between two Folio routes then makes React run one view transition with two
+ * snapshots: the old page (::view-transition-old(.f-page-out)) and the new one
+ * (::view-transition-new(.f-page-in)). React drops the `root` snapshot, so they are separate
+ * groups, the new one painted above the old.
+ *
+ * The crossfade: the old page holds still underneath while the new page fades in over it. Both
+ * pages are opaque paper, so this reads as a crossfade, and anything that is identical in both
+ * (the top bar at the top of the page, the paper itself) never dims at the midpoint the way two
+ * opposite fades would. Opacity only, no movement; the shell does not slide or scale.
+ *
+ * Browsers without View Transitions (or without the callback-object form React needs) just swap
+ * the page, as before. Reduced motion: no animation at all, the swap is instant.
+ */
+
+::view-transition-old(.f-page-out) {
+  /* A no-op keyframe keeps the old snapshot up for exactly as long as the new one fades. */
+  animation: f-page-hold var(--dur-fast) linear both;
+}
+
+::view-transition-new(.f-page-in) {
+  animation: f-page-in var(--dur-fast) var(--ease-inout) both;
+}
+
+/* Clicks during the fade reach the live page instead of the overlay. */
+::view-transition-group(.f-page-out),
+::view-transition-group(.f-page-in) {
+  pointer-events: none;
+}
+
+@keyframes f-page-hold {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes f-page-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(.f-page-out),
+  ::view-transition-new(.f-page-in) {
+    animation: none;
+  }
+}

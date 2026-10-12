@@ -2,18 +2,20 @@ import type { CSSProperties } from "react";
 import Link from "next/link";
 import type { Profile } from "@/lib/content-types";
 import { RollLabel } from "../ui/Action";
-import { SHELL_PAGES, type ShellPage } from "./pages";
+import { ariaCurrent, SHELL_PAGES, type ShellPage } from "./pages";
 
 // What the menu panel shows (guide §4.1): big links (Home, Work, About, Contact) with a lime dot
-// before the current page, then email and socials. Server-rendered; MenuPanel supplies the
-// behaviour. The links slide in with a short stagger as the panel opens (.f-menu-item).
+// before the current page or section, then email and socials. Server-rendered; MenuPanel
+// supplies the behaviour. The links slide in with a short stagger as the panel opens
+// (.f-menu-item).
 
 type MenuNavProps = {
   profile: Pick<Profile, "email" | "socials">;
   current?: ShellPage;
+  section?: ShellPage;
 };
 
-export function MenuNav({ profile, current }: MenuNavProps) {
+export function MenuNav({ profile, current, section }: MenuNavProps) {
   return (
     <>
       <nav aria-labelledby="folio-menu-nav">
@@ -25,7 +27,7 @@ export function MenuNav({ profile, current }: MenuNavProps) {
             <li key={p.id} className="f-menu-item" style={{ "--i": i } as CSSProperties}>
               <Link
                 href={p.href}
-                aria-current={current === p.id ? "page" : undefined}
+                aria-current={ariaCurrent(p.id, current, section)}
                 className="f-menu-link f-roll-host flex min-h-14 items-center gap-4 py-1"
               >
                 <span aria-hidden="true" className="f-dot f-menu-dot" />

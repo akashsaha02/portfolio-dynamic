@@ -93,7 +93,7 @@ export default function Contact({ content, settings }: TemplateProps) {
   const formEnabled = settings.contactFormEnabled;
 
   return (
-    <FolioShell content={content} settings={settings} current="contact">
+    <FolioShell content={content} settings={settings} current="contact" footerVariant="compact">
       <main id="main" tabIndex={-1} className="outline-none">
         <div className="f-bleed f-contact">
           <div className="flex items-center gap-4 md:gap-6">
