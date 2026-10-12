@@ -6,6 +6,7 @@
 
 import type { Project } from "@/lib/content-types";
 import type { TemplateProps } from "../../types";
+import { ProjectHoverRows } from "../motion/ProjectHoverModal";
 import { FolioShell } from "../shell/FolioShell";
 import { ROW_COLUMNS_4, Row, RowList } from "../ui/Row";
 import { Tile } from "../ui/Tile";
@@ -60,19 +61,22 @@ export default function Work({ content, settings }: TemplateProps) {
                 <span>Stack</span>
                 <span className="text-right">Year</span>
               </div>
-              <RowList label="Projects">
-                {projects.map((p) => (
-                  <Row
-                    key={p.slug}
-                    {...projectLink(p)}
-                    name={p.name}
-                    kind={p.kind}
-                    stack={p.stack.join(", ")}
-                    year={p.year}
-                    group={p.type}
-                  />
-                ))}
-              </RowList>
+              {/* Cursor cover preview on hover (work plan 1.4); fine pointer only. */}
+              <ProjectHoverRows items={projects.map((p) => ({ name: p.name, cover: p.cover }))}>
+                <RowList label="Projects">
+                  {projects.map((p) => (
+                    <Row
+                      key={p.slug}
+                      {...projectLink(p)}
+                      name={p.name}
+                      kind={p.kind}
+                      stack={p.stack.join(", ")}
+                      year={p.year}
+                      group={p.type}
+                    />
+                  ))}
+                </RowList>
+              </ProjectHoverRows>
             </div>
           </WorkBrowser>
         </div>

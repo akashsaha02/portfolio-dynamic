@@ -1,0 +1,128 @@
+/*
+ * Folio desktop-only enhancements (work plan 1.4, guide §4.2 row 3, §6), imported by
+ * motion/ProjectHoverModal.tsx. Scoped to `.tpl-folio` with `f-` classes; plain CSS on the
+ * tokens from app/globals.css. Restates Tailwind's layer order first, like work.css.
+ */
+@layer theme, base, components, utilities;
+
+/* -----------------------------------------------------------------------------------------------
+ * Home "Recent work": tiles everywhere, hairline rows on lg with a fine pointer (never on width
+ * alone: a 1024px iPad keeps tiles). Unlayered, like work.css: visibility switches must beat
+ * display utilities on the same element.
+ * --------------------------------------------------------------------------------------------- */
+
+.tpl-folio .f-recent-rows {
+  display: none;
+}
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  .tpl-folio .f-recent-tiles {
+    display: none;
+  }
+  .tpl-folio .f-recent-rows {
+    display: block;
+  }
+}
+
+@layer components {
+  /* Keyboard focus on a row gets the hover highlight: siblings dim, name and meta part. Not
+     while the mouse is over another row, so the two never dim everything at once. */
+  .tpl-folio .f-rows:has(.f-row-link:focus-visible):not(:has(.f-row-link:hover)) .f-row-link:not(:focus-visible) > * {
+    opacity: 0.35;
+  }
+  .tpl-folio .f-row-link:focus-visible .f-row-name {
+    transform: translate3d(-0.5rem, 0, 0);
+  }
+  .tpl-folio .f-row-link:focus-visible .f-row-meta {
+    transform: translate3d(0.5rem, 0, 0);
+  }
+
+  /* ---------------------------------------------------------------------------------------------
+   * Cursor hover modal (ProjectHoverModal). Each layer is pinned to the viewport's top-left and
+   * moved to the pointer by GSAP; its child is centred on that point and scales in when a row is
+   * hovered (`data-active`). Never mounted on touch or with reduced motion; the media guards
+   * below are a second line of defence.
+   * ------------------------------------------------------------------------------------------- */
+
+  .tpl-folio .f-hm-layer {
+    position: fixed;
+    z-index: 40;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    will-change: transform;
+  }
+
+  .tpl-folio .f-hm-card,
+  .tpl-folio .f-hm-cursor,
+  .tpl-folio .f-hm-label {
+    display: block;
+    transform: translate3d(-50%, -50%, 0) scale(0);
+    transition: transform var(--dur) var(--ease-inout);
+  }
+  .tpl-folio .f-hm[data-active] .f-hm-card,
+  .tpl-folio .f-hm[data-active] .f-hm-cursor,
+  .tpl-folio .f-hm[data-active] .f-hm-label {
+    transform: translate3d(-50%, -50%, 0) scale(1);
+  }
+
+  /* The card: ink on paper pages, pale on ink sections, a screenshot inset like a print. */
+  .tpl-folio .f-hm-card {
+    width: clamp(18rem, 24vw, 25rem);
+    aspect-ratio: 8 / 7;
+    overflow: hidden;
+    border-radius: 0.75rem;
+    background: var(--ink-2);
+    color: var(--on-ink);
+  }
+  .tpl-folio .surface-ink .f-hm-card {
+    background: var(--paper-2);
+    color: var(--ink);
+  }
+  .tpl-folio .f-hm-strip {
+    height: 100%;
+    transition: transform var(--dur-smooth) var(--ease-inout);
+  }
+  .tpl-folio .f-hm-slide {
+    display: grid;
+    place-items: center;
+    height: 100%;
+    padding: 8%;
+  }
+  .tpl-folio .f-hm-shot {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    border-radius: 0.375rem;
+  }
+  /* Projects without a cover: the name, on the card. */
+  .tpl-folio .f-hm-name {
+    font-variation-settings: "wdth" 100;
+    font-weight: 450;
+    font-size: 2rem;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    text-align: center;
+  }
+
+  /* Round "View": a lime disc (cursor) with its label riding on top, each on its own lag. */
+  .tpl-folio .f-hm-cursor {
+    width: 5.5rem;
+    height: 5.5rem;
+    border-radius: 9999px;
+    background: var(--lime);
+  }
+  .tpl-folio .f-hm-label {
+    color: var(--ink);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+  }
+}
+
+@media not ((hover: hover) and (pointer: fine)), (prefers-reduced-motion: reduce) {
+  .tpl-folio .f-hm {
+    display: none;
+  }
+}
