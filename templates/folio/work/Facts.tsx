@@ -22,8 +22,8 @@ export function projectLinks(project: Pick<Project, "url" | "repo">) {
 function Fact({ label, children }: { label: string; children: ReactNode }) {
   return (
     <div className="min-w-0">
-      <dt className="border-b border-(--rule) pb-4 type-label">{label}</dt>
-      <dd className="pt-4">{children}</dd>
+      <dt className="border-b border-(--rule) pb-3 type-label md:pb-4">{label}</dt>
+      <dd className="pt-3 md:pt-4">{children}</dd>
     </div>
   );
 }
@@ -45,7 +45,7 @@ export function Facts({ project, role }: { project: Project; role: string }) {
   const { live, code } = projectLinks(project);
 
   return (
-    <dl className="grid gap-y-8 md:grid-cols-[minmax(0,1.35fr)_minmax(0,1.35fr)_minmax(0,0.6fr)_minmax(0,0.7fr)] md:gap-x-8 lg:gap-x-12">
+    <dl className="grid gap-y-7 md:grid-cols-[minmax(0,1.2fr)_minmax(0,1.6fr)_minmax(0,0.5fr)_minmax(0,0.6fr)] md:gap-x-8 lg:gap-x-12">
       {role ? (
         <Fact label="Role">
           <p className="text-lg leading-snug text-pretty">{role}</p>
@@ -64,7 +64,7 @@ export function Facts({ project, role }: { project: Project; role: string }) {
       ) : null}
       {project.year ? (
         <Fact label="Year">
-          <p className="text-lg leading-snug tabular-nums">{project.year}</p>
+          <p className="text-lg leading-snug">{project.year}</p>
         </Fact>
       ) : null}
       {live || code ? (

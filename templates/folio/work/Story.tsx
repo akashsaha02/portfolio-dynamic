@@ -38,7 +38,7 @@ export function Story({ caseStudy, slug }: { caseStudy: CaseStudy; slug: string 
                 <ul className="mt-12 grid gap-8 border-t border-(--rule) pt-8 sm:grid-cols-3 sm:gap-6 md:mt-16">
                   {metrics.map((m) => (
                     <li key={m.label}>
-                      <p className="text-[clamp(2.75rem,2rem+3vw,4rem)] leading-none font-medium tracking-tight tabular-nums">
+                      <p className="text-[clamp(2.75rem,2rem+3vw,4rem)] leading-none font-medium tracking-tight">
                         {m.value}
                       </p>
                       <p className="mt-3 max-w-[24ch] type-label">{m.label}</p>

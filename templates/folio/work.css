@@ -8,40 +8,41 @@
  */
 @layer theme, base, components, utilities;
 
-@layer components {
-  /* -------------------------------------------------------------------------------------------
-   * Work index: filtering and the list/grid views. WorkBrowser sets data-filter / data-view on
-   * .f-work; every project is in the HTML with data-group = its type.
-   * ----------------------------------------------------------------------------------------- */
+/* -----------------------------------------------------------------------------------------------
+ * Work index: filtering and the list/grid views. WorkBrowser sets data-filter / data-view on
+ * .f-work; every project is in the HTML with data-group = its type. Unlayered on purpose: these
+ * are visibility switches and must beat display utilities such as `grid` on the same element.
+ * --------------------------------------------------------------------------------------------- */
 
-  .tpl-folio .f-work[data-filter="fullstack"] [data-group]:not([data-group="fullstack"]),
-  .tpl-folio .f-work[data-filter="ml"] [data-group]:not([data-group="ml"]) {
+.tpl-folio .f-work[data-filter="fullstack"] [data-group]:not([data-group="fullstack"]),
+.tpl-folio .f-work[data-filter="ml"] [data-group]:not([data-group="ml"]) {
+  display: none;
+}
+
+/* Rows and the view toggle exist only for a fine pointer on lg; everything else gets tiles. */
+.tpl-folio .f-work-rows,
+.tpl-folio .f-work-views {
+  display: none;
+}
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  .tpl-folio .f-work-views {
+    display: flex;
+  }
+  .tpl-folio .f-work[data-view="list"] .f-work-tiles {
     display: none;
   }
+  .tpl-folio .f-work[data-view="list"] .f-work-rows {
+    display: block;
+  }
+}
 
+@layer components {
   /* After the first filter press, projects coming back into view rise in; ones that stay put
      don't move (they keep their computed style, so @starting-style never applies to them). */
   .tpl-folio .f-work[data-touched] [data-group] {
     transition:
       opacity var(--dur-smooth) var(--ease-inout),
       transform var(--dur-smooth) var(--ease-inout);
-  }
-
-  /* Rows and the view toggle exist only for a fine pointer on lg; everything else gets tiles. */
-  .tpl-folio .f-work-rows,
-  .tpl-folio .f-work-views {
-    display: none;
-  }
-  @media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
-    .tpl-folio .f-work-views {
-      display: flex;
-    }
-    .tpl-folio .f-work[data-view="list"] .f-work-tiles {
-      display: none;
-    }
-    .tpl-folio .f-work[data-view="list"] .f-work-rows {
-      display: block;
-    }
   }
 
   /* -------------------------------------------------------------------------------------------
