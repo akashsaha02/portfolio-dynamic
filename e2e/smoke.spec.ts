@@ -46,10 +46,11 @@ test.describe("home /", () => {
           .join(" | ")}]`,
       });
     }
-    // TODO(Phase 1): make this a hard failure:
-    //   expect(results.violations.filter(v => v.impact === "serious" || v.impact === "critical")).toEqual([]);
     const blocking = results.violations.filter((v) => v.impact === "serious" || v.impact === "critical");
-    if (blocking.length) {
+    if (testInfo.project.name.startsWith("folio-")) {
+      // Phase 1 rule: Folio has zero serious/critical axe violations (hard failure).
+      expect(blocking.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(" ")).join(" | ")}`)).toEqual([]);
+    } else if (blocking.length) {
       console.warn(`[axe soft] ${blocking.length} serious/critical: ${blocking.map((v) => v.id).join(", ")}`);
     }
   });
