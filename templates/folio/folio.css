@@ -73,6 +73,13 @@
   --fill-fg: var(--ink);
   --focus-ring: var(--ink);
   --focus-halo: var(--paper);
+  /* The top bar's height (.f-bar padding + its 44px links), so the hero can slide under it. */
+  --f-bar-h: calc(max(1rem, env(safe-area-inset-top)) + 2.75rem);
+}
+@media (min-width: 768px) {
+  .tpl-folio {
+    --f-bar-h: calc(max(1.75rem, env(safe-area-inset-top)) + 2.75rem);
+  }
 }
 
 /*
@@ -621,5 +628,317 @@ html[data-folio-menu-open] body {
   [data-copied] .f-copy > span + span {
     opacity: 1;
     transform: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------
+ * Home (work plan 1.3, templates/folio/sections/): hero, intro reveal, experience details.
+ * ------------------------------------------------------------------------------------------- */
+
+@layer components {
+  /*
+   * Hero. Pulled up under the (transparent, z-10) top bar so the paper runs to the top edge;
+   * 100svh with a 34rem floor. `isolation` keeps the marquee's blend inside the hero.
+   */
+  .f-hero {
+    position: relative;
+    isolation: isolate;
+    overflow: clip;
+    height: 100vh;
+    height: 100svh;
+    min-height: 34rem;
+    margin-top: calc(-1 * var(--f-bar-h));
+    padding-top: var(--f-bar-h);
+    /* Portrait height; the marquee is placed from it, so it always crosses the hoodie's chest. */
+    --f-portrait-h: clamp(21rem, 64svh, 130vw);
+  }
+
+  /* The LCP image: painted as soon as it decodes, never clipped, faded or delayed (L2). */
+  .f-hero-portrait {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: auto;
+    max-width: none;
+    height: var(--f-portrait-h);
+    aspect-ratio: 1;
+    translate: -50% 0;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /*
+   * Name marquee. `difference` with paper − ink (#c3c2c0) lands exactly on ink over the paper
+   * and turns light over the dark hoodie, so the name reads across the whole figure without a
+   * second colour. Skin would turn it blue, so it is sized and placed from the portrait's
+   * height to stay in the band between the neckline and the crossed arms (art-directed for this
+   * portrait: retune these two factors if the photo changes). Two halves, -50%: a seamless loop
+   * that needs no JS.
+   */
+  .f-marquee {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: calc(var(--f-portrait-h) * 0.305);
+    font-size: min(28vw, var(--f-portrait-h) * 0.24);
+    color: #c3c2c0;
+    mix-blend-mode: difference;
+    pointer-events: none;
+    user-select: none;
+  }
+  .f-marquee-track {
+    display: flex;
+    width: max-content;
+    animation: f-marquee 66s linear infinite;
+  }
+  .f-marquee-track > span {
+    flex: none;
+    padding-right: 0.25em;
+    white-space: nowrap;
+  }
+
+  /* Phone: role and availability sit above the portrait's head, never over the figure (L4). */
+  .f-hero-copy {
+    position: relative;
+    z-index: 1;
+    padding-top: 2rem;
+  }
+  .f-hero-pill {
+    display: none;
+  }
+  .f-hero-role {
+    padding-left: max(var(--gutter), env(safe-area-inset-left));
+    padding-right: max(var(--gutter), env(safe-area-inset-right));
+  }
+  .f-hero-role > p {
+    margin-top: 0.75rem;
+    font-size: clamp(1.5rem, 1.15rem + 1.5vw, 2.25rem);
+    font-weight: 450;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+  }
+  .f-hero-role > .f-chip {
+    margin-top: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .f-hero {
+      --f-portrait-h: clamp(21rem, 84svh, 92vw);
+    }
+    .f-marquee {
+      font-size: min(17vw, var(--f-portrait-h) * 0.24);
+    }
+    .f-marquee-track {
+      animation-duration: 90s;
+    }
+    /* Location pill hanging off the left edge, role on the right; both above the shoulders. */
+    .f-hero-copy {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 2rem;
+      padding-top: 12svh;
+    }
+    .f-hero-pill {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      padding: 1rem 1rem 1rem max(var(--gutter), env(safe-area-inset-left));
+      border-radius: 0 9999px 9999px 0;
+      font-size: 1.0625rem;
+      font-weight: 450;
+      line-height: 1.3;
+    }
+    .f-hero-role {
+      padding-left: 0;
+      max-width: 24rem;
+    }
+    .f-hero-role > p {
+      margin-top: 1.25rem;
+    }
+    .f-hero-role > .f-chip {
+      margin-top: 1.5rem;
+    }
+  }
+  .f-hero-globe {
+    display: grid;
+    place-items: center;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 9999px;
+    background: color-mix(in srgb, var(--on-ink) 12%, transparent);
+  }
+  @media (min-width: 1024px) {
+    .f-hero-pill {
+      gap: 2.5rem;
+      font-size: 1.125rem;
+    }
+    .f-hero-globe {
+      width: 4.75rem;
+      height: 4.75rem;
+    }
+  }
+
+  /*
+   * Landscape phones (740×360, 844×390): a 34rem hero would push the figure and the name below
+   * the fold (baseline L8). Fit the hero to the screen and keep the phone composition at any
+   * width: copy in the top-left corner, the portrait moved right, no location pill.
+   */
+  @media (orientation: landscape) and (max-height: 30rem) {
+    .f-hero {
+      min-height: 20rem;
+      /* clear of the top bar's links */
+      --f-portrait-h: calc(100svh - var(--f-bar-h));
+    }
+    .f-hero-portrait {
+      left: auto;
+      right: max(var(--gutter), env(safe-area-inset-right));
+      translate: none;
+    }
+    .f-hero-copy {
+      display: block;
+      padding-top: 0.5rem;
+    }
+    .f-hero-pill {
+      display: none;
+    }
+    .f-hero-role {
+      max-width: none;
+      padding-left: max(var(--gutter), env(safe-area-inset-left));
+    }
+    .f-hero-role > p {
+      margin-top: 0.5rem;
+    }
+    .f-hero-role > .f-chip {
+      margin-top: 1rem;
+    }
+  }
+
+  /* Globe: three front-half meridians sweep edge to edge, a third of a turn apart. */
+  .f-globe-m {
+    transform-box: view-box;
+    transform-origin: 12px 12px;
+    animation: f-globe 4.5s linear infinite;
+  }
+  .f-globe-m:nth-child(4) {
+    transform: scaleX(0.33);
+    animation-delay: -1.5s;
+  }
+  .f-globe-m:nth-child(5) {
+    transform: scaleX(-0.33);
+    animation-delay: -3s;
+  }
+
+  /*
+   * Line reveal (RevealLines). Words are visible by default; only `data-armed` (set by JS, below
+   * the fold, motion allowed) tucks them under their clips, and `data-in` lets them rise.
+   */
+  .f-w {
+    display: inline-block;
+    overflow: clip;
+    vertical-align: top;
+    padding-bottom: 0.14em;
+    margin-bottom: -0.14em;
+  }
+  .f-w > span {
+    display: inline-block;
+  }
+  .f-reveal[data-armed] .f-w > span {
+    transform: translate3d(0, 115%, 0);
+  }
+  .f-reveal[data-armed][data-in] .f-w > span {
+    transform: none;
+    transition: transform var(--dur-slow) var(--ease-inout);
+    transition-delay: calc(var(--l, 0) * 0.07s);
+  }
+
+  /* Experience <details> on phone: a plus that turns into a minus. */
+  .f-details > summary {
+    list-style: none;
+  }
+  .f-details > summary::-webkit-details-marker {
+    display: none;
+  }
+  .f-details-icon {
+    position: relative;
+    flex: none;
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+  .f-details-icon::before,
+  .f-details-icon::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1.5px;
+    margin-top: -0.75px;
+    background: currentColor;
+    transition: transform var(--dur) var(--ease-inout);
+  }
+  .f-details-icon::after {
+    transform: rotate(90deg);
+  }
+  .f-details[open] .f-details-icon::after {
+    transform: rotate(0deg);
+  }
+
+  /* Inline links in headings (experience companies): underline on a fine pointer. */
+  @media (hover: hover) and (pointer: fine) {
+    .f-link:hover {
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.18em;
+    }
+  }
+}
+
+@keyframes f-marquee {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+@keyframes f-globe {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(-1);
+  }
+}
+@keyframes f-parallax {
+  from {
+    transform: translate3d(0, 3rem, 0);
+  }
+  to {
+    transform: translate3d(0, -3rem, 0);
+  }
+}
+
+/* The round "About me" drifts against the scroll, CSS only, where scroll timelines exist. */
+@supports (animation-timeline: view()) {
+  @media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+    .f-parallax {
+      animation: f-parallax linear both;
+      animation-timeline: view();
+    }
+  }
+}
+
+/* Reduced motion: the name stands still (starting at the gutter), the globe too. */
+@media (prefers-reduced-motion: reduce) {
+  .f-marquee-track,
+  .f-globe-m {
+    animation: none;
+  }
+  .f-marquee-track {
+    padding-left: var(--gutter);
+  }
+}
+
+@media print {
+  .f-reveal .f-w > span {
+    transform: none !important;
   }
 }

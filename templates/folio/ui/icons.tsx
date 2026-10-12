@@ -46,6 +46,22 @@ export function Close({ className = "w-5" }: IconProps) {
   );
 }
 
+/**
+ * Globe for the hero's location pill. Three front-half meridians sweep across with scaleX
+ * (folio.css .f-globe), which reads as the globe turning; static with reduced motion.
+ */
+export function Globe({ className = "size-6" }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" className={`f-globe ${className}`} {...stroke}>
+      <circle cx="12" cy="12" r="9.25" />
+      <path d="M3 9h18M3 15h18" />
+      <path className="f-globe-m" d="M12 2.75a9.25 9.25 0 0 1 0 18.5" />
+      <path className="f-globe-m" d="M12 2.75a9.25 9.25 0 0 1 0 18.5" />
+      <path className="f-globe-m" d="M12 2.75a9.25 9.25 0 0 1 0 18.5" />
+    </svg>
+  );
+}
+
 /** Two sheets: "tap to copy". */
 export function CopyIcon({ className = "size-4" }: IconProps) {
   return (
