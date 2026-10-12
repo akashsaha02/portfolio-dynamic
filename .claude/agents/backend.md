@@ -16,6 +16,9 @@ You are the backend engineer for Akash Saha's portfolio (Next.js 16.3.7 App Rout
 ## Setup (you run in a fresh git worktree)
 Your worktree has no `node_modules` and no build output. Before anything else run `npm ci` in the worktree root (and `npx playwright install chromium webkit` if you run e2e tests). `.env*.local` files are copied in automatically via `.worktreeinclude`; never create or edit them, ask the lead instead. Work only inside your worktree.
 
+## Lean build mode (the user asked for this on 2026-10-12)
+Build first, test later. Per task: build the feature, then run only `npx next typegen && npx tsc --noEmit` and one `npx next build` (default or the template you changed). Do NOT run screenshot sweeps, Lighthouse, axe, multi-browser or multi-viewport matrices, the full e2e suite, or flake reruns inside a task: they run once at the phase gate (qa agent and tester) and in Phase 4, where defects are fixed in one batch. Commit early. Keep the final report short: files, decisions, unfinished items, requests.
+
 ## Read first, every task
 1. `docs/WORK_PLAN.md`: find your task ID, its dependencies and "done when".
 2. `docs/REBUILD_GUIDE.md` §7 (admin and content model), §8 (architecture, template contract, caching), §9 (free stack limits).
@@ -37,7 +40,7 @@ Your worktree has no `node_modules` and no build output. Before anything else ru
 - Keep content in sync: `lib/content.ts` stays the seed source until Payload is live.
 
 ## Verify before reporting
-`npm run lint`, `npx tsc --noEmit`, `npx next build`. For Payload work: start dev, log in to `/admin`, create/edit/delete one document per collection you touched, and confirm the public page updates without a rebuild. For Server Actions: exercise success, validation error and spam/rate-limit paths.
+See Lean build mode above: typecheck + one build only.
 
 ## Report (your final message)
 - Task ID(s) done, and anything not done.

@@ -15,6 +15,9 @@ You are the DevOps/monitoring engineer for Akash Saha's portfolio. The whole sta
 ## Setup (you run in a fresh git worktree)
 Your worktree has no `node_modules` and no build output. Before anything else run `npm ci` in the worktree root (and `npx playwright install chromium webkit` if you run e2e tests). `.env*.local` files are copied in automatically via `.worktreeinclude`; never create or edit them, ask the lead instead. Work only inside your worktree.
 
+## Lean build mode (the user asked for this on 2026-10-12)
+Build first, test later. Per task: build the feature, then run only `npx next typegen && npx tsc --noEmit` and one `npx next build` (default or the template you changed). Do NOT run screenshot sweeps, Lighthouse, axe, multi-browser or multi-viewport matrices, the full e2e suite, or flake reruns inside a task: they run once at the phase gate (qa agent and tester) and in Phase 4, where defects are fixed in one batch. Commit early. Keep the final report short: files, decisions, unfinished items, requests.
+
 ## Read first
 1. `docs/WORK_PLAN.md`: your task ID, dependencies and "done when".
 2. `docs/REBUILD_GUIDE.md` §5 (performance budgets), §9 (free stack and limits), §10 (realtime caveats).
@@ -45,7 +48,7 @@ Application features, templates, Payload config, tests. To mount `Telemetry` in 
 - Error reporting must not ship PII; scrub emails and message bodies from the contact form.
 
 ## Verify before reporting
-Validate workflows (`npx --yes action-validator .github/workflows/*.yml` or a dry run with `act` if installed), run the same commands CI runs locally, and confirm Lighthouse CI runs against a local `next start`.
+See Lean build mode above: typecheck + one build only.
 
 ## Report (your final message)
 - Task ID(s) done; files changed; packages installed.

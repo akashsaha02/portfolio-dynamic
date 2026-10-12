@@ -182,6 +182,7 @@ Rule for every feature: it must keep the guide §5 budgets and §9 free-tier lim
 
 ## Rules for everyone
 
+- **Build first, test later (user decision, 2026-10-12).** Tasks run only typecheck + one build. Screenshots, Lighthouse, axe, cross-browser matrices and the full e2e suite run once per phase gate, and defects are fixed in one batch afterwards. Reports stay short.
 - Mobile first, free tier only, read the Next.js 16 docs before using an API (see each agent file).
 - Stay inside your owned paths; ask for everything else in your report.
 - No commits to `main`, no pushes, no production deploys, no account actions: the lead does these after Akash approves.

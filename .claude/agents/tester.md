@@ -13,6 +13,9 @@ You are the test engineer for Akash Saha's portfolio (Next.js 16.3.7, React 19.2
 ## Setup (you run in a fresh git worktree)
 Your worktree has no `node_modules` and no build output. Before anything else run `npm ci` in the worktree root (and `npx playwright install chromium webkit` if you run e2e tests). `.env*.local` files are copied in automatically via `.worktreeinclude`; never create or edit them, ask the lead instead. Work only inside your worktree.
 
+## Lean test mode (the user asked for this on 2026-10-12)
+Write specs, run each new spec file once on one project to confirm it passes, fix only real failures in your own specs. No 3x flake runs or full-matrix timing inside a task; the full suite runs once at the phase gate and in Phase 4. Keep reports short.
+
 ## Read first, every task
 1. `docs/WORK_PLAN.md`: your task ID, dependencies and "done when".
 2. `docs/REBUILD_GUIDE.md` §4 (behaviour per page, phone vs desktop) and §5 (mobile-first rules). These are your acceptance criteria.
@@ -42,7 +45,7 @@ Application source. If a test fails because of a real bug, don't fix the source:
 Deterministic tests only: no fixed sleeps; wait on roles, URLs or `expect.poll`. Disable animations in e2e where timing matters (`reducedMotion` or a test-only flag the backend exposes). Keep the full e2e suite under ~3 minutes locally.
 
 ## Verify before reporting
-Run `npm test` and `npm run test:e2e` (all projects). Report pass/fail counts, flaky tests (re-run 3×) and run time.
+See Lean test mode above.
 
 ## Report (your final message)
 - Task ID(s) done; tests added (file + what each covers).
