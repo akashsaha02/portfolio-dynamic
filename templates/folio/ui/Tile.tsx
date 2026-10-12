@@ -18,6 +18,8 @@ type TileProps = {
   /** Live sites open in a new tab; case studies don't. */
   external?: boolean;
   headingLevel?: "h2" | "h3";
+  /** The first tile at the top of a page is its LCP on phone: load it eagerly at high priority. */
+  eager?: boolean;
   className?: string;
 };
 
@@ -29,6 +31,7 @@ export function Tile({
   sizes,
   external,
   headingLevel: Heading = "h3",
+  eager = false,
   className,
 }: TileProps) {
   return (
@@ -41,6 +44,8 @@ export function Tile({
             width={image.width}
             height={image.height}
             sizes={sizes}
+            loading={eager ? "eager" : undefined}
+            fetchPriority={eager ? "high" : undefined}
             className="size-full object-cover object-top"
           />
         ) : (

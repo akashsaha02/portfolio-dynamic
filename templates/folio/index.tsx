@@ -1,7 +1,7 @@
 // "Folio" template (guide §3–§6). Work plan 1.1: tokens, type and primitives (ui/, motion/,
 // folio.css). Work plan 1.2: the global shell (shell/). Work plan 1.3: the Home sections
-// (sections/). Work plan 1.6: About and Contact (pages-about-contact.css, contact/). One file per
-// page under pages/.
+// (sections/). Work plan 1.5: the Work index and case studies (work/, work.css). Work plan 1.6:
+// About and Contact (pages-about-contact.css, contact/). One file per page under pages/.
 //
 // Contract: pages receive `{ content, settings }` (TemplateProps) and never import
 // lib/content.ts. Each page wraps its content in `<FolioShell {...props} current="…">` (which
@@ -10,9 +10,11 @@
 
 import type { TemplateModule } from "../types";
 import About from "./pages/About";
+import CaseStudy from "./pages/CaseStudy";
 import Contact from "./pages/Contact";
 import Home from "./pages/Home";
+import Work from "./pages/Work";
 
-const folio: TemplateModule = { Home, About, Contact };
+const folio: TemplateModule = { Home, Work, CaseStudy, About, Contact };
 
 export default folio;

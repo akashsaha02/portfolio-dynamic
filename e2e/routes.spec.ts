@@ -12,8 +12,6 @@ for (const slug of slugs) {
 
   test(`/work/${slug} renders a case study under Folio`, async ({ page }, testInfo) => {
     test.skip(!isFolio(testInfo.project.name), "Folio only");
-    // enable when Folio's CaseStudy page lands (task 1.5)
-    test.fixme(true, "Folio CaseStudy page not built yet (task 1.5)");
     const res = await page.goto(`/work/${slug}`);
     expect(res?.status()).toBe(200);
     await expect(page.locator("h1")).toHaveCount(1);

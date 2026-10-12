@@ -80,3 +80,33 @@ export function Check({ className = "size-4" }: IconProps) {
     </svg>
   );
 }
+
+/** → "Next project". */
+export function ArrowRight({ className = "size-4" }: IconProps) {
+  return (
+    <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false" className={className} {...stroke}>
+      <path d="M2.5 8h11M9 3.5 13.5 8 9 12.5" />
+    </svg>
+  );
+}
+
+/** Work index view toggle: list rows. */
+export function ListIcon({ className = "size-4" }: IconProps) {
+  return (
+    <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false" className={className} {...stroke}>
+      <path d="M2 4h12M2 8h12M2 12h12" />
+    </svg>
+  );
+}
+
+/** Work index view toggle: tile grid. */
+export function GridIcon({ className = "size-4" }: IconProps) {
+  return (
+    <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false" className={className} {...stroke}>
+      <rect x="2" y="2" width="5" height="5" rx="1" />
+      <rect x="9" y="2" width="5" height="5" rx="1" />
+      <rect x="2" y="9" width="5" height="5" rx="1" />
+      <rect x="9" y="9" width="5" height="5" rx="1" />
+    </svg>
+  );
+}
