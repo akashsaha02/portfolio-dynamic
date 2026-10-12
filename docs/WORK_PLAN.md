@@ -1,4 +1,4 @@
-| done || done || done || doing || doing || doing |# Work plan
+| done || done || done || done || done || doing || doing || doing |# Work plan
 
 How the rebuild in [REBUILD_GUIDE.md](REBUILD_GUIDE.md) gets built, in seven phases:
 
@@ -72,7 +72,7 @@ Merge order: 0.2 → 0.3 → 0.4.
 | 1.7 | Page transitions (view-transition crossfade), 404 page | folio-design | 1.5, 1.6 | Smooth on phone; reduced motion → no motion | doing |
 | 1.8 | Static content for the new pages: case studies for Abroadly and Nook (drafted from the repos' READMEs, flagged for Akash), services, greetings, Now line, new screenshots from 0.6 | backend | 0.2, 0.6 | `lib/content.ts` complete; nothing left as placeholder | doing |
 | 1.9 | Vercel preview deploys per branch (Akash links the GitHub repo once) so the UI can be checked on a real phone | monitoring | 0.3 | Preview URL posted for each merge | todo |
-| 1.G | **Gate:** design review against guide §4–§6 at every width, axe, Lighthouse mobile per page, reduced motion; Akash checks the preview on his phone | qa + **Akash** | 1.1–1.9 | PASS + Akash's OK on the look | todo |
+| 1.G | **Gate:** design review against guide §4–§6 at every width, axe, Lighthouse mobile per page, reduced motion; Akash checks the preview on his phone | qa + **Akash** | 1.1–1.9 | PASS + Akash's OK on the look | doing |
 
 Merge order: 1.1 → 1.2 → 1.8 → 1.3 → 1.6 → 1.5 → 1.4 → 1.7. Task 1.9 can merge any time.
 
