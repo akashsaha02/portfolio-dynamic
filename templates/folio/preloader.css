@@ -1,0 +1,130 @@
+/*
+ * Folio preloader (work plan 1.4, guide §4.1 / §6), imported by preloader/Preloader.tsx. Scoped
+ * to `.tpl-folio` with `f-pre` classes. Plain CSS on the tokens from app/globals.css.
+ *
+ * Hidden unless the inline script sets `data-run` (first load of the session, motion allowed),
+ * and the motion query is checked here too. Timeline, all CSS:
+ *   0 → --f-pre-lift-at   one greeting at a time (each word is opaque only while its own
+ *                         animation is active: --t start, --d duration; the last one stays)
+ *   then --dur            the screen lifts, its bottom edge bowing into a curve as it goes
+ * `data-skip` swaps in a lift that starts now. The script removes `data-run` when it ends.
+ *
+ * Restates Tailwind's layer order first, like work.css, so this file can load in any order.
+ */
+@layer theme, base, components, utilities;
+
+@layer components {
+  .tpl-folio .f-pre {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .tpl-folio .f-pre[data-run] {
+      position: fixed;
+      z-index: 100;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding-inline: var(--gutter);
+      --f-pre-curve: 12svh;
+      animation: f-pre-lift var(--dur) var(--ease-inout) var(--f-pre-lift-at, 1.1s) forwards;
+    }
+    .tpl-folio .f-pre[data-skip] {
+      animation-name: f-pre-skip;
+      animation-delay: 0s;
+    }
+
+    /* Hangs below the screen; grows from flat to a full bow during the lift. */
+    .tpl-folio .f-pre-curve {
+      position: absolute;
+      top: 100%;
+      left: -10%;
+      width: 120%;
+      height: var(--f-pre-curve);
+      border-radius: 0 0 50% 50%;
+      background: inherit;
+      transform: scaleY(0);
+      transform-origin: 50% 0;
+      animation: f-pre-curve var(--dur) var(--ease-inout) var(--f-pre-lift-at, 1.1s) forwards;
+    }
+    .tpl-folio .f-pre[data-skip] .f-pre-curve {
+      animation-name: f-pre-curve-skip;
+      animation-delay: 0s;
+    }
+
+    /* All words share one cell, so the screen never reflows between them. */
+    .tpl-folio .f-pre-words {
+      display: grid;
+      font-variation-settings: "wdth" 100;
+      font-weight: 450;
+      font-size: clamp(2.25rem, 1.5rem + 3.5vw, 4.5rem);
+      letter-spacing: -0.03em;
+      line-height: 1.25;
+      white-space: nowrap;
+    }
+    .tpl-folio .f-pre-word {
+      grid-area: 1 / 1;
+      justify-self: center;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35em;
+      opacity: 0;
+      animation: f-pre-word var(--d) linear var(--t);
+    }
+    .tpl-folio .f-pre-word:last-child {
+      animation-fill-mode: forwards;
+    }
+    /* Skipping keeps whichever word is showing while the screen lifts. */
+    .tpl-folio .f-pre[data-skip] .f-pre-word {
+      animation-play-state: paused;
+    }
+    .tpl-folio .f-pre-word .f-dot {
+      width: 0.2em;
+      height: 0.2em;
+    }
+  }
+}
+
+@media print {
+  .tpl-folio .f-pre {
+    display: none !important;
+  }
+}
+
+/* No pointer events from the moment the lift starts: the page is clickable as it comes in. */
+@keyframes f-pre-lift {
+  from {
+    pointer-events: none;
+  }
+  to {
+    pointer-events: none;
+    visibility: hidden;
+    transform: translate3d(0, calc(-100% - var(--f-pre-curve)), 0);
+  }
+}
+@keyframes f-pre-skip {
+  from {
+    pointer-events: none;
+  }
+  to {
+    pointer-events: none;
+    visibility: hidden;
+    transform: translate3d(0, calc(-100% - var(--f-pre-curve)), 0);
+  }
+}
+@keyframes f-pre-curve {
+  to {
+    transform: scaleY(1);
+  }
+}
+@keyframes f-pre-curve-skip {
+  to {
+    transform: scaleY(1);
+  }
+}
+@keyframes f-pre-word {
+  from,
+  to {
+    opacity: 1;
+  }
+}

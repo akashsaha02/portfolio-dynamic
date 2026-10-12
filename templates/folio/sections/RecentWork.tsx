@@ -1,11 +1,18 @@
 import type { Project } from "@/lib/content-types";
+import { ProjectHoverRows } from "../motion/ProjectHoverModal";
 import { FillButton } from "../ui/FillButton";
+import { Row, RowList } from "../ui/Row";
 import { Tile } from "../ui/Tile";
+import "../desktop-fx.css";
 
 // Recent work (guide §4.2 rows 3–4), an ink section: the featured projects as tiles, one column
 // on phone and two from md, then "More work (N)" with the total count. Projects with a case study
 // open /work/[slug]; the rest go straight to the live site or repo in a new tab (guide §4.4).
-// The lg + fine-pointer list rows and cursor modal are work plan 1.4.
+//
+// lg with a fine pointer (work plan 1.4) gets hairline rows instead (name · kind · year): hover
+// or keyboard focus dims the other rows, and a cover follows the cursor with a round "View"
+// (ProjectHoverRows). Both presentations are in the HTML; desktop-fx.css shows one, keyed on the
+// pointer media query, so touch at any width keeps the tiles.
 
 type RecentWorkProps = {
   projects: Project[];
@@ -13,18 +20,18 @@ type RecentWorkProps = {
 
 export function RecentWork({ projects }: RecentWorkProps) {
   const featured = projects.filter((p) => p.featured).toSorted((a, b) => a.order - b.order);
+  const link = (p: Project) => ({ href: p.caseStudy ? `/work/${p.slug}` : p.url, external: !p.caseStudy });
 
   return (
     <section aria-labelledby="work-title" className="surface-ink f-bleed py-section">
       <h2 id="work-title" className="type-label">
         Recent work
       </h2>
-      <ul className="mt-8 grid gap-12 md:mt-12 md:grid-cols-2 md:gap-x-8 md:gap-y-16 lg:gap-x-12">
+      <ul className="f-recent-tiles mt-8 grid gap-12 md:mt-12 md:grid-cols-2 md:gap-x-8 md:gap-y-16 lg:gap-x-12">
         {featured.map((p) => (
           <li key={p.slug}>
             <Tile
-              href={p.caseStudy ? `/work/${p.slug}` : p.url}
-              external={!p.caseStudy}
+              {...link(p)}
               name={p.name}
               meta={`${p.kind} · ${p.year}`}
               image={p.cover}
@@ -34,6 +41,16 @@ export function RecentWork({ projects }: RecentWorkProps) {
           </li>
         ))}
       </ul>
+      <ProjectHoverRows
+        items={featured.map((p) => ({ name: p.name, cover: p.cover }))}
+        className="f-recent-rows mt-12"
+      >
+        <RowList label="Recent work">
+          {featured.map((p) => (
+            <Row key={p.slug} {...link(p)} name={p.name} kind={p.kind} year={p.year} />
+          ))}
+        </RowList>
+      </ProjectHoverRows>
       <div className="mt-14 flex md:mt-20 md:justify-center">
         <FillButton href="/work" size="lg" block className="md:w-auto">
           More work ({projects.length})
