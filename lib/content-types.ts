@@ -56,6 +56,8 @@ export type NowEntry = {
 export type Profile = {
   name: string;
   role: string;
+  /** Hero tagline under the name, e.g. "Full-stack developer & ML researcher". */
+  headline: string;
   /** Display location, e.g. "Dhaka, Bangladesh". */
   location: string;
   /** IANA time zone for the live local-time clock, e.g. "Asia/Dhaka". */
@@ -65,6 +67,8 @@ export type Profile = {
   phone?: string;
   /** Intro statement: two sentences, used on Home and as the default meta description base. */
   intro: string;
+  /** Large statement on Home and About (first sentence of the about text). */
+  statement: string;
   /** Longer about paragraph. */
   about: string;
   /** Cutout portrait. */
@@ -188,6 +192,8 @@ export type Education = {
   /** Display period, e.g. "2021 – 2025". */
   period: string;
   detail: string;
+  /** Short forms for one-line summaries, e.g. "B.Tech CSE · 8.92/10 · KIIT". */
+  short?: { degree: string; grade: string; place: string };
 };
 
 /** Everything a template needs to render the public site. */

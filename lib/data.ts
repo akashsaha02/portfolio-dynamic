@@ -97,11 +97,13 @@ export const getSiteContent = cache(async (): Promise<SiteContent> => {
     profile: {
       name: p.name,
       role: p.role,
+      headline: p.headline,
       location: p.location,
       timezone: p.timezone,
       email: p.email,
       ...(p.phone && { phone: p.phone }),
       intro: p.intro,
+      statement: p.statement,
       about: p.about,
       portrait: p.portrait,
       ...(p.avatar && { avatar: p.avatar }),
@@ -125,6 +127,7 @@ export const getSiteContent = cache(async (): Promise<SiteContent> => {
       place: e.place,
       period: e.period,
       detail: e.detail,
+      short: e.short,
     })),
   };
 });

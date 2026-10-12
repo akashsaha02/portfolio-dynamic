@@ -15,9 +15,13 @@ const linkedin = "https://www.linkedin.com/in/akashsaha02";
 export const profile = {
   name: "Akash Saha",
   role: "Full-stack developer",
+  // Draft by lead (guide §4.2 hero line), pending Akash's OK.
+  headline: "Full-stack developer & ML researcher",
   location: "Dhaka, Bangladesh",
   timezone: "Asia/Dhaka",
   email: "akashsaha1313@gmail.com",
+  // Draft by lead: first sentence of `about`, pending Akash's OK.
+  statement: "I build web products end to end, from the database schema to the screen people tap.",
   // phone: omitted on purpose; guide §13 keeps it off unless Akash wants it public.
   github,
   linkedin,
@@ -385,5 +389,6 @@ export const education = [
     place: "Kalinga Institute of Industrial Technology, Bhubaneswar",
     period: "2021 – 2025",
     detail: "Graduated with 8.92 / 10. Studied on the Government of India's Study in India scholarship (75%).",
+    short: { degree: "B.Tech CSE", grade: "8.92/10", place: "KIIT" },
   },
 ];

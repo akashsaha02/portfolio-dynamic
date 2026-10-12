@@ -1,4 +1,4 @@
-# Work plan
+| doing || doing || doing |# Work plan
 
 How the rebuild in [REBUILD_GUIDE.md](REBUILD_GUIDE.md) gets built, in seven phases:
 
