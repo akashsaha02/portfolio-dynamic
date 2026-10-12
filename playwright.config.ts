@@ -5,6 +5,9 @@ import { defineConfig, devices } from "@playwright/test";
 // Editorial projects keep the plain names, Folio projects are prefixed "folio-". Run one side
 // with `npx playwright test --project=folio-phone` etc.; `--project` also skips the other server's
 // tests but both servers still start (set PW_TEMPLATE=folio|editorial to start only one).
+// PW_PORT_BASE moves both servers (Editorial = base, Folio = base+1) so parallel worktrees can
+// each run their own; default 3100 is what CI uses.
+const portBase = Number(process.env.PW_PORT_BASE ?? 3100);
 const only = process.env.PW_TEMPLATE;
 const withEditorial = only !== "folio";
 const withFolio = only !== "editorial";
@@ -33,18 +36,18 @@ export default defineConfig({
   outputDir: "test-results",
   use: { trace: "on-first-retry" },
   webServer: [
-    ...(withEditorial ? [server("editorial", 3100, ".next")] : []),
-    ...(withFolio ? [server("folio", 3101, ".next-folio")] : []),
+    ...(withEditorial ? [server("editorial", portBase, ".next")] : []),
+    ...(withFolio ? [server("folio", portBase + 1, ".next-folio")] : []),
   ],
   projects: [
     ...(withEditorial
-      ? viewports.map((v) => ({ ...v, use: { ...v.use, baseURL: "http://localhost:3100" } }))
+      ? viewports.map((v) => ({ ...v, use: { ...v.use, baseURL: `http://localhost:${portBase}` } }))
       : []),
     ...(withFolio
       ? viewports.map((v) => ({
           ...v,
           name: `folio-${v.name}`,
-          use: { ...v.use, baseURL: "http://localhost:3101" },
+          use: { ...v.use, baseURL: `http://localhost:${portBase + 1}` },
         }))
       : []),
   ],
