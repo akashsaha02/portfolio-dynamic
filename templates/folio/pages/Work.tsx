@@ -33,7 +33,7 @@ export default function Work({ content, settings }: TemplateProps) {
 
           <WorkBrowser counts={counts}>
             <ul className="f-work-tiles mt-10 grid gap-12 md:mt-14 md:grid-cols-2 md:gap-x-8 md:gap-y-16 lg:gap-x-12">
-              {projects.map((p) => (
+              {projects.map((p, i) => (
                 <li key={p.slug} data-group={p.type}>
                   <Tile
                     {...projectLink(p)}
@@ -41,6 +41,7 @@ export default function Work({ content, settings }: TemplateProps) {
                     meta={`${p.kind} · ${p.year}`}
                     image={p.cover}
                     headingLevel="h2"
+                    eager={i === 0}
                     // Tile width: 100vw minus the gutters on phone; half of that, minus the gap, from md.
                     sizes="(min-width: 768px) 42vw, 92vw"
                   />
