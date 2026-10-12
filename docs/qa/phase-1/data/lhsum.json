@@ -1,0 +1,348 @@
+{
+  "editorial-home": {
+    "runs": [
+      "88/96/3796/0/85",
+      "90/96/3672/0/40",
+      "90/96/3674/0/45"
+    ],
+    "median": {
+      "perf": 90,
+      "a11y": 96,
+      "bp": 100,
+      "seo": 100,
+      "fcp": 1076,
+      "lcp": 3674,
+      "cls": 0,
+      "tbt": 45,
+      "si": 1666
+    },
+    "lcpElement": "<img alt=\"Portrait of Akash Saha\" width=\"1024\" height=\"1024\" decoding=\"async\" data-nimg=\"1\" class=\"hero-fade hero-develop absolute bottom-0 ",
+    "lcpPhases": {
+      "timeToFirstByte": 12,
+      "resourceLoadDelay": 11,
+      "resourceLoadDuration": 23,
+      "elementRenderDelay": 507
+    },
+    "fails": {
+      "perf": [
+        "largest-contentful-paint: 3.7 s",
+        "image-delivery-insight: Est savings of 17 KiB",
+        "lcp-discovery-insight: 0",
+        "legacy-javascript-insight: Est savings of 14 KiB",
+        "network-dependency-tree-insight: 0",
+        "render-blocking-insight: Est savings of 150 ms",
+        "interactive: 3.7 s",
+        "max-potential-fid: 130 ms",
+        "unused-javascript: Est savings of 54 KiB"
+      ],
+      "a11y": [
+        "color-contrast: 0",
+        "label-content-name-mismatch: 0"
+      ],
+      "bp": [],
+      "seo": []
+    },
+    "totalKB": 445,
+    "scriptKB": 201,
+    "scripts": [
+      "3s6nzrbk-8mnv.js 2",
+      "30owusx62aaf3.js 9",
+      "1k__zuwipnzw8.js 70",
+      "03aqgmhgumq7j.js 43",
+      "turbopack-3y710_tg50w3h.js 4",
+      "3fntmmi971322.js 4",
+      "2ag-7x3mjjs1v.js 11",
+      "16plz_uo5e118.js 13",
+      "26z5y3xewknxi.js 27",
+      "2p2jd75im6m_h.js 17"
+    ],
+    "imgFont": [
+      "/_next/static/media/c89730c3ffa99552-s.p.1zjat_zsa1d11.woff2 96KB",
+      "/_next/image?url=/portrait.webp&w=1080&q=75 32KB",
+      "/_next/image?url=/projects/abroadly.webp&w=828&q=75 28KB",
+      "/_next/image?url=/projects/abroadly-phone.webp&w=256&q=75 15KB",
+      "/_next/image?url=/projects/nook.webp&w=828&q=75 11KB"
+    ]
+  },
+  "folio-about": {
+    "runs": [
+      "97/100/2637/0/41",
+      "96/100/2709/0/33",
+      "95/100/2936/0/29"
+    ],
+    "median": {
+      "perf": 96,
+      "a11y": 100,
+      "bp": 100,
+      "seo": 100,
+      "fcp": 911,
+      "lcp": 2709,
+      "cls": 0,
+      "tbt": 33,
+      "si": 911
+    },
+    "lcpElement": "<img alt=\"Portrait of Akash Saha\" loading=\"lazy\" decoding=\"async\" data-nimg=\"fill\" class=\"object-cover object-bottom\" style=\"position: absol",
+    "lcpPhases": {
+      "timeToFirstByte": 6,
+      "resourceLoadDelay": 85,
+      "resourceLoadDuration": 6,
+      "elementRenderDelay": 44
+    },
+    "fails": {
+      "perf": [
+        "largest-contentful-paint: 2.7 s",
+        "lcp-discovery-insight: 0",
+        "legacy-javascript-insight: Est savings of 14 KiB",
+        "network-dependency-tree-insight: 0",
+        "render-blocking-insight: Est savings of 250 ms",
+        "interactive: 3.0 s",
+        "max-potential-fid: 120 ms",
+        "unused-javascript: Est savings of 27 KiB"
+      ],
+      "a11y": [],
+      "bp": [],
+      "seo": []
+    },
+    "totalKB": 361,
+    "scriptKB": 157,
+    "scripts": [
+      "3s6nzrbk-8mnv.js 2",
+      "30owusx62aaf3.js 9",
+      "1k__zuwipnzw8.js 70",
+      "03aqgmhgumq7j.js 43",
+      "turbopack-3y710_tg50w3h.js 4",
+      "3fntmmi971322.js 4",
+      "2ag-7x3mjjs1v.js 11",
+      "0ez6wtgtwc8qk.js 13"
+    ],
+    "imgFont": [
+      "/_next/static/media/c89730c3ffa99552-s.p.1zjat_zsa1d11.woff2 96KB",
+      "/_next/image?url=/portrait.webp&w=828&q=75 26KB"
+    ]
+  },
+  "folio-abroadly": {
+    "runs": [
+      "95/100/3011/0/37",
+      "95/100/3011/0/42",
+      "95/100/3009/0/34"
+    ],
+    "median": {
+      "perf": 95,
+      "a11y": 100,
+      "bp": 100,
+      "seo": 100,
+      "fcp": 911,
+      "lcp": 3011,
+      "cls": 0,
+      "tbt": 37,
+      "si": 911
+    },
+    "lcpElement": "<img alt=\"Abroadly home page: Study abroad with confidence\" fetchpriority=\"high\" loading=\"eager\" width=\"1600\" height=\"1000\" decoding=\"async\"",
+    "lcpPhases": {
+      "timeToFirstByte": 8,
+      "resourceLoadDelay": 11,
+      "resourceLoadDuration": 20,
+      "elementRenderDelay": 69
+    },
+    "fails": {
+      "perf": [
+        "largest-contentful-paint: 3.0 s",
+        "image-delivery-insight: Est savings of 16 KiB",
+        "legacy-javascript-insight: Est savings of 14 KiB",
+        "network-dependency-tree-insight: 0",
+        "render-blocking-insight: Est savings of 250 ms",
+        "interactive: 3.2 s",
+        "max-potential-fid: 120 ms",
+        "unused-javascript: Est savings of 27 KiB"
+      ],
+      "a11y": [],
+      "bp": [],
+      "seo": []
+    },
+    "totalKB": 407,
+    "scriptKB": 157,
+    "scripts": [
+      "3s6nzrbk-8mnv.js 2",
+      "30owusx62aaf3.js 9",
+      "1k__zuwipnzw8.js 70",
+      "03aqgmhgumq7j.js 43",
+      "turbopack-3y710_tg50w3h.js 4",
+      "3fntmmi971322.js 4",
+      "2ag-7x3mjjs1v.js 11",
+      "0ez6wtgtwc8qk.js 13"
+    ],
+    "imgFont": [
+      "/_next/static/media/c89730c3ffa99552-s.p.1zjat_zsa1d11.woff2 96KB",
+      "/_next/image?url=/projects/abroadly.webp&w=828&q=75 28KB",
+      "/_next/image?url=/projects/abroadly-phone.webp&w=640&q=75 41KB"
+    ]
+  },
+  "folio-contact": {
+    "runs": [
+      "97/100/2564/0/40",
+      "97/100/2563/0/31",
+      "96/100/2710/0/31"
+    ],
+    "median": {
+      "perf": 97,
+      "a11y": 100,
+      "bp": 100,
+      "seo": 100,
+      "fcp": 913,
+      "lcp": 2564,
+      "cls": 0,
+      "tbt": 31,
+      "si": 913
+    },
+    "lcpElement": "<h1 id=\"contact-title\" class=\"type-display\">",
+    "lcpPhases": {
+      "timeToFirstByte": 10,
+      "elementRenderDelay": 122
+    },
+    "fails": {
+      "perf": [
+        "largest-contentful-paint: 2.6 s",
+        "legacy-javascript-insight: Est savings of 14 KiB",
+        "network-dependency-tree-insight: 0",
+        "render-blocking-insight: Est savings of 200 ms",
+        "interactive: 2.9 s",
+        "max-potential-fid: 130 ms",
+        "unused-javascript: Est savings of 27 KiB"
+      ],
+      "a11y": [],
+      "bp": [],
+      "seo": []
+    },
+    "totalKB": 333,
+    "scriptKB": 157,
+    "scripts": [
+      "3s6nzrbk-8mnv.js 2",
+      "30owusx62aaf3.js 9",
+      "1k__zuwipnzw8.js 70",
+      "03aqgmhgumq7j.js 43",
+      "turbopack-3y710_tg50w3h.js 4",
+      "3fntmmi971322.js 4",
+      "2ag-7x3mjjs1v.js 11",
+      "0ez6wtgtwc8qk.js 13"
+    ],
+    "imgFont": [
+      "/_next/static/media/c89730c3ffa99552-s.p.1zjat_zsa1d11.woff2 96KB"
+    ]
+  },
+  "folio-home": {
+    "runs": [
+      "93/100/3013/0/130",
+      "93/100/3161/0/37",
+      "96/100/2709/0/31"
+    ],
+    "median": {
+      "perf": 93,
+      "a11y": 100,
+      "bp": 100,
+      "seo": 100,
+      "fcp": 1061,
+      "lcp": 3013,
+      "cls": 0,
+      "tbt": 37,
+      "si": 3007
+    },
+    "lcpElement": "<img alt=\"Portrait of Akash Saha\" fetchpriority=\"high\" width=\"1024\" height=\"1024\" decoding=\"async\" data-nimg=\"1\" class=\"f-hero-portrait\" sty",
+    "lcpPhases": {
+      "timeToFirstByte": 10,
+      "resourceLoadDelay": 12,
+      "resourceLoadDuration": 16,
+      "elementRenderDelay": 195
+    },
+    "fails": {
+      "perf": [
+        "largest-contentful-paint: 3.0 s",
+        "total-blocking-time: 130 ms",
+        "speed-index: 3.1 s",
+        "legacy-javascript-insight: Est savings of 14 KiB",
+        "network-dependency-tree-insight: 0",
+        "render-blocking-insight: Est savings of 20 ms",
+        "interactive: 3.5 s",
+        "max-potential-fid: 280 ms",
+        "unused-javascript: Est savings of 26 KiB"
+      ],
+      "a11y": [],
+      "bp": [],
+      "seo": []
+    },
+    "totalKB": 413,
+    "scriptKB": 157,
+    "scripts": [
+      "3s6nzrbk-8mnv.js 2",
+      "30owusx62aaf3.js 9",
+      "1k__zuwipnzw8.js 70",
+      "03aqgmhgumq7j.js 43",
+      "turbopack-3y710_tg50w3h.js 4",
+      "3fntmmi971322.js 4",
+      "2ag-7x3mjjs1v.js 11",
+      "0ez6wtgtwc8qk.js 13"
+    ],
+    "imgFont": [
+      "/_next/static/media/c89730c3ffa99552-s.p.1zjat_zsa1d11.woff2 96KB",
+      "/_next/image?url=/portrait.webp&w=1080&q=75 32KB",
+      "/_next/image?url=/projects/abroadly.webp&w=828&q=75 28KB",
+      "/_next/image?url=/projects/nook.webp&w=828&q=75 11KB"
+    ]
+  },
+  "folio-work": {
+    "runs": [
+      "95/100/2850/0/76",
+      "95/100/2934/0/34",
+      "96/100/2783/0/37"
+    ],
+    "median": {
+      "perf": 95,
+      "a11y": 100,
+      "bp": 100,
+      "seo": 100,
+      "fcp": 909,
+      "lcp": 2850,
+      "cls": 0,
+      "tbt": 37,
+      "si": 909
+    },
+    "lcpElement": "<img alt=\"Abroadly home page: Study abroad with confidence\" fetchpriority=\"high\" loading=\"eager\" width=\"1600\" height=\"1000\" decoding=\"async\"",
+    "lcpPhases": {
+      "timeToFirstByte": 9,
+      "resourceLoadDelay": 15,
+      "resourceLoadDuration": 27,
+      "elementRenderDelay": 91
+    },
+    "fails": {
+      "perf": [
+        "largest-contentful-paint: 2.9 s",
+        "total-blocking-time: 80 ms",
+        "legacy-javascript-insight: Est savings of 14 KiB",
+        "network-dependency-tree-insight: 0",
+        "render-blocking-insight: Est savings of 230 ms",
+        "interactive: 3.1 s",
+        "max-potential-fid: 200 ms",
+        "unused-javascript: Est savings of 27 KiB"
+      ],
+      "a11y": [],
+      "bp": [],
+      "seo": []
+    },
+    "totalKB": 388,
+    "scriptKB": 157,
+    "scripts": [
+      "3s6nzrbk-8mnv.js 2",
+      "30owusx62aaf3.js 9",
+      "1k__zuwipnzw8.js 70",
+      "03aqgmhgumq7j.js 43",
+      "turbopack-3y710_tg50w3h.js 4",
+      "3fntmmi971322.js 4",
+      "2ag-7x3mjjs1v.js 11",
+      "0ez6wtgtwc8qk.js 13"
+    ],
+    "imgFont": [
+      "/_next/static/media/c89730c3ffa99552-s.p.1zjat_zsa1d11.woff2 96KB",
+      "/_next/image?url=/projects/abroadly.webp&w=828&q=75 28KB",
+      "/_next/image?url=/projects/nook.webp&w=828&q=75 11KB"
+    ]
+  }
+}

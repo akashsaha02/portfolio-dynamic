@@ -1,0 +1,368 @@
+{
+ "scans": {
+  "home@360x740": {
+   "violations": [],
+   "incomplete": [
+    {
+     "id": "color-contrast",
+     "count": 7,
+     "nodes": [
+      ".f-marquee-track > span:nth-child(1)",
+      ".f-marquee-track > span:nth-child(2)",
+      ".size-30 > .f-roll > span:nth-child(1)"
+     ]
+    }
+   ],
+   "passes": 45
+  },
+  "work@360x740": {
+   "violations": [],
+   "incomplete": [
+    {
+     "id": "color-contrast",
+     "count": 5,
+     "nodes": [
+      ".px-5.text-base.f-chip:nth-child(1) > sup",
+      ".px-5.text-base.f-chip:nth-child(2) > sup",
+      ".px-5.text-base.f-chip:nth-child(3) > sup"
+     ]
+    }
+   ],
+   "passes": 44
+  },
+  "work-ml@360x740": {
+   "violations": [],
+   "incomplete": [
+    {
+     "id": "color-contrast",
+     "count": 5,
+     "nodes": [
+      ".px-5.text-base.f-chip:nth-child(1) > sup",
+      ".px-5.text-base.f-chip:nth-child(2) > sup",
+      ".px-5.text-base.f-chip:nth-child(3) > sup"
+     ]
+    }
+   ],
+   "passes": 42
+  },
+  "abroadly@360x740": {
+   "violations": [],
+   "incomplete": [
+    {
+     "id": "color-contrast",
+     "count": 2,
+     "nodes": [
+      ".size-36 > .f-roll > span:nth-child(1)",
+      "span:nth-child(1) > .f-roll > span:nth-child(1)"
+     ]
+    }
+   ],
+   "passes": 45
+  },
+  "nook@360x740": {
+   "violations": [],
+   "incomplete": [
+    {
+     "id": "color-contrast",
+     "count": 2,
+     "nodes": [
+      ".size-36 > .f-roll > span:nth-child(1)",
+      "span:nth-child(1) > .f-roll > span:nth-child(1)"
+     ]
+    }
+   ],
+   "passes": 45
+  },
+  "about@360x740": {
+   "violations": [],
+   "incomplete": [
+    {
+     "id": "color-contrast",
+     "count": 2,
+     "nodes": [
+      ".size-36 > .f-roll > span:nth-child(1)",
+      "span:nth-child(1) > .f-roll > span:nth-child(1)"
+     ]
+    }
+   ],
+   "passes": 44
+  },
+  "contact@360x740": {
+   "violations": [],
+   "incomplete": [
+    {
+     "id": "color-contrast",
+     "count": 3,
+     "nodes": [
+      "legend",
+      ".size-36 > .f-roll > span:nth-child(1)",
+      "span:nth-child(1) > .f-roll > span:nth-child(1)"
+     ]
+    }
+   ],
+   "passes": 46
+  },
+  "contact-error@360x740": {
+   "violations": [],
+   "incomplete": [
+    {
+     "id": "color-contrast",
+     "count": 3,
+     "nodes": [
+      "legend",
+      ".size-36 > .f-roll > span:nth-child(1)",
+      "span:nth-child(1) > .f-roll > span:nth-child(1)"
+     ]
+    }
+   ],
+   "passes": 46
+  },
+  "contact-success@360x740": {
+   "violations": [],
+   "incomplete": [
+    {
+     "id": "color-contrast",
+     "count": 2,
+     "nodes": [
+      ".mt-10 > .f-roll > span:nth-child(1)",
+      "span:nth-child(1) > .f-roll > span:nth-child(1)"
+     ]
+    }
+   ],
+   "passes": 42
+  },
+  "404@360x740": {
+   "violations": [],
+   "incomplete": [
+    {
+     "id": "color-contrast",
+     "count": 5,
+     "nodes": [
+      ".md\\:justify-center.f-btn-solid[href=\"/\"] > .f-roll > span:nth-child(1)",
+      ".f-btn-outline.md\\:justify-center[href$=\"work\"] > .f-roll > span:nth-child(1)",
+      "li:nth-child(3) > .f-btn-outline.md\\:justify-center.px-7 > .f-roll > span:nth-child(1)"
+     ]
+    }
+   ],
+   "passes": 42
+  },
+  "home+menu@360x740": {
+   "violations": [],
+   "incomplete": [
+    {
+     "id": "skip-link",
+     "count": 1,
+     "nodes": [
+      ".left-4"
+     ]
+    }
+   ],
+   "passes": 31
+  },
+  "home@1440x900": {
+   "violations": [],
+   "incomplete": [
+    {
+     "id": "color-contrast",
+     "count": 8,
+     "nodes": [
+      ".f-marquee-track > span:nth-child(1)",
+      ".f-marquee-track > span:nth-child(2)",
+      ".size-30 > .f-roll > span:nth-child(1)"
+     ]
+    }
+   ],
+   "passes": 44
+  },
+  "work@1440x900": {
+   "violations": [],
+   "incomplete": [
+    {
+     "id": "color-contrast",
+     "count": 6,
+     "nodes": [
+      ".px-5.text-base.f-chip:nth-child(1) > sup",
+      ".px-5.text-base.f-chip:nth-child(2) > sup",
+      ".px-5.text-base.f-chip:nth-child(3) > sup"
+     ]
+    }
+   ],
+   "passes": 42
+  },
+  "work-ml@1440x900": {
+   "violations": [],
+   "incomplete": [
+    {
+     "id": "color-contrast",
+     "count": 6,
+     "nodes": [
+      ".px-5.text-base.f-chip:nth-child(1) > sup",
+      ".px-5.text-base.f-chip:nth-child(2) > sup",
+      ".px-5.text-base.f-chip:nth-child(3) > sup"
+     ]
+    }
+   ],
+   "passes": 42
+  },
+  "abroadly@1440x900": {
+   "violations": [],
+   "incomplete": [
+    {
+     "id": "color-contrast",
+     "count": 2,
+     "nodes": [
+      ".size-36 > .f-roll > span:nth-child(1)",
+      "span:nth-child(1) > .f-roll > span:nth-child(1)"
+     ]
+    }
+   ],
+   "passes": 45
+  },
+  "nook@1440x900": {
+   "violations": [],
+   "incomplete": [
+    {
+     "id": "color-contrast",
+     "count": 2,
+     "nodes": [
+      ".size-36 > .f-roll > span:nth-child(1)",
+      "span:nth-child(1) > .f-roll > span:nth-child(1)"
+     ]
+    }
+   ],
+   "passes": 45
+  },
+  "about@1440x900": {
+   "violations": [],
+   "incomplete": [
+    {
+     "id": "color-contrast",
+     "count": 2,
+     "nodes": [
+      ".size-36 > .f-roll > span:nth-child(1)",
+      "span:nth-child(1) > .f-roll > span:nth-child(1)"
+     ]
+    }
+   ],
+   "passes": 44
+  },
+  "contact@1440x900": {
+   "violations": [],
+   "incomplete": [
+    {
+     "id": "color-contrast",
+     "count": 3,
+     "nodes": [
+      "legend",
+      ".size-36 > .f-roll > span:nth-child(1)",
+      "span:nth-child(1) > .f-roll > span:nth-child(1)"
+     ]
+    }
+   ],
+   "passes": 46
+  },
+  "contact-error@1440x900": {
+   "violations": [],
+   "incomplete": [
+    {
+     "id": "color-contrast",
+     "count": 3,
+     "nodes": [
+      "legend",
+      ".size-36 > .f-roll > span:nth-child(1)",
+      "span:nth-child(1) > .f-roll > span:nth-child(1)"
+     ]
+    }
+   ],
+   "passes": 46
+  },
+  "contact-success@1440x900": {
+   "violations": [],
+   "incomplete": [
+    {
+     "id": "color-contrast",
+     "count": 2,
+     "nodes": [
+      ".mt-10 > .f-roll > span:nth-child(1)",
+      "span:nth-child(1) > .f-roll > span:nth-child(1)"
+     ]
+    }
+   ],
+   "passes": 42
+  },
+  "404@1440x900": {
+   "violations": [],
+   "incomplete": [
+    {
+     "id": "color-contrast",
+     "count": 5,
+     "nodes": [
+      ".md\\:justify-center.f-btn-solid[href=\"/\"] > .f-roll > span:nth-child(1)",
+      ".f-btn-outline.md\\:justify-center[href$=\"work\"] > .f-roll > span:nth-child(1)",
+      "li:nth-child(3) > .f-btn-outline.md\\:justify-center.px-7 > .f-roll > span:nth-child(1)"
+     ]
+    }
+   ],
+   "passes": 42
+  },
+  "home+menu@1440x900": {
+   "violations": [],
+   "incomplete": [
+    {
+     "id": "skip-link",
+     "count": 1,
+     "nodes": [
+      ".left-4"
+     ]
+    }
+   ],
+   "passes": 31
+  },
+  "home@360x740-rm": {
+   "violations": [],
+   "incomplete": [
+    {
+     "id": "color-contrast",
+     "count": 7,
+     "nodes": [
+      ".f-marquee-track > span:nth-child(1)",
+      ".f-marquee-track > span:nth-child(2)",
+      ".size-30 > .f-roll > span:nth-child(1)"
+     ]
+    }
+   ],
+   "passes": 45
+  },
+  "work@360x740-rm": {
+   "violations": [],
+   "incomplete": [
+    {
+     "id": "color-contrast",
+     "count": 5,
+     "nodes": [
+      ".px-5.text-base.f-chip:nth-child(1) > sup",
+      ".px-5.text-base.f-chip:nth-child(2) > sup",
+      ".px-5.text-base.f-chip:nth-child(3) > sup"
+     ]
+    }
+   ],
+   "passes": 44
+  },
+  "contact-error@360x740-rm": {
+   "violations": [],
+   "incomplete": [
+    {
+     "id": "color-contrast",
+     "count": 3,
+     "nodes": [
+      "legend",
+      ".size-36 > .f-roll > span:nth-child(1)",
+      "span:nth-child(1) > .f-roll > span:nth-child(1)"
+     ]
+    }
+   ],
+   "passes": 46
+  }
+ },
+ "axeVersion": "4.13.0"
+}

@@ -1,0 +1,7 @@
+lint exit=0 secs=8
+typegen exit=0 secs=2
+tsc exit=0 secs=8
+vitest exit=0 secs=4
+build-editorial exit=0 secs=25
+build-folio exit=0 secs=11
+e2e exit=0 secs=126

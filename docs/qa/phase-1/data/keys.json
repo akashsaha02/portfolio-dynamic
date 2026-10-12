@@ -1,0 +1,2300 @@
+{
+ "/@1440x900": [
+  {
+   "tag": "a",
+   "text": "Skip to content",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "none",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 16,
+    "y": 16,
+    "w": 149,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "©Code by AkashCode by Akash, home",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 107,
+    "y": 28,
+    "w": 148,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "Work",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 1099,
+    "y": 28,
+    "w": 64,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "About",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 1171,
+    "y": 28,
+    "w": 71,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "Contact",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 1251,
+    "y": 28,
+    "w": 86,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "About meAbout me",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 954,
+    "y": 318,
+    "w": 160,
+    "h": 160
+   }
+  },
+  {
+   "tag": "a",
+   "text": "AbroadlyStudy abroad agency platform",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 115,
+    "y": 373,
+    "w": 1210,
+    "h": 155
+   }
+  },
+  {
+   "tag": "a",
+   "text": "NookPersonal knowledge vault2026",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 115,
+    "y": 527,
+    "w": 1210,
+    "h": 155
+   }
+  },
+  {
+   "tag": "a",
+   "text": "SoulMatchMatrimony platform2024–25 (",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 115,
+    "y": 682,
+    "w": 1210,
+    "h": 155
+   }
+  },
+  {
+   "tag": "a",
+   "text": "Cerebral InsightsBrain tumour detect",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 115,
+    "y": 745,
+    "w": 1210,
+    "h": 155
+   }
+  },
+  {
+   "tag": "a",
+   "text": "More work (5)More work (5)",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 625,
+    "y": 418,
+    "w": 189,
+    "h": 64
+   }
+  },
+  {
+   "tag": "a",
+   "text": "Nyntax (opens in a new tab)",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 430,
+    "y": 428,
+    "w": 128,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "Softvence Agency (opens in a new tab",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 430,
+    "y": 428,
+    "w": 274,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "RNPsoft (opens in a new tab)",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 430,
+    "y": 428,
+    "w": 142,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "DOIDOI (opens in a new tab)",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 430,
+    "y": 426,
+    "w": 104,
+    "h": 48
+   }
+  },
+  {
+   "tag": "a",
+   "text": "Get in touchGet in touch",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 1020,
+    "y": 346,
+    "w": 208,
+    "h": 208
+   }
+  },
+  {
+   "tag": "button",
+   "text": "Copy email address akashsaha1313@gma",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 115,
+    "y": 578,
+    "w": 334,
+    "h": 64
+   }
+  },
+  {
+   "tag": "a",
+   "text": "GitHubGitHub (opens in a new tab)",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": false,
+   "obscuredPct": 0,
+   "box": {
+    "x": 1160,
+    "y": 856,
+    "w": 70,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "LinkedInLinkedIn (opens in a new tab",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": false,
+   "obscuredPct": 0,
+   "box": {
+    "x": 1246,
+    "y": 856,
+    "w": 79,
+    "h": 44
+   }
+  },
+  {
+   "end": "body"
+  }
+ ],
+ "/work@1440x900": [
+  {
+   "tag": "a",
+   "text": "Skip to content",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "none",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 16,
+    "y": 16,
+    "w": 149,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "©Code by AkashCode by Akash, home",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 107,
+    "y": 28,
+    "w": 148,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "Work",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 1099,
+    "y": 28,
+    "w": 64,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "About",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 1171,
+    "y": 28,
+    "w": 71,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "Contact",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 1251,
+    "y": 28,
+    "w": 86,
+    "h": 44
+   }
+  },
+  {
+   "tag": "button",
+   "text": "All5",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 115,
+    "y": 343,
+    "w": 76,
+    "h": 44
+   }
+  },
+  {
+   "tag": "button",
+   "text": "Full-stack4",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 199,
+    "y": 343,
+    "w": 132,
+    "h": 44
+   }
+  },
+  {
+   "tag": "button",
+   "text": "Machine learning1",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 339,
+    "y": 343,
+    "w": 188,
+    "h": 44
+   }
+  },
+  {
+   "tag": "button",
+   "text": "List",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 1221,
+    "y": 341,
+    "w": 48,
+    "h": 48
+   }
+  },
+  {
+   "tag": "button",
+   "text": "Grid",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 1277,
+    "y": 341,
+    "w": 48,
+    "h": 48
+   }
+  },
+  {
+   "tag": "a",
+   "text": "AbroadlyStudy abroad agency platform",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 115,
+    "y": 484,
+    "w": 1210,
+    "h": 121
+   }
+  },
+  {
+   "tag": "a",
+   "text": "NookPersonal knowledge vaultNext.js,",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 115,
+    "y": 605,
+    "w": 1210,
+    "h": 121
+   }
+  },
+  {
+   "tag": "a",
+   "text": "SoulMatchMatrimony platformMongoDB, ",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 115,
+    "y": 726,
+    "w": 1210,
+    "h": 116
+   }
+  },
+  {
+   "tag": "a",
+   "text": "CrowdHexCrowdfundingReact, Tailwind,",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": false,
+   "obscuredPct": 0,
+   "box": {
+    "x": 115,
+    "y": 785,
+    "w": 1210,
+    "h": 116
+   }
+  },
+  {
+   "tag": "a",
+   "text": "Cerebral InsightsBrain tumour detect",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 115,
+    "y": 392,
+    "w": 1210,
+    "h": 116
+   }
+  },
+  {
+   "tag": "a",
+   "text": "Get in touchGet in touch",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 1020,
+    "y": 346,
+    "w": 208,
+    "h": 208
+   }
+  },
+  {
+   "tag": "button",
+   "text": "Copy email address akashsaha1313@gma",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 115,
+    "y": 578,
+    "w": 334,
+    "h": 64
+   }
+  },
+  {
+   "tag": "a",
+   "text": "GitHubGitHub (opens in a new tab)",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 1160,
+    "y": 856,
+    "w": 70,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "LinkedInLinkedIn (opens in a new tab",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 1246,
+    "y": 856,
+    "w": 79,
+    "h": 44
+   }
+  },
+  {
+   "end": "body"
+  }
+ ],
+ "/work/abroadly@1440x900": [
+  {
+   "tag": "a",
+   "text": "Skip to content",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "none",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 16,
+    "y": 16,
+    "w": 149,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "©Code by AkashCode by Akash, home",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 107,
+    "y": 28,
+    "w": 148,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "Work",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 1099,
+    "y": 28,
+    "w": 64,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "About",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 1171,
+    "y": 28,
+    "w": 71,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "Contact",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 1251,
+    "y": 28,
+    "w": 86,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "Live site (opens in a new tab)",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 1157,
+    "y": 454,
+    "w": 64,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "Code repository (opens in a new tab)",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 1157,
+    "y": 506,
+    "w": 76,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "Nook",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 6px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 115,
+    "y": 158,
+    "w": 1210,
+    "h": 363
+   }
+  },
+  {
+   "tag": "a",
+   "text": "Get in touchGet in touch",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 1020,
+    "y": 346,
+    "w": 208,
+    "h": 208
+   }
+  },
+  {
+   "tag": "button",
+   "text": "Copy email address akashsaha1313@gma",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 115,
+    "y": 578,
+    "w": 334,
+    "h": 64
+   }
+  },
+  {
+   "tag": "a",
+   "text": "GitHubGitHub (opens in a new tab)",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": false,
+   "obscuredPct": 0,
+   "box": {
+    "x": 1160,
+    "y": 856,
+    "w": 70,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "LinkedInLinkedIn (opens in a new tab",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": false,
+   "obscuredPct": 0,
+   "box": {
+    "x": 1246,
+    "y": 856,
+    "w": 79,
+    "h": 44
+   }
+  },
+  {
+   "end": "body"
+  }
+ ],
+ "/about@1440x900": [
+  {
+   "tag": "a",
+   "text": "Skip to content",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "none",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 16,
+    "y": 16,
+    "w": 149,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "©Code by AkashCode by Akash, home",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 107,
+    "y": 28,
+    "w": 148,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "Work",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 1099,
+    "y": 28,
+    "w": 64,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "About",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 1171,
+    "y": 28,
+    "w": 71,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "Contact",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 1251,
+    "y": 28,
+    "w": 86,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "Get in touchGet in touch",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 1020,
+    "y": 346,
+    "w": 208,
+    "h": 208
+   }
+  },
+  {
+   "tag": "button",
+   "text": "Copy email address akashsaha1313@gma",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 115,
+    "y": 578,
+    "w": 334,
+    "h": 64
+   }
+  },
+  {
+   "tag": "a",
+   "text": "GitHubGitHub (opens in a new tab)",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 1160,
+    "y": 856,
+    "w": 70,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "LinkedInLinkedIn (opens in a new tab",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 1246,
+    "y": 856,
+    "w": 79,
+    "h": 44
+   }
+  },
+  {
+   "end": "body"
+  }
+ ],
+ "/contact@1440x900": [
+  {
+   "tag": "a",
+   "text": "Skip to content",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "none",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 16,
+    "y": 16,
+    "w": 149,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "©Code by AkashCode by Akash, home",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 107,
+    "y": 28,
+    "w": 148,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "Work",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 1099,
+    "y": 28,
+    "w": 64,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "About",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 1171,
+    "y": 28,
+    "w": 71,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "Contact",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 1251,
+    "y": 28,
+    "w": 86,
+    "h": 44
+   }
+  },
+  {
+   "tag": "input",
+   "text": "",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 187,
+    "y": 485,
+    "w": 685,
+    "h": 56
+   },
+   "borderB": "2px rgba(40, 44, 32, 0.596)"
+  },
+  {
+   "tag": "input",
+   "text": "",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 187,
+    "y": 647,
+    "w": 685,
+    "h": 56
+   },
+   "borderB": "2px rgba(40, 44, 32, 0.573)"
+  },
+  {
+   "tag": "input",
+   "text": "",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 188,
+    "y": 819,
+    "w": 157,
+    "h": 46
+   },
+   "borderB": "0px rgb(40, 44, 32)"
+  },
+  {
+   "tag": "textarea",
+   "text": "",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 187,
+    "y": 424,
+    "w": 685,
+    "h": 120
+   },
+   "borderB": "2px rgba(40, 44, 32, 0.573)"
+  },
+  {
+   "tag": "button",
+   "text": "Send messageSend message",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 603,
+    "y": 601,
+    "w": 208,
+    "h": 208
+   }
+  },
+  {
+   "tag": "button",
+   "text": "Copy email address akashsaha1313@gma",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 973,
+    "y": 63,
+    "w": 284,
+    "h": 56
+   }
+  },
+  {
+   "tag": "a",
+   "text": "GitHubGitHub (opens in a new tab)",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 965,
+    "y": 186,
+    "w": 101,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "LinkedInLinkedIn (opens in a new tab",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 965,
+    "y": 230,
+    "w": 110,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "GitHubGitHub (opens in a new tab)",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 1160,
+    "y": 832,
+    "w": 70,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "LinkedInLinkedIn (opens in a new tab",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 1246,
+    "y": 832,
+    "w": 79,
+    "h": 44
+   }
+  },
+  {
+   "end": "body"
+  }
+ ],
+ "/@360x740": [
+  {
+   "tag": "a",
+   "text": "Skip to content",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "none",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 16,
+    "y": 16,
+    "w": 149,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "©Code by AkashCode by Akash, home",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 12,
+    "y": 16,
+    "w": 148,
+    "h": 44
+   }
+  },
+  {
+   "tag": "button",
+   "text": "MenuMenu",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 285,
+    "y": 16,
+    "w": 67,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "About meAbout me",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 220,
+    "y": 310,
+    "w": 120,
+    "h": 120
+   }
+  },
+  {
+   "tag": "a",
+   "text": "Abroadly",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 6px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 20,
+    "y": 135,
+    "w": 320,
+    "h": 274
+   }
+  },
+  {
+   "tag": "a",
+   "text": "Nook",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 6px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 20,
+    "y": 457,
+    "w": 320,
+    "h": 274
+   }
+  },
+  {
+   "tag": "a",
+   "text": "SoulMatch (opens in a new tab)",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 6px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 20,
+    "y": 135,
+    "w": 320,
+    "h": 274
+   }
+  },
+  {
+   "tag": "a",
+   "text": "Cerebral Insights (opens in a new ta",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 6px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 20,
+    "y": 457,
+    "w": 320,
+    "h": 274
+   }
+  },
+  {
+   "tag": "a",
+   "text": "More work (5)More work (5)",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 20,
+    "y": 342,
+    "w": 320,
+    "h": 56
+   }
+  },
+  {
+   "tag": "a",
+   "text": "Nyntax (opens in a new tab)",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 20,
+    "y": 671,
+    "w": 104,
+    "h": 44
+   }
+  },
+  {
+   "tag": "summary",
+   "text": "Details: Nyntax",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 20,
+    "y": 348,
+    "w": 77,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "Softvence Agency (opens in a new tab",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 20,
+    "y": 348,
+    "w": 221,
+    "h": 44
+   }
+  },
+  {
+   "tag": "summary",
+   "text": "Details: Softvence Agency",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 20,
+    "y": 423,
+    "w": 77,
+    "h": 44
+   }
+  },
+  {
+   "tag": "summary",
+   "text": "Details: Deep learning research",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 20,
+    "y": 625,
+    "w": 77,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "RNPsoft (opens in a new tab)",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 20,
+    "y": 696,
+    "w": 115,
+    "h": 44
+   }
+  },
+  {
+   "tag": "summary",
+   "text": "Details: RNPsoft",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 20,
+    "y": 348,
+    "w": 77,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "DOIDOI (opens in a new tab)",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 20,
+    "y": 346,
+    "w": 104,
+    "h": 48
+   }
+  },
+  {
+   "tag": "a",
+   "text": "Get in touchGet in touch",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 196,
+    "y": 298,
+    "w": 144,
+    "h": 144
+   }
+  },
+  {
+   "tag": "button",
+   "text": "Copy email address akashsaha1313@gma",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 20,
+    "y": 466,
+    "w": 320,
+    "h": 56
+   }
+  },
+  {
+   "tag": "a",
+   "text": "GitHubGitHub (opens in a new tab)",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 12,
+    "y": 672,
+    "w": 70,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "LinkedInLinkedIn (opens in a new tab",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 98,
+    "y": 672,
+    "w": 79,
+    "h": 44
+   }
+  },
+  {
+   "end": "body"
+  }
+ ],
+ "/work@360x740": [
+  {
+   "tag": "a",
+   "text": "Skip to content",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "none",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 16,
+    "y": 16,
+    "w": 149,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "©Code by AkashCode by Akash, home",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 12,
+    "y": 16,
+    "w": 148,
+    "h": 44
+   }
+  },
+  {
+   "tag": "button",
+   "text": "MenuMenu",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 285,
+    "y": 16,
+    "w": 67,
+    "h": 44
+   }
+  },
+  {
+   "tag": "button",
+   "text": "All5",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 20,
+    "y": 190,
+    "w": 76,
+    "h": 44
+   }
+  },
+  {
+   "tag": "button",
+   "text": "Full-stack4",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 104,
+    "y": 190,
+    "w": 132,
+    "h": 44
+   }
+  },
+  {
+   "tag": "button",
+   "text": "Machine learning1",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 20,
+    "y": 242,
+    "w": 188,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "Abroadly",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 6px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 20,
+    "y": 365,
+    "w": 320,
+    "h": 274
+   }
+  },
+  {
+   "tag": "a",
+   "text": "Nook",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 6px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 20,
+    "y": 135,
+    "w": 320,
+    "h": 274
+   }
+  },
+  {
+   "tag": "a",
+   "text": "SoulMatch (opens in a new tab)",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 6px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 20,
+    "y": 457,
+    "w": 320,
+    "h": 274
+   }
+  },
+  {
+   "tag": "a",
+   "text": "CrowdHex (opens in a new tab)",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 6px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 20,
+    "y": 135,
+    "w": 320,
+    "h": 274
+   }
+  },
+  {
+   "tag": "a",
+   "text": "Cerebral Insights (opens in a new ta",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 6px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 20,
+    "y": 457,
+    "w": 320,
+    "h": 274
+   }
+  },
+  {
+   "tag": "a",
+   "text": "Get in touchGet in touch",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 196,
+    "y": 298,
+    "w": 144,
+    "h": 144
+   }
+  },
+  {
+   "tag": "button",
+   "text": "Copy email address akashsaha1313@gma",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 20,
+    "y": 466,
+    "w": 320,
+    "h": 56
+   }
+  },
+  {
+   "tag": "a",
+   "text": "GitHubGitHub (opens in a new tab)",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 12,
+    "y": 672,
+    "w": 70,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "LinkedInLinkedIn (opens in a new tab",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 98,
+    "y": 672,
+    "w": 79,
+    "h": 44
+   }
+  },
+  {
+   "end": "body"
+  }
+ ],
+ "/work/abroadly@360x740": [
+  {
+   "tag": "a",
+   "text": "Skip to content",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "none",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 16,
+    "y": 16,
+    "w": 149,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "©Code by AkashCode by Akash, home",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 12,
+    "y": 16,
+    "w": 148,
+    "h": 44
+   }
+  },
+  {
+   "tag": "button",
+   "text": "MenuMenu",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 285,
+    "y": 16,
+    "w": 67,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "Live site (opens in a new tab)",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 16,
+    "y": 661,
+    "w": 64,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "Code repository (opens in a new tab)",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 96,
+    "y": 661,
+    "w": 76,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "Nook",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 6px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 20,
+    "y": 312,
+    "w": 320,
+    "h": 343
+   }
+  },
+  {
+   "tag": "a",
+   "text": "Get in touchGet in touch",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 196,
+    "y": 298,
+    "w": 144,
+    "h": 144
+   }
+  },
+  {
+   "tag": "button",
+   "text": "Copy email address akashsaha1313@gma",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 20,
+    "y": 466,
+    "w": 320,
+    "h": 56
+   }
+  },
+  {
+   "tag": "a",
+   "text": "GitHubGitHub (opens in a new tab)",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 12,
+    "y": 672,
+    "w": 70,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "LinkedInLinkedIn (opens in a new tab",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 98,
+    "y": 672,
+    "w": 79,
+    "h": 44
+   }
+  },
+  {
+   "end": "body"
+  }
+ ],
+ "/about@360x740": [
+  {
+   "tag": "a",
+   "text": "Skip to content",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "none",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 16,
+    "y": 16,
+    "w": 149,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "©Code by AkashCode by Akash, home",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 12,
+    "y": 16,
+    "w": 148,
+    "h": 44
+   }
+  },
+  {
+   "tag": "button",
+   "text": "MenuMenu",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 285,
+    "y": 16,
+    "w": 67,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "Get in touchGet in touch",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 196,
+    "y": 298,
+    "w": 144,
+    "h": 144
+   }
+  },
+  {
+   "tag": "button",
+   "text": "Copy email address akashsaha1313@gma",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 20,
+    "y": 466,
+    "w": 320,
+    "h": 56
+   }
+  },
+  {
+   "tag": "a",
+   "text": "GitHubGitHub (opens in a new tab)",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 12,
+    "y": 672,
+    "w": 70,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "LinkedInLinkedIn (opens in a new tab",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 98,
+    "y": 672,
+    "w": 79,
+    "h": 44
+   }
+  },
+  {
+   "end": "body"
+  }
+ ],
+ "/contact@360x740": [
+  {
+   "tag": "a",
+   "text": "Skip to content",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "none",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 16,
+    "y": 16,
+    "w": 149,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "©Code by AkashCode by Akash, home",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 12,
+    "y": 16,
+    "w": 148,
+    "h": 44
+   }
+  },
+  {
+   "tag": "button",
+   "text": "MenuMenu",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 285,
+    "y": 16,
+    "w": 67,
+    "h": 44
+   }
+  },
+  {
+   "tag": "input",
+   "text": "",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 56,
+    "y": 307,
+    "w": 284,
+    "h": 48
+   },
+   "borderB": "2px rgba(40, 44, 32, 0.58)"
+  },
+  {
+   "tag": "input",
+   "text": "",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 56,
+    "y": 438,
+    "w": 284,
+    "h": 48
+   },
+   "borderB": "2px rgba(40, 44, 32, 0.58)"
+  },
+  {
+   "tag": "input",
+   "text": "",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 57,
+    "y": 577,
+    "w": 157,
+    "h": 46
+   },
+   "borderB": "0px rgb(40, 44, 32)"
+  },
+  {
+   "tag": "textarea",
+   "text": "",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 56,
+    "y": 348,
+    "w": 284,
+    "h": 120
+   },
+   "borderB": "2px rgba(40, 44, 32, 0.58)"
+  },
+  {
+   "tag": "button",
+   "text": "Send messageSend message",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 196,
+    "y": 513,
+    "w": 144,
+    "h": 144
+   }
+  },
+  {
+   "tag": "button",
+   "text": "Copy email address akashsaha1313@gma",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 20,
+    "y": 342,
+    "w": 320,
+    "h": 56
+   }
+  },
+  {
+   "tag": "a",
+   "text": "GitHubGitHub (opens in a new tab)",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 12,
+    "y": 465,
+    "w": 101,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "LinkedInLinkedIn (opens in a new tab",
+   "outline": "2px rgb(40, 44, 32)",
+   "shadow": "rgb(235, 238, 224) 0px 0px 0px 2px",
+   "ringVsBg": 12.12,
+   "bg": "235,238,224",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 12,
+    "y": 509,
+    "w": 110,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "GitHubGitHub (opens in a new tab)",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 12,
+    "y": 672,
+    "w": 70,
+    "h": 44
+   }
+  },
+  {
+   "tag": "a",
+   "text": "LinkedInLinkedIn (opens in a new tab",
+   "outline": "2px rgb(210, 255, 0)",
+   "shadow": "rgb(40, 44, 32) 0px 0px 0px 2px",
+   "ringVsBg": 12.26,
+   "bg": "40,44,32",
+   "inView": true,
+   "obscuredPct": 0,
+   "box": {
+    "x": 98,
+    "y": 672,
+    "w": 79,
+    "h": 44
+   }
+  },
+  {
+   "end": "body"
+  }
+ ]
+}

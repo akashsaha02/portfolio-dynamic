@@ -1,0 +1,608 @@
+{
+ "preloader.first.360x740": {
+  "firstSample": 22,
+  "ranFrom": 185,
+  "endedAt": 1775,
+  "maxScrollWidth": 360,
+  "vw": 360,
+  "curveRight": 396,
+  "wordsSeen": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ],
+  "lcp": [
+   {
+    "t": 192,
+    "el": "IMG.f-hero-portrait Portrait of Akash Saha",
+    "size": 168480
+   }
+  ]
+ },
+ "preloader.secondLoad.360x740": {
+  "run": false
+ },
+ "preloader.skip.key.360x740": {
+  "pressedAt": 454,
+  "endedAt": 986,
+  "took": 532,
+  "scrollYAfter": 647,
+  "url": "http://localhost:3601/"
+ },
+ "preloader.skip.tap.360x740": {
+  "pressedAt": 415,
+  "endedAt": 950,
+  "took": 536,
+  "scrollYAfter": 0,
+  "url": "http://localhost:3601/"
+ },
+ "preloader.reduced.360x740": {
+  "run": false,
+  "disp": "none",
+  "stored": null
+ },
+ "preloader.softNavHome.360x740": {
+  "run": false,
+  "disp": "none"
+ },
+ "preloader.first.1440x900": {
+  "firstSample": 15,
+  "ranFrom": 148,
+  "endedAt": 1744,
+  "maxScrollWidth": 1440,
+  "vw": 1440,
+  "curveRight": 1584,
+  "wordsSeen": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ],
+  "lcp": [
+   {
+    "t": 160,
+    "el": "IMG.f-hero-portrait Portrait of Akash Saha",
+    "size": 571536
+   }
+  ]
+ },
+ "preloader.secondLoad.1440x900": {
+  "run": false
+ },
+ "preloader.skip.key.1440x900": {
+  "pressedAt": 460,
+  "endedAt": 1009,
+  "took": 550,
+  "scrollYAfter": 787,
+  "url": "http://localhost:3601/"
+ },
+ "preloader.skip.wheel.1440x900": {
+  "pressedAt": 435,
+  "endedAt": 1003,
+  "took": 568,
+  "scrollYAfter": 200,
+  "url": "http://localhost:3601/"
+ },
+ "preloader.skip.click.1440x900": {
+  "pressedAt": 432,
+  "endedAt": 961,
+  "took": 529,
+  "scrollYAfter": 0,
+  "url": "http://localhost:3601/"
+ },
+ "preloader.reduced.1440x900": {
+  "run": false,
+  "disp": "none",
+  "stored": null
+ },
+ "preloader.softNavHome.1440x900": {
+  "run": false,
+  "disp": "none"
+ },
+ "hovermodal.home.1440": {
+  "rows": 4,
+  "active": true,
+  "ariaHidden": "true",
+  "layers": [
+   {
+    "x": 599,
+    "y": 373
+   },
+   {
+    "x": 599,
+    "y": 373
+   },
+   {
+    "x": 599,
+    "y": 373
+   }
+  ],
+  "pointer": [
+   599,
+   373
+  ],
+  "cardScale": 1,
+  "label": "View",
+  "labelScale": 1,
+  "cursorBg": "rgb(210, 255, 0)",
+  "cursorSize": 88,
+  "strip": "matrix(1, 0, 0, 1, 0, -302.391)",
+  "rowsOpacity": [
+   "0.35",
+   "1",
+   "0.35",
+   "0.35"
+  ],
+  "pe": "none",
+  "imgs": [
+   "/projects/abroadly.webp&w=384&q=75",
+   "/projects/nook.webp&w=384&q=75"
+  ],
+  "followMidX": [
+   789,
+   857,
+   872
+  ],
+  "followEndX": [
+   962,
+   962,
+   962
+  ],
+  "targetX": 962,
+  "stripRow4": "matrix(1, 0, 0, 1, 0, -907.172)",
+  "afterLeave": {
+   "active": false,
+   "opac": [
+    "1",
+    "1",
+    "1",
+    "1"
+   ]
+  }
+ },
+ "hovermodal.keyboardDim.1440": {
+  "focused": "NookPersonal knowled",
+  "opac": [
+   "0.35",
+   "1",
+   "0.35",
+   "0.35"
+  ],
+  "modalActive": false
+ },
+ "hovermodal.work.1440": {
+  "exists": true,
+  "active": true,
+  "cardBg": "rgb(59, 60, 56)",
+  "rowsOpacity": [
+   "0.35",
+   "0.35",
+   "1",
+   "0.35",
+   "0.35"
+  ]
+ },
+ "hovermodal.presence.1024x1366-touch": {
+  "hm": false,
+  "rowsDisplay": "none",
+  "tilesDisplay": "grid"
+ },
+ "gsapLoaded.1024x1366-touch": {
+  "greensockChunks": [],
+  "gsapStartMs": [],
+  "load": 119,
+  "fcp": 104,
+  "scripts": 8
+ },
+ "hovermodal.presence.360x740": {
+  "hm": false,
+  "rowsDisplay": "none",
+  "tilesDisplay": "grid"
+ },
+ "gsapLoaded.360x740": {
+  "greensockChunks": [],
+  "gsapStartMs": [],
+  "load": 116,
+  "fcp": 100,
+  "scripts": 8
+ },
+ "hovermodal.presence.1440x900-rm": {
+  "hm": false,
+  "rowsDisplay": "block",
+  "tilesDisplay": "none"
+ },
+ "gsapLoaded.1440x900-rm": {
+  "greensockChunks": [],
+  "gsapStartMs": [],
+  "load": 115,
+  "fcp": 124,
+  "scripts": 8
+ },
+ "hovermodal.presence.768x1024": {
+  "hm": false,
+  "rowsDisplay": "none",
+  "tilesDisplay": "grid"
+ },
+ "gsapLoaded.768x1024": {
+  "greensockChunks": [],
+  "gsapStartMs": [],
+  "load": 117,
+  "fcp": 92,
+  "scripts": 8
+ },
+ "hovermodal.presence.1440x900": {
+  "hm": true,
+  "rowsDisplay": "block",
+  "tilesDisplay": "none"
+ },
+ "gsapLoaded.1440x900": {
+  "greensockChunks": [
+   "26z5y3xewknxi.js"
+  ],
+  "gsapStartMs": [
+   162
+  ],
+  "load": 120,
+  "fcp": 104,
+  "scripts": 9
+ },
+ "transition.home-to-work.1440x900": {
+  "vt": [
+   {
+    "t0": 782,
+    "anims": [
+     {
+      "pe": "::view-transition-old(root)",
+      "name": "-ua-view-transition-fade-out",
+      "dur": 250,
+      "easing": "linear"
+     },
+     {
+      "pe": "::view-transition-old(_t_0_)",
+      "name": "f-page-hold",
+      "dur": 300,
+      "easing": "linear"
+     },
+     {
+      "pe": "::view-transition-new(_t_1_)",
+      "name": "f-page-in",
+      "dur": 300,
+      "easing": "linear"
+     },
+     {
+      "pe": "::view-transition-group(root)",
+      "dur": 0,
+      "easing": "linear"
+     },
+     {
+      "pe": "::view-transition",
+      "dur": 0,
+      "easing": "linear"
+     }
+    ],
+    "ms": 357
+   }
+  ],
+  "active": "body",
+  "scrollY": 0,
+  "title": "Work · Akash Saha",
+  "menuOpen": false,
+  "lock": false
+ },
+ "menuAfterTransition.1440x900": {
+  "burgerShown": true,
+  "open": {
+   "dlg": true,
+   "focus": "Close menu",
+   "expanded": "true",
+   "htmlLock": true
+  },
+  "tabStaysInside": true,
+  "afterEsc": {
+   "open": false,
+   "focus": "Menu"
+  }
+ },
+ "focusAfterKeyboardNav.1440x900": {
+  "active": "body",
+  "scrollY": 0,
+  "vtCount": 2,
+  "last": {
+   "t0": 5065,
+   "anims": [
+    {
+     "pe": "::view-transition-old(root)",
+     "name": "-ua-view-transition-fade-out",
+     "dur": 250,
+     "easing": "linear"
+    },
+    {
+     "pe": "::view-transition-old(_t_1_)",
+     "name": "f-page-hold",
+     "dur": 300,
+     "easing": "linear"
+    },
+    {
+     "pe": "::view-transition-new(_t_2_)",
+     "name": "f-page-in",
+     "dur": 300,
+     "easing": "linear"
+    },
+    {
+     "pe": "::view-transition-group(root)",
+     "dur": 0,
+     "easing": "linear"
+    },
+    {
+     "pe": "::view-transition",
+     "dur": 0,
+     "easing": "linear"
+    }
+   ],
+   "ms": 407
+  }
+ },
+ "firstTabAfterNav.1440x900": "A ©Code by AkashCode by Aka",
+ "transition.home-to-work.360x740": {
+  "vt": [
+   {
+    "t0": 1915,
+    "anims": [
+     {
+      "pe": "::view-transition-old(root)",
+      "name": "-ua-view-transition-fade-out",
+      "dur": 250,
+      "easing": "linear"
+     },
+     {
+      "pe": "::view-transition-old(_t_0_)",
+      "name": "f-page-hold",
+      "dur": 300,
+      "easing": "linear"
+     },
+     {
+      "pe": "::view-transition-new(_t_1_)",
+      "name": "f-page-in",
+      "dur": 300,
+      "easing": "linear"
+     },
+     {
+      "pe": "::view-transition-group(root)",
+      "dur": 0,
+      "easing": "linear"
+     },
+     {
+      "pe": "::view-transition",
+      "dur": 0,
+      "easing": "linear"
+     }
+    ],
+    "ms": 343
+   }
+  ],
+  "active": "body",
+  "scrollY": 0,
+  "title": "Work · Akash Saha",
+  "menuOpen": false,
+  "lock": false
+ },
+ "menuAfterTransition.360x740": {
+  "burgerShown": true,
+  "open": {
+   "dlg": true,
+   "focus": "Close menu",
+   "expanded": "true",
+   "htmlLock": true
+  },
+  "tabStaysInside": true,
+  "afterEsc": {
+   "open": false,
+   "focus": "Menu"
+  }
+ },
+ "focusAfterKeyboardNav.360x740": {
+  "active": "body",
+  "scrollY": 0,
+  "vtCount": 2,
+  "last": {
+   "t0": 6230,
+   "anims": [
+    {
+     "pe": "::view-transition-old(root)",
+     "name": "-ua-view-transition-fade-out",
+     "dur": 250,
+     "easing": "linear"
+    },
+    {
+     "pe": "::view-transition-old(_t_1_)",
+     "name": "f-page-hold",
+     "dur": 300,
+     "easing": "linear"
+    },
+    {
+     "pe": "::view-transition-new(_t_2_)",
+     "name": "f-page-in",
+     "dur": 300,
+     "easing": "linear"
+    },
+    {
+     "pe": "::view-transition-group(root)",
+     "dur": 0,
+     "easing": "linear"
+    },
+    {
+     "pe": "::view-transition",
+     "dur": 0,
+     "easing": "linear"
+    }
+   ],
+   "ms": 362
+  }
+ },
+ "firstTabAfterNav.360x740": "A ©Code by AkashCode by Aka",
+ "transition.home-to-work.1440x900-rm": {
+  "vt": [
+   {
+    "t0": 729,
+    "anims": [
+     {
+      "pe": "::view-transition-old(root)",
+      "name": "-ua-view-transition-fade-out",
+      "dur": 250,
+      "easing": "linear"
+     },
+     {
+      "pe": "::view-transition-group(root)",
+      "dur": 0,
+      "easing": "linear"
+     },
+     {
+      "pe": "::view-transition",
+      "dur": 0,
+      "easing": "linear"
+     }
+    ],
+    "ms": 361
+   }
+  ],
+  "active": "body",
+  "scrollY": 0,
+  "title": "Work · Akash Saha",
+  "menuOpen": false,
+  "lock": false
+ },
+ "menuAfterTransition.1440x900-rm": {
+  "burgerShown": true,
+  "open": {
+   "dlg": true,
+   "focus": "Close menu",
+   "expanded": "true",
+   "htmlLock": true
+  },
+  "tabStaysInside": true,
+  "afterEsc": {
+   "open": false,
+   "focus": "Menu"
+  }
+ },
+ "focusAfterKeyboardNav.1440x900-rm": {
+  "active": "body",
+  "scrollY": 0,
+  "vtCount": 2,
+  "last": {
+   "t0": 4975,
+   "anims": [
+    {
+     "pe": "::view-transition-old(root)",
+     "name": "-ua-view-transition-fade-out",
+     "dur": 250,
+     "easing": "linear"
+    },
+    {
+     "pe": "::view-transition-group(root)",
+     "dur": 0,
+     "easing": "linear"
+    },
+    {
+     "pe": "::view-transition",
+     "dur": 0,
+     "easing": "linear"
+    }
+   ],
+   "ms": 331
+  }
+ },
+ "firstTabAfterNav.1440x900-rm": "A ©Code by AkashCode by Aka",
+ "transition.home-to-work.360x740-rm": {
+  "vt": [
+   {
+    "t0": 1681,
+    "anims": [
+     {
+      "pe": "::view-transition-old(root)",
+      "name": "-ua-view-transition-fade-out",
+      "dur": 250,
+      "easing": "linear"
+     },
+     {
+      "pe": "::view-transition-group(root)",
+      "dur": 0,
+      "easing": "linear"
+     },
+     {
+      "pe": "::view-transition",
+      "dur": 0,
+      "easing": "linear"
+     }
+    ],
+    "ms": 278
+   }
+  ],
+  "active": "body",
+  "scrollY": 0,
+  "title": "Work · Akash Saha",
+  "menuOpen": false,
+  "lock": false
+ },
+ "menuAfterTransition.360x740-rm": {
+  "burgerShown": true,
+  "open": {
+   "dlg": true,
+   "focus": "Close menu",
+   "expanded": "true",
+   "htmlLock": true
+  },
+  "tabStaysInside": true,
+  "afterEsc": {
+   "open": false,
+   "focus": "Menu"
+  }
+ },
+ "focusAfterKeyboardNav.360x740-rm": {
+  "active": "body",
+  "scrollY": 0,
+  "vtCount": 2,
+  "last": {
+   "t0": 5927,
+   "anims": [
+    {
+     "pe": "::view-transition-old(root)",
+     "name": "-ua-view-transition-fade-out",
+     "dur": 250,
+     "easing": "linear"
+    },
+    {
+     "pe": "::view-transition-group(root)",
+     "dur": 0,
+     "easing": "linear"
+    },
+    {
+     "pe": "::view-transition",
+     "dur": 0,
+     "easing": "linear"
+    }
+   ],
+   "ms": 298
+  }
+ },
+ "firstTabAfterNav.360x740-rm": "A ©Code by AkashCode by Aka",
+ "scrollRestore.360x740": {
+  "homeBefore": 1573,
+  "caseAfterClick": 0,
+  "homeAfterBack": 1573,
+  "caseAfterForward_was900": 900
+ },
+ "scrollRestore.1440x900": {
+  "homeBefore": 1571,
+  "caseAfterClick": 0,
+  "homeAfterBack": 1571,
+  "caseAfterForward_was900": 900
+ }
+}

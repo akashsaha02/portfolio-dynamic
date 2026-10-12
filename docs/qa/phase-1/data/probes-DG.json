@@ -1,0 +1,543 @@
+{
+ "page./": {
+  "bar": "/=page /work=null /about=null /contact=null",
+  "menu": "/=page /work=null /about=null /contact=null",
+  "footer": {
+   "h2": "Let’s work together",
+   "contactLink": true,
+   "copyEmail": true,
+   "height": 1039,
+   "labelledby": "footer-title"
+  },
+  "title": "Akash Saha, full-stack developer",
+  "desc": "Akash Saha is a full-stack developer in Dhaka buil",
+  "ogImage": false,
+  "canonical": null,
+  "h1": "Akash Saha",
+  "landmarks": {
+   "banner": 1,
+   "main": 1,
+   "contentinfo": 1,
+   "navs": [
+    "Main",
+    "folio-menu-nav"
+   ]
+  }
+ },
+ "page./work": {
+  "bar": "/=null /work=page /about=null /contact=null",
+  "menu": "/=null /work=page /about=null /contact=null",
+  "footer": {
+   "h2": "Let’s work together",
+   "contactLink": true,
+   "copyEmail": true,
+   "height": 1039,
+   "labelledby": "footer-title"
+  },
+  "title": "Work · Akash Saha",
+  "desc": "Akash Saha is a full-stack developer in Dhaka buil",
+  "ogImage": false,
+  "canonical": null,
+  "h1": "Work",
+  "landmarks": {
+   "banner": 1,
+   "main": 1,
+   "contentinfo": 1,
+   "navs": [
+    "Main",
+    "folio-menu-nav"
+   ]
+  }
+ },
+ "page./work/abroadly": {
+  "bar": "/=null /work=true /about=null /contact=null https://study-abroad-five-mu.vercel.app=null https://github.com/akashsaha02/study-abroad=null",
+  "menu": "/=null /work=true /about=null /contact=null",
+  "footer": {
+   "h2": "Let’s work together",
+   "contactLink": true,
+   "copyEmail": true,
+   "height": 1039,
+   "labelledby": "footer-title"
+  },
+  "title": "Abroadly · Akash Saha",
+  "desc": "My own product for study abroad agencies: students",
+  "ogImage": false,
+  "canonical": null,
+  "h1": "Abroadly",
+  "landmarks": {
+   "banner": 1,
+   "main": 1,
+   "contentinfo": 1,
+   "navs": [
+    "Main",
+    "folio-menu-nav"
+   ]
+  }
+ },
+ "page./about": {
+  "bar": "/=null /work=null /about=page /contact=null",
+  "menu": "/=null /work=null /about=page /contact=null",
+  "footer": {
+   "h2": "Let’s work together",
+   "contactLink": true,
+   "copyEmail": true,
+   "height": 1039,
+   "labelledby": "footer-title"
+  },
+  "title": "About · Akash Saha",
+  "desc": "Akash Saha is a full-stack developer in Dhaka buil",
+  "ogImage": false,
+  "canonical": null,
+  "h1": "I build web products end to end, from the database schema to the screen people tap.",
+  "landmarks": {
+   "banner": 1,
+   "main": 1,
+   "contentinfo": 1,
+   "navs": [
+    "Main",
+    "folio-menu-nav"
+   ]
+  }
+ },
+ "page./contact": {
+  "bar": "/=null /work=null /about=null /contact=page",
+  "menu": "/=null /work=null /about=null /contact=page",
+  "footer": {
+   "h2": null,
+   "contactLink": false,
+   "copyEmail": false,
+   "height": 143,
+   "labelledby": null
+  },
+  "title": "Contact · Akash Saha",
+  "desc": "Akash Saha is a full-stack developer in Dhaka buil",
+  "ogImage": false,
+  "canonical": null,
+  "h1": "Get in touch",
+  "landmarks": {
+   "banner": 1,
+   "main": 1,
+   "contentinfo": 1,
+   "navs": [
+    "Main",
+    "folio-menu-nav"
+   ]
+  }
+ },
+ "page./nope": {
+  "bar": "/=null /work=null /about=null /contact=null",
+  "menu": "/=null /work=null /about=null /contact=null",
+  "footer": {
+   "h2": "Let’s work together",
+   "contactLink": true,
+   "copyEmail": true,
+   "height": 1039,
+   "labelledby": "footer-title"
+  },
+  "title": "Page not found · Akash Saha",
+  "desc": "Akash Saha is a full-stack developer in Dhaka buil",
+  "ogImage": false,
+  "canonical": null,
+  "h1": "Page not found",
+  "landmarks": {
+   "banner": 1,
+   "main": 1,
+   "contentinfo": 1,
+   "navs": [
+    "Main",
+    "Ways back",
+    "folio-menu-nav"
+   ]
+  }
+ },
+ "404.caseStudy": {
+  "status": 404,
+  "title": "Akash Saha, full-stack developer",
+  "h1": "Page not found",
+  "robots": null
+ },
+ "404.catchAll": {
+  "status": 404,
+  "title": "Page not found · Akash Saha",
+  "robots": "noindex",
+  "links": [
+   "/ 64",
+   "/work 64",
+   "/contact 64"
+  ]
+ },
+ "marquee.320x640": {
+  "fontPx": 90,
+  "bandTop": 440,
+  "bandBottom": 515,
+  "halfW": 1418,
+  "vw": 320,
+  "gapRisk": false,
+  "anim": "f-marquee",
+  "playState": "running",
+  "durS": 66,
+  "heroH": 640,
+  "vh": 640,
+  "portrait": {
+   "top": 230,
+   "left": -45,
+   "right": 365,
+   "h": 410
+  },
+  "role": {
+   "top": 92,
+   "bottom": 204,
+   "left": 0,
+   "right": 320
+  },
+  "roleOverPortrait": false,
+  "burgerFirstShownAtScrollY": 660,
+  "heroBottom": 640,
+  "burger": {
+   "w": 0,
+   "h": 0,
+   "top": 44,
+   "right": 44
+  }
+ },
+ "marquee.360x740": {
+  "fontPx": 101,
+  "bandTop": 513,
+  "bandBottom": 597,
+  "halfW": 1595,
+  "vw": 360,
+  "gapRisk": false,
+  "anim": "f-marquee",
+  "playState": "running",
+  "durS": 66,
+  "heroH": 740,
+  "vh": 740,
+  "portrait": {
+   "top": 272,
+   "left": -54,
+   "right": 414,
+   "h": 468
+  },
+  "role": {
+   "top": 92,
+   "bottom": 204,
+   "left": 0,
+   "right": 360
+  },
+  "roleOverPortrait": false,
+  "burgerFirstShownAtScrollY": 760,
+  "heroBottom": 740,
+  "burger": {
+   "w": 0,
+   "h": 0,
+   "top": 44,
+   "right": 44
+  }
+ },
+ "marquee.390x844": {
+  "fontPx": 109,
+  "bandTop": 598,
+  "bandBottom": 689,
+  "halfW": 1728,
+  "vw": 390,
+  "gapRisk": false,
+  "anim": "f-marquee",
+  "playState": "running",
+  "durS": 66,
+  "heroH": 844,
+  "vh": 844,
+  "portrait": {
+   "top": 337,
+   "left": -58,
+   "right": 449,
+   "h": 507
+  },
+  "role": {
+   "top": 92,
+   "bottom": 204,
+   "left": 0,
+   "right": 390
+  },
+  "roleOverPortrait": false,
+  "burgerFirstShownAtScrollY": 860,
+  "heroBottom": 844,
+  "burger": {
+   "w": 0,
+   "h": 0,
+   "top": 44,
+   "right": 44
+  }
+ },
+ "marquee.414x896": {
+  "fontPx": 116,
+  "bandTop": 635,
+  "bandBottom": 732,
+  "halfW": 1835,
+  "vw": 414,
+  "gapRisk": false,
+  "anim": "f-marquee",
+  "playState": "running",
+  "durS": 66,
+  "heroH": 896,
+  "vh": 896,
+  "portrait": {
+   "top": 358,
+   "left": -62,
+   "right": 476,
+   "h": 538
+  },
+  "role": {
+   "top": 92,
+   "bottom": 204,
+   "left": 0,
+   "right": 414
+  },
+  "roleOverPortrait": false,
+  "burgerFirstShownAtScrollY": 900,
+  "heroBottom": 896,
+  "burger": {
+   "w": 0,
+   "h": 0,
+   "top": 44,
+   "right": 44
+  }
+ },
+ "marquee.768x1024": {
+  "fontPx": 131,
+  "bandTop": 699,
+  "bandBottom": 809,
+  "halfW": 2066,
+  "vw": 768,
+  "gapRisk": false,
+  "anim": "f-marquee",
+  "playState": "running",
+  "durS": 90,
+  "heroH": 1024,
+  "vh": 1024,
+  "portrait": {
+   "top": 317,
+   "left": 31,
+   "right": 737,
+   "h": 707
+  },
+  "role": {
+   "top": 195,
+   "bottom": 329,
+   "left": 437,
+   "right": 768
+  },
+  "roleOverPortrait": true,
+  "burgerFirstShownAtScrollY": 1040,
+  "heroBottom": 1024,
+  "burger": {
+   "w": 0,
+   "h": 0,
+   "top": 52,
+   "right": 52
+  }
+ },
+ "marquee.1024x1366-touch": {
+  "fontPx": 174,
+  "bandTop": 932,
+  "bandBottom": 1079,
+  "halfW": 2755,
+  "vw": 1024,
+  "gapRisk": false,
+  "anim": "f-marquee",
+  "playState": "running",
+  "durS": 90,
+  "heroH": 1366,
+  "vh": 1366,
+  "portrait": {
+   "top": 424,
+   "left": 41,
+   "right": 983,
+   "h": 942
+  },
+  "role": {
+   "top": 236,
+   "bottom": 414,
+   "left": 640,
+   "right": 1024
+  },
+  "roleOverPortrait": false,
+  "burgerFirstShownAtScrollY": 1380,
+  "heroBottom": 1366,
+  "burger": {
+   "w": 0,
+   "h": 0,
+   "top": 60,
+   "right": 60
+  }
+ },
+ "marquee.1280x800": {
+  "fontPx": 161,
+  "bandTop": 460,
+  "bandBottom": 595,
+  "halfW": 2552,
+  "vw": 1280,
+  "gapRisk": false,
+  "anim": "f-marquee",
+  "playState": "running",
+  "durS": 90,
+  "heroH": 800,
+  "vh": 800,
+  "portrait": {
+   "top": 128,
+   "left": 304,
+   "right": 976,
+   "h": 672
+  },
+  "role": {
+   "top": 168,
+   "bottom": 351,
+   "left": 896,
+   "right": 1280
+  },
+  "roleOverPortrait": true,
+  "burgerFirstShownAtScrollY": 820,
+  "heroBottom": 800,
+  "burger": {
+   "w": 0,
+   "h": 0,
+   "top": 60,
+   "right": 60
+  }
+ },
+ "marquee.1440x900": {
+  "fontPx": 181,
+  "bandTop": 517,
+  "bandBottom": 669,
+  "halfW": 2871,
+  "vw": 1440,
+  "gapRisk": false,
+  "anim": "f-marquee",
+  "playState": "running",
+  "durS": 90,
+  "heroH": 900,
+  "vh": 900,
+  "portrait": {
+   "top": 144,
+   "left": 342,
+   "right": 1098,
+   "h": 756
+  },
+  "role": {
+   "top": 180,
+   "bottom": 363,
+   "left": 1056,
+   "right": 1440
+  },
+  "roleOverPortrait": true,
+  "burgerFirstShownAtScrollY": 920,
+  "heroBottom": 900,
+  "burger": {
+   "w": 0,
+   "h": 0,
+   "top": 60,
+   "right": 60
+  }
+ },
+ "marquee.740x360-land": {
+  "fontPx": 72,
+  "bandTop": 208,
+  "bandBottom": 269,
+  "halfW": 1139,
+  "vw": 740,
+  "gapRisk": false,
+  "anim": "f-marquee",
+  "playState": "running",
+  "durS": 66,
+  "heroH": 360,
+  "vh": 360,
+  "portrait": {
+   "top": 60,
+   "left": 410,
+   "right": 710,
+   "h": 300
+  },
+  "role": {
+   "top": 68,
+   "bottom": 178,
+   "left": 0,
+   "right": 740
+  },
+  "roleOverPortrait": true,
+  "burgerFirstShownAtScrollY": 380,
+  "heroBottom": 360,
+  "burger": {
+   "w": 0,
+   "h": 0,
+   "top": 44,
+   "right": 44
+  }
+ },
+ "marquee.360x740-rm": {
+  "fontPx": 101,
+  "bandTop": 513,
+  "bandBottom": 597,
+  "halfW": 1595,
+  "vw": 360,
+  "gapRisk": false,
+  "anim": "none",
+  "playState": null,
+  "durS": null,
+  "heroH": 740,
+  "vh": 740,
+  "portrait": {
+   "top": 272,
+   "left": -54,
+   "right": 414,
+   "h": 468
+  },
+  "role": {
+   "top": 92,
+   "bottom": 204,
+   "left": 0,
+   "right": 360
+  },
+  "roleOverPortrait": false,
+  "burgerFirstShownAtScrollY": 760,
+  "heroBottom": 740,
+  "burger": {
+   "w": 56,
+   "h": 56,
+   "top": 16,
+   "right": 16
+  }
+ },
+ "marquee.1440x900-rm": {
+  "fontPx": 181,
+  "bandTop": 517,
+  "bandBottom": 669,
+  "halfW": 2871,
+  "vw": 1440,
+  "gapRisk": false,
+  "anim": "none",
+  "playState": null,
+  "durS": null,
+  "heroH": 900,
+  "vh": 900,
+  "portrait": {
+   "top": 144,
+   "left": 342,
+   "right": 1098,
+   "h": 756
+  },
+  "role": {
+   "top": 180,
+   "bottom": 363,
+   "left": 1056,
+   "right": 1440
+  },
+  "roleOverPortrait": true,
+  "burgerFirstShownAtScrollY": 920,
+  "heroBottom": 900,
+  "burger": {
+   "w": 56,
+   "h": 56,
+   "top": 32,
+   "right": 32
+  }
+ }
+}
