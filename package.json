@@ -9,7 +9,7 @@
     "lint": "eslint",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:e2e": "playwright test"
+    "test:e2e": "node e2e/run.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
