@@ -13,73 +13,34 @@ import { RoundButton } from "../ui/RoundButton";
 // Optional avatar + "Let's work together", the big round "Get in touch" sitting on a hairline,
 // email (copy on tap) and optional phone as pills, stacked full width on phone and side by side
 // from md, then version · live local time · socials above the bottom safe area.
+//
+// "compact" (the Contact page, work plan 1.7) keeps only the curve and that bottom row: the call
+// to action, the button back to /contact and the email pill would repeat the page itself.
+
+export type FooterVariant = "full" | "compact";
 
 type FooterProps = {
   profile: Pick<Profile, "email" | "phone" | "avatar" | "timezone" | "socials">;
   site: Pick<SiteMeta, "versionLabel">;
+  variant?: FooterVariant;
 };
 
-export function Footer({ profile, site }: FooterProps) {
-  const { email, phone, avatar, timezone, socials } = profile;
+export function Footer({ profile, site, variant = "full" }: FooterProps) {
+  const { timezone, socials } = profile;
+  const compact = variant === "compact";
 
   return (
-    <footer aria-labelledby="footer-title" className="f-footer relative surface-ink mt-[7svh] md:mt-[12svh]">
+    <footer
+      aria-labelledby={compact ? undefined : "footer-title"}
+      className="f-footer relative surface-ink mt-[7svh] md:mt-[12svh]"
+    >
       <CurvedEdge edge="top" fill="var(--ink)" />
-      <div className="f-bleed pt-section">
-        <div className="flex items-center gap-4 md:gap-6">
-          {avatar ? (
-            <Image
-              src={avatar.src}
-              alt={avatar.alt}
-              width={avatar.width}
-              height={avatar.height}
-              sizes="(min-width: 768px) 96px, 64px"
-              className="size-16 shrink-0 rounded-full object-cover md:size-24"
-            />
-          ) : null}
-          <h2 id="footer-title" className="max-w-[12ch] type-display">
-            Let&rsquo;s work together
-          </h2>
-        </div>
+      <div className={`f-bleed ${compact ? "pt-10 md:pt-14" : "pt-section"}`}>
+        {compact ? null : <FooterCta profile={profile} />}
 
-        {/* The round button sits on the hairline; the margins leave half its size on each side. */}
-        <div className="f-footer-rule relative border-t border-(--rule)">
-          <div className="absolute top-0 right-0 -translate-y-1/2 md:right-[8%]">
-            <Magnetic>
-              <RoundButton href="/contact" size="lg">
-                Get in touch
-              </RoundButton>
-            </Magnetic>
-          </div>
-        </div>
-
-        <div className="f-footer-pills grid gap-3 md:flex md:flex-wrap">
-          <CopyButton
-            value={email}
-            status="Email address copied"
-            fallbackHref={`mailto:${email}`}
-            aria-label={`Copy email address ${email}`}
-            className="f-btn f-btn-outline f-roll-host flex min-h-14 w-full px-7 text-base md:min-h-16 md:w-auto md:px-9 md:text-lg"
-          >
-            <span aria-hidden="true" className="f-copy">
-              <span>
-                <RollLabel>{email}</RollLabel>
-                <CopyIcon />
-              </span>
-              <span>
-                Copied
-                <Check />
-              </span>
-            </span>
-          </CopyButton>
-          {phone ? (
-            <FillButton href={`tel:${phone.replace(/[^\d+]/g, "")}`} variant="outline" size="lg" block className="md:w-auto">
-              {phone}
-            </FillButton>
-          ) : null}
-        </div>
-
-        <div className="f-footer-bottom mt-section grid gap-8 pt-6 md:flex md:items-end md:justify-between">
+        <div
+          className={`f-footer-bottom grid gap-8 md:flex md:items-end md:justify-between ${compact ? "" : "mt-section pt-6"}`}
+        >
           <dl className="flex flex-wrap gap-x-12 gap-y-6">
             <div>
               <dt className="type-label">Version</dt>
@@ -115,5 +76,67 @@ export function Footer({ profile, site }: FooterProps) {
         </div>
       </div>
     </footer>
+  );
+}
+
+/** "Let's work together", the round "Get in touch" on its hairline, and the email/phone pills. */
+function FooterCta({ profile }: { profile: FooterProps["profile"] }) {
+  const { email, phone, avatar } = profile;
+
+  return (
+    <>
+      <div className="flex items-center gap-4 md:gap-6">
+        {avatar ? (
+          <Image
+            src={avatar.src}
+            alt={avatar.alt}
+            width={avatar.width}
+            height={avatar.height}
+            sizes="(min-width: 768px) 96px, 64px"
+            className="size-16 shrink-0 rounded-full object-cover md:size-24"
+          />
+        ) : null}
+        <h2 id="footer-title" className="max-w-[12ch] type-display">
+          Let&rsquo;s work together
+        </h2>
+      </div>
+
+      {/* The round button sits on the hairline; the margins leave half its size on each side. */}
+      <div className="f-footer-rule relative border-t border-(--rule)">
+        <div className="absolute top-0 right-0 -translate-y-1/2 md:right-[8%]">
+          <Magnetic>
+            <RoundButton href="/contact" size="lg">
+              Get in touch
+            </RoundButton>
+          </Magnetic>
+        </div>
+      </div>
+
+      <div className="f-footer-pills grid gap-3 md:flex md:flex-wrap">
+        <CopyButton
+          value={email}
+          status="Email address copied"
+          fallbackHref={`mailto:${email}`}
+          aria-label={`Copy email address ${email}`}
+          className="f-btn f-btn-outline f-roll-host flex min-h-14 w-full px-7 text-base md:min-h-16 md:w-auto md:px-9 md:text-lg"
+        >
+          <span aria-hidden="true" className="f-copy">
+            <span>
+              <RollLabel>{email}</RollLabel>
+              <CopyIcon />
+            </span>
+            <span>
+              Copied
+              <Check />
+            </span>
+          </span>
+        </CopyButton>
+        {phone ? (
+          <FillButton href={`tel:${phone.replace(/[^\d+]/g, "")}`} variant="outline" size="lg" block className="md:w-auto">
+            {phone}
+          </FillButton>
+        ) : null}
+      </div>
+    </>
   );
 }

@@ -18,7 +18,7 @@ export default function CaseStudy({ content, settings, project, next }: CaseStud
   const phonesTitle = `${project.slug}-phones`;
 
   return (
-    <FolioShell content={content} settings={settings} current="work">
+    <FolioShell content={content} settings={settings} section="work">
       <main id="main" tabIndex={-1} className="outline-none">
         <header className="f-bleed pt-[calc(var(--section-y)/2)]">
           <h1 className="type-display">{project.name}</h1>
