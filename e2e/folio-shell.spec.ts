@@ -1,5 +1,6 @@
 import { test, expect, type Locator, type Page } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+import { gotoFolio } from "./folio-helpers";
 
 // Folio global shell (task 1.2, guide §4.1/§4.2): top bar, burger, menu dialog, footer, skip link.
 // Folio projects only. The hero lands in 1.3, so the burger is driven through its 100svh sentinel
@@ -43,7 +44,7 @@ async function noHorizontalScroll(page: Page) {
 
 test.describe("top bar", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/");
+    await gotoFolio(page, "/");
   });
 
   test("logo links home", async ({ page }) => {
@@ -80,7 +81,7 @@ test.describe("top bar", () => {
 
 test.describe("burger", () => {
   test("is hidden and not focusable at the top, visible after scrolling", async ({ page }) => {
-    await page.goto("/");
+    await gotoFolio(page, "/");
     await expect(burger(page)).toBeHidden();
     await expect(burger(page)).toHaveCount(1);
     expect(await burger(page).evaluate((el) => getComputedStyle(el).visibility)).toBe("hidden");
@@ -97,7 +98,7 @@ test.describe("burger", () => {
 
 test.describe("menu", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/");
+    await gotoFolio(page, "/");
   });
 
   test("opens from its trigger, aria-expanded toggles, focus lands on close", async ({ page }) => {
@@ -184,7 +185,7 @@ test.describe("menu", () => {
     test.use({ reducedMotion: "reduce" });
 
     test("opens instantly with focus inside, closes with Esc", async ({ page }) => {
-      await page.goto("/");
+      await gotoFolio(page, "/");
       const trigger = isPhone(page) ? topMenuButton(page) : burger(page);
       if (!isPhone(page)) await scrollPastHero(page);
       await trigger.click();
@@ -200,7 +201,7 @@ test.describe("menu", () => {
 
 test.describe("footer", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/");
+    await gotoFolio(page, "/");
   });
 
   test("Get in touch goes to /contact", async ({ page }) => {
@@ -243,7 +244,7 @@ test.describe("footer", () => {
 
 test.describe("skip link", () => {
   test("is first in tab order, >= 44px, Enter moves focus to main#main", async ({ page, browserName }) => {
-    await page.goto("/");
+    await gotoFolio(page, "/");
     // WebKit's default Tab skips links; focus the skip link directly there.
     await page.keyboard.press("Tab");
     const skip = page.getByRole("link", { name: "Skip to content" });
