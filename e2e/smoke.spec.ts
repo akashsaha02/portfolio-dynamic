@@ -29,7 +29,7 @@ test.describe("home /", () => {
     expect(errors).toEqual([]);
   });
 
-  test("axe scan (soft in Phase 0)", async ({ page }, testInfo) => {
+  test("axe scan (Folio: any violation fails; Editorial: soft)", async ({ page }, testInfo) => {
     await page.goto("/");
     await page.waitForLoadState("networkidle");
     const results = await new AxeBuilder({ page }).analyze();
@@ -48,8 +48,10 @@ test.describe("home /", () => {
     }
     const blocking = results.violations.filter((v) => v.impact === "serious" || v.impact === "critical");
     if (testInfo.project.name.startsWith("folio-")) {
-      // Phase 1 rule: Folio has zero serious/critical axe violations (hard failure).
-      expect(blocking.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(" ")).join(" | ")}`)).toEqual([]);
+      // Folio has zero axe violations of any impact (F-20): any violation fails.
+      expect(
+        results.violations.map((v) => `${v.impact} ${v.id}: ${v.nodes.map((n) => n.target.join(" ")).join(" | ")}`),
+      ).toEqual([]);
     } else if (blocking.length) {
       console.warn(`[axe soft] ${blocking.length} serious/critical: ${blocking.map((v) => v.id).join(", ")}`);
     }
