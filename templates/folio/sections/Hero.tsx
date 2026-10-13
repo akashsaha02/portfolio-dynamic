@@ -2,6 +2,7 @@ import Image from "next/image";
 import type { Profile } from "@/lib/content-types";
 import { NameMarquee } from "../motion/NameMarquee";
 import { Chip } from "../ui/Chip";
+import { capSizes } from "../ui/image-sizes";
 import { ArrowDownRight, Globe } from "../ui/icons";
 
 // Home hero (guide §4.2 row 1). 100svh (min 34rem), pulled up under the top bar. The cutout
@@ -32,8 +33,9 @@ export function Hero({ profile }: HeroProps) {
         height={portrait.height}
         preload
         fetchPriority="high"
-        // Rendered at min(64svh, 130vw) on phone and min(84svh, 92vw) from md (folio.css).
-        sizes="(min-width: 1024px) 84vh, (min-width: 768px) 92vw, 130vw"
+        // Rendered at min(64svh, 130vw) on phone and min(84svh, 92vw) from md (folio.css);
+        // capped at the 1024 px source on dense screens (image-sizes.ts).
+        sizes={capSizes(portrait.width, "(min-width: 1024px) 84vh, (min-width: 768px) 92vw, 130vw")}
         className="f-hero-portrait"
       />
 

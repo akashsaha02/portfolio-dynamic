@@ -13,6 +13,9 @@ import { Tile } from "../ui/Tile";
 import { WorkBrowser, type WorkFilter } from "../work/WorkBrowser";
 import "../work.css";
 
+/** Where the tiles are the first view: everything except lg with a fine pointer (work.css). */
+const TILES_FIRST = "not all and (min-width: 1024px) and (hover: hover) and (pointer: fine)";
+
 /** Case studies open in place; everything else goes to the live site (or repo) in a new tab. */
 function projectLink(p: Project) {
   return p.caseStudy ? { href: `/work/${p.slug}`, external: false } : { href: p.url, external: true };
@@ -43,6 +46,8 @@ export default function Work({ content, settings }: TemplateProps) {
                     image={p.cover}
                     headingLevel="h2"
                     eager={i === 0}
+                    // Hidden behind the list view on a fine-pointer lg screen: eager elsewhere only.
+                    eagerMedia={TILES_FIRST}
                     // Tile width: 100vw minus the gutters on phone; half of that, minus the gap, from md.
                     sizes="(min-width: 768px) 42vw, 92vw"
                   />

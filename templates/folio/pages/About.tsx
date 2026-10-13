@@ -4,6 +4,7 @@ import type { Education, NowEntry, Service, SkillGroup } from "@/lib/content-typ
 import type { TemplateProps } from "../../types";
 import { FolioShell } from "../shell/FolioShell";
 import { ArrowDownRight } from "../ui/icons";
+import { capSizes } from "../ui/image-sizes";
 import "../pages-about-contact.css";
 
 // Folio About (guide §4.5, work plan 1.6). Phone: statement (the h1) → portrait (4:5) → the rest
@@ -128,8 +129,9 @@ export default function About({ content, settings }: TemplateProps) {
               src={portrait.src}
               alt={portrait.alt}
               fill
-              // Full width minus the gutters on phone; 5 of 12 columns from md.
-              sizes="(min-width: 768px) 40vw, 100vw"
+              // Full width minus the gutters on phone; 5 of 12 columns from md. Capped at the
+              // source on dense screens (image-sizes.ts).
+              sizes={capSizes(portrait.width, "(min-width: 768px) 40vw, 100vw")}
               className="object-cover object-bottom"
             />
           </div>

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { ImageAsset } from "@/lib/content-types";
+import { capSizes } from "../ui/image-sizes";
 
 // Phone screenshots (guide §4.4): on phone a swipeable row (CSS scroll-snap, no JS) that runs to
 // the screen edges with the next shot peeking in; from md the phones (two or three) stand side by
@@ -23,8 +24,8 @@ export function PhoneShots({ shots, titleId }: { shots: ImageAsset[]; titleId: s
             alt={shot.alt}
             width={shot.width}
             height={shot.height}
-            // Phone ~64vw (max 18rem); md+ fixed 18rem.
-            sizes="(min-width: 768px) 288px, 64vw"
+            // Phone ~64vw (max 18rem); md+ fixed 18rem. Capped at the source on dense screens.
+            sizes={capSizes(shot.width, "(min-width: 768px) 288px, 64vw")}
             className="block h-auto w-full"
           />
         </li>
