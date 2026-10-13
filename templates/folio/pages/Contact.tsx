@@ -56,7 +56,7 @@ function ContactDetails({ profile }: DetailsProps) {
           <h3 id="contact-socials" className="type-label">
             Socials
           </h3>
-          <ul aria-labelledby="contact-socials" className="mt-2 -ml-2 grid">
+          <ul aria-labelledby="contact-socials" className="mt-2 -ml-2 grid gap-2">
             {socials.map((s) => (
               <li key={s.url}>
                 <a

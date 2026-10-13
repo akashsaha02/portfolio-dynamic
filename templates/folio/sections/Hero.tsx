@@ -8,16 +8,16 @@ import { ArrowDownRight, Globe } from "../ui/icons";
 // portrait stands on the bottom edge and is the LCP element, so it is preloaded and never
 // revealed: no clip, no opacity, no delay (baseline L2). The name marquee crosses it; the copy
 // never does (baseline L4): on phone it sits above the portrait's head, from md the location
-// pill hangs off the left edge and the role sits on the right, both clear of the figure.
+// pill hangs off the left edge and the headline sits on the right, both clear of the figure.
 //
 // `data-folio-hero` tells the shell's fixed burger when the hero has left the viewport.
 
 type HeroProps = {
-  profile: Pick<Profile, "name" | "role" | "location" | "portrait" | "availability">;
+  profile: Pick<Profile, "name" | "headline" | "location" | "portrait" | "availability">;
 };
 
 export function Hero({ profile }: HeroProps) {
-  const { name, role, location, portrait, availability } = profile;
+  const { name, headline, location, portrait, availability } = profile;
 
   return (
     <section data-folio-hero="" aria-labelledby="hero-title" className="f-hero surface-paper">
@@ -52,7 +52,7 @@ export function Hero({ profile }: HeroProps) {
 
         <div className="f-hero-role">
           <ArrowDownRight className="size-5 md:size-6" />
-          <p>{role}</p>
+          <p>{headline}</p>
           <Chip variant="solid" dot={availability.status !== "closed"}>
             {availability.label}
           </Chip>

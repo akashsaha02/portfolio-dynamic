@@ -717,6 +717,7 @@ html[data-folio-menu-open] body {
     font-weight: 450;
     letter-spacing: -0.025em;
     line-height: 1.15;
+    text-wrap: balance;
   }
   .f-hero-role > .f-chip {
     margin-top: 1.25rem;

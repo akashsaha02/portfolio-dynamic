@@ -275,7 +275,7 @@ function Summary({ ref, state }: SummaryProps) {
     <div ref={ref} tabIndex={-1} role="alert" className="f-contact-summary surface-ink outline-none">
       <p className="font-medium">{state.message}</p>
       {errors.length ? (
-        <ul className="mt-3 grid gap-1">
+        <ul className="mt-3 grid gap-2">
           {errors.map((f) => (
             <li key={f}>
               <a
