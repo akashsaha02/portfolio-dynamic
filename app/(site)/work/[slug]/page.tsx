@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { caseStudyProjects, findCaseStudy, getSiteContent } from "@/lib/data";
+import { notFoundMetadata } from "@/lib/seo";
 import { getActiveTemplate } from "@/lib/template";
 
 // Only projects with case-study content get a page (guide §4.4). Unknown slugs render on demand
@@ -13,7 +14,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps<"/work/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const match = findCaseStudy(await getSiteContent(), slug);
-  if (!match) return {};
+  if (!match) return notFoundMetadata;
   return { title: match.project.name, description: match.project.summary };
 }
 

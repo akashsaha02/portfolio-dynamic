@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Mona_Sans } from "next/font/google";
 import { getSiteContent } from "@/lib/data";
+import { siteUrl } from "@/lib/seo";
 import "../globals.css";
 
 // Root layout for the public site. Payload adds its own root layout in app/(payload)/ (work
@@ -19,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const { title, description } = site.seo;
 
   return {
-    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+    metadataBase: siteUrl(),
     title: { default: title, template: `%s · ${profile.name}` },
     description,
     openGraph: {

@@ -183,6 +183,8 @@ export type CaseStudy = {
   outcome: string;
   /** Only facts provable from the project's repo. Empty rather than estimated. */
   metrics: { value: string; label: string }[];
+  /** "How it works" architecture diagram (SVG in public/). Not supplied yet: leave unset. */
+  diagram?: Image;
 };
 
 export type Project = {
