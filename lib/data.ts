@@ -44,6 +44,10 @@ function mapProject(p: raw.Project, index: number): Project {
   };
 }
 
+function mapImage(i: { src: string; alt: string; width: number; height: number }): ImageAsset {
+  return { src: i.src, alt: i.alt, width: i.width, height: i.height };
+}
+
 function mapCaseStudy(c: raw.CaseStudy): CaseStudy {
   return {
     role: c.role,
@@ -52,6 +56,7 @@ function mapCaseStudy(c: raw.CaseStudy): CaseStudy {
     how: c.how,
     outcome: c.outcome,
     metrics: c.metrics.map((m) => ({ value: m.value, label: m.label })),
+    ...(c.diagram && { diagram: mapImage(c.diagram) }),
   };
 }
 

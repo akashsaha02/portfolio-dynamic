@@ -118,6 +118,12 @@ export type CaseStudy = {
   how: string;
   outcome: string;
   metrics: Metric[];
+  /**
+   * Architecture diagram for "How it works" (guide §4.4), normally an SVG. `alt` describes the
+   * flow in words. Missing until Akash supplies one; render "How it works" without it.
+   * next/image serves `.svg` sources unoptimized automatically, so it costs no transformations.
+   */
+  diagram?: ImageAsset;
 };
 
 export type Project = {

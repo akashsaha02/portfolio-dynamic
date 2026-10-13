@@ -46,7 +46,7 @@ Go to **Settings** then **Environment Variables**. For each: type the **Name**, 
 | Name | Value | Environments | Why |
 | --- | --- | --- | --- |
 | `SITE_TEMPLATE` | `folio` | **Preview only** (untick Production and Development) | Previews show the new Folio design. Production has no value, so it falls back to `editorial` until launch. |
-| `NEXT_PUBLIC_SITE_URL` | your production URL, for example `https://portfolio-dynamic.vercel.app` | Production and Preview | Only used for canonical and Open Graph tags. Safe to set after you see the real URL on the Overview tab. |
+| `NEXT_PUBLIC_SITE_URL` | your production URL, for example `https://portfolio-dynamic.vercel.app` | Optional: Production (and Preview if you like) | Only used for canonical and Open Graph tags. When it is unset the site uses Vercel's own production domain on Production and the deployment's URL on Previews, so you only need it to advertise a different domain (for example a custom one). Safe to set after you see the real URL on the Overview tab. |
 
 Both are read at build time (pages are static), so a change only applies to the next deployment. After saving, go to **Deployments**, open the three-dot menu on the latest deployment and choose **Redeploy**, or just push a new commit.
 

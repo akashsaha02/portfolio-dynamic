@@ -33,6 +33,15 @@ Also from the Hobby plan page (https://vercel.com/docs/plans/hobby, checked 2026
 - Over a limit, you generally wait 30 days; Web Analytics collection resumes after 7 days.
 - Deployment Protection: Vercel Authentication and one shareable link per account are free; Password Protection is Pro only. One external viewer per account for access requests.
 
+## Known per-request routes
+
+Pages are static, but these routes still run a function per request. Each is accepted for now; check them first if Function invocations approach the warning level.
+
+| Route | Why it is dynamic | Cost | If it grows |
+| --- | --- | --- | --- |
+| `/[...missing]` (every unmatched URL: typos, bot scans for `/wp-admin`, `/.env`, ...) | The catch-all calls `notFound()` so the 404 renders the active template's NotFound inside the `(site)` layout. A root `app/not-found.tsx` cannot do that, because each route group has its own root layout | 1 invocation per unmatched request (QA F-16). Scans of a few thousand URLs a month are under 1% of the 1M allowance | Move to `app/global-not-found.tsx` (Next's experimental `globalNotFound` flag), which is served without rendering. It bypasses the `(site)` layout, so it has to import the fonts, `globals.css` and template chrome itself; verify it against the Payload `(payload)` group before switching |
+| `/work/<unknown slug>` | `generateStaticParams` prerenders the known case studies; other slugs render on demand (`dynamicParams` default) so case studies added in Payload appear without a rebuild | 1 invocation per unknown slug, then the 404 | Set `dynamicParams = false` if Payload revalidation makes on-demand slugs unnecessary |
+
 ## Monthly check (first Monday of the month, about 10 minutes)
 
 - [ ] Vercel > Usage: transfer, functions, image transformations, Blob. Note the numbers below.
