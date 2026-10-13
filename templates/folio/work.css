@@ -36,6 +36,16 @@
   }
 }
 
+/* Next project with the cursor cover on (ProjectHoverBlock sets data-next-fx: fine pointer, motion
+   allowed): the static image steps aside and the name spans the row. Unlayered, like the switches
+   above, to beat the grid utilities on the same elements. */
+.tpl-folio [data-next-fx] .f-next-media {
+  display: none;
+}
+.tpl-folio [data-next-fx] .f-next-text {
+  grid-column: 1 / -1;
+}
+
 @layer components {
   /* After the first filter press, projects coming back into view rise in; ones that stay put
      don't move (they keep their computed style, so @starting-style never applies to them). */

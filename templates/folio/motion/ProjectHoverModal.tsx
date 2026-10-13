@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState, type ReactNode, type RefObject } from "react";
 import type { ImageAsset } from "@/lib/content-types";
-import { loadGsap, onIdle } from "./load-gsap";
+import { loadGsap } from "./load-gsap";
 import { useFinePointer, usePrefersReducedMotion } from "./media";
 import "../desktop-fx.css";
 
@@ -21,8 +21,13 @@ import "../desktop-fx.css";
 // nothing shows for keyboard focus (rows get the focus highlight from desktop-fx.css instead).
 //
 // Fine pointer and motion allowed only: on touch, with reduced motion and on the server the
-// wrapper renders just its children. The modal mounts (and its covers load) on the first hover
-// of the rows or when the page is idle; GSAP arrives through the lazy loader at the same time.
+// wrapper renders just its children. The modal mounts (and its covers load) on the first hover,
+// never before (QA F-10: no cover downloads for visitors who never hover); GSAP arrives through
+// the lazy loader at the same time.
+//
+// ProjectHoverBlock is the one-project version for a case study's "Next project" (guide §4.4,
+// QA F-07): the cover follows the pointer anywhere over the block, and the block's static image
+// steps aside while the effect is on (work.css, `data-next-fx`).
 
 type Item = { name: string; cover?: ImageAsset };
 
@@ -34,35 +39,63 @@ type ProjectHoverRowsProps = {
 
 type Setter = (value: number) => void;
 
-export function ProjectHoverRows({ items, children, className }: ProjectHoverRowsProps) {
+/** "rows": the hovered `.f-rows > li` picks the item. "block": anywhere in the host is item 0. */
+type Mode = "rows" | "block";
+
+/** Fine pointer, motion allowed, and armed by the first pointerenter on the host. */
+function useHoverModal() {
   const hostRef = useRef<HTMLDivElement>(null);
   const finePointer = useFinePointer();
   const reducedMotion = usePrefersReducedMotion();
   const enabled = finePointer && !reducedMotion;
   const [armed, setArmed] = useState(false);
 
-  // Mount the modal on first hover or when idle, whichever comes first.
   useEffect(() => {
     const host = hostRef.current;
     if (!enabled || armed || !host) return;
     const arm = () => setArmed(true);
-    const cancelIdle = onIdle(arm, 3000);
     host.addEventListener("pointerenter", arm);
-    return () => {
-      cancelIdle();
-      host.removeEventListener("pointerenter", arm);
-    };
+    return () => host.removeEventListener("pointerenter", arm);
   }, [enabled, armed]);
+
+  return { hostRef, enabled, mounted: enabled && armed };
+}
+
+export function ProjectHoverRows({ items, children, className }: ProjectHoverRowsProps) {
+  const { hostRef, mounted } = useHoverModal();
 
   return (
     <div ref={hostRef} className={className}>
       {children}
-      {enabled && armed ? <HoverModal hostRef={hostRef} items={items} /> : null}
+      {mounted ? <HoverModal hostRef={hostRef} items={items} mode="rows" /> : null}
     </div>
   );
 }
 
-function HoverModal({ hostRef, items }: { hostRef: RefObject<HTMLDivElement | null>; items: Item[] }) {
+type ProjectHoverBlockProps = {
+  item: Item;
+  children: ReactNode;
+  className?: string;
+};
+
+export function ProjectHoverBlock({ item, children, className }: ProjectHoverBlockProps) {
+  const { hostRef, enabled, mounted } = useHoverModal();
+
+  return (
+    <div ref={hostRef} data-next-fx={enabled ? "" : undefined} className={className}>
+      {children}
+      {mounted ? <HoverModal hostRef={hostRef} items={[item]} mode="block" /> : null}
+    </div>
+  );
+}
+
+type HoverModalProps = {
+  hostRef: RefObject<HTMLDivElement | null>;
+  items: Item[];
+  mode: Mode;
+};
+
+function HoverModal({ hostRef, items, mode }: HoverModalProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const cursorRef = useRef<HTMLDivElement>(null);
@@ -105,6 +138,7 @@ function HoverModal({ hostRef, items }: { hostRef: RefObject<HTMLDivElement | nu
     };
 
     const rowIndex = (target: EventTarget | null): number => {
+      if (mode === "block") return target instanceof Node && host.contains(target) ? 0 : -1;
       const li = target instanceof Element ? target.closest(".f-rows > li") : null;
       if (!li || !li.parentElement || !host.contains(li)) return -1;
       const index = Array.prototype.indexOf.call(li.parentElement.children, li);
@@ -156,7 +190,7 @@ function HoverModal({ hostRef, items }: { hostRef: RefObject<HTMLDivElement | nu
       host.removeEventListener("pointerleave", onLeave);
       revert?.();
     };
-  }, [hostRef, items.length]);
+  }, [hostRef, items.length, mode]);
 
   return (
     <div ref={rootRef} aria-hidden="true" className="f-hm">
@@ -171,8 +205,10 @@ function HoverModal({ hostRef, items }: { hostRef: RefObject<HTMLDivElement | nu
                       src={item.cover.src}
                       alt=""
                       fill
-                      // The card is clamp(18rem, 24vw, 25rem) wide; the shot is 84% of it.
-                      sizes="336px"
+                      // The card is clamp(18rem, 24vw, 25rem) wide and the shot 84% of it
+                      // (≤ 336px), but "640px" keeps every request on the deviceSizes ladder
+                      // (640 at 1x, 1280 at 2x), which the tiles already use (QA F-10).
+                      sizes="640px"
                       className="object-cover object-top"
                     />
                   </div>
