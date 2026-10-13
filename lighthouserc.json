@@ -4,7 +4,13 @@
       "startServerCommand": "npx next start -p 3400",
       "startServerReadyPattern": "Ready",
       "startServerReadyTimeout": 60000,
-      "url": ["http://localhost:3400/"],
+      "url": [
+        "http://localhost:3400/",
+        "http://localhost:3400/work",
+        "http://localhost:3400/work/abroadly",
+        "http://localhost:3400/about",
+        "http://localhost:3400/contact"
+      ],
       "numberOfRuns": 3,
       "settings": {
         "chromeFlags": "--no-sandbox --headless=new"

@@ -51,7 +51,7 @@ Pages are static, but these routes still run a function per request. Each is acc
 - [ ] Sentry (if enabled): errors this month, top issue.
 - [ ] UptimeRobot (if enabled): any downtime, response times.
 - [ ] GitHub > Billing: Actions minutes used (private repo only).
-- [ ] Latest Lighthouse CI run on `main`: performance >= 95, accessibility 100, LCP <= 2.0 s, CLS <= 0.05.
+- [ ] Latest Lighthouse CI run on `main` (Folio build, `SITE_TEMPLATE=folio`; audits `/`, `/work`, `/work/abroadly`, `/about`, `/contact`, 3 mobile runs each, median): performance >= 95, accessibility 100, LCP <= 2.0 s, CLS <= 0.05. Assertions are warn-only.
 - [ ] Anything over its warning threshold: take the action in the table and record it.
 - [ ] Re-read vendor pricing pages once a quarter; update this file if limits changed.
 
