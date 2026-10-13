@@ -136,6 +136,9 @@ jobs:
     name: Lighthouse CI (mobile, warn-only)
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    # Audit what we ship: the Folio template. Build and `next start` (via lighthouserc.json) both see this.
+    env:
+      SITE_TEMPLATE: folio
     steps:
       - uses: actions/checkout@v4
 
@@ -154,14 +157,14 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .next/cache
-          key: nextjs-lh-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx', '!node_modules/**', '!.next/**', '!.next-folio/**') }}
+          key: nextjs-lh-folio-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx', '!node_modules/**', '!.next/**', '!.next-folio/**') }}
           restore-keys: |
-            nextjs-lh-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-
+            nextjs-lh-folio-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-
 
-      - name: Build
+      - name: Build (Folio)
         run: npx next build
 
-      # lighthouserc.json starts `next start` on port 3400 and runs 3 mobile passes.
+      # lighthouserc.json starts `next start` on port 3400 (SITE_TEMPLATE=folio) and audits 5 URLs x 3 mobile runs.
       - name: Lighthouse CI
         uses: treosh/lighthouse-ci-action@v12
         with:
