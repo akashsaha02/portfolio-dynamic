@@ -1,4 +1,5 @@
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
+import { preload } from "react-dom";
 import type { ImageAsset } from "@/lib/content-types";
 import { Action } from "./Action";
 
@@ -20,6 +21,13 @@ type TileProps = {
   headingLevel?: "h2" | "h3";
   /** The first tile at the top of a page is its LCP on phone: load it eagerly at high priority. */
   eager?: boolean;
+  /**
+   * Where the tile is hidden on first paint (e.g. the Work index's list view on a fine-pointer
+   * lg screen), an eager <img> would still download. With this media query the eagerness is
+   * scoped: the <img> stays lazy (so a hidden one never loads) and a high-priority preload with
+   * this `media` fetches the same candidate only where the query matches (QA F-09).
+   */
+  eagerMedia?: string;
   className?: string;
 };
 
@@ -32,8 +40,27 @@ export function Tile({
   external,
   headingLevel: Heading = "h3",
   eager = false,
+  eagerMedia,
   className,
 }: TileProps) {
+  const scoped = eager && eagerMedia !== undefined;
+  if (image && scoped) {
+    const { props } = getImageProps({
+      src: image.src,
+      alt: image.alt,
+      width: image.width,
+      height: image.height,
+      sizes,
+    });
+    preload(props.src, {
+      as: "image",
+      imageSrcSet: props.srcSet,
+      imageSizes: props.sizes,
+      fetchPriority: "high",
+      media: eagerMedia,
+    });
+  }
+
   return (
     <article className={`f-tile ${className ?? ""}`}>
       <div className="f-tile-media aspect-[16/10] overflow-hidden rounded-2xl bg-[color-mix(in_srgb,currentColor_8%,transparent)]">
@@ -44,8 +71,8 @@ export function Tile({
             width={image.width}
             height={image.height}
             sizes={sizes}
-            loading={eager ? "eager" : undefined}
-            fetchPriority={eager ? "high" : undefined}
+            loading={eager && !scoped ? "eager" : undefined}
+            fetchPriority={eager && !scoped ? "high" : undefined}
             className="size-full object-cover object-top"
           />
         ) : (

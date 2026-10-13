@@ -1,5 +1,6 @@
 import { ViewTransition, type ReactNode } from "react";
 import type { TemplateProps } from "../../types";
+import { FocusMain } from "./FocusMain";
 import { Footer, type FooterVariant } from "./Footer";
 import { MenuNav } from "./MenuNav";
 import { MenuPanel } from "./MenuPanel";
@@ -25,6 +26,7 @@ import "../transitions.css";
 // transitions.css. It must stay the outermost element: React only runs enter/exit for a boundary
 // with no DOM node above it in the subtree that mounts. `default="none"` keeps every other
 // transition (form actions, filters) from animating. No-op where View Transitions are missing.
+// FocusMain puts focus on the new <main> after each client navigation (QA F-04).
 
 type FolioShellProps = TemplateProps & {
   /** The page being shown: aria-current="page" and the dot in the top bar and the menu. */
@@ -69,6 +71,7 @@ export function FolioShell({ content, settings, current, section, footerVariant,
           <FixedBurger />
           {children}
           <Footer profile={profile} site={site} variant={footerVariant} />
+          <FocusMain />
         </MenuRoot>
       </div>
     </ViewTransition>

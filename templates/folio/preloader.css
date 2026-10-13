@@ -6,7 +6,7 @@
  * and the motion query is checked here too. Timeline, all CSS:
  *   0 → --f-pre-lift-at   one greeting at a time (each word is opaque only while its own
  *                         animation is active: --t start, --d duration; the last one stays)
- *   then --dur            the screen lifts, its bottom edge bowing into a curve as it goes
+ *   then --dur-fast       the screen lifts, its bottom edge bowing into a curve as it goes
  * `data-skip` swaps in a lift that starts now. The script removes `data-run` when it ends.
  *
  * Restates Tailwind's layer order first, like work.css, so this file can load in any order.
@@ -27,7 +27,7 @@
       place-items: center;
       padding-inline: var(--gutter);
       --f-pre-curve: 12svh;
-      animation: f-pre-lift var(--dur) var(--ease-inout) var(--f-pre-lift-at, 1.1s) forwards;
+      animation: f-pre-lift var(--dur-fast) var(--ease-inout) var(--f-pre-lift-at, 0.7s) forwards;
     }
     .tpl-folio .f-pre[data-skip] {
       animation-name: f-pre-skip;
@@ -45,7 +45,7 @@
       background: inherit;
       transform: scaleY(0);
       transform-origin: 50% 0;
-      animation: f-pre-curve var(--dur) var(--ease-inout) var(--f-pre-lift-at, 1.1s) forwards;
+      animation: f-pre-curve var(--dur-fast) var(--ease-inout) var(--f-pre-lift-at, 0.7s) forwards;
     }
     .tpl-folio .f-pre[data-skip] .f-pre-curve {
       animation-name: f-pre-curve-skip;
