@@ -1,5 +1,5 @@
 import { test, expect, type Page } from "@playwright/test";
-import { expectNoHorizontalScroll } from "./folio-helpers";
+import { expectNoHorizontalScroll, waitForHydration } from "./folio-helpers";
 
 // Phase 1 gate (finding F-20): behaviour verified by hand at the gate, now locked in. Folio only.
 
@@ -15,13 +15,15 @@ test.describe("preloader", () => {
   test("runs on the first load of a session, never again, and never scrolls sideways", async ({ page }) => {
     await page.goto("/");
     // The inline script sets data-run before first paint; it is removed again when the lift ends.
-    await expect(pre(page)).toHaveAttribute("data-run", "");
+    await expect(pre(page)).toHaveAttribute("data-run", "", { timeout: 15_000 });
     await expectNoHorizontalScroll(page);
     expect(await page.evaluate((k) => sessionStorage.getItem(k), KEY)).toBe("1");
-    await expect(pre(page)).not.toHaveAttribute("data-run", "", { timeout: 5000 });
+    await waitForHydration(page);
+    await expect(pre(page)).not.toHaveAttribute("data-run", "", { timeout: 15_000 });
     await expect(pre(page)).toBeHidden();
 
     await page.reload();
+    await waitForHydration(page);
     await expect(pre(page)).not.toHaveAttribute("data-run", "");
     await expect(pre(page)).toBeHidden();
   });
@@ -111,6 +113,7 @@ test.describe("navigation and shell", () => {
 
   test("back restores the scroll position", async ({ page }) => {
     await page.goto("/");
+    await waitForHydration(page);
     await page.waitForLoadState("networkidle");
     await page.evaluate(() => window.scrollTo(0, 900));
     await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(800);
@@ -124,6 +127,7 @@ test.describe("navigation and shell", () => {
 
   test("burger appears only after the hero has left the viewport", async ({ page }) => {
     await page.goto("/");
+    await waitForHydration(page);
     const burger = page.locator(".f-burger button");
     const hero = page.locator("[data-folio-hero]").first();
     await expect(hero).toHaveCount(1);

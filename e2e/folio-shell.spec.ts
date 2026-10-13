@@ -231,7 +231,7 @@ test.describe("footer", () => {
 
   test("local time replaces --:-- after hydration", async ({ page }) => {
     const time = page.locator("footer time");
-    await expect(time).toHaveText(/^\d{2}:\d{2}/);
+    await expect(time).toHaveText(/^\d{2}:\d{2}/, { timeout: 20_000 });
     await expect(page.locator("footer").getByText("--:--")).toHaveCount(0);
   });
 

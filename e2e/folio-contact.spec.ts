@@ -1,5 +1,5 @@
 import { test, expect, type Page } from "@playwright/test";
-import { expectAxeClean, expectNoHorizontalScroll, isFolio, watchConsole } from "./folio-helpers";
+import { expectAxeClean, expectNoHorizontalScroll, isFolio, waitForHydration, watchConsole } from "./folio-helpers";
 
 // Folio Contact page and form (task 1.6; guide §4.6). Folio projects only.
 // contactFormEnabled=false is not covered: it needs a content change.
@@ -19,6 +19,7 @@ async function open(page: Page) {
   await page.goto("/contact");
   // Wait for hydration so the form is handled by the Server Action, not a native POST.
   await page.waitForLoadState("networkidle");
+  await waitForHydration(page);
   await expect(name(page)).toBeVisible();
 }
 
