@@ -21,6 +21,7 @@ import { Users } from "./collections/Users";
 import { Profile } from "./globals/Profile";
 import { SiteSettings } from "./globals/SiteSettings";
 import { allowedOrigins, payloadServerURL } from "./lib/origins";
+import { payloadLogger } from "./lib/payload/logger";
 import { livePreviewUrl, PREVIEW_BREAKPOINTS } from "./lib/payload/preview";
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -43,8 +44,9 @@ export default buildConfig({
   defaultDepth: 1,
   // Expected client errors (denied, not found, invalid input, locked login) log one info line
   // instead of an error with a stack trace, so bots probing /api don't bury real errors in Vercel's
-  // 1-hour log window (QA F-13). These match by error class name; see `logger` below for the
-  // production bundle, where class names are minified.
+  // 1-hour log window (QA F-13). These match by error class name, which the production bundle
+  // minifies, so `logger` (lib/payload/logger.ts) does the same by HTTP status there.
+  logger: payloadLogger,
   loggingLevels: {
     Forbidden: "info",
     NotFound: "info",
