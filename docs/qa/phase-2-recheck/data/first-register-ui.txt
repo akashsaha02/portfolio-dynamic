@@ -1,0 +1,14 @@
+GET /api/users/me -> 200
+landed: /admin/create-first-user
+POST /api/users/first-register -> 403
+console: Failed to load resource: the server responded with a status of 403 (Forbidden)
+did not leave create-first-user
+after register: /admin/create-first-user
+cookies: []
+GET /api/users/me -> 200
+after logout: /admin/create-first-user
+GET /api/users/me -> 200
+after login: /admin/create-first-user
+first heading: Welcome
+first-register status: 403
+url: /admin/create-first-user | toast: Creating the first admin from the browser is turned off on this deployment. Seed the admin instead.

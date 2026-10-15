@@ -1,0 +1,39 @@
+http://localhost:4300/
+26g4tn5b226u5.js             raw   31.2 KB  gzip   8.3 KB  
+3gwb465dhjxo9.js             raw  223.7 KB  gzip  69.8 KB  react-dom
+313nkciqjr80k.js             raw  152.3 KB  gzip  41.8 KB  next-router
+turbopack-1xf5ikdjb9ff-.js   raw   10.7 KB  gzip   4.2 KB  
+33t46atd3n2zd.js             raw   14.1 KB  gzip   3.6 KB  editorial
+12vvrkfjpc57y.js             raw   28.3 KB  gzip  10.7 KB  gsap,ScrollTrigger,editorial
+3o2071p5q-lzy.js             raw   35.5 KB  gzip  12.7 KB  gsap,folio
+0cz1d0mv5g_q7.js             raw  110.0 KB  gzip  38.6 KB  
+1edfvwc5_eck-.js             raw   12.6 KB  gzip   3.5 KB  
+TOTAL 9 scripts: raw 618.4 KB, gzip 193.3 KB
+inline: raw 81.9 KB, gzip 10.9 KB; HTML gzip 17.8 KB
+
+http://localhost:4300/contact
+26g4tn5b226u5.js             raw   31.2 KB  gzip   8.3 KB  
+3gwb465dhjxo9.js             raw  223.7 KB  gzip  69.8 KB  react-dom
+313nkciqjr80k.js             raw  152.3 KB  gzip  41.8 KB  next-router
+turbopack-1xf5ikdjb9ff-.js   raw   10.7 KB  gzip   4.2 KB  
+33t46atd3n2zd.js             raw   14.1 KB  gzip   3.6 KB  editorial
+12vvrkfjpc57y.js             raw   28.3 KB  gzip  10.7 KB  gsap,ScrollTrigger,editorial
+3o2071p5q-lzy.js             raw   35.5 KB  gzip  12.7 KB  gsap,folio
+0cz1d0mv5g_q7.js             raw  110.0 KB  gzip  38.6 KB  
+1edfvwc5_eck-.js             raw   12.6 KB  gzip   3.5 KB  
+TOTAL 9 scripts: raw 618.4 KB, gzip 193.3 KB
+inline: raw 38.5 KB, gzip 4.9 KB; HTML gzip 7.9 KB
+
+http://localhost:4300/work/abroadly
+26g4tn5b226u5.js             raw   31.2 KB  gzip   8.3 KB  
+3gwb465dhjxo9.js             raw  223.7 KB  gzip  69.8 KB  react-dom
+313nkciqjr80k.js             raw  152.3 KB  gzip  41.8 KB  next-router
+turbopack-1xf5ikdjb9ff-.js   raw   10.7 KB  gzip   4.2 KB  
+33t46atd3n2zd.js             raw   14.1 KB  gzip   3.6 KB  editorial
+12vvrkfjpc57y.js             raw   28.3 KB  gzip  10.7 KB  gsap,ScrollTrigger,editorial
+3o2071p5q-lzy.js             raw   35.5 KB  gzip  12.7 KB  gsap,folio
+0cz1d0mv5g_q7.js             raw  110.0 KB  gzip  38.6 KB  
+1edfvwc5_eck-.js             raw   12.6 KB  gzip   3.5 KB  
+TOTAL 9 scripts: raw 618.4 KB, gzip 193.3 KB
+inline: raw 51.0 KB, gzip 7.7 KB; HTML gzip 12.4 KB
+

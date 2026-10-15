@@ -1,0 +1,22 @@
+▲ Next.js 16.3.8
+- Local:         http://localhost:4303
+- Network:       http://192.168.68.107:4303
+✓ Ready in 388ms
+✓ Running next.config.ts took 90ms
+[seo] NEXT_PUBLIC_SITE_URL is unset and this is not a Vercel build: metadataBase is http://localhost:4303. Canonical and Open Graph URLs will point at localhost. Set NEXT_PUBLIC_SITE_URL for a real deployment.
+[13:00:02] [33mWARN[39m (payload): [36mNo email adapter provided. Email will be written to console. More info at https://payloadcms.com/docs/email/overview.[39m
+[13:00:02] [33mWARN[39m (payload): [36mCollections with uploads enabled require a storage adapter when deploying to Vercel. Collection(s) without storage adapters: media. See https://payloadcms.com/docs/upload/storage-adapters for more info.[39m
+[seo] NEXT_PUBLIC_SITE_URL is unset and this is not a Vercel build: metadataBase is http://localhost:4303. Canonical and Open Graph URLs will point at localhost. Set NEXT_PUBLIC_SITE_URL for a real deployment.
+[13:00:03] [32mINFO[39m (payload): [36m403 Creating the first admin from the browser is turned off on this deployment. Seed the admin instead.[39m
+[13:00:03] [32mINFO[39m (payload): [36m403 Creating the first admin from the browser is turned off on this deployment. Seed the admin instead.[39m
+[13:00:03] [32mINFO[39m (payload): [36m403 Creating the first admin from the browser is turned off on this deployment. Seed the admin instead.[39m
+[13:00:10] [32mINFO[39m (payload): [36m403 Creating the first admin from the browser is turned off on this deployment. Seed the admin instead.[39m
+[13:00:45] [32mINFO[39m (payload): [36m403 Creating the first admin from the browser is turned off on this deployment. Seed the admin instead.[39m
+[13:01:09] [32mINFO[39m (payload): [36m401 The email or password provided is incorrect.[39m
+[13:01:09] [32mINFO[39m (payload): [36m401 The email or password provided is incorrect.[39m
+[13:01:10] [32mINFO[39m (payload): [36m401 The email or password provided is incorrect.[39m
+[13:01:10] [32mINFO[39m (payload): [36m401 The email or password provided is incorrect.[39m
+[13:01:10] [32mINFO[39m (payload): [36m401 The email or password provided is incorrect.[39m
+[13:01:10] [32mINFO[39m (payload): [36m401 This user is locked due to having too many failed login attempts.[39m
+[13:01:10] [32mINFO[39m (payload): [36m401 The email or password provided is incorrect.[39m
+[13:01:32] [32mINFO[39m (payload): [36m401 The email or password provided is incorrect.[39m

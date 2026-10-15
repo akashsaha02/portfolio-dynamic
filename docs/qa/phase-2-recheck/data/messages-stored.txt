@@ -1,0 +1,6 @@
+"Ana" | cps: 41 6e 61 | NFC: true | keys: createdAt,updatedAt,name,email,intent,body,read,id
+"অর্ক র‍্যাব" | cps: 985 9b0 9cd 995 20 9b0 200d 9cd 9af 9be 9ac | NFC: true | keys: createdAt,updatedAt,name,email,intent,body,read,id
+"Dev 👩🏽‍💻" | cps: 44 65 76 20 1f469 1f3fd 200d 1f4bb | NFC: true | keys: createdAt,updatedAt,name,email,intent,body,read,id
+"Zoë क्‌ष" | cps: 5a 6f eb 20 915 94d 200c 937 | NFC: true | keys: createdAt,updatedAt,name,email,intent,body,read,id
+"Ada Lovelace" | cps: 41 64 61 20 4c 6f 76 65 6c 61 63 65 | NFC: true | keys: createdAt,updatedAt,name,email,intent,body,read,id
+rate-limits admin read: 403

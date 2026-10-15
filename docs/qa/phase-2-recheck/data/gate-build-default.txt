@@ -1,0 +1,49 @@
+▲ Next.js 16.3.8 (Turbopack)
+✓ Running next.config.ts took 80ms
+- Experiments (use with caution):
+  ⨯ turbopackServerFastRefresh
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 26.3s
+  Running TypeScript ...
+  Finished TypeScript in 9.9s ...
+  Collecting page data using 11 workers ...
+[seo] NEXT_PUBLIC_SITE_URL is unset and this is not a Vercel build: metadataBase is http://localhost:3000. Canonical and Open Graph URLs will point at localhost. Set NEXT_PUBLIC_SITE_URL for a real deployment.
+[seo] NEXT_PUBLIC_SITE_URL is unset and this is not a Vercel build: metadataBase is http://localhost:3000. Canonical and Open Graph URLs will point at localhost. Set NEXT_PUBLIC_SITE_URL for a real deployment.
+[seo] NEXT_PUBLIC_SITE_URL is unset and this is not a Vercel build: metadataBase is http://localhost:3000. Canonical and Open Graph URLs will point at localhost. Set NEXT_PUBLIC_SITE_URL for a real deployment.
+  Generating static pages using 11 workers (0/17) ...
+[seo] NEXT_PUBLIC_SITE_URL is unset and this is not a Vercel build: metadataBase is http://localhost:3000. Canonical and Open Graph URLs will point at localhost. Set NEXT_PUBLIC_SITE_URL for a real deployment.
+[seo] NEXT_PUBLIC_SITE_URL is unset and this is not a Vercel build: metadataBase is http://localhost:3000. Canonical and Open Graph URLs will point at localhost. Set NEXT_PUBLIC_SITE_URL for a real deployment.
+  Generating static pages using 11 workers (4/17) 
+  Generating static pages using 11 workers (8/17) 
+  Generating static pages using 11 workers (12/17) 
+✓ Generating static pages using 11 workers (17/17) in 2.5s
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /[...missing]
+├ ○ /about
+├ ƒ /admin/[[...segments]]
+├ ƒ /api/[...slug]
+├ ƒ /api/draft
+├ ƒ /api/draft/disable
+├ ○ /contact
+├ ○ /opengraph-image-12o0cb
+├ ƒ /resume
+├ ○ /robots.txt
+├ ○ /sitemap.xml
+├ ○ /work
+├   /work/[slug]
+│ ├ ● /work/abroadly
+│ └ ● /work/nook
+└   /work/[slug]/opengraph-image-j16k26
+  ├ ● /work/abroadly/opengraph-image-j16k26
+  └ ● /work/nook/opengraph-image-j16k26
+
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+

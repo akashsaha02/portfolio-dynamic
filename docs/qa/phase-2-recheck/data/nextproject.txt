@@ -1,0 +1,16 @@
+nook.nextProject (admin, depth 0): "6ad0796c566ba46433a4869f"
+depth=0 anon  findByID=null list=null ?draft=true=null
+depth=0 admin findByID="6ad0796c566ba46433a4869f" list="6ad0796c566ba46433a4869f" ?draft=true="6ad0796c566ba46433a4869f"
+depth=1 anon  findByID=null list=null ?draft=true=null
+depth=1 admin findByID={object slug=qa-draft-only _status=draft} list={object slug=qa-draft-only _status=draft} ?draft=true={object slug=qa-draft-only _status=draft}
+depth=2 anon  findByID=null list=null ?draft=true=null
+depth=2 admin findByID={object slug=qa-draft-only _status=draft} list={object slug=qa-draft-only _status=draft} ?draft=true={object slug=qa-draft-only _status=draft}
+depth=5 anon  findByID=null list=null ?draft=true=null
+depth=5 admin findByID={object slug=qa-draft-only _status=draft} list={object slug=qa-draft-only _status=draft} ?draft=true={object slug=qa-draft-only _status=draft}
+control cerebral-insights -> abroadly (published, has a newer draft) depth=0 anon nextProject="6ad07930f01de9f0b5bd1169"
+control cerebral-insights -> abroadly (published, has a newer draft) depth=1 anon nextProject={object slug=abroadly _status=published}
+control cerebral-insights -> abroadly (published, has a newer draft) depth=2 anon nextProject={object slug=abroadly _status=published}
+depth=100 anon: stack[0] type = object  cover type = object
+no depth anon (defaultDepth): stack[0] type = object
+depth=100 anon: L1 nextProject = object soulmatch | L2 nextProject = object nook | L2.cover (would be depth 3) = string (id only: capped at 2)
+restored

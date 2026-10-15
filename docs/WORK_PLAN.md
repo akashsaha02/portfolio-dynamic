@@ -92,7 +92,7 @@ Merge order: 1.1 → 1.2 → 1.8 → 1.3 → 1.6 → 1.5 → 1.4 → 1.7. Task 1
 | 2.6 | Admin dashboard: unread-messages widget, availability toggle, quick links, drag-to-reorder projects and experience | backend | 2.3 | Usable on a phone | done |
 | 2.7 | Route handlers and SEO: `/resume` → latest upload, `sitemap.ts`, `robots.ts`, OG images, `JsonLd` (`Person`, `ScholarlyArticle`), `/api/draft` (auth-checked) | backend | 2.3 | Each responds correctly locally | done |
 | 2.8 | `Telemetry` component (Vercel Analytics + Speed Insights) and error-reporting setup in `instrumentation*.ts`; handed to backend for mounting in Phase 3 | monitoring | 1.G | Component ready; free-tier notes updated | done |
-| 2.G | **Gate:** security review (auth in every action/handler, secrets not in client bundle, access rules, input validation), admin usable on a phone, seed matches static content | qa | 2.2–2.8 | PASS | todo |
+| 2.G | **Gate:** security review (auth in every action/handler, secrets not in client bundle, access rules, input validation), admin usable on a phone, seed matches static content | qa | 2.2–2.8 | PASS | done |
 
 Merge order: 2.2 → 2.3 → 2.4 → 2.5 → 2.6 → 2.7 → 2.8.
 
@@ -104,11 +104,11 @@ Merge order: 2.2 → 2.3 → 2.4 → 2.5 → 2.6 → 2.7 → 2.8.
 
 | ID | Task | Owner | Depends | Done when | Status |
 | --- | --- | --- | --- | --- | --- |
-| 3.1 | `getSiteContent()` reads the Payload Local API, maps to `SiteContent`, `'use cache'` + `cacheTag`; templates unchanged | backend | 2.G | Site looks identical to Phase 1 but data comes from Payload | todo |
-| 3.2 | Revalidation: `afterChange` / `afterDelete` hooks → `revalidateTag(tag, 'max')`; settings changes revalidate `settings` | backend | 3.1 | Edit a project in `/admin` → public page updates on next request | todo |
-| 3.3 | Contact form switches from the stub to the real `submitContact`; Turnstile widget added to the form | folio-design (UI) + backend (wiring) | 2.5, 3.1 | Message lands in the admin inbox and in Akash's email | todo |
-| 3.4 | Live preview + draft mode: `RefreshRouteOnSave`, preview banner, drafts visible only in preview | backend | 3.2 | Draft edits show in preview, not on the live site | todo |
-| 3.5 | Mount `Telemetry`; images served from Vercel Blob through `next/image` with the free-tier settings (guide §9.2) | backend | 2.8, 3.1 | Analytics events visible on preview; image variants limited | todo |
+| 3.1 | `getSiteContent()` reads the Payload Local API, maps to `SiteContent`, `'use cache'` + `cacheTag`; templates unchanged | backend | 2.G | Site looks identical to Phase 1 but data comes from Payload | doing |
+| 3.2 | Revalidation: `afterChange` / `afterDelete` hooks → `revalidateTag(tag, 'max')`; settings changes revalidate `settings` | backend | 3.1 | Edit a project in `/admin` → public page updates on next request | doing |
+| 3.3 | Contact form switches from the stub to the real `submitContact`; Turnstile widget added to the form | folio-design (UI) + backend (wiring) | 2.5, 3.1 | Message lands in the admin inbox and in Akash's email | doing |
+| 3.4 | Live preview + draft mode: `RefreshRouteOnSave`, preview banner, drafts visible only in preview | backend | 3.2 | Draft edits show in preview, not on the live site | doing |
+| 3.5 | Mount `Telemetry`; images served from Vercel Blob through `next/image` with the free-tier settings (guide §9.2) | backend | 2.8, 3.1 | Analytics events visible on preview; image variants limited | doing |
 | 3.6 | Preview environment: env vars set on Vercel, Atlas network access for Vercel, seed the preview database | monitoring (+ Akash approves) | 3.1 | Preview deploy works end to end | todo |
 | 3.G | **Gate:** end-to-end check on the preview: edit → live, contact → inbox + email, draft → preview only; site still matches Phase 1 visually | qa | 3.1–3.6 | PASS | todo |
 

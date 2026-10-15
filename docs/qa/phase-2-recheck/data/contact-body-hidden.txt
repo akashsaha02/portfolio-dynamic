@@ -1,0 +1,3 @@
+[message with soft hyphen (copied from a hyphenated web article)] HTTP 200 :: {"status":"error","fieldErrors":{"message":"Your message contains characters I can’t accept."},"message":"Some details need another look."}
+[message with ZWSP] HTTP 200 :: {"status":"error","fieldErrors":{"message":"Your message contains characters I can’t accept."},"message":"Some details need another look."}
+[message with word joiner U+2060] HTTP 200 :: {"status":"error","fieldErrors":{"message":"Your message contains characters I can’t accept."},"message":"Some details need another look."}

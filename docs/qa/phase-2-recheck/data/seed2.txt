@@ -1,0 +1,20 @@
+
+> experiement@0.1.0 seed
+> payload run scripts/seed.ts
+
+[12:56:56] [33mWARN[39m (payload): [36mNo email adapter provided. Email will be written to console. More info at https://payloadcms.com/docs/email/overview.[39m
+Admin user: an admin already exists, left unchanged.
+
+Seed finished:
+┌───────────────┬─────────┬─────────┬───────────┐
+│ (index)       │ created │ updated │ unchanged │
+├───────────────┼─────────┼─────────┼───────────┤
+│ skills        │ 0       │ 0       │ 36        │
+│ media         │ 0       │ 0       │ 4         │
+│ projects      │ 0       │ 0       │ 5         │
+│ experience    │ 0       │ 0       │ 4         │
+│ publications  │ 0       │ 0       │ 2         │
+│ education     │ 0       │ 0       │ 1         │
+│ profile       │ 0       │ 0       │ 1         │
+│ site-settings │ 0       │ 0       │ 1         │
+└───────────────┴─────────┴─────────┴───────────┘

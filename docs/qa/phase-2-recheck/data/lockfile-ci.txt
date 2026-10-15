@@ -1,0 +1,11 @@
+# npm ci --dry-run --ignore-scripts --os=linux --cpu=x64 --libc=glibc on a copy of package.json + package-lock.json (a81ba26)
+## npm 10.9.9 (exit 0)
+add @alloc/quick-lru 5.3.0
+added 886 packages in 4s
+304 packages are looking for funding
+  run `npm fund` for details
+## npm 11.6.2 (exit 0)
+add @alloc/quick-lru 5.3.0
+added 765 packages in 2s
+262 packages are looking for funding
+  run `npm fund` for details

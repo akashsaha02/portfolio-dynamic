@@ -1,0 +1,2 @@
+connections: {"current":4,"available":200713,"totalCreated":87,"rejected":0,"active":2,"queuedForEstablishment":0,"establishmentRateLimit":{"rejected":0,"exempted":0,"interruptedDueToClientDisconnect":0},"threaded":4,"exhaustIsMaster":0,"exhaustHello":1,"awaitingTopologyChanges":1,"loadBalanced":0}
+client ops by appName: {"?":4}

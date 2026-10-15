@@ -1,0 +1,60 @@
+[
+ {
+  "token": "tok",
+  "name": "Rate Test",
+  "email": "rate@example.com",
+  "intent": "freelance",
+  "message": "rate limit boundary test",
+  "label": "VERCEL x-vercel-forwarded-for=203.0.113.10",
+  "headers": {
+   "x-vercel-forwarded-for": "203.0.113.10"
+  },
+  "repeat": 5
+ },
+ {
+  "token": "tok",
+  "name": "Rate Test",
+  "email": "rate@example.com",
+  "intent": "freelance",
+  "message": "rate limit boundary test",
+  "label": "VERCEL 6th same vff -> refused",
+  "headers": {
+   "x-vercel-forwarded-for": "203.0.113.10"
+  }
+ },
+ {
+  "token": "tok",
+  "name": "Rate Test",
+  "email": "rate@example.com",
+  "intent": "freelance",
+  "message": "rate limit boundary test",
+  "label": "VERCEL same vff, rotated x-forwarded-for + x-real-ip -> refused",
+  "headers": {
+   "x-vercel-forwarded-for": "203.0.113.10",
+   "x-real-ip": "192.0.2.1"
+  },
+  "xff": "192.0.2.2"
+ },
+ {
+  "token": "tok",
+  "name": "Rate Test",
+  "email": "rate@example.com",
+  "intent": "freelance",
+  "message": "rate limit boundary test",
+  "label": "VERCEL new vff (platform-set on Vercel) -> own bucket",
+  "headers": {
+   "x-vercel-forwarded-for": "203.0.113.11"
+  }
+ },
+ {
+  "token": "tok",
+  "name": "Rate Test",
+  "email": "rate@example.com",
+  "intent": "freelance",
+  "message": "rate limit boundary test",
+  "label": "VERCEL no vff, x-real-ip fallback",
+  "headers": {
+   "x-real-ip": "203.0.113.12"
+  }
+ }
+]

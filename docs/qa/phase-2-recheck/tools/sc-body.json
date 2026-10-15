@@ -1,0 +1,26 @@
+[
+ {
+  "token": "tok",
+  "name": "Ana",
+  "email": "ana@example.com",
+  "intent": "freelance",
+  "label": "message with soft hyphen (copied from a hyphenated web article)",
+  "message": "I read your arti­cle about Next.js and loved it."
+ },
+ {
+  "token": "tok",
+  "name": "Ana",
+  "email": "ana@example.com",
+  "intent": "freelance",
+  "label": "message with ZWSP",
+  "message": "Hello​ there, I copied this from a web page."
+ },
+ {
+  "token": "tok",
+  "name": "Ana",
+  "email": "ana@example.com",
+  "intent": "freelance",
+  "label": "message with word joiner U+2060",
+  "message": "Price is 10⁠000 taka, let us talk."
+ }
+]

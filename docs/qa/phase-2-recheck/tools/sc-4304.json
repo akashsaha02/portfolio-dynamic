@@ -1,0 +1,42 @@
+[
+ {
+  "token": "tok",
+  "name": "Rate Test",
+  "email": "rate@example.com",
+  "intent": "freelance",
+  "message": "rate limit boundary test",
+  "label": "HOPS=1 xff \"client-spoof, 203.0.113.20\"",
+  "xff": "198.51.100.1, 203.0.113.20",
+  "repeat": 5
+ },
+ {
+  "token": "tok",
+  "name": "Rate Test",
+  "email": "rate@example.com",
+  "intent": "freelance",
+  "message": "rate limit boundary test",
+  "label": "HOPS=1 6th, rotate left (client-written) hop -> refused",
+  "xff": "198.51.100.2, 203.0.113.20"
+ },
+ {
+  "token": "tok",
+  "name": "Rate Test",
+  "email": "rate@example.com",
+  "intent": "freelance",
+  "message": "rate limit boundary test",
+  "label": "HOPS=1 rotate left hop again + x-real-ip spoof -> refused",
+  "xff": "198.51.100.3, 203.0.113.20",
+  "headers": {
+   "x-real-ip": "192.0.2.9"
+  }
+ },
+ {
+  "token": "tok",
+  "name": "Rate Test",
+  "email": "rate@example.com",
+  "intent": "freelance",
+  "message": "rate limit boundary test",
+  "label": "HOPS=1 new right hop -> own bucket",
+  "xff": "198.51.100.1, 203.0.113.21"
+ }
+]

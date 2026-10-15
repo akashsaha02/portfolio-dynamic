@@ -1,0 +1,15 @@
+== GET /admin (redirect target)
+200 -> 
+== GET /api/users/init
+{"initialized":false}
+== POST /api/users/first-register (empty DB, VERCEL_ENV=preview)
+{"errors":[{"message":"Creating the first admin from the browser is turned off on this deployment. Seed the admin instead."}]}
+HTTP 403
+== POST /api/users (anon create)
+{"errors":[{"message":"Creating the first admin from the browser is turned off on this deployment. Seed the admin instead."}]}
+HTTP 403
+== multipart first-register
+{"errors":[{"message":"Creating the first admin from the browser is turned off on this deployment. Seed the admin instead."}]}
+HTTP 403
+== users/init after
+{"initialized":false}

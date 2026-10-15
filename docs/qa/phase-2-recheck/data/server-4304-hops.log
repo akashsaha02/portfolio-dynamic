@@ -1,0 +1,13 @@
+▲ Next.js 16.3.8
+- Local:         http://localhost:4304
+- Network:       http://192.168.68.107:4304
+✓ Ready in 376ms
+✓ Running next.config.ts took 94ms
+[seo] NEXT_PUBLIC_SITE_URL is unset and this is not a Vercel build: metadataBase is http://localhost:4304. Canonical and Open Graph URLs will point at localhost. Set NEXT_PUBLIC_SITE_URL for a real deployment.
+[12:59:41] [33mWARN[39m (payload): [36mNo email adapter provided. Email will be written to console. More info at https://payloadcms.com/docs/email/overview.[39m
+[contact] email skipped: RESEND_API_KEY or CONTACT_TO_EMAIL is not set (message saved)
+[contact] email skipped: RESEND_API_KEY or CONTACT_TO_EMAIL is not set (message saved)
+[contact] email skipped: RESEND_API_KEY or CONTACT_TO_EMAIL is not set (message saved)
+[contact] email skipped: RESEND_API_KEY or CONTACT_TO_EMAIL is not set (message saved)
+[contact] email skipped: RESEND_API_KEY or CONTACT_TO_EMAIL is not set (message saved)
+[contact] email skipped: RESEND_API_KEY or CONTACT_TO_EMAIL is not set (message saved)

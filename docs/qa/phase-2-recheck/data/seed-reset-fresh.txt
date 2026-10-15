@@ -1,0 +1,24 @@
+== seed with VERCEL_ENV=preview
+Admin user: created fresh-admin@example.com.
+Seed finished:
+== users/init via :4303
+{"initialized":true}
+== lock the account: 5 bad logins + good
+401 401 401 401 401 
+{"errors":[{"message":"This user is locked due to having too many failed login attempts."}]}
+== reset: short password
+> payload run scripts/reset-admin-password.ts fresh-admin@example.com
+[reset-admin-password] The new password must be at least 12 characters.
+== reset: wrong email
+> payload run scripts/reset-admin-password.ts nobody@example.com
+[reset-admin-password] No user with that email. The admin account is f…@example.com.
+== reset: ok
+> payload run scripts/reset-admin-password.ts Fresh-Admin@example.com
+[reset-admin-password] Password reset for fresh-admin@example.com. Login lock cleared, all sessions signed out.
+== login old password
+{"errors":[{"message":"The email or password provided is incorrect."}]}
+== login new password
+Authentication Passed token: true
+me before reset: {"user":{"createdAt":"2026-10-15T07:01:07.171Z","updatedAt":
+[reset-admin-password] Password reset for fresh-admin@example.com. Login lock cleared, all sessions signed out.
+me after reset (old token): {"user":null,"message":"Account"}

@@ -1,0 +1,2 @@
+[real form, token injected (test secret), Bengali name] HTTP 200 :: {"status":"success","message":"Thanks for your message. Iâ€™ll get back to you soon."}
+[real form, no token (no widget until 3.3)] HTTP 200 :: {"status":"error","message":"I couldnâ€™t confirm youâ€™re not a bot. Please complete the check and send again.","values":{"name":"Ada","email":"ada@example.com","intent":"freelance","message":"No widget yet, so no token."}}

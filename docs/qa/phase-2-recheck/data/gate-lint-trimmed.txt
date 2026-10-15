@@ -1,0 +1,10 @@
+# npm run lint on the main checkout after a local e2e run (raw output was 253 MB; trimmed to file list + summary)
+D:\VacationCodes\focus\experiement\playwright-report\trace\assets\codeMirrorModule-BEB2e8M3.js
+D:\VacationCodes\focus\experiement\playwright-report\trace\assets\defaultSettingsView-D-g2vrvf.js
+D:\VacationCodes\focus\experiement\playwright-report\trace\assets\urlMatch-L3liM589.js
+D:\VacationCodes\focus\experiement\playwright-report\trace\index.7-c5LSTW.js
+D:\VacationCodes\focus\experiement\playwright-report\trace\snapshot.B_Jk1wbt.js
+D:\VacationCodes\focus\experiement\playwright-report\trace\sw.bundle.js
+D:\VacationCodes\focus\experiement\playwright-report\trace\uiMode.CYwC_gH1.js
+✖ 3064 problems (239 errors, 2825 warnings)
+

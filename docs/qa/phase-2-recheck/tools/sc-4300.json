@@ -1,0 +1,179 @@
+[
+ {
+  "token": "tok",
+  "email": "qa@example.com",
+  "intent": "freelance",
+  "message": "Hello there, this is a QA message.",
+  "label": "F-06 name RLO + ZWSP (Ev‮e​x)",
+  "name": "Ev‮e​x"
+ },
+ {
+  "token": "tok",
+  "email": "qa@example.com",
+  "intent": "freelance",
+  "message": "Hello there, this is a QA message.",
+  "label": "F-06 name LRI isolate",
+  "name": "Eve ⁦admin⁩"
+ },
+ {
+  "token": "tok",
+  "email": "qa@example.com",
+  "intent": "freelance",
+  "message": "Hello there, this is a QA message.",
+  "label": "F-06 name trailing ZWJ",
+  "name": "Ana‍"
+ },
+ {
+  "token": "tok",
+  "email": "qa@example.com",
+  "intent": "freelance",
+  "message": "Hello there, this is a QA message.",
+  "label": "F-06 name leading ZWNJ",
+  "name": "‌Ana"
+ },
+ {
+  "token": "tok",
+  "email": "qa@example.com",
+  "intent": "freelance",
+  "message": "Hello there, this is a QA message.",
+  "label": "F-06 name BOM",
+  "name": "﻿Ana"
+ },
+ {
+  "token": "tok",
+  "email": "qa@example.com",
+  "intent": "freelance",
+  "message": "Hello there, this is a QA message.",
+  "label": "F-06 name soft hyphen",
+  "name": "Ana­Bell"
+ },
+ {
+  "token": "tok",
+  "email": "qa@example.com",
+  "intent": "freelance",
+  "message": "Hello there, this is a QA message.",
+  "label": "F-06 name Hangul filler",
+  "name": "Anaㅤ"
+ },
+ {
+  "token": "tok",
+  "email": "ana​@example.com",
+  "intent": "freelance",
+  "message": "Hello there, this is a QA message.",
+  "label": "F-06 email ZWSP",
+  "name": "Ana"
+ },
+ {
+  "token": "tok",
+  "email": "ana@example.com‏",
+  "intent": "freelance",
+  "message": "Hello there, this is a QA message.",
+  "label": "F-06 email RLM",
+  "name": "Ana"
+ },
+ {
+  "token": "tok",
+  "email": "qa@example.com",
+  "intent": "freelance",
+  "message": "Please pay ‮exe.pdf now please",
+  "label": "F-06 message with RLO",
+  "name": "Ana"
+ },
+ {
+  "token": "tok",
+  "email": "qa@example.com",
+  "intent": "freelance",
+  "message": "Hello​ there, I copied this from a web page.",
+  "label": "F-06 message with ZWSP (pasted text)",
+  "name": "Ana"
+ },
+ {
+  "token": "tok",
+  "email": "qa@example.com",
+  "intent": "freelance",
+  "message": "আমি একটি প্রকল্প নিয়ে কথা বলতে চাই।",
+  "label": "OK Bengali name with ZWJ (ra+ZWJ+hasant+ya)",
+  "name": "অর্ক র‍্যাব"
+ },
+ {
+  "token": "tok",
+  "email": "qa@example.com",
+  "intent": "freelance",
+  "message": "Love the site ❤️‍🔥 and 🏳️‍🌈 flags work too",
+  "label": "OK emoji ZWJ sequences in name + message",
+  "name": "Dev 👩🏽‍💻"
+ },
+ {
+  "token": "tok",
+  "email": "qa@example.com",
+  "intent": "freelance",
+  "message": "Persian می‌خواهم and Hindi text here.",
+  "label": "OK Hindi ZWNJ + decomposed Zoë (NFC)",
+  "name": "Zoë क्‌ष"
+ },
+ {
+  "token": "tok",
+  "email": "ada@example.com",
+  "intent": "freelance",
+  "message": "Hello there, this is a QA message.",
+  "label": "OK plain (4th)",
+  "name": "Ada Lovelace"
+ },
+ {
+  "token": "tok",
+  "email": "grace@example.com",
+  "intent": "freelance",
+  "message": "Hello there, this is a QA message.",
+  "label": "OK plain (5th)",
+  "name": "Grace Hopper"
+ },
+ {
+  "token": "tok",
+  "email": "qa@example.com",
+  "intent": "freelance",
+  "message": "Hello there, this is a QA message.",
+  "label": "6th: refused (5/hour)",
+  "name": "Six",
+  "xff": "203.0.113.1"
+ },
+ {
+  "token": "tok",
+  "email": "qa@example.com",
+  "intent": "freelance",
+  "message": "Hello there, this is a QA message.",
+  "label": "7th: rotated XFF off-Vercel (shared bucket)",
+  "name": "Seven",
+  "xff": "203.0.113.99"
+ },
+ {
+  "token": "tok",
+  "email": "qa@example.com",
+  "intent": "freelance",
+  "message": "Hello there, this is a QA message.",
+  "label": "8th: XFF list spoof",
+  "name": "Eight",
+  "xff": "198.51.100.7, 203.0.113.1"
+ },
+ {
+  "token": "tok",
+  "email": "qa@example.com",
+  "intent": "freelance",
+  "message": "Hello there, this is a QA message.",
+  "label": "9th: x-real-ip spoof",
+  "name": "Nine",
+  "headers": {
+   "x-real-ip": "192.0.2.77"
+  }
+ },
+ {
+  "token": "tok",
+  "email": "qa@example.com",
+  "intent": "freelance",
+  "message": "Hello there, this is a QA message.",
+  "label": "foreign Origin (Server Action)",
+  "name": "Ori",
+  "headers": {
+   "origin": "https://evil.example"
+  }
+ }
+]

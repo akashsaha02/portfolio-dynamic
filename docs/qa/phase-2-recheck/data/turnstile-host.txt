@@ -1,0 +1,11 @@
+allowedHostnames (local, PORT unset): localhost, 127.0.0.1
+success, hostname evil.example     -> {"ok":false,"reason":"invalid-token"}
+success, hostname localhost        -> {"ok":true,"skipped":false}
+success, hostname LOCALHOST        -> {"ok":true,"skipped":false}
+success, no hostname field         -> {"ok":true,"skipped":false}
+success:false                      -> {"ok":false,"reason":"invalid-token"}
+dummy 1x secret, hostname example.com -> {"ok":true,"skipped":false}
+preview origins: https://portfolio-abc123.vercel.app, https://akash.dev, https://portfolio-git-main.vercel.app
+preview serverURL: ""
+production origins: https://akash.dev, https://portfolio-abc123.vercel.app
+production serverURL: "https://akash.dev"

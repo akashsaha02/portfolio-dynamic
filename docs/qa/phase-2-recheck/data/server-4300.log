@@ -1,0 +1,359 @@
+▲ Next.js 16.3.8
+- Local:         http://localhost:4300
+- Network:       http://192.168.68.107:4300
+✓ Ready in 286ms
+✓ Running next.config.ts took 80ms
+[seo] NEXT_PUBLIC_SITE_URL is unset and this is not a Vercel build: metadataBase is http://localhost:4300. Canonical and Open Graph URLs will point at localhost. Set NEXT_PUBLIC_SITE_URL for a real deployment.
+[12:57:09] [33mWARN[39m (payload): [36mNo email adapter provided. Email will be written to console. More info at https://payloadcms.com/docs/email/overview.[39m
+[seo] NEXT_PUBLIC_SITE_URL is unset and this is not a Vercel build: metadataBase is http://localhost:4300. Canonical and Open Graph URLs will point at localhost. Set NEXT_PUBLIC_SITE_URL for a real deployment.
+[12:57:11] [31mERROR[39m (payload): [36mFile nonexistent.svg for collection media is missing on the disk. Expected path: D:\VacationCodes\focus\experiement\media\nonexistent.svg[39m
+[12:57:18] [31mERROR[39m (payload): [36mFile nonexistent.webp for collection media is missing on the disk. Expected path: D:\VacationCodes\focus\experiement\media\nonexistent.webp[39m
+[12:57:40] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:40] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:40] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:40] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:40] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:40] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:40] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:48] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:48] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:48] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:48] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:48] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:48] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:48] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:48] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:48] [31mERROR[39m (payload): [36mERROR: Failed to retrieve collection version model with the slug "experience". Does not exist.[39m
+    err: {
+      "type": "m",
+      "message": "ERROR: Failed to retrieve collection version model with the slug \"experience\". Does not exist.",
+      "stack":
+          m: ERROR: Failed to retrieve collection version model with the slug "experience". Does not exist.
+              at bO (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:26:9361)
+              at Object.dq [as findVersions] (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:38:26921)
+              at la (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:65:171471)
+              at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+              at async dz (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:65:273755)
+              at async K (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\_0frlaot._.js:1:16936)
+              at async D:\VacationCodes\focus\experiement\.next-folio\server\chunks\_0frlaot._.js:1:25296
+              at async rQ.do (D:\VacationCodes\focus\experiement\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.prod.js:5:23405)
+              at async rQ.handle (D:\VacationCodes\focus\experiement\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.prod.js:5:28801)
+              at async Y (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\_0frlaot._.js:1:29572)
+      "data": null,
+      "isOperational": true,
+      "isPublic": false,
+      "status": 500,
+      "name": "m"
+    }
+[12:57:48] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:48] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:48] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:48] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:48] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:48] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:48] [31mERROR[39m (payload): [36mERROR: Failed to retrieve collection version model with the slug "publications". Does not exist.[39m
+    err: {
+      "type": "m",
+      "message": "ERROR: Failed to retrieve collection version model with the slug \"publications\". Does not exist.",
+      "stack":
+          m: ERROR: Failed to retrieve collection version model with the slug "publications". Does not exist.
+              at bO (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:26:9361)
+              at Object.dq [as findVersions] (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:38:26921)
+              at la (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:65:171471)
+              at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+              at async dz (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:65:273755)
+              at async K (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\_0frlaot._.js:1:16936)
+              at async D:\VacationCodes\focus\experiement\.next-folio\server\chunks\_0frlaot._.js:1:25296
+              at async rQ.do (D:\VacationCodes\focus\experiement\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.prod.js:5:23405)
+              at async rQ.handle (D:\VacationCodes\focus\experiement\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.prod.js:5:28801)
+              at async Y (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\_0frlaot._.js:1:29572)
+      "data": null,
+      "isOperational": true,
+      "isPublic": false,
+      "status": 500,
+      "name": "m"
+    }
+[12:57:48] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:48] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:48] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:48] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:48] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [31mERROR[39m (payload): [36mERROR: Failed to retrieve collection version model with the slug "skills". Does not exist.[39m
+    err: {
+      "type": "m",
+      "message": "ERROR: Failed to retrieve collection version model with the slug \"skills\". Does not exist.",
+      "stack":
+          m: ERROR: Failed to retrieve collection version model with the slug "skills". Does not exist.
+              at bO (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:26:9361)
+              at Object.dq [as findVersions] (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:38:26921)
+              at la (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:65:171471)
+              at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+              at async dz (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:65:273755)
+              at async K (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\_0frlaot._.js:1:16936)
+              at async D:\VacationCodes\focus\experiement\.next-folio\server\chunks\_0frlaot._.js:1:25296
+              at async rQ.do (D:\VacationCodes\focus\experiement\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.prod.js:5:23405)
+              at async rQ.handle (D:\VacationCodes\focus\experiement\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.prod.js:5:28801)
+              at async Y (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\_0frlaot._.js:1:29572)
+      "data": null,
+      "isOperational": true,
+      "isPublic": false,
+      "status": 500,
+      "name": "m"
+    }
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [31mERROR[39m (payload): [36mERROR: Failed to retrieve collection version model with the slug "education". Does not exist.[39m
+    err: {
+      "type": "m",
+      "message": "ERROR: Failed to retrieve collection version model with the slug \"education\". Does not exist.",
+      "stack":
+          m: ERROR: Failed to retrieve collection version model with the slug "education". Does not exist.
+              at bO (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:26:9361)
+              at Object.dq [as findVersions] (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:38:26921)
+              at la (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:65:171471)
+              at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+              at async dz (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:65:273755)
+              at async K (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\_0frlaot._.js:1:16936)
+              at async D:\VacationCodes\focus\experiement\.next-folio\server\chunks\_0frlaot._.js:1:25296
+              at async rQ.do (D:\VacationCodes\focus\experiement\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.prod.js:5:23405)
+              at async rQ.handle (D:\VacationCodes\focus\experiement\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.prod.js:5:28801)
+              at async Y (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\_0frlaot._.js:1:29572)
+      "data": null,
+      "isOperational": true,
+      "isPublic": false,
+      "status": 500,
+      "name": "m"
+    }
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [31mERROR[39m (payload): [36mERROR: Failed to retrieve collection version model with the slug "media". Does not exist.[39m
+    err: {
+      "type": "m",
+      "message": "ERROR: Failed to retrieve collection version model with the slug \"media\". Does not exist.",
+      "stack":
+          m: ERROR: Failed to retrieve collection version model with the slug "media". Does not exist.
+              at bO (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:26:9361)
+              at Object.dq [as findVersions] (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:38:26921)
+              at la (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:65:171471)
+              at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+              at async dz (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:65:273755)
+              at async K (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\_0frlaot._.js:1:16936)
+              at async D:\VacationCodes\focus\experiement\.next-folio\server\chunks\_0frlaot._.js:1:25296
+              at async rQ.do (D:\VacationCodes\focus\experiement\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.prod.js:5:23405)
+              at async rQ.handle (D:\VacationCodes\focus\experiement\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.prod.js:5:28801)
+              at async Y (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\_0frlaot._.js:1:29572)
+      "data": null,
+      "isOperational": true,
+      "isPublic": false,
+      "status": 500,
+      "name": "m"
+    }
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m404 Not Found[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [31mERROR[39m (payload): [36mERROR: Failed to retrieve collection version model with the slug "messages". Does not exist.[39m
+    err: {
+      "type": "m",
+      "message": "ERROR: Failed to retrieve collection version model with the slug \"messages\". Does not exist.",
+      "stack":
+          m: ERROR: Failed to retrieve collection version model with the slug "messages". Does not exist.
+              at bO (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:26:9361)
+              at Object.dq [as findVersions] (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:38:26921)
+              at la (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:65:171471)
+              at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+              at async dz (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:65:273755)
+              at async K (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\_0frlaot._.js:1:16936)
+              at async D:\VacationCodes\focus\experiement\.next-folio\server\chunks\_0frlaot._.js:1:25296
+              at async rQ.do (D:\VacationCodes\focus\experiement\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.prod.js:5:23405)
+              at async rQ.handle (D:\VacationCodes\focus\experiement\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.prod.js:5:28801)
+              at async Y (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\_0frlaot._.js:1:29572)
+      "data": null,
+      "isOperational": true,
+      "isPublic": false,
+      "status": 500,
+      "name": "m"
+    }
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m404 Not Found[39m
+[12:57:49] [32mINFO[39m (payload): [36m404 Not Found[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [31mERROR[39m (payload): [36mERROR: Failed to retrieve collection version model with the slug "users". Does not exist.[39m
+    err: {
+      "type": "m",
+      "message": "ERROR: Failed to retrieve collection version model with the slug \"users\". Does not exist.",
+      "stack":
+          m: ERROR: Failed to retrieve collection version model with the slug "users". Does not exist.
+              at bO (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:26:9361)
+              at Object.dq [as findVersions] (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:38:26921)
+              at la (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:65:171471)
+              at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+              at async dz (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:65:273755)
+              at async K (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\_0frlaot._.js:1:16936)
+              at async D:\VacationCodes\focus\experiement\.next-folio\server\chunks\_0frlaot._.js:1:25296
+              at async rQ.do (D:\VacationCodes\focus\experiement\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.prod.js:5:23405)
+              at async rQ.handle (D:\VacationCodes\focus\experiement\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.prod.js:5:28801)
+              at async Y (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\_0frlaot._.js:1:29572)
+      "data": null,
+      "isOperational": true,
+      "isPublic": false,
+      "status": 500,
+      "name": "m"
+    }
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [31mERROR[39m (payload): [36mERROR: Failed to retrieve collection version model with the slug "rate-limits". Does not exist.[39m
+    err: {
+      "type": "m",
+      "message": "ERROR: Failed to retrieve collection version model with the slug \"rate-limits\". Does not exist.",
+      "stack":
+          m: ERROR: Failed to retrieve collection version model with the slug "rate-limits". Does not exist.
+              at bO (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:26:9361)
+              at Object.dq [as findVersions] (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:38:26921)
+              at la (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:65:171471)
+              at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+              at async dz (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:65:273755)
+              at async K (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\_0frlaot._.js:1:16936)
+              at async D:\VacationCodes\focus\experiement\.next-folio\server\chunks\_0frlaot._.js:1:25296
+              at async rQ.do (D:\VacationCodes\focus\experiement\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.prod.js:5:23405)
+              at async rQ.handle (D:\VacationCodes\focus\experiement\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.prod.js:5:28801)
+              at async Y (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\_0frlaot._.js:1:29572)
+      "data": null,
+      "isOperational": true,
+      "isPublic": false,
+      "status": 500,
+      "name": "m"
+    }
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m404 Not Found[39m
+[12:57:49] [32mINFO[39m (payload): [36m404 Not Found[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m404 Not Found[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [31mERROR[39m (payload): [36mERROR: Failed to retrieve collection version model with the slug "payload-locked-documents". Does not exist.[39m
+    err: {
+      "type": "m",
+      "message": "ERROR: Failed to retrieve collection version model with the slug \"payload-locked-documents\". Does not exist.",
+      "stack":
+          m: ERROR: Failed to retrieve collection version model with the slug "payload-locked-documents". Does not exist.
+              at bO (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:26:9361)
+              at Object.dq [as findVersions] (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:38:26921)
+              at la (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:65:171471)
+              at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+              at async dz (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:65:273755)
+              at async K (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\_0frlaot._.js:1:16936)
+              at async D:\VacationCodes\focus\experiement\.next-folio\server\chunks\_0frlaot._.js:1:25296
+              at async rQ.do (D:\VacationCodes\focus\experiement\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.prod.js:5:23405)
+              at async rQ.handle (D:\VacationCodes\focus\experiement\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.prod.js:5:28801)
+              at async Y (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\_0frlaot._.js:1:29572)
+      "data": null,
+      "isOperational": true,
+      "isPublic": false,
+      "status": 500,
+      "name": "m"
+    }
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m404 Not Found[39m
+[12:57:49] [32mINFO[39m (payload): [36m404 Not Found[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m404 Not Found[39m
+[12:57:49] [32mINFO[39m (payload): [36m404 Not Found[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m401 Unauthorized, you must be logged in to make this request.[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m404 Not Found[39m
+[12:57:49] [32mINFO[39m (payload): [36m404 Not Found[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [32mINFO[39m (payload): [36m404 Not Found[39m
+[12:57:49] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:49] [31mERROR[39m (payload): [36mERROR: Failed to retrieve global version model with the slug "profile". Does not exist.[39m
+    err: {
+      "type": "m",
+      "message": "ERROR: Failed to retrieve global version model with the slug \"profile\". Does not exist.",
+      "stack":
+          m: ERROR: Failed to retrieve global version model with the slug "profile". Does not exist.
+              at bP (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:26:9982)
+              at Object.dm [as findGlobalVersions] (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:38:24688)
+              at mn (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:65:200355)
+              at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+              at async eC (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\ssr\_10s24uu._.js:65:291071)
+              at async K (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\_0frlaot._.js:1:16936)
+              at async D:\VacationCodes\focus\experiement\.next-folio\server\chunks\_0frlaot._.js:1:25296
+              at async rQ.do (D:\VacationCodes\focus\experiement\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.prod.js:5:23405)
+              at async rQ.handle (D:\VacationCodes\focus\experiement\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.prod.js:5:28801)
+              at async Y (D:\VacationCodes\focus\experiement\.next-folio\server\chunks\_0frlaot._.js:1:29572)
+      "data": null,
+      "isOperational": true,
+      "isPublic": false,
+      "status": 500,
+      "name": "m"
+    }
+[12:57:50] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:50] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:50] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:50] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:50] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[12:57:50] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[contact] email skipped: RESEND_API_KEY or CONTACT_TO_EMAIL is not set (message saved)
+[contact] email skipped: RESEND_API_KEY or CONTACT_TO_EMAIL is not set (message saved)
+[contact] email skipped: RESEND_API_KEY or CONTACT_TO_EMAIL is not set (message saved)
+[contact] email skipped: RESEND_API_KEY or CONTACT_TO_EMAIL is not set (message saved)
+[contact] email skipped: RESEND_API_KEY or CONTACT_TO_EMAIL is not set (message saved)
+`x-forwarded-host` header with value `localhost:4300` does not match `origin` header with value `evil.example` from a forwarded Server Actions request. Aborting the action.
+⨯ Error: Invalid Server Actions request.
+    at ignore-listed frames {
+  digest: '1113248000@E80'
+}
+[request-error] {"route":"/contact","type":"action","method":"POST","path":"/contact","name":"Error","digest":"1113248000@E80"}
+[12:59:14] [32mINFO[39m (payload): [36m403 You are not allowed to perform this action.[39m
+[13:05:24] [32mINFO[39m (payload): [36mEmail attempted without being configured. To: 'qa-admin@example.com', Subject: 'Reset Your Password'[39m

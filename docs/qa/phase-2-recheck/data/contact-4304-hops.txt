@@ -1,0 +1,8 @@
+[HOPS=1 xff "client-spoof, 203.0.113.20" #1] HTTP 200 :: {"status":"success","message":"Thanks for your message. I’ll get back to you soon."}
+[HOPS=1 xff "client-spoof, 203.0.113.20" #2] HTTP 200 :: {"status":"success","message":"Thanks for your message. I’ll get back to you soon."}
+[HOPS=1 xff "client-spoof, 203.0.113.20" #3] HTTP 200 :: {"status":"success","message":"Thanks for your message. I’ll get back to you soon."}
+[HOPS=1 xff "client-spoof, 203.0.113.20" #4] HTTP 200 :: {"status":"success","message":"Thanks for your message. I’ll get back to you soon."}
+[HOPS=1 xff "client-spoof, 203.0.113.20" #5] HTTP 200 :: {"status":"success","message":"Thanks for your message. I’ll get back to you soon."}
+[HOPS=1 6th, rotate left (client-written) hop -> refused] HTTP 200 :: {"status":"error","message":"You’ve sent a few messages already. Please try again in an hour. You can also email me at akashsaha1313@gmail.com.",}
+[HOPS=1 rotate left hop again + x-real-ip spoof -> refused] HTTP 200 :: {"status":"error","message":"You’ve sent a few messages already. Please try again in an hour. You can also email me at akashsaha1313@gmail.com.",}
+[HOPS=1 new right hop -> own bucket] HTTP 200 :: {"status":"success","message":"Thanks for your message. I’ll get back to you soon."}

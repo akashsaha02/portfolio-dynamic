@@ -1,0 +1,27 @@
+== forgot-password
+{"message":"Success"}
+log lines with the address: 1
+== /api/draft anon
+HTTP/1.1 401 Unauthorized
+== /api/draft admin cookie, path=//evil.example
+HTTP/1.1 401 Unauthorized
+== /api/draft admin cookie, path=/work/abroadly
+HTTP/1.1 401 Unauthorized
+== /api/draft admin cookie + Sec-Fetch-Site cross-site
+HTTP/1.1 401 Unauthorized
+== /api/draft/disable
+HTTP/1.1 307 Temporary Redirect
+location: http://localhost:4300/
+== /resume
+404
+== robots
+User-Agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api
+
+Sitemap: http://localhost:3000/sitemap.xml
+== sitemap
+<loc>http://localhost:3000/</loc> <loc>http://localhost:3000/work</loc> <loc>http://localhost:3000/work/abroadly</loc> <loc>http://localhost:3000/work/nook</loc> <loc>http://localhost:3000/about</loc> <loc>http://localhost:3000/contact</loc> 
+== OG images
+C:/Program Files/Git/opengraph-image-12o0cb 200 image/png 51807B/nC:/Program Files/Git/work/abroadly/opengraph-image-j16k26 200 image/png 49633B/nC:/Program Files/Git/work/nook/opengraph-image-j16k26 200 image/png 43684B/n

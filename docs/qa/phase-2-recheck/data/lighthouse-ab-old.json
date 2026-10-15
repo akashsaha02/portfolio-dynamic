@@ -1,0 +1,65 @@
+{
+  "home": {
+    "runs": [
+      "85/100/3808/0/172",
+      "90/100/3481/0/91",
+      "92/100/3173/0/101"
+    ],
+    "median": {
+      "perf": 90,
+      "a11y": 100,
+      "bp": 100,
+      "seo": 100,
+      "fcp": 1081,
+      "lcp": 3481,
+      "cls": 0,
+      "tbt": 101,
+      "si": 2698
+    },
+    "lcpElement": "<img alt=\"Portrait of Akash Saha\" fetchpriority=\"high\" width=\"1024\" height=\"1024\" decoding=\"async\" data-nimg=\"1\" class=\"f-hero-portrait\" sty",
+    "lcpPhases": {
+      "timeToFirstByte": 21,
+      "resourceLoadDelay": 18,
+      "resourceLoadDuration": 26,
+      "elementRenderDelay": 407
+    },
+    "fails": {
+      "perf": [
+        "first-contentful-paint: 1.1 s",
+        "largest-contentful-paint: 3.5 s",
+        "total-blocking-time: 90 ms",
+        "speed-index: 2.7 s",
+        "document-latency-insight: Est savings of 20 ms",
+        "image-delivery-insight: Est savings of 45 KiB",
+        "legacy-javascript-insight: Est savings of 14 KiB",
+        "network-dependency-tree-insight: 0",
+        "render-blocking-insight: Est savings of 110 ms",
+        "interactive: 3.6 s",
+        "max-potential-fid: 230 ms",
+        "unused-javascript: Est savings of 26 KiB",
+        "redirects: Est savings of 610 ms"
+      ],
+      "a11y": [],
+      "bp": [],
+      "seo": []
+    },
+    "totalKB": 403,
+    "scriptKB": 159,
+    "scripts": [
+      "1edfvwc5_eck-.js 4",
+      "26g4tn5b226u5.js 9",
+      "3gwb465dhjxo9.js 71",
+      "313nkciqjr80k.js 42",
+      "turbopack-1xf5ikdjb9ff-.js 5",
+      "33t46atd3n2zd.js 4",
+      "1daauky_xs5yh.js 11",
+      "0snhuj7d8gu5r.js 13"
+    ],
+    "imgFont": [
+      "/_next/static/media/c89730c3ffa99552-s.p.1zjat_zsa1d11.woff2 96KB",
+      "/_next/image?url=/portrait.webp&w=1080&q=75 32KB",
+      "/_next/image?url=/projects/abroadly.webp&w=828&q=75 28KB",
+      "/_next/image?url=/projects/nook.webp&w=828&q=75 11KB"
+    ]
+  }
+}

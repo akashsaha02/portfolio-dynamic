@@ -1,0 +1,9 @@
+widget foot links: All unread 53.3x44.0 | All messages 65.7x44.0 | Edit text in Profile → Status 130.6x44.0
+segmented buttons: OpenLooking for work 90.7x44.0 | LimitedSelective 90.7x44.0 | ClosedNot taking work 90.7x44.0
+live region idle: {"role":"status","display":"block","text":"","inA11yTree":true}
+live region texts during save: ["Saving…","Saved. Availability is now Limited."] final: {"role":"status","display":"block","text":"Saved. Availability is now Limited.","inA11yTree":true}
+filter buttons: Unread 68.7x44.0 | All 44.3x44.0
+projects list hint: 1 | collection description elements: 0
+project edit: hint present: 0 | 'Drag rows' text on page: 0
+live preview frame url: http://localhost:4300/work/abroadly | frame h1: Abroadly
+console errors: []

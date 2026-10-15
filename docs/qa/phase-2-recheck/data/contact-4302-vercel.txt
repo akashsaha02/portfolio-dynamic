@@ -1,0 +1,9 @@
+[VERCEL x-vercel-forwarded-for=203.0.113.10 #1] HTTP 200 :: {"status":"success","message":"Thanks for your message. I’ll get back to you soon."}
+[VERCEL x-vercel-forwarded-for=203.0.113.10 #2] HTTP 200 :: {"status":"success","message":"Thanks for your message. I’ll get back to you soon."}
+[VERCEL x-vercel-forwarded-for=203.0.113.10 #3] HTTP 200 :: {"status":"success","message":"Thanks for your message. I’ll get back to you soon."}
+[VERCEL x-vercel-forwarded-for=203.0.113.10 #4] HTTP 200 :: {"status":"success","message":"Thanks for your message. I’ll get back to you soon."}
+[VERCEL x-vercel-forwarded-for=203.0.113.10 #5] HTTP 200 :: {"status":"success","message":"Thanks for your message. I’ll get back to you soon."}
+[VERCEL 6th same vff -> refused] HTTP 200 :: {"status":"error","message":"You’ve sent a few messages already. Please try again in an hour. You can also email me at akashsaha1313@gmail.com.",}
+[VERCEL same vff, rotated x-forwarded-for + x-real-ip -> refused] HTTP 200 :: {"status":"error","message":"You’ve sent a few messages already. Please try again in an hour. You can also email me at akashsaha1313@gmail.com.",}
+[VERCEL new vff (platform-set on Vercel) -> own bucket] HTTP 200 :: {"status":"success","message":"Thanks for your message. I’ll get back to you soon."}
+[VERCEL no vff, x-real-ip fallback] HTTP 200 :: {"status":"success","message":"Thanks for your message. I’ll get back to you soon."}

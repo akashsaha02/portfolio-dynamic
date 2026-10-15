@@ -1,0 +1,4 @@
+[
+ {"label":"real form, token injected (test secret), Bengali name","xff":"203.0.113.40","token":"XXXX.DUMMY.TOKEN.XXXX","name":"অর্ক সাহা","email":"form@example.com","intent":"research","message":"End-to-end through the real Folio form."},
+ {"label":"real form, no token (no widget until 3.3)","xff":"203.0.113.41","token":null,"name":"Ada","email":"ada@example.com","intent":"freelance","message":"No widget yet, so no token."}
+]

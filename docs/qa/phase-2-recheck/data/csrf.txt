@@ -1,0 +1,17 @@
+login 200 cookie ok
+Origin https://evil.example                  -> HTTP 403 changed=false {"errors":[{"message":"You are not allowed to perform this action."}]}
+Origin https://evil.example multipart        -> HTTP 403 changed=false {"errors":[{"message":"You are not allowed to perform this action."}]}
+Origin null                                  -> HTTP 403 changed=false {"errors":[{"message":"You are not allowed to perform this action."}]}
+no Origin, Sec-Fetch-Site cross-site         -> HTTP 403 changed=false {"errors":[{"message":"You are not allowed to perform this action."}]}
+no Origin, no Sec-Fetch-Site (curl)          -> HTTP 403 changed=false {"errors":[{"message":"You are not allowed to perform this action."}]}
+Origin http://localhost:4300.evil.example    -> HTTP 403 changed=false {"errors":[{"message":"You are not allowed to perform this action."}]}
+Origin http://localhost:9999 (other port)    -> HTTP 403 changed=false {"errors":[{"message":"You are not allowed to perform this action."}]}
+no Origin, Sec-Fetch-Site same-origin        -> HTTP 200 changed=true {"message":"Updated successfully.","result":{"createdAt":"2026-10-15T06:56:49.144Z","updat
+Origin http://localhost:4300 (same origin)   -> HTTP 200 changed=true {"message":"Updated successfully.","result":{"createdAt":"2026-10-15T06:56:49.144Z","updat
+Origin http://localhost:4300 multipart       -> HTTP 200 changed=true {"message":"Updated successfully.","result":{"createdAt":"2026-10-15T06:56:49.144Z","updat
+Origin http://127.0.0.1:<port>               -> HTTP 200 changed=true {"message":"Updated successfully.","result":{"createdAt":"2026-10-15T06:56:49.144Z","updat
+restored versionLabel: true
+preflight Origin https://evil.example -> 200 ACAO=null ACAC=null ACAM=PUT, PATCH, POST, GET, DELETE, OPTIONS
+GET /api/projects Origin https://evil.example -> 200 ACAO=null
+preflight Origin http://localhost:4300 -> 200 ACAO=http://localhost:4300 ACAC=true ACAM=PUT, PATCH, POST, GET, DELETE, OPTIONS
+GET /api/projects Origin http://localhost:4300 -> 200 ACAO=http://localhost:4300
