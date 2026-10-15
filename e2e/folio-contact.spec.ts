@@ -30,6 +30,19 @@ async function fillValid(page: Page) {
   await message(page).fill("Hello, I would like to talk about a project.");
 }
 
+// Since task 2.5 the form calls the real submitContact. The e2e runs a production build with no
+// Turnstile secret, so a valid submit fails closed. These helpers assert that documented behaviour.
+const FAIL_CLOSED = /The form isn.t available right now/;
+async function expectFailClosed(page: Page) {
+  await expect(summary(page)).toBeFocused();
+  await expect(summary(page)).toContainText(FAIL_CLOSED);
+  await expect(page.locator(".f-contact-sent")).toHaveCount(0);
+  await expect(name(page)).toHaveValue("Ada Lovelace");
+  await expect(email(page)).toHaveValue("ada@example.com");
+  await expect(page.locator("#contact-intent-freelance")).toBeChecked();
+  await expect(message(page)).toHaveValue("Hello, I would like to talk about a project.");
+}
+
 test("/contact structure, axe, no horizontal scroll, no console errors", async ({ page }) => {
   const c = watchConsole(page);
   await open(page);
@@ -98,7 +111,15 @@ test("a partial submit refills every field", async ({ page }) => {
   await expect(message(page)).toHaveValue("short");
 });
 
-test("valid submit shows the confirmation and focuses its heading", async ({ page }) => {
+test("valid submit fails closed without a Turnstile secret and keeps the values", async ({ page }) => {
+  await open(page);
+  await fillValid(page);
+  await submit(page).click();
+  await expectFailClosed(page);
+  await expectAxeClean(page);
+});
+
+test.fixme("valid submit shows the confirmation and focuses its heading (restored in 3.3 with the Turnstile widget + test DB)", async ({ page }) => {
   await open(page);
   await fillValid(page);
   await submit(page).click();
@@ -177,18 +198,24 @@ test("keyboard-only completion with arrow keys on the radios", async ({ page }) 
   await page.keyboard.press("Tab");
   await expect(submit(page)).toBeFocused();
   await page.keyboard.press("Enter");
-  await expect(page.locator(".f-contact-sent h2")).toBeFocused();
+  // Fail-closed in the e2e build (no Turnstile secret). Success path: see the fixme below.
+  await expect(summary(page)).toContainText(FAIL_CLOSED);
+  await expect(page.locator(".f-contact-sent")).toHaveCount(0);
 });
+
+test.fixme("keyboard-only completion reaches the confirmation (restored in 3.3 with the Turnstile widget + test DB)", async () => {});
 
 test.describe("reduced motion", () => {
   test.use({ reducedMotion: "reduce" });
 
-  test("the form works and the confirmation shows", async ({ page }) => {
+  test("the form works and fails closed without a Turnstile secret", async ({ page }) => {
     await open(page);
     await submit(page).click();
     await expect(summary(page)).toBeFocused();
     await fillValid(page);
     await submit(page).click();
-    await expect(page.locator(".f-contact-sent h2")).toBeFocused();
+    await expectFailClosed(page);
   });
+
+  test.fixme("the confirmation shows (restored in 3.3 with the Turnstile widget + test DB)", async () => {});
 });
