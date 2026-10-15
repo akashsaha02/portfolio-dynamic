@@ -30,9 +30,10 @@ export default buildConfig({
     user: Users.slug,
     importMap: { baseDir: dirname },
     meta: {
-      title: "Akash · Admin",
-      titleSuffix: " · Akash · Admin",
+      // Page titles read "Dashboard · Akash · Admin", ... (Payload adds the space before the suffix).
+      titleSuffix: "· Akash · Admin",
       description: "Content admin for Akash Saha's portfolio.",
+      openGraph: { siteName: "Akash · Admin", description: "Content admin for Akash Saha's portfolio." },
       icons: [{ rel: "icon", type: "image/x-icon", url: "/favicon.ico" }],
       robots: { index: false, follow: false },
       // No dynamic OG images for admin pages: turns off Payload's /api/og endpoint.
