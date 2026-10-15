@@ -72,6 +72,34 @@ node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
 
 Copy the output straight into `.env.local` or the Vercel field. Do not echo it into a shared terminal log or paste it anywhere else.
 
+## 6. Bootstrap the admin (do this BEFORE `DATABASE_URI` exists on Vercel)
+
+Payload sends anyone who opens `/admin` on an empty database to the first-register screen, and the first account created wins (the single-user hook then refuses everyone else, you included). So the admin must exist before the production database is reachable from a public deployment. Previews sit behind Vercel Authentication; Production does not.
+
+1. Pick a **login email that is not published on the site** (not `akashsaha1313@gmail.com`). The 5-failed-logins lockout is per account, so anyone who knows the login email can keep you locked out. A separate alias or a plain unused address is fine; it never needs to receive mail (no email adapter is configured).
+2. Generate a long unique password in your password manager. Never reuse one, and never paste it into chat.
+3. From **your own machine**, in the repo root, with `.env.local` temporarily pointing `DATABASE_URI` at the Atlas **production** database (`.../portfolio` as `portfolio-prod`) and a `PAYLOAD_SECRET`, run the seed with the admin values set only for this command:
+
+   ```bash
+   SEED_ADMIN_EMAIL='you+admin@example.com' SEED_ADMIN_PASSWORD='<from password manager>' npm run seed
+   ```
+
+   (PowerShell: set `$env:SEED_ADMIN_EMAIL` and `$env:SEED_ADMIN_PASSWORD`, run `npm run seed`, then remove both.) Check `package.json` for the exact seed script name. Afterwards restore `.env.local` to the dev database.
+4. Only now add `DATABASE_URI` and `PAYLOAD_SECRET` to Vercel Production, deploy, and log in at `/admin`.
+5. On Vercel (`VERCEL_ENV` set) the backend guard refuses `first-register` while the collection is empty, so an empty database is a "no admin" state, not an open door. To deliberately create the first user on a Vercel deployment set `ALLOW_FIRST_USER=1` for that one deployment and remove it right after. Locally the first-register screen still works.
+
+## 7. Recover the admin
+
+There is no email adapter, so "forgot password" sends nothing. Recovery needs database access from your machine:
+
+```bash
+npm run admin:reset-password
+```
+
+Run it with `.env.local` pointing at the target database (production: `portfolio` as `portfolio-prod`); the script's own prompts or variables are described at the top of `scripts/reset-admin-password.ts`. Then log in with the new password.
+
+Lockout: 5 failed logins lock the account for 15 minutes, even with the right password. Wait it out. If it keeps happening for no reason, someone knows the login email: change the admin email to an unpublished one with the reset script and rotate `PAYLOAD_SECRET` (ends all sessions).
+
 ## Where each value goes
 
 Local file is `.env.local` in the repo root (git-ignored, never committed). Vercel: Project > Settings > Environment Variables; for each variable tick the environments shown. GitHub secrets are not needed yet (CI builds without secrets).

@@ -37,6 +37,11 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      # Report only: never blocks, never runs `audit fix`. Read the output in the job log.
+      - name: Dependency audit (report only)
+        continue-on-error: true
+        run: npm audit --omit=dev --audit-level=high
+
       # LayoutProps/PageProps are generated; a fresh checkout needs typegen first.
       - name: Typecheck
         run: npx next typegen && npx tsc --noEmit

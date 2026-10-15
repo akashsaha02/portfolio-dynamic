@@ -96,6 +96,17 @@ After the first deploy and after setting the env vars (redeploy once):
 
 Do this only after `components/shared/Telemetry.tsx` is mounted in the layout (backend/lead task). Then: project, **Analytics** tab, **Enable** (Web Analytics, 50,000 events a month on Hobby); and the **Speed Insights** tab, **Enable** (10,000 data points over 30 days, shared across the team). Enabling is free on Hobby; both only record on deployments that include the script. Track usage in `docs/ops/free-tier.md`.
 
+## 8. Rate limit the API and admin login (free, do before launch)
+
+Checked 2026-10-15 against https://vercel.com/docs/vercel-firewall/vercel-waf/rate-limiting: WAF Rate Limiting is available on Hobby with **1 rate-limit rule per project** (counting by IP or JA4, fixed window, 10 s to 10 min window, 1,000,000 allowed requests included). Hobby also allows up to 3 custom firewall rules in total. Since there is only one rule, cover `/api/` (Payload's login is `POST /api/users/login`, which is what `/admin/login` calls; the contact form is a server action and is limited in app code).
+
+1. Project > **Firewall** > **Configure** > **+ New Rule**.
+2. Name: `rate-limit-api`. **If** Request Path **starts with** `/api/`.
+3. **Then** Rate Limit, algorithm **Fixed Window**, window **60 s**, limit **100** requests, key **IP**. (The admin UI itself makes many `/api/` calls per page; 100 a minute per IP leaves room for normal editing.) Action: start with **Log**, check Firewall overview for a day, then switch to **Default (429)**.
+4. **Save Rule**, **Review Changes**, **Publish**.
+
+Counters are per region, so a limit can be exceeded across regions. This is a brake, not a guarantee; the per-account login lockout (5 failures, 15 min) is the real login protection.
+
 ## Why there is no `vercel.json`
 
 Vercel detects Next.js and runs `next build` with the right output on its own, `.vercel/` is already in `.gitignore`, and the build needs no git-ignored files (a build from a fresh clone with `SITE_TEMPLATE=folio` and `NEXT_PUBLIC_SITE_URL` set passes with no `.env` file). Redirects, headers and image limits live in `next.config.ts`. Add `vercel.json` only if we later need cron jobs, region pinning, or per-branch build skipping.
