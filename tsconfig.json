@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -19,8 +23,12 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"],
-      "@payload-config": ["./payload.config.ts"]
+      "@/*": [
+        "./*"
+      ],
+      "@payload-config": [
+        "./payload.config.ts"
+      ]
     }
   },
   "include": [
@@ -31,7 +39,13 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts",
     ".next-folio/types/**/*.ts",
-    ".next-folio/dev/types/**/*.ts"
+    ".next-folio/dev/types/**/*.ts",
+    ".next-base/types/**/*.ts",
+    ".next-base/dev/types/**/*.ts"
   ],
-  "exclude": ["node_modules", ".claude", "docs/qa"]
+  "exclude": [
+    "node_modules",
+    ".claude",
+    "docs/qa"
+  ]
 }

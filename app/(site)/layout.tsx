@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Mona_Sans } from "next/font/google";
 import { PreviewBanner } from "@/components/shared/PreviewBanner";
+import { Telemetry } from "@/components/shared/Telemetry";
 import { getSiteContent } from "@/lib/data";
 import { siteUrl } from "@/lib/seo";
 import "../globals.css";
@@ -52,6 +53,8 @@ export default function SiteLayout({ children }: LayoutProps<"/">) {
         {children}
         {/* Draft mode only (work plan 3.4); renders nothing for visitors. */}
         <PreviewBanner />
+        {/* Vercel Analytics + Speed Insights on production deployments only (work plan 3.5). */}
+        <Telemetry />
       </body>
     </html>
   );
