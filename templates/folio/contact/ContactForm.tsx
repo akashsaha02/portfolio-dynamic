@@ -10,6 +10,12 @@ import {
   type ReactNode,
   type Ref,
 } from "react";
+import {
+  TURNSTILE_SITE_KEY,
+  TurnstileWidget,
+  type TurnstileHandle,
+  type TurnstileStatus,
+} from "@/components/shared/TurnstileWidget";
 import { submitContact } from "@/lib/actions/contact";
 import {
   CONTACT_FIELDS,
@@ -38,6 +44,11 @@ import { RoundButton } from "../ui/RoundButton";
 //
 // The honeypot (`website`) sits off-screen, not display:none, so bots still fill it; the action
 // then answers "success" without sending. Styles: pages-about-contact.css (.f-q, .f-choice, …).
+//
+// Turnstile (work plan 3.3, components/shared/TurnstileWidget.tsx), only with a site key: above the
+// send row, a line says what the spam check is doing, and "Send message" stays aria-disabled until
+// a token is in the form. After any failed send the widget is reset, since tokens are single-use.
+// The action's own Turnstile errors (no token, fail closed in production) land in the summary.
 
 const IDS: Record<ContactField, string> = {
   name: "contact-name",
@@ -49,6 +60,17 @@ const ORDER: ContactField[] = ["name", "email", "intent", "message"];
 const errorId = (field: ContactField) => `${IDS[field]}-error`;
 /** What a summary link focuses: the input, or the first radio of the intent group. */
 const targetId = (field: ContactField) => (field === "intent" ? `${IDS.intent}-${CONTACT_INTENTS[0]}` : IDS[field]);
+
+/** The spam check's line above the send row. The details column has the email for the dead ends. */
+const CHECK_STATUS: Record<TurnstileStatus, string> = {
+  idle: "Spam check by Cloudflare Turnstile.",
+  checking: "Checking you’re human…",
+  interactive: "Please complete the check above to send.",
+  ready: "Ready to send.",
+  error: "The spam check hit a problem. Trying again…",
+  unsupported: "This browser can’t run the spam check. Please email me instead.",
+  unavailable: "The spam check didn’t load. Check your connection or content blocker, or email me instead.",
+};
 
 type ContactFormProps = {
   /** id of the page heading, which names the form. */
@@ -70,10 +92,16 @@ function Form({ labelledBy, focusFirst, onAgain }: FormProps) {
   const summaryRef = useRef<HTMLDivElement>(null);
   const sentRef = useRef<HTMLHeadingElement>(null);
   const firstRef = useRef<HTMLInputElement>(null);
+  const turnstileRef = useRef<TurnstileHandle>(null);
+  const [check, setCheck] = useState<TurnstileStatus>("idle");
 
   // Every submission returns a new state object, so this runs once per answer.
   useEffect(() => {
-    if (state.status === "error") summaryRef.current?.focus();
+    if (state.status === "error") {
+      summaryRef.current?.focus();
+      // The token may have been spent (or the server refused it): fetch a fresh one.
+      turnstileRef.current?.reset();
+    }
     if (state.status === "success") sentRef.current?.focus();
   }, [state]);
 
@@ -105,9 +133,11 @@ function Form({ labelledBy, focusFirst, onAgain }: FormProps) {
   });
 
   // The button only looks disabled (aria-disabled keeps it focusable); this drops the second
-  // submit, including Enter in a field. React skips the action when the default is prevented.
+  // submit, and any submit before the spam check has a token, including Enter in a field. React
+  // skips the action when the default is prevented.
+  const blocked = pending || (TURNSTILE_SITE_KEY !== undefined && check !== "ready");
   const guard = (e: FormEvent<HTMLFormElement>) => {
-    if (pending) e.preventDefault();
+    if (blocked) e.preventDefault();
   };
 
   return (
@@ -215,8 +245,14 @@ function Form({ labelledBy, focusFirst, onAgain }: FormProps) {
         <input id="contact-website" type="text" name={CONTACT_FIELDS.honeypot} tabIndex={-1} autoComplete="off" />
       </div>
 
-      {/* TURNSTILE SLOT (work plan 3.3): the Cloudflare Turnstile widget goes here, above the
-          send row. Not added yet; submitContact keeps its signature when it starts verifying. */}
+      {TURNSTILE_SITE_KEY ? (
+        <div className="f-check">
+          <TurnstileWidget ref={turnstileRef} onStatusChange={setCheck} className="f-check-widget" />
+          <p role="status" className="f-check-status" data-state={check}>
+            {CHECK_STATUS[check]}
+          </p>
+        </div>
+      ) : null}
 
       <p role="status" className="sr-only">
         {pending ? "Sending your message" : ""}
@@ -226,7 +262,7 @@ function Form({ labelledBy, focusFirst, onAgain }: FormProps) {
       <div className="f-contact-end">
         <div className="f-contact-send">
           <Magnetic>
-            <RoundButton type="submit" size="lg" aria-disabled={pending || undefined}>
+            <RoundButton type="submit" size="lg" aria-disabled={blocked || undefined}>
               {pending ? "Sending" : "Send message"}
             </RoundButton>
           </Magnetic>
