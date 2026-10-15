@@ -12,14 +12,26 @@ const dirname = path.dirname(fileURLToPath(import.meta.url));
 // - No script-src CSP yet: Payload's admin needs 'unsafe-inline' and the Turnstile widget loads from
 //   challenges.cloudflare.com, so a real policy is its own task (work plan 4.5). This CSP carries
 //   only `frame-ancestors`, which restricts nothing else. HSTS is sent by Vercel on its domains.
-// - Payload's SVG file route sets its own stricter CSP (script-src 'none'), which replaces this one
-//   for those responses; X-Frame-Options still applies there.
+// - Config headers REPLACE a header of the same name that a route sets itself, so this site-wide CSP
+//   would also replace Payload's stricter one on uploaded files (QA N-01). `uploadHeaders` below puts
+//   a locked-down CSP back on /api/media/file/*: a later rule wins for the same key.
 const securityHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
   { key: "X-Frame-Options", value: "SAMEORIGIN" },
   { key: "Content-Security-Policy", value: "frame-ancestors 'self'" },
+];
+
+// Uploaded files served by Payload's file route (local disk; on Vercel media comes from the Blob
+// domain instead). Nothing may run or load: no scripts, frames or plugins, only the image itself and
+// SVG inline styles, in a sandbox (unique origin), framed by this site only. Defence in depth behind
+// Payload's upload sanitising: a hostile SVG opened directly can't script the admin's origin.
+const uploadHeaders = [
+  {
+    key: "Content-Security-Policy",
+    value: "default-src 'none'; img-src 'self' data:; style-src 'unsafe-inline'; sandbox; frame-ancestors 'self'",
+  },
 ];
 
 // The admin and the JSON API should never show up in search results (robots.txt already disallows
@@ -35,6 +47,8 @@ const nextConfig: NextConfig = {
       { source: "/:path*", headers: securityHeaders },
       { source: "/api/:path*", headers: noindex },
       { source: "/admin/:path*", headers: noindex },
+      // Must stay after the site-wide rule: the last matching rule wins for Content-Security-Policy.
+      { source: "/api/media/file/:path*", headers: uploadHeaders },
     ];
   },
   // cacheComponents stays off: see docs/decisions/cache-components.md (work plan 2.2 spike).

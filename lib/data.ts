@@ -1,162 +1,124 @@
-// The data layer: maps the raw content source to the template contract (lib/content-types.ts).
+// The data layer: the content source mapped to the template contract (lib/content-types.ts).
 //
-// Today the source is lib/content.ts. In Phase 3 (work plan 3.1) these functions read the Payload
-// Local API instead; their signatures and return types stay the same, so templates never change.
+// Source (work plan 3.1):
+// - DATABASE_URI unset → the static lib/content.ts (lib/static-content.ts), exactly as before.
+//   Local builds, CI, e2e, Lighthouse and previews without a database keep working.
+// - DATABASE_URI set → Payload's Local API (lib/payload/read.ts + map.ts). If the database is
+//   unreachable this THROWS: a build fails, and at runtime Next keeps serving the last good
+//   page while the error is logged. It never falls back to the static copy silently.
+//
+// Caching (docs/decisions/cache-components.md: cacheComponents is off): published reads are
+// wrapped in `unstable_cache`, tagged with lib/cache-tags.ts. Payload hooks
+// (lib/payload/revalidate.ts) call `revalidateTag(tag, "max")` on every change; the 1-day
+// `revalidate` is only a safety net. React `cache()` dedupes within one request.
+//
+// Draft mode (3.4): drafts are read only when draft mode is on AND the request carries the
+// admin's Payload session; those reads skip the cache (Next also bypasses unstable_cache in draft
+// mode). Request data (draftMode/headers) is only read outside the cached functions.
 
+import { unstable_cache } from "next/cache";
+import { draftMode, headers } from "next/headers";
+import type { Payload, TypedUser } from "payload";
 import { cache } from "react";
-import * as raw from "./content";
-import type {
-  CaseStudy,
-  ImageAsset,
-  Experience,
-  Project,
-  Publication,
-  PublicationStatus,
-  SiteContent,
-} from "./content-types";
-import { isTemplateId, TEMPLATE_IDS, type SiteSettings, type TemplateId } from "@/templates/types";
+import { CACHE_TAGS } from "./cache-tags";
+import type { Project, CaseStudy, SiteContent } from "./content-types";
+import { mapSettings, mapSiteContent } from "./payload/map";
+import { readContentDocs, readSettingsDoc } from "./payload/read";
+import { staticSettings, staticSiteContent } from "./static-content";
+import type { SiteSettings } from "@/templates/types";
 
-const PUBLICATION_STATUS: Record<raw.Publication["status"], PublicationStatus> = {
-  Published: "published",
-  Accepted: "accepted",
-  Submitted: "submitted",
-};
+/** Safety net only: tags do the real invalidation. One day, in seconds. */
+const SAFETY_REVALIDATE = 86_400;
 
-function mapProject(p: raw.Project, index: number): Project {
-  const year = p.year ?? p.period;
-  if (!year) throw new Error(`Project "${p.name}" needs a year or period`);
-  return {
-    name: p.name,
-    slug: p.slug,
-    kind: p.kind,
-    type: p.type,
-    year,
-    featured: p.featured,
-    order: index + 1,
-    summary: p.summary,
-    stack: p.stack,
-    url: p.url,
-    linkLabel: p.linkLabel,
-    repo: p.repo,
-    cover: p.image,
-    phoneShots: p.phone ? [p.phone] : [],
-    caseStudy: p.caseStudy ? mapCaseStudy(p.caseStudy) : undefined,
-  };
-}
+/** Collection and global slugs whose hooks invalidate `SiteContent` (each also sends CONTENT). */
+const CONTENT_SOURCE_TAGS = ["projects", "experience", "publications", "skills", "education", "media", "profile"];
 
-function mapImage(i: { src: string; alt: string; width: number; height: number }): ImageAsset {
-  return { src: i.src, alt: i.alt, width: i.width, height: i.height };
-}
-
-function mapCaseStudy(c: raw.CaseStudy): CaseStudy {
-  return {
-    role: c.role,
-    problem: c.problem,
-    built: c.built,
-    how: c.how,
-    outcome: c.outcome,
-    metrics: c.metrics.map((m) => ({ value: m.value, label: m.label })),
-    ...(c.diagram && { diagram: mapImage(c.diagram) }),
-  };
-}
-
-function mapExperience(r: raw.Role): Experience {
-  return {
-    company: r.company,
-    url: r.url,
-    title: r.title,
-    place: r.place,
-    start: r.start,
-    end: r.end,
-    period: r.period,
-    points: r.points,
-    skills: r.skills,
-  };
-}
-
-function mapPublication(p: raw.Publication): Publication {
-  return {
-    title: p.title,
-    venue: p.venue,
-    year: p.year,
-    status: PUBLICATION_STATUS[p.status],
-    statusLabel: p.status,
-    doi: p.doi,
-    url: p.url,
-    summary: p.summary,
-  };
+/** True when the site reads Payload. Read per call so tests and scripts can set it late. */
+export function hasDatabase(): boolean {
+  return Boolean(process.env.DATABASE_URI?.trim());
 }
 
 /**
- * Everything the public site renders. Wrapped in React `cache` so layout metadata and the page
- * share one result per request.
- *
- * Phase 3: add `'use cache'`, `cacheLife('max')` and `cacheTag('site-content', ...)` here once
- * the cacheComponents decision (work plan 2.2) is made. cacheComponents is off today, so
- * 'use cache' is not available yet. Never read cookies()/headers() inside the cached function.
+ * Payload's own cached instance: `getPayload` keeps one client (and one Mongo pool) per server
+ * process, so prerendering many pages doesn't open new connections. Loaded lazily so builds
+ * without a database never evaluate the Payload config.
  */
-export const getSiteContent = cache(async (): Promise<SiteContent> => {
-  // Optional fields aren't in lib/content.ts until Akash supplies them (work plan 0.6).
-  const p: typeof raw.profile & { phone?: string; avatar?: ImageAsset; resumeUrl?: string } = raw.profile;
-  return {
-    profile: {
-      name: p.name,
-      role: p.role,
-      headline: p.headline,
-      location: p.location,
-      timezone: p.timezone,
-      email: p.email,
-      ...(p.phone && { phone: p.phone }),
-      intro: p.intro,
-      statement: p.statement,
-      about: p.about,
-      portrait: p.portrait,
-      ...(p.avatar && { avatar: p.avatar }),
-      greetings: p.greetings,
-      services: p.services,
-      socials: p.socials,
-      ...(p.resumeUrl && { resumeUrl: p.resumeUrl }),
-      availability: p.availability,
-      now: p.now,
-    },
-    site: {
-      versionLabel: raw.site.versionLabel,
-      seo: raw.site.seo,
-    },
-    projects: raw.projects.map(mapProject),
-    experience: raw.experience.map(mapExperience),
-    publications: raw.publications.map(mapPublication),
-    skills: raw.toolkit.map((g) => ({ group: g.group, items: g.items })),
-    education: raw.education.map((e) => ({
-      degree: e.title,
-      place: e.place,
-      period: e.period,
-      detail: e.detail,
-      short: e.short,
-    })),
-  };
+async function payloadClient(): Promise<Payload> {
+  const [{ getPayload }, { default: config }] = await Promise.all([import("payload"), import("@payload-config")]);
+  return getPayload({ config });
+}
+
+function sourceError(what: string, error: unknown): Error {
+  return new Error(
+    `Couldn't read ${what} from Payload (DATABASE_URI is set, so the static copy is not used). ` +
+      "Check that the database is reachable and PAYLOAD_SECRET is set.",
+    { cause: error },
+  );
+}
+
+async function readContent(options: { draft: boolean; user?: TypedUser }): Promise<SiteContent> {
+  try {
+    return mapSiteContent(await readContentDocs(await payloadClient(), options));
+  } catch (error) {
+    throw sourceError("site content", error);
+  }
+}
+
+const readPublishedContent = unstable_cache(() => readContent({ draft: false }), ["payload:site-content"], {
+  tags: [CACHE_TAGS.content, ...CONTENT_SOURCE_TAGS],
+  revalidate: SAFETY_REVALIDATE,
 });
 
-function readActiveTemplate(): TemplateId {
-  const value = process.env.SITE_TEMPLATE?.trim() || "editorial";
-  if (!isTemplateId(value)) {
-    throw new Error(`SITE_TEMPLATE="${value}" is not a template. Use one of: ${TEMPLATE_IDS.join(", ")}`);
-  }
-  return value;
-}
+const readPublishedSettings = unstable_cache(
+  async (): Promise<SiteSettings> => {
+    try {
+      return mapSettings(await readSettingsDoc(await payloadClient()));
+    } catch (error) {
+      throw sourceError("site settings", error);
+    }
+  },
+  ["payload:site-settings"],
+  { tags: [CACHE_TAGS.settings], revalidate: SAFETY_REVALIDATE },
+);
 
 /**
- * Site settings: which template is active, plus operational toggles.
- *
- * `activeTemplate` comes from the SITE_TEMPLATE env var for now (read at build time for static
- * pages). Phase 3 reads Payload `site-settings` instead, with `'use cache'` + `cacheTag('settings')`.
+ * The signed-in admin when this request is a draft-mode preview, otherwise null. Reads the
+ * request (cookies via headers) only when draft mode is on, so prerendered pages stay static.
+ */
+export const getPreviewUser = cache(async (): Promise<TypedUser | null> => {
+  if (!hasDatabase()) return null;
+  const { isEnabled } = await draftMode();
+  if (!isEnabled) return null;
+  const payload = await payloadClient();
+  const { user } = await payload.auth({ headers: await headers() });
+  return user?.collection === "users" ? user : null;
+});
+
+/**
+ * Published content only, never drafts, and without touching the request. For build-time
+ * callers outside a request (generateStaticParams, sitemap), where draftMode() isn't available.
+ */
+export const getPublishedSiteContent = cache(async (): Promise<SiteContent> => {
+  return hasDatabase() ? readPublishedContent() : staticSiteContent();
+});
+
+/**
+ * Everything the public site renders. Drafts only for the admin in draft mode (see top).
+ * Wrapped in React `cache` so layout metadata and the page share one result per request.
+ */
+export const getSiteContent = cache(async (): Promise<SiteContent> => {
+  if (!hasDatabase()) return staticSiteContent();
+  const admin = await getPreviewUser();
+  return admin ? readContent({ draft: true, user: admin }) : readPublishedContent();
+});
+
+/**
+ * Site settings: the active template plus operational toggles. From the Payload `site-settings`
+ * global when there is a database; otherwise lib/content.ts with SITE_TEMPLATE (build time).
+ * The global has no drafts, so preview and live read the same document.
  */
 export const getSettings = cache(async (): Promise<SiteSettings> => {
-  return {
-    activeTemplate: readActiveTemplate(),
-    contactFormEnabled: raw.settings.contactFormEnabled,
-    announcement: raw.settings.announcement,
-  };
+  return hasDatabase() ? readPublishedSettings() : staticSettings();
 });
 
 type WithCaseStudy = Project & { caseStudy: CaseStudy };

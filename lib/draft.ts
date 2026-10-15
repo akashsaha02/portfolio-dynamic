@@ -17,6 +17,27 @@ export function safeRedirectPath(requestUrl: string): string {
   }
 }
 
+/**
+ * Where "Exit preview" goes: `?path=` when given, otherwise the page the button was on (the
+ * same-origin Referer, which the preview banner's GET form sends), otherwise "/". The Referer
+ * goes through the same open-redirect checks as `?path=`.
+ */
+export function exitRedirectPath(request: Request): string {
+  if (new URL(request.url).searchParams.has("path")) return safeRedirectPath(request.url);
+  const referer = request.headers.get("referer");
+  if (!referer) return "/";
+  try {
+    const from = new URL(referer);
+    const self = new URL(request.url);
+    if (from.origin !== self.origin) return "/";
+    const probe = new URL(self.origin);
+    probe.searchParams.set("path", `${from.pathname}${from.search}`);
+    return safeRedirectPath(probe.href);
+  } catch {
+    return "/";
+  }
+}
+
 export function redirectTo(path: string, requestUrl: string): Response {
   return new Response(null, {
     status: 307,

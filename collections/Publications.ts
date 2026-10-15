@@ -1,14 +1,11 @@
 import type { CollectionConfig } from "payload";
 import { anyone, isAdmin } from "../lib/payload/access";
+import { PUBLICATION_STATUSES } from "../lib/payload/options";
 import { revalidateCollection } from "../lib/payload/revalidate";
 import { doi, httpUrl } from "../lib/payload/validate";
 
-/** Option labels double as the contract's `statusLabel`. */
-export const PUBLICATION_STATUSES = [
-  { label: "Published", value: "published" },
-  { label: "Accepted", value: "accepted" },
-  { label: "Submitted", value: "submitted" },
-] as const;
+// Status options live in lib/payload/options.ts (labels double as the contract's `statusLabel`).
+export { PUBLICATION_STATUSES };
 
 /** Research papers. Field names follow `Publication` in lib/content-types.ts. */
 export const Publications: CollectionConfig = {

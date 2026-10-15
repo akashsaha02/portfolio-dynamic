@@ -1,10 +1,10 @@
-// Live preview (work plan 2.6): which public URL the admin's preview pane loads for a document.
+// Live preview (work plan 2.6, 3.4): which URL the admin's preview pane loads for a document.
 //
-// The routes are the same for every template (the active template only changes how they look),
-// so this needs no template lookup. Phase 3 (task 3.4): mount `RefreshRouteOnSave` on the site so
-// the pane re-renders on save, make lib/data.ts read drafts when `draftMode().isEnabled`, and
-// return `${origin}/api/draft?path=${encodeURIComponent(path)}` below instead of the bare path so
-// the pane shows unpublished changes (that route checks the admin session, then redirects).
+// The pane loads `/api/draft?path=<page>`: that route checks the admin session, turns on draft
+// mode and redirects to the page, so the pane shows unpublished drafts (lib/data.ts reads them
+// only for the signed-in admin in draft mode). On the page, components/shared/PreviewBanner.tsx
+// mounts `RefreshRouteOnSave`, which re-renders the pane each time the document is saved.
+// The routes are the same for every template, so this needs no template lookup.
 
 import type { PayloadRequest, SanitizedCollectionConfig, SanitizedGlobalConfig } from "payload";
 import { siteUrl } from "../seo";
@@ -35,9 +35,14 @@ function isLocalHost(host: string): boolean {
  * is wrong on Vercel, so read the forwarded headers.
  */
 export function requestOrigin(req: PayloadRequest): string {
-  const host = req.headers.get("x-forwarded-host") ?? req.headers.get("host");
+  return originFromHeaders(req.headers);
+}
+
+/** `requestOrigin` from plain request headers (Server Components: `await headers()`). */
+export function originFromHeaders(headers: Headers): string {
+  const host = headers.get("x-forwarded-host") ?? headers.get("host");
   if (!host) return siteUrl().origin;
-  const forwardedProto = req.headers.get("x-forwarded-proto")?.split(",")[0]?.trim();
+  const forwardedProto = headers.get("x-forwarded-proto")?.split(",")[0]?.trim();
   const proto = forwardedProto === "http" || forwardedProto === "https" ? forwardedProto : isLocalHost(host) ? "http" : "https";
   return `${proto}://${host}`;
 }
@@ -57,5 +62,5 @@ export function livePreviewUrl({
   let path: string | null = null;
   if (collectionConfig?.slug === "projects") path = projectPath(data as ProjectLike);
   else if (globalConfig?.slug === "profile") path = "/";
-  return path ? `${requestOrigin(req)}${path}` : null;
+  return path ? `${requestOrigin(req)}/api/draft?path=${encodeURIComponent(path)}` : null;
 }

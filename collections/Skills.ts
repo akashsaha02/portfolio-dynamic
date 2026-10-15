@@ -1,18 +1,10 @@
 import type { CollectionConfig } from "payload";
 import { anyone, isAdmin } from "../lib/payload/access";
+import { SKILL_GROUPS } from "../lib/payload/options";
 import { revalidateCollection } from "../lib/payload/revalidate";
 
-/**
- * Toolkit groups, in display order. `SiteContent.skills` lists groups in this order, and the
- * skills inside each group in the collection's drag order.
- */
-export const SKILL_GROUPS = [
-  { label: "Languages", value: "languages" },
-  { label: "Frameworks", value: "frameworks" },
-  { label: "Data", value: "data" },
-  { label: "Tools", value: "tools" },
-  { label: "Other", value: "other" },
-] as const;
+// Toolkit groups live in lib/payload/options.ts so the data mapper can use them without Payload.
+export { SKILL_GROUPS };
 
 /**
  * Every technology name used anywhere: the About toolkit (`showInToolkit`), project stacks and

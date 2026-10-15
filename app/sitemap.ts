@@ -1,13 +1,14 @@
 import type { MetadataRoute } from "next";
-import { caseStudyProjects, getSiteContent } from "@/lib/data";
+import { caseStudyProjects, getPublishedSiteContent } from "@/lib/data";
 import { siteUrl } from "@/lib/seo";
 
-// /sitemap.xml (work plan 2.7). Static: generated at build time. Phase 3 (Payload as the source)
-// needs revalidation here too, or new case studies only appear after a redeploy.
+// /sitemap.xml (work plan 2.7). Generated at build time. With Payload as the source the content
+// read is tagged (lib/data.ts), and the projects hooks also call revalidatePath("/sitemap.xml"),
+// so new case studies appear without a redeploy. Published content only, never drafts.
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = siteUrl();
-  const content = await getSiteContent();
+  const content = await getPublishedSiteContent();
   const url = (path: string) => new URL(path, base).href;
 
   return [

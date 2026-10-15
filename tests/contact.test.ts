@@ -134,11 +134,45 @@ describe("validateContact: hidden characters (QA F-06)", () => {
     ["byte order mark", 0xfeff],
     ["soft hyphen", 0x00ad],
     ["Hangul filler", 0x3164],
-  ])("rejects a %s in name, email and message", (_label, code) => {
+  ])("rejects a %s in name and email", (_label, code) => {
     const c = u(code);
     expect(invalidFields({ ...valid, name: `Ev${c}e` })).toEqual(["name"]);
     expect(invalidFields({ ...valid, email: `ada${c}@example.com` })).toEqual(["email"]);
-    expect(invalidFields({ ...valid, message: `${valid.message}${c} more` })).toEqual(["message"]);
+  });
+
+  it.each([
+    ["RTL override", 0x202e],
+    ["LTR embedding", 0x202a],
+    ["first-strong isolate", 0x2068],
+    ["pop directional isolate", 0x2069],
+    ["right-to-left mark", 0x200f],
+    ["Arabic letter mark", 0x061c],
+    ["Hangul filler", 0x3164],
+  ])("still rejects a %s in the message", (_label, code) => {
+    const r = validateContact({ ...valid, message: `${valid.message}${u(code)} more` });
+    expect(r.kind).toBe("invalid");
+    expect(r.kind === "invalid" && r.fieldErrors.message).toMatch(/hidden text-direction or formatting/);
+  });
+
+  // QA N-02: copy-paste leftovers in the body are removed, not refused.
+  it.each([
+    ["soft hyphen", 0x00ad],
+    ["zero-width space", 0x200b],
+    ["word joiner", 0x2060],
+    ["byte order mark", 0xfeff],
+  ])("strips a %s from the message", (_label, code) => {
+    const c = u(code);
+    const r = validateContact({ ...valid, message: `${c}Hello, I would${c} like to talk about a pro${c}ject.${c}` });
+    expect(r.kind === "valid" && r.data.message).toBe(valid.message);
+  });
+
+  it("strips before the length check", () => {
+    const zwsp = u(0x200b);
+    expect(invalidFields({ ...valid, message: `short${zwsp.repeat(20)}` })).toEqual(["message"]);
+  });
+
+  it("keeps rejecting a stripped character next to a bidi override", () => {
+    expect(invalidFields({ ...valid, message: `${valid.message} ${u(0x200b)}${u(0x202e)}abc` })).toEqual(["message"]);
   });
 
   it("rejects the QA spoof name", () => {

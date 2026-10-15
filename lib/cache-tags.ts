@@ -1,4 +1,4 @@
-// Cache tags shared by the data layer (lib/data.ts, Phase 3: `cacheTag(...)`) and the Payload
+// Cache tags shared by the data layer (lib/data.ts: `unstable_cache(…, { tags })`) and the Payload
 // hooks that invalidate them (lib/payload/revalidate.ts: `revalidateTag(tag, "max")`).
 //
 // Every content change revalidates CONTENT plus the collection or global slug, so a data function
