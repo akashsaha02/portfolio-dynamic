@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 import { buildContactEmail, RESEND_API_URL, sendResendEmail } from "@/lib/contact-email";
 import { clientIpFromHeaders, describeWait, evaluateRateLimit, hashClientIp } from "@/lib/rate-limit";
 import { isTurnstileTestSecret, TURNSTILE_VERIFY_URL, verifyTurnstile } from "@/lib/turnstile";
-import { allowedHostnames, allowedOrigins, payloadServerURL } from "@/lib/origins";
+import { allowedHostnames, allowedOrigins, MAX_EXTRA_ORIGINS, parseExtraOrigins, payloadServerURL } from "@/lib/origins";
 import { jsonLdScript } from "@/lib/json-ld";
 import { safeRedirectPath } from "@/lib/draft";
 
@@ -218,7 +218,7 @@ describe("jsonLdScript", () => {
 
 describe("allowed origins (Payload csrf/cors, Turnstile hostname)", () => {
   const clear = () => {
-    for (const k of ["NEXT_PUBLIC_SITE_URL", "VERCEL", "VERCEL_ENV", "VERCEL_URL", "VERCEL_BRANCH_URL", "VERCEL_PROJECT_PRODUCTION_URL", "PORT"]) {
+    for (const k of ["NEXT_PUBLIC_SITE_URL", "EXTRA_ALLOWED_ORIGINS", "VERCEL", "VERCEL_ENV", "VERCEL_URL", "VERCEL_BRANCH_URL", "VERCEL_PROJECT_PRODUCTION_URL", "PORT"]) {
       vi.stubEnv(k, "");
     }
   };
@@ -245,5 +245,53 @@ describe("allowed origins (Payload csrf/cors, Turnstile hostname)", () => {
     vi.stubEnv("VERCEL_ENV", "production");
     expect(payloadServerURL()).toBe("https://akash.dev");
     vi.unstubAllEnvs();
+  });
+
+  it("merges EXTRA_ALLOWED_ORIGINS into origins and Turnstile hostnames", () => {
+    clear();
+    vi.stubEnv("VERCEL", "1");
+    vi.stubEnv("VERCEL_PROJECT_PRODUCTION_URL", "akash.dev");
+    vi.stubEnv("VERCEL_ENV", "production");
+    vi.stubEnv("EXTRA_ALLOWED_ORIGINS", " https://WWW.Akash.dev/ , https://akash-portfolio.vercel.app,https://akash.dev");
+    expect(allowedOrigins()).toEqual(["https://akash.dev", "https://www.akash.dev", "https://akash-portfolio.vercel.app"]);
+    expect(allowedHostnames()).toEqual(["akash.dev", "www.akash.dev", "akash-portfolio.vercel.app"]);
+    vi.unstubAllEnvs();
+  });
+});
+
+describe("parseExtraOrigins", () => {
+  it("is empty when unset or blank", () => {
+    expect(parseExtraOrigins(undefined)).toEqual([]);
+    expect(parseExtraOrigins("")).toEqual([]);
+    expect(parseExtraOrigins(" , ,")).toEqual([]);
+  });
+
+  it("normalises bare http(s) origins", () => {
+    expect(parseExtraOrigins("https://Example.com:443, http://localhost:4300/, https://a.b.dev:8443")).toEqual([
+      "https://example.com",
+      "http://localhost:4300",
+      "https://a.b.dev:8443",
+    ]);
+  });
+
+  it.each([
+    "example.com",
+    "ftp://example.com",
+    "javascript:alert(1)",
+    "https://example.com/admin",
+    "https://example.com?x=1",
+    "https://example.com#x",
+    "https://user:pw@example.com",
+    "https://*.vercel.app",
+    "*",
+    "null",
+  ])("rejects %j", (bad) => {
+    expect(() => parseExtraOrigins(bad)).toThrow(/EXTRA_ALLOWED_ORIGINS/);
+  });
+
+  it(`allows at most ${MAX_EXTRA_ORIGINS}`, () => {
+    const list = (n: number) => Array.from({ length: n }, (_, i) => `https://o${i}.dev`).join(",");
+    expect(parseExtraOrigins(list(MAX_EXTRA_ORIGINS))).toHaveLength(MAX_EXTRA_ORIGINS);
+    expect(() => parseExtraOrigins(list(MAX_EXTRA_ORIGINS + 1))).toThrow(/maximum/);
   });
 });
