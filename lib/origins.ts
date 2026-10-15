@@ -17,17 +17,53 @@ function httpsOrigin(host: string | undefined): string | null {
   }
 }
 
+export const MAX_EXTRA_ORIGINS = 5;
+
+/**
+ * Parses `EXTRA_ALLOWED_ORIGINS`: a comma-separated list of up to 5 bare origins, e.g.
+ * `https://www.akash.dev, https://akash-portfolio.vercel.app`. Each entry must be http(s) with a
+ * host and nothing else (no path, query, fragment, credentials or wildcard). Anything invalid throws,
+ * so a typo fails loudly instead of silently leaving the admin locked out (or a stray origin in).
+ */
+export function parseExtraOrigins(raw: string | undefined): string[] {
+  const entries = (raw ?? "")
+    .split(",")
+    .map((entry) => entry.trim())
+    .filter(Boolean);
+  if (entries.length > MAX_EXTRA_ORIGINS) {
+    throw new Error(`EXTRA_ALLOWED_ORIGINS lists ${entries.length} origins; the maximum is ${MAX_EXTRA_ORIGINS}.`);
+  }
+  return entries.map((entry) => {
+    const invalid = new Error(
+      `EXTRA_ALLOWED_ORIGINS: "${entry}" is not a bare origin. Use scheme and host only, e.g. https://www.example.com`,
+    );
+    if (entry.includes("*")) throw invalid;
+    let url: URL;
+    try {
+      url = new URL(entry);
+    } catch {
+      throw invalid;
+    }
+    const bare = url.pathname === "/" && !url.search && !url.hash && !url.username && !url.password;
+    // `new URL("https://x.dev")` has pathname "/", so a bare origin (with or without a trailing slash) passes.
+    if ((url.protocol !== "https:" && url.protocol !== "http:") || !url.hostname || !bare) throw invalid;
+    return url.origin; // normalised: lowercase host, default port dropped
+  });
+}
+
 /**
  * - Always: `siteUrl().origin` (NEXT_PUBLIC_SITE_URL, else the Vercel production/deployment URL,
  *   else http://localhost:$PORT).
  * - On Vercel (`VERCEL=1`): the production domain, this deployment's URL and its branch URL, all
- *   https. Reach the admin on one of these; another alias (e.g. a second custom domain) is
- *   treated as cross-origin and the admin cookie is ignored there.
+ *   https. Reach the admin on one of these; any other alias is treated as cross-origin
+ *   and the admin cookie is ignored there, unless it is listed in EXTRA_ALLOWED_ORIGINS.
  * - Elsewhere (`next dev` / `next start`): http://localhost:$PORT and http://127.0.0.1:$PORT.
  *   `next start -p 4200` sets PORT itself, so any local port works. Never added on Vercel.
+ * - Plus `EXTRA_ALLOWED_ORIGINS` (optional, unset by default), e.g. a second custom domain or the
+ *   project's *.vercel.app alias, where the admin or the contact form should also work.
  */
 export function allowedOrigins(): string[] {
-  const origins = new Set<string>([siteUrl().origin]);
+  const origins = new Set<string>([siteUrl().origin, ...parseExtraOrigins(process.env.EXTRA_ALLOWED_ORIGINS)]);
   if (process.env.VERCEL === "1") {
     for (const host of [
       process.env.VERCEL_PROJECT_PRODUCTION_URL,

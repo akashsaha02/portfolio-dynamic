@@ -81,4 +81,27 @@ const nextConfig: NextConfig = {
 // withPayload adds Payload's server-package and webpack/Turbopack settings for /admin and /api.
 // devBundleServerPackages: false keeps Payload's server packages external in dev (faster startup),
 // as in Payload's blank template.
-export default withPayload(nextConfig, { devBundleServerPackages: false });
+const payloadConfig = withPayload(nextConfig, { devBundleServerPackages: false });
+
+type HeaderRule = Awaited<ReturnType<NonNullable<NextConfig["headers"]>>>[number];
+
+/**
+ * withPayload adds `Accept-CH`, `Vary` and `Critical-CH: Sec-CH-Prefers-Color-Scheme` on `/:path*`
+ * so the admin can render its light/dark theme on the server. On public pages `Critical-CH` can make
+ * Chromium re-request the page on a first visit (slower LCP) and the `Vary` splits CDN caching, so
+ * that rule is narrowed to the admin. Matched by content, not position: if Payload changes it, the
+ * rule passes through unchanged (and the curl check in the QA probes would show it again).
+ */
+function adminOnlyClientHints(rule: HeaderRule): HeaderRule {
+  const isPayloadHints =
+    rule.source === "/:path*" && rule.headers.some((h) => h.key.toLowerCase() === "critical-ch");
+  return isPayloadHints ? { ...rule, source: "/admin/:path*" } : rule;
+}
+
+export default {
+  ...payloadConfig,
+  async headers() {
+    const rules = (await payloadConfig.headers?.()) ?? [];
+    return rules.map(adminOnlyClientHints);
+  },
+} satisfies NextConfig;
