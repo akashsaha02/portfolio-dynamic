@@ -1,4 +1,4 @@
-import { caseStudyProjects, findCaseStudy, getSiteContent } from "@/lib/data";
+import { caseStudyProjects, findCaseStudy, getPublishedSiteContent, getSiteContent } from "@/lib/data";
 import { OG_CONTENT_TYPE, OG_SIZE, renderOgImage } from "@/lib/og-image";
 
 // Share image per case study (work plan 2.7). Prerendered for every known case study; unknown
@@ -9,7 +9,7 @@ export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
 
 export async function generateStaticParams() {
-  const content = await getSiteContent();
+  const content = await getPublishedSiteContent();
   return caseStudyProjects(content).map((p) => ({ slug: p.slug }));
 }
 

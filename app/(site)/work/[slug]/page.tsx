@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/shared/JsonLd";
-import { caseStudyProjects, findCaseStudy, getSiteContent } from "@/lib/data";
+import { caseStudyProjects, findCaseStudy, getPublishedSiteContent, getSiteContent } from "@/lib/data";
 import { caseStudyJsonLd } from "@/lib/json-ld";
 import { notFoundMetadata, siteUrl } from "@/lib/seo";
 import { getActiveTemplate } from "@/lib/template";
@@ -9,7 +9,7 @@ import { getActiveTemplate } from "@/lib/template";
 // Only projects with case-study content get a page (guide §4.4). Unknown slugs render on demand
 // and 404, so case studies added in Payload later work without a rebuild.
 export async function generateStaticParams() {
-  const content = await getSiteContent();
+  const content = await getPublishedSiteContent();
   return caseStudyProjects(content).map((p) => ({ slug: p.slug }));
 }
 
