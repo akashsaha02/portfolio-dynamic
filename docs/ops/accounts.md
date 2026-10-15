@@ -100,6 +100,24 @@ Run it with `.env.local` pointing at the target database (production: `portfolio
 
 Lockout: 5 failed logins lock the account for 15 minutes, even with the right password. Wait it out. If it keeps happening for no reason, someone knows the login email: change the admin email to an unpublished one with the reset script and rotate `PAYLOAD_SECRET` (ends all sessions).
 
+## 8. Which host the admin works on (silent failure)
+
+The admin cookie is accepted only for origins in the allowlist (`lib/origins.ts`, fed to Payload `csrf`/`cors`). Open `/admin` on any other host and **it fails silently**: the login request returns 200, but the cookie is ignored, so you land back on the login page with no error.
+
+- **Production**: the admin works on the main production domain (`NEXT_PUBLIC_SITE_URL`, else Vercel's production URL), plus that deployment's own URL and branch URL. Any other alias (a second custom domain, the `*.vercel.app` alias when a custom domain is primary) does not work for the admin until you add it to `EXTRA_ALLOWED_ORIGINS` (comma-separated, max 5, `https://host` only) in Vercel and redeploy.
+- **Preview**: the admin works on that deployment's URL and branch URL. Preview deployments are behind Vercel Authentication, so you also need to be signed in to Vercel.
+- **Local**: `http://localhost:3000` and `http://127.0.0.1:3000` work. Testing the admin or site on a **real phone over Wi-Fi** does not, unless you allow the laptop's address:
+
+  ```bash
+  # .env.local (use your laptop's LAN IP; the port must match)
+  EXTRA_ALLOWED_ORIGINS=http://192.168.1.23:3000
+  # start the dev server on all interfaces
+  npx next dev -H 0.0.0.0
+  ```
+
+  Then open `http://192.168.1.23:3000/admin` on the phone. Remove the variable afterwards; do not set a LAN origin on Vercel. If Windows Firewall asks, allow Node on private networks only.
+- Symptom checklist: login returns 200 and nothing happens, saves do nothing, or you are logged out immediately. First check the address bar host against the lists above.
+
 ## Where each value goes
 
 Local file is `.env.local` in the repo root (git-ignored, never committed). Vercel: Project > Settings > Environment Variables; for each variable tick the environments shown. GitHub secrets are not needed yet (CI builds without secrets).

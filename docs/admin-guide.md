@@ -48,6 +48,17 @@ Use a login email that is **not** the public one shown on the site: anyone who k
 
 **First deploy.** A deployment on Vercel never offers "create the first user" to visitors. Create the admin before connecting the database: run `npm run seed` locally with the Atlas `DATABASE_URI` and `SEED_ADMIN_EMAIL` / `SEED_ADMIN_PASSWORD` set. (`ALLOW_FIRST_USER=1` on Vercel re-opens the browser sign-up for one deploy; remove it right after.)
 
+## Login does nothing (you stay on the login page)
+
+If you enter the right password, the page seems to accept it, and you are shown the login screen again with no error message, you are almost certainly on the wrong address. The admin only works on:
+
+- the **main production domain** (the address the site is advertised on), or any extra address listed in the `EXTRA_ALLOWED_ORIGINS` setting in Vercel;
+- for a preview, that preview's own address.
+
+It does not work on other aliases of the site (for example the `*.vercel.app` address when you use a custom domain) and does not report an error there. Switch to the main domain and log in again.
+
+Testing from a real phone on your home Wi-Fi (local development): put `EXTRA_ALLOWED_ORIGINS=http://<your-computer-LAN-IP>:3000` in `.env.local`, start the server with `npx next dev -H 0.0.0.0`, and open `http://<your-computer-LAN-IP>:3000/admin` on the phone. Remove the setting afterwards. Details: `docs/ops/accounts.md` section 8.
+
 ## Don't
 
 - **Don't create a second user.** The site allows exactly one account, and it will refuse a second one. To change your email or password, edit your own user (Settings → Users).
