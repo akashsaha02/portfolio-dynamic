@@ -1,9 +1,10 @@
 // Live preview (work plan 2.6): which public URL the admin's preview pane loads for a document.
 //
 // The routes are the same for every template (the active template only changes how they look),
-// so this needs no template lookup. Phase 3 (task 3.4) mounts `RefreshRouteOnSave` on the site so
-// the pane re-renders on save, and routes the URL through the draft-mode handler so unpublished
-// changes show; both are one-line changes in `livePreviewUrl` below.
+// so this needs no template lookup. Phase 3 (task 3.4): mount `RefreshRouteOnSave` on the site so
+// the pane re-renders on save, make lib/data.ts read drafts when `draftMode().isEnabled`, and
+// return `${origin}/api/draft?path=${encodeURIComponent(path)}` below instead of the bare path so
+// the pane shows unpublished changes (that route checks the admin session, then redirects).
 
 import type { PayloadRequest, SanitizedCollectionConfig, SanitizedGlobalConfig } from "payload";
 import { siteUrl } from "../seo";
