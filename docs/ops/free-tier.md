@@ -10,7 +10,7 @@ The whole stack must stay at $0/month. Limits are from `docs/REBUILD_GUIDE.md` Â
 | Vercel Hobby: function invocations | 1M / month | Usage > Functions | 700K | Find routes that run per request; make them static or cache with `revalidate` |
 | Vercel Hobby: active CPU / memory | 4 h CPU, 360 GB-hrs memory / month | Usage > Functions | 70% | Same as above; check admin and contact-form traffic for bots |
 | Vercel image optimisation | 5,000 transformations / month, 300K cache reads | Usage > Image Optimization | 3,500 | Pre-size images with `sharp`, trim `deviceSizes`, raise `minimumCacheTTL`. Fallback: Cloudinary free |
-| Vercel Blob | 1 GB storage, 2,000 advanced operations / month | Dashboard > Storage > Blob | 700 MB or 1,400 ops | Delete unused uploads, re-encode to WebP <= 200 KB. At the limit, access is blocked for 30 days |
+| Vercel Blob | 1 GB storage, 2,000 advanced operations (uploads, list; dashboard file browsing counts), 10,000 simple operations (cache-miss reads), 10 GB blob transfer / month | Dashboard > Storage > Blob | 700 MB or 1,400 ops | Delete unused uploads, re-encode to WebP <= 200 KB. At the limit, access is blocked for 30 days |
 | Vercel Web Analytics | 50,000 events / month | Project > Analytics (usage under Usage) | 35,000 | Remove noisy routes; no custom events on Hobby. Collection pauses after a 3-day grace period |
 | Vercel Speed Insights | 10,000 data points / month, one project | Project > Speed Insights | 7,000 | Lower the sample rate in `Telemetry.tsx` (`sampleRate`) |
 | Vercel runtime logs | 1 hour retention | Project > Logs | n/a | Use Sentry (below) if errors need history |
