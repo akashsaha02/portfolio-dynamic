@@ -1,6 +1,6 @@
-import type { CollectionConfig, Field } from "payload";
+import type { CollectionConfig, Field, FieldHook } from "payload";
 import { slugField } from "payload";
-import { isAdmin, publishedOrAdmin } from "../lib/payload/access";
+import { isAdmin, isAdminRequest, publishedOrAdmin } from "../lib/payload/access";
 import { revalidateCollection } from "../lib/payload/revalidate";
 import { httpUrl } from "../lib/payload/validate";
 
@@ -22,6 +22,36 @@ const caseStudyText = (name: string, label: string, description: string): Field 
 });
 
 /**
+ * `nextProject` for anyone but the admin: kept only when the target is readable by the same
+ * request (published), otherwise null. Without this, a published project pointing at a draft
+ * returned the draft's bare id (QA F-15). A populated object already passed the access check;
+ * a bare id (depth 0, or population refused) is looked up with the anonymous access rules
+ * (published only), one cheap id-only query.
+ * docs/decisions/rest-reads.md.
+ */
+const hideUnpublishedNextProject: FieldHook = async ({ value, req }) => {
+  if (value == null || isAdminRequest(req)) return value;
+  if (typeof value === "object") {
+    // Defence in depth for a populated draft (e.g. a parent read with overrideAccess: true).
+    const status = (value as { _status?: unknown })._status;
+    return status === undefined || status === "published" ? value : null;
+  }
+  if (typeof value !== "string" && typeof value !== "number") return null;
+  const { docs } = await req.payload.find({
+    collection: "projects",
+    where: { id: { equals: value } },
+    overrideAccess: false,
+    req,
+    draft: false,
+    depth: 0,
+    limit: 1,
+    pagination: false,
+    select: {},
+  });
+  return docs.length > 0 ? value : null;
+};
+
+/**
  * Portfolio projects. Field names follow `Project` in lib/content-types.ts. Differences, mapped in
  * lib/data.ts (Phase 3):
  * - `order`: drag-to-reorder (`orderable`) stores a hidden `_order` key; `order` = position.
@@ -37,8 +67,10 @@ export const Projects: CollectionConfig = {
     // Few columns so the list fits a phone; `type` and the rest are a tap away in "Columns".
     defaultColumns: ["name", "year", "featured", "_status"],
     group: "Content",
-    description:
-      "Drag rows to reorder (while the list isn’t sorted by a column); the site uses this order. Changes stay drafts until you press Publish.",
+    // The reorder hint is list-only (QA F-11): a collection `description` also shows on every edit form.
+    components: {
+      beforeListTable: ["/components/admin/ProjectsListHint#ProjectsListHint"],
+    },
   },
   versions: {
     drafts: true,
@@ -201,6 +233,7 @@ export const Projects: CollectionConfig = {
       name: "nextProject",
       type: "relationship",
       relationTo: "projects",
+      hooks: { afterRead: [hideUnpublishedNextProject] },
       admin: {
         position: "sidebar",
         description: "Optional. Overrides the “next project” link on the case study page.",

@@ -1,13 +1,25 @@
 import type { CollectionConfig } from "payload";
-import { Forbidden } from "payload";
+import { APIError, Forbidden } from "payload";
 import { isAdmin, isAdminRequest } from "../lib/payload/access";
+
+/**
+ * Payload's /admin/create-first-user (POST /api/users/first-register) lets anyone create the admin
+ * while the collection is empty. On a Vercel deployment (production or preview, `VERCEL_ENV` set)
+ * that window is closed (QA F-04): seed the admin with `npm run seed` before the database is
+ * connected, or set ALLOW_FIRST_USER=1 for one deploy. Local dev, e2e and the seed / reset scripts
+ * are unaffected: the guard only refuses anonymous creates coming through REST, never the Local API.
+ */
+function firstUserSignupAllowed(): boolean {
+  return !process.env.VERCEL_ENV || process.env.ALLOW_FIRST_USER === "1";
+}
 
 /**
  * The single admin. There is no public sign-up:
  * - `create` is admin-only, and a beforeChange hook refuses a second user, so the site has
  *   exactly one account.
- * - Payload's /admin/create-first-user works only while the collection is empty. Create the admin
- *   right after the first deploy (or seed it with SEED_ADMIN_EMAIL / SEED_ADMIN_PASSWORD).
+ * - The first user comes from the seed (SEED_ADMIN_EMAIL / SEED_ADMIN_PASSWORD) or, locally,
+ *   /admin/create-first-user. See `firstUserSignupAllowed` for deployments.
+ * - Lost password: `npm run admin:reset-password` (docs/admin-guide.md).
  */
 export const Users: CollectionConfig = {
   slug: "users",
@@ -37,6 +49,19 @@ export const Users: CollectionConfig = {
     unlock: isAdmin,
   },
   hooks: {
+    beforeOperation: [
+      ({ operation, req }) => {
+        // first-register runs `create` with overrideAccess, so access rules don't stop it; this does.
+        if (operation === "create" && !req.user && req.payloadAPI !== "local" && !firstUserSignupAllowed()) {
+          throw new APIError(
+            "Creating the first admin from the browser is turned off on this deployment. Seed the admin instead.",
+            403,
+            null,
+            true,
+          );
+        }
+      },
+    ],
     beforeChange: [
       async ({ operation, req, data }) => {
         if (operation !== "create") return data;

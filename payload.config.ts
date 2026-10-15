@@ -20,13 +20,42 @@ import { Skills } from "./collections/Skills";
 import { Users } from "./collections/Users";
 import { Profile } from "./globals/Profile";
 import { SiteSettings } from "./globals/SiteSettings";
+import { allowedOrigins, payloadServerURL } from "./lib/origins";
 import { livePreviewUrl, PREVIEW_BREAKPOINTS } from "./lib/payload/preview";
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const blobToken = process.env.BLOB_READ_WRITE_TOKEN;
 
+// One list for both (lib/origins.ts). `csrf`: the admin cookie counts only for these Origins, so a
+// cookie-authenticated REST write from another site is treated as anonymous and refused (QA F-02).
+// `cors`: which origins get CORS headers on /api.
+const origins = allowedOrigins();
+
 export default buildConfig({
+  // Empty except on Vercel production (see payloadServerURL for why).
+  serverURL: payloadServerURL(),
+  csrf: origins,
+  cors: origins,
+  // Depth guards (QA F-15): no request can populate more than 2 levels, and REST/Local API calls
+  // that don't pass `depth` populate 1. lib/data.ts passes an explicit depth anyway.
+  maxDepth: 2,
+  defaultDepth: 1,
+  // Expected client errors (denied, not found, invalid input, locked login) log one info line
+  // instead of an error with a stack trace, so bots probing /api don't bury real errors in Vercel's
+  // 1-hour log window (QA F-13). These match by error class name; see `logger` below for the
+  // production bundle, where class names are minified.
+  loggingLevels: {
+    Forbidden: "info",
+    NotFound: "info",
+    ValidationError: "info",
+    Locked: "info",
+    LockedAuth: "info",
+    AuthenticationError: "info",
+    UnverifiedEmail: "info",
+    MissingFile: "info",
+    QueryError: "info",
+  },
   admin: {
     user: Users.slug,
     importMap: { baseDir: dirname },
@@ -94,7 +123,13 @@ export default buildConfig({
   editor: lexicalEditor(),
   // Payload refuses to start without it (getPayload throws), so a missing secret fails loudly.
   secret: process.env.PAYLOAD_SECRET || "",
-  db: mongooseAdapter({ url: process.env.DATABASE_URI || "" }),
+  db: mongooseAdapter({
+    url: process.env.DATABASE_URI || "",
+    // Serverless pool (QA F-14, guide §9.2): Atlas M0 allows 500 connections, so 5 per warm
+    // instance leaves room for ~100 instances. Idle sockets close after 30 s; an unreachable
+    // cluster fails in 5 s instead of the 30 s default.
+    connectOptions: { maxPoolSize: 5, maxIdleTimeMS: 30_000, serverSelectionTimeoutMS: 5_000 },
+  }),
   sharp,
   // The site uses the Local API and the admin uses REST, so GraphQL is off: less public surface.
   graphQL: { disable: true },

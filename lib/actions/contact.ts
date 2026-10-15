@@ -7,6 +7,7 @@ import { getPayload, type Payload } from "payload";
 import { validateContact, type ContactInput, type ContactState } from "../contact";
 import { buildContactEmail, sendResendEmail } from "../contact-email";
 import { getSiteContent } from "../data";
+import { allowedHostnames } from "../origins";
 import { consumeContactRateLimit } from "../payload/rate-limit-store";
 import { clientIpFromHeaders, describeWait, UNKNOWN_IP } from "../rate-limit";
 import { siteUrl } from "../seo";
@@ -66,6 +67,7 @@ export async function submitContact(prev: ContactState, formData: FormData): Pro
     secret: process.env.TURNSTILE_SECRET_KEY,
     remoteIp: ip === UNKNOWN_IP ? undefined : ip,
     nodeEnv: process.env.NODE_ENV,
+    allowedHostnames: allowedHostnames(),
   });
   if (!turnstile.ok) {
     switch (turnstile.reason) {

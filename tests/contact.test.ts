@@ -120,6 +120,53 @@ describe("validateContact", () => {
   });
 });
 
+describe("validateContact: hidden characters (QA F-06)", () => {
+  const u = (code: number) => String.fromCodePoint(code);
+
+  it.each([
+    ["RTL override", 0x202e],
+    ["LTR embedding", 0x202a],
+    ["first-strong isolate", 0x2068],
+    ["right-to-left mark", 0x200f],
+    ["Arabic letter mark", 0x061c],
+    ["zero-width space", 0x200b],
+    ["word joiner", 0x2060],
+    ["byte order mark", 0xfeff],
+    ["soft hyphen", 0x00ad],
+    ["Hangul filler", 0x3164],
+  ])("rejects a %s in name, email and message", (_label, code) => {
+    const c = u(code);
+    expect(invalidFields({ ...valid, name: `Ev${c}e` })).toEqual(["name"]);
+    expect(invalidFields({ ...valid, email: `ada${c}@example.com` })).toEqual(["email"]);
+    expect(invalidFields({ ...valid, message: `${valid.message}${c} more` })).toEqual(["message"]);
+  });
+
+  it("rejects the QA spoof name", () => {
+    expect(invalidFields({ ...valid, name: `Ev${u(0x202e)}e${u(0x200b)}x` })).toEqual(["name"]);
+  });
+
+  it("allows ZWJ/ZWNJ inside words and emoji, rejects them stray", () => {
+    const zwj = u(0x200d);
+    const zwnj = u(0x200c);
+    // Bengali ra + ZWJ + hasant + ya, a Persian word with ZWNJ, emoji ZWJ sequences.
+    expect(validateContact({ ...valid, name: `Ak র${zwj}্য` }).kind).toBe("valid");
+    expect(validateContact({ ...valid, name: `می${zwnj}خواهم` }).kind).toBe("valid");
+    expect(
+      validateContact({ ...valid, message: `${valid.message} \u{1F469}${zwj}\u{1F4BB} ❤️${zwj}\u{1F525}` }).kind,
+    ).toBe("valid");
+    expect(invalidFields({ ...valid, name: `${zwj}Ada` })).toEqual(["name"]);
+    expect(invalidFields({ ...valid, name: `Ada${zwnj}` })).toEqual(["name"]);
+    expect(invalidFields({ ...valid, name: `Ada ${zwj} Lovelace` })).toEqual(["name"]);
+    expect(invalidFields({ ...valid, name: `A${zwj}${zwj}da` })).toEqual(["name"]);
+    expect(invalidFields({ ...valid, email: `a${zwj}da@example.com` })).toEqual(["email"]);
+  });
+
+  it("NFC-normalises", () => {
+    const r = validateContact({ ...valid, name: "José" });
+    expect(r.kind === "valid" && r.data.name).toBe("José");
+  });
+});
+
 describe("formatPeriod", () => {
   it("handles current, same year, across years and same month", () => {
     expect(formatPeriod("2025-11", null)).toBe("Nov 2025 – now");

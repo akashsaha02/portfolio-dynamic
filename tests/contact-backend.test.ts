@@ -1,7 +1,8 @@
 import { describe, expect, it, vi } from "vitest";
 import { buildContactEmail, RESEND_API_URL, sendResendEmail } from "@/lib/contact-email";
 import { clientIpFromHeaders, describeWait, evaluateRateLimit, hashClientIp } from "@/lib/rate-limit";
-import { TURNSTILE_VERIFY_URL, verifyTurnstile } from "@/lib/turnstile";
+import { isTurnstileTestSecret, TURNSTILE_VERIFY_URL, verifyTurnstile } from "@/lib/turnstile";
+import { allowedHostnames, allowedOrigins, payloadServerURL } from "@/lib/origins";
 import { jsonLdScript } from "@/lib/json-ld";
 import { safeRedirectPath } from "@/lib/draft";
 
@@ -33,6 +34,27 @@ describe("verifyTurnstile", () => {
     const [url, init] = vi.mocked(fetchImpl).mock.calls[0];
     expect(url).toBe(TURNSTILE_VERIFY_URL);
     expect(String(init?.body)).toBe("secret=sec&response=tok&remoteip=1.2.3.4");
+  });
+
+  it("refuses a token solved on another hostname", async () => {
+    const allowedHostnames = ["akash.dev", "localhost"];
+    const answer = (hostname?: string) => jsonFetch({ success: true, ...(hostname ? { hostname } : {}) });
+    expect(await verifyTurnstile({ ...base, allowedHostnames, fetchImpl: answer("akash.dev") })).toEqual({ ok: true, skipped: false });
+    expect(await verifyTurnstile({ ...base, allowedHostnames, fetchImpl: answer("evil.example") })).toEqual({
+      ok: false,
+      reason: "invalid-token",
+    });
+    // No hostname in the answer, or no allowlist: nothing to compare.
+    expect(await verifyTurnstile({ ...base, allowedHostnames, fetchImpl: answer() })).toEqual({ ok: true, skipped: false });
+    expect(await verifyTurnstile({ ...base, fetchImpl: answer("evil.example") })).toEqual({ ok: true, skipped: false });
+  });
+
+  it("skips the hostname check for Cloudflare's dummy secrets (they answer example.com)", async () => {
+    const fetchImpl = jsonFetch({ success: true, hostname: "example.com" });
+    const secret = "1x0000000000000000000000000000000AA";
+    expect(isTurnstileTestSecret(secret)).toBe(true);
+    expect(isTurnstileTestSecret("0x4AAAAAAAreal-secret")).toBe(false);
+    expect(await verifyTurnstile({ ...base, secret, allowedHostnames: ["localhost"], fetchImpl })).toEqual({ ok: true, skipped: false });
   });
 
   it("maps failures", async () => {
@@ -78,10 +100,56 @@ describe("evaluateRateLimit", () => {
 });
 
 describe("client IP", () => {
-  it("takes the first x-forwarded-for hop, then x-real-ip", () => {
-    expect(clientIpFromHeaders(new Headers({ "x-forwarded-for": " 203.0.113.9, 10.0.0.1" }))).toBe("203.0.113.9");
-    expect(clientIpFromHeaders(new Headers({ "x-real-ip": "198.51.100.2" }))).toBe("198.51.100.2");
-    expect(clientIpFromHeaders(new Headers())).toBe("unknown");
+  const vercel = { vercel: true };
+
+  it("on Vercel: x-vercel-forwarded-for, then x-real-ip, then the first x-forwarded-for hop", () => {
+    expect(
+      clientIpFromHeaders(
+        new Headers({ "x-vercel-forwarded-for": "203.0.113.9", "x-real-ip": "198.51.100.2", "x-forwarded-for": "192.0.2.1" }),
+        vercel,
+      ),
+    ).toBe("203.0.113.9");
+    expect(clientIpFromHeaders(new Headers({ "x-real-ip": "198.51.100.2", "x-forwarded-for": "192.0.2.1" }), vercel)).toBe(
+      "198.51.100.2",
+    );
+    expect(clientIpFromHeaders(new Headers({ "x-forwarded-for": " 203.0.113.9, 10.0.0.1" }), vercel)).toBe("203.0.113.9");
+    expect(clientIpFromHeaders(new Headers(), vercel)).toBe("unknown");
+  });
+
+  it("off Vercel with no trusted proxy: ignores client-settable headers, so rotating them can't reset the limit", () => {
+    for (const h of <Record<string, string>[]>[
+      { "x-forwarded-for": "203.0.113.1" },
+      { "x-forwarded-for": "203.0.113.2" },
+      { "x-forwarded-for": "198.51.100.7, 203.0.113.1" },
+      { "x-real-ip": "203.0.113.3" },
+      { "x-vercel-forwarded-for": "203.0.113.4" },
+    ]) {
+      expect(clientIpFromHeaders(new Headers(h), { vercel: false })).toBe("unknown");
+    }
+  });
+
+  it("off Vercel behind N trusted proxies: the N-th x-forwarded-for entry from the right", () => {
+    // The client prepends a fake hop; the proxy appends the address it saw.
+    const spoofed = new Headers({ "x-forwarded-for": "1.1.1.1, 203.0.113.9" });
+    expect(clientIpFromHeaders(spoofed, { trustedProxyHops: 1 })).toBe("203.0.113.9");
+    // Two proxies: client → CDN (appends client) → nginx (appends CDN).
+    const twoHops = new Headers({ "x-forwarded-for": "1.1.1.1, 203.0.113.9, 10.0.0.5" });
+    expect(clientIpFromHeaders(twoHops, { trustedProxyHops: 2 })).toBe("203.0.113.9");
+    // Fewer entries than proxies: misconfigured, so no trusted address.
+    expect(clientIpFromHeaders(new Headers({ "x-forwarded-for": "10.0.0.5" }), { trustedProxyHops: 2 })).toBe("unknown");
+    expect(clientIpFromHeaders(new Headers(), { trustedProxyHops: 1 })).toBe("unknown");
+  });
+
+  it("reads VERCEL and TRUSTED_PROXY_HOPS from the environment by default", () => {
+    const h = new Headers({ "x-forwarded-for": "1.1.1.1, 203.0.113.9" });
+    vi.stubEnv("VERCEL", "");
+    vi.stubEnv("TRUSTED_PROXY_HOPS", "");
+    expect(clientIpFromHeaders(h)).toBe("unknown");
+    vi.stubEnv("TRUSTED_PROXY_HOPS", "1");
+    expect(clientIpFromHeaders(h)).toBe("203.0.113.9");
+    vi.stubEnv("VERCEL", "1");
+    expect(clientIpFromHeaders(h)).toBe("1.1.1.1");
+    vi.unstubAllEnvs();
   });
 
   it("hashes with the secret and never returns the IP", () => {
@@ -145,5 +213,37 @@ describe("jsonLdScript", () => {
     const out = jsonLdScript({ name: "</script><script>alert(1)</script>" });
     expect(out).not.toContain("<");
     expect(JSON.parse(out)).toEqual({ name: "</script><script>alert(1)</script>" });
+  });
+});
+
+describe("allowed origins (Payload csrf/cors, Turnstile hostname)", () => {
+  const clear = () => {
+    for (const k of ["NEXT_PUBLIC_SITE_URL", "VERCEL", "VERCEL_ENV", "VERCEL_URL", "VERCEL_BRANCH_URL", "VERCEL_PROJECT_PRODUCTION_URL", "PORT"]) {
+      vi.stubEnv(k, "");
+    }
+  };
+
+  it("locally: the site URL plus localhost on the current port; no serverURL", () => {
+    clear();
+    vi.stubEnv("PORT", "4210");
+    expect(allowedOrigins()).toEqual(["http://localhost:4210", "http://127.0.0.1:4210"]);
+    expect(allowedHostnames()).toEqual(["localhost", "127.0.0.1"]);
+    expect(payloadServerURL()).toBe("");
+    vi.unstubAllEnvs();
+  });
+
+  it("on Vercel: https production, deployment and branch URLs, never localhost", () => {
+    clear();
+    vi.stubEnv("VERCEL", "1");
+    vi.stubEnv("VERCEL_ENV", "preview");
+    vi.stubEnv("VERCEL_URL", "app-abc123.vercel.app");
+    vi.stubEnv("VERCEL_BRANCH_URL", "app-git-feat.vercel.app");
+    vi.stubEnv("VERCEL_PROJECT_PRODUCTION_URL", "akash.dev");
+    expect(allowedOrigins()).toEqual(["https://app-abc123.vercel.app", "https://akash.dev", "https://app-git-feat.vercel.app"]);
+    expect(allowedOrigins().some((o) => o.includes("localhost"))).toBe(false);
+    expect(payloadServerURL()).toBe("");
+    vi.stubEnv("VERCEL_ENV", "production");
+    expect(payloadServerURL()).toBe("https://akash.dev");
+    vi.unstubAllEnvs();
   });
 });

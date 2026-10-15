@@ -1,4 +1,5 @@
 import { SlugField as SlugField_2b8867833a34864a02ddf429b0728a40 } from '@payloadcms/next/client'
+import { ProjectsListHint as ProjectsListHint_02defdae69934aead56600ddb4aed15e } from '../../../components/admin/ProjectsListHint'
 import { MessagesFilter as MessagesFilter_2cabb9ebc209a239e4047221f3bb6cb9 } from '../../../components/admin/MessagesFilter'
 import { AdminIcon as AdminIcon_81fda60f3e3709e861f40982a767707d } from '../../../components/admin/Brand'
 import { AdminLogo as AdminLogo_81fda60f3e3709e861f40982a767707d } from '../../../components/admin/Brand'
@@ -11,6 +12,7 @@ import { VercelBlobClientUploadHandler as VercelBlobClientUploadHandler_16c82c5e
 /** @type import('payload').ImportMap */
 export const importMap = {
   "@payloadcms/next/client#SlugField": SlugField_2b8867833a34864a02ddf429b0728a40,
+  "/components/admin/ProjectsListHint#ProjectsListHint": ProjectsListHint_02defdae69934aead56600ddb4aed15e,
   "/components/admin/MessagesFilter#MessagesFilter": MessagesFilter_2cabb9ebc209a239e4047221f3bb6cb9,
   "/components/admin/Brand#AdminIcon": AdminIcon_81fda60f3e3709e861f40982a767707d,
   "/components/admin/Brand#AdminLogo": AdminLogo_81fda60f3e3709e861f40982a767707d,

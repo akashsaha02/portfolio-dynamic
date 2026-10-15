@@ -13,15 +13,17 @@ const OPTIONS: Array<{ value: AvailabilityStatus; label: string; hint: string }>
 export function AvailabilityToggle({ status }: { status: AvailabilityStatus }) {
   const [shown, setShown] = useOptimistic(status);
   const [pending, startTransition] = useTransition();
-  const [error, setError] = useState<string | null>(null);
+  // Last outcome, announced by the live region below: "Saved …" or the error.
+  const [outcome, setOutcome] = useState<string | null>(null);
 
   function choose(next: AvailabilityStatus) {
     if (next === shown || pending) return;
-    setError(null);
+    setOutcome(null);
     startTransition(async () => {
       setShown(next);
       const result = await setAvailability(next);
-      if (!result.ok) setError(result.error);
+      const label = OPTIONS.find((option) => option.value === next)?.label ?? next;
+      setOutcome(result.ok ? `Saved. Availability is now ${label}.` : result.error);
     });
   }
 
@@ -42,8 +44,9 @@ export function AvailabilityToggle({ status }: { status: AvailabilityStatus }) {
           </button>
         ))}
       </div>
+      {/* Always rendered (never display:none) so screen readers track it and announce changes. */}
       <p className="ak-widget__status" role="status">
-        {error ?? (pending ? "Saving…" : "")}
+        {pending ? "Saving…" : (outcome ?? "")}
       </p>
     </div>
   );
