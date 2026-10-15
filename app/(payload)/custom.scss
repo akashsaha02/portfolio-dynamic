@@ -1,0 +1,266 @@
+// Admin-only styles for the custom dashboard widgets and branding (components/admin/*, work plan 2.6).
+// Loaded only by the (payload) layout, so nothing here reaches the public site. Uses Payload's
+// theme variables, so light and dark admin themes both work. Prefix: `ak-`.
+
+// --- Branding ---
+
+.ak-logo {
+  font-size: 1.75rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--theme-text);
+}
+
+.ak-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: var(--theme-text);
+  color: var(--theme-bg);
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+// --- Widgets ---
+
+.ak-widget {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  height: 100%;
+  padding: 1rem 1.25rem;
+  // Payload's `.card` is a flex row; widgets read top to bottom.
+  align-items: stretch;
+}
+
+.ak-widget__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.ak-widget__title {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.ak-widget__empty,
+.ak-widget__note,
+.ak-widget__status {
+  margin: 0;
+  color: var(--theme-elevation-650);
+  font-size: 0.875rem;
+}
+
+.ak-widget__status:empty {
+  display: none;
+}
+
+.ak-widget__foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  margin-top: auto;
+  font-size: 0.875rem;
+
+  a {
+    color: var(--theme-text);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+}
+
+.ak-badge {
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  background: var(--theme-elevation-100);
+  font-size: 0.8rem;
+  white-space: nowrap;
+
+  &--alert {
+    background: var(--theme-success-500);
+    color: var(--theme-bg);
+  }
+}
+
+// Unread messages list
+.ak-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li + li {
+    border-top: 1px solid var(--theme-elevation-100);
+  }
+}
+
+.ak-list__row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-height: 44px; // tap target
+  padding: 0.5rem 0;
+  color: var(--theme-text);
+  text-decoration: none;
+
+  &:hover .ak-list__main,
+  &:focus-visible .ak-list__main {
+    text-decoration: underline;
+  }
+}
+
+.ak-list__main {
+  font-weight: 600;
+}
+
+.ak-list__meta {
+  color: var(--theme-elevation-650);
+  font-size: 0.85rem;
+}
+
+// Availability segmented control
+.ak-segmented {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.ak-segmented__btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.1rem;
+  min-height: 44px;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--theme-elevation-150);
+  border-radius: var(--style-radius-m, 6px);
+  background: var(--theme-elevation-0);
+  color: var(--theme-text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+
+  &:hover:not(:disabled) {
+    border-color: var(--theme-elevation-400);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--theme-text);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    cursor: progress;
+  }
+
+  &[aria-pressed="true"] {
+    border-color: var(--theme-text);
+    box-shadow: inset 0 0 0 1px var(--theme-text);
+  }
+
+  // Status dot, coloured per value; the label carries the meaning, the colour is extra.
+  .ak-segmented__label::before {
+    content: "";
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    margin-right: 0.4rem;
+    border-radius: 50%;
+    background: var(--ak-dot);
+    vertical-align: 0.1em;
+  }
+
+  &--open {
+    --ak-dot: var(--theme-success-500);
+  }
+
+  &--limited {
+    --ak-dot: var(--theme-warning-500);
+  }
+
+  &--closed {
+    --ak-dot: var(--theme-error-500);
+  }
+}
+
+.ak-segmented__label {
+  font-weight: 600;
+}
+
+.ak-segmented__hint {
+  color: var(--theme-elevation-650);
+  font-size: 0.75rem;
+}
+
+// Quick links
+.ak-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ak-links__item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  height: 100%;
+  min-height: 44px;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--theme-elevation-150);
+  border-radius: var(--style-radius-m, 6px);
+  color: var(--theme-text);
+  text-decoration: none;
+
+  &:hover,
+  &:focus-visible {
+    border-color: var(--theme-elevation-400);
+  }
+}
+
+.ak-links__label {
+  font-weight: 600;
+}
+
+.ak-links__hint {
+  color: var(--theme-elevation-650);
+  font-size: 0.75rem;
+}
+
+// Messages list: Unread / All switch
+.ak-filter {
+  display: inline-flex;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+  padding: 0.25rem;
+  border-radius: 999px;
+  background: var(--theme-elevation-50);
+}
+
+.ak-filter__btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 1rem;
+  border-radius: 999px;
+  color: var(--theme-text);
+  text-decoration: none;
+
+  &[aria-current="page"] {
+    background: var(--theme-elevation-0);
+    box-shadow: 0 0 0 1px var(--theme-elevation-150);
+    font-weight: 600;
+  }
+}
+
+@media (max-width: 480px) {
+  .ak-segmented__hint {
+    display: none;
+  }
+}

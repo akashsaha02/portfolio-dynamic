@@ -13,7 +13,8 @@ export const Users: CollectionConfig = {
   slug: "users",
   admin: {
     useAsTitle: "email",
-    group: "Admin",
+    group: "Settings",
+    description: "Your login. Keep exactly one account here.",
   },
   auth: {
     // Brute-force brake: lock the account for 15 minutes after 5 failed logins.

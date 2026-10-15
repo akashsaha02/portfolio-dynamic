@@ -16,6 +16,7 @@ export const Experience: CollectionConfig = {
     useAsTitle: "company",
     defaultColumns: ["company", "title", "start", "end"],
     group: "Content",
+    description: "Most recent first. Drag rows to reorder (while the list isn’t sorted by a column).",
   },
   access: {
     read: anyone,
