@@ -14,7 +14,7 @@ The admin lives at **`/admin`** on the site (e.g. `https://<your-domain>/admin`)
 - **Save draft** keeps your changes private. The site still shows the last published version.
 - **Publish** puts the changes on the site. Changes show on the next page load; you don't need to redeploy.
 - Tick **Has a case study** to give the project its own page at `/work/<slug>`, then fill in the five short sections.
-- **Live Preview** (the toggle at the top of the editor) shows the page beside the form, at phone, tablet or desktop size. Until Phase 3 it shows the *published* version, not your draft.
+- **Live Preview** (the toggle at the top of the editor) shows the page beside the form, at phone, tablet or desktop size. It shows your **draft** and refreshes each time you press Save draft or Publish; visitors still see the published version. A dark bar at the bottom of the preview says so; "Exit preview" goes back to the published page. Start the preview from the admin, not from a link someone sent you.
 
 **Reorder** projects or experience: open the list and drag a row by its handle. Dragging only works while the list isn't sorted by a column; tap the column header until the sort is cleared. The site uses this order. If a project has an unpublished draft, its new position goes live when you publish.
 
