@@ -39,8 +39,17 @@ export const Users: CollectionConfig = {
     beforeChange: [
       async ({ operation, req, data }) => {
         if (operation !== "create") return data;
-        const { totalDocs } = await req.payload.count({ collection: "users", req, overrideAccess: true });
-        if (totalDocs > 0) throw new Forbidden(req.t);
+        // find, not count: MongoDB can't run `count` inside the create transaction.
+        const { docs } = await req.payload.find({
+          collection: "users",
+          req,
+          overrideAccess: true,
+          depth: 0,
+          limit: 1,
+          pagination: false,
+          select: {},
+        });
+        if (docs.length > 0) throw new Forbidden(req.t);
         return data;
       },
     ],
