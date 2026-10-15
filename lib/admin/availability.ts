@@ -7,9 +7,10 @@
 // and writes with `overrideAccess: false`, i.e. under the profile global's own access rules.
 
 import config from "@payload-config";
-import { refresh } from "next/cache";
+import { refresh, updateTag } from "next/cache";
 import { headers } from "next/headers";
 import { getPayload } from "payload";
+import { CACHE_TAGS } from "../cache-tags";
 import type { AvailabilityStatus } from "../content-types";
 
 const STATUSES: readonly AvailabilityStatus[] = ["open", "limited", "closed"];
@@ -50,8 +51,11 @@ export async function setAvailability(status: unknown): Promise<SetAvailabilityR
     return { ok: false, error: "Couldn’t save. Try again, or edit Profile → Status." };
   }
 
-  // The profile afterChange hook already revalidated the public site's cache tags; this re-renders
-  // the dashboard so the widget shows the saved value.
+  // The profile afterChange hook marked the site's tags stale (`revalidateTag(…, "max")`, which
+  // still serves the old page once). This is a Server Action, so expire them now instead: the
+  // next visitor gets the new badge. Then re-render the dashboard so the widget shows it too.
+  updateTag(CACHE_TAGS.content);
+  updateTag("profile");
   refresh();
   return { ok: true, status };
 }
