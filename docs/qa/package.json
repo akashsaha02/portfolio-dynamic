@@ -1,0 +1,4 @@
+{
+  "//": "The root package.json is \"type\": \"module\" (Payload needs ESM). The archived QA tools in this folder use require(), so they stay CommonJS.",
+  "type": "commonjs"
+}

@@ -53,3 +53,6 @@ next-env.d.ts
 
 # lighthouse ci local output
 /.lighthouseci/
+
+# payload: local-disk media uploads (dev only; production uses Vercel Blob)
+/media/

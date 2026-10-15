@@ -1,4 +1,9 @@
+import { withPayload } from "@payloadcms/next/withPayload";
 import type { NextConfig } from "next";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
@@ -32,7 +37,17 @@ const nextConfig: NextConfig = {
     // Any local path, but no query string: otherwise `?v=1`, `?v=2`, ... each counts as a new
     // source and could burn the monthly budget. Add remotePatterns when Payload media goes to Blob.
     localPatterns: [{ pathname: "/**", search: "" }],
+    // Payload media on Vercel Blob (payload.config.ts, enabled when BLOB_READ_WRITE_TOKEN is set).
+    // disablePayloadAccessControl serves files straight from the public Blob URL, so the optimizer
+    // fetches them from here instead of invoking a function per file.
+    remotePatterns: [{ protocol: "https", hostname: "*.public.blob.vercel-storage.com", search: "" }],
   },
+
+  // Pin the workspace root: agent worktrees sit inside the main checkout, which has its own lockfile.
+  turbopack: { root: dirname },
 };
 
-export default nextConfig;
+// withPayload adds Payload's server-package and webpack/Turbopack settings for /admin and /api.
+// devBundleServerPackages: false keeps Payload's server packages external in dev (faster startup),
+// as in Payload's blank template.
+export default withPayload(nextConfig, { devBundleServerPackages: false });
