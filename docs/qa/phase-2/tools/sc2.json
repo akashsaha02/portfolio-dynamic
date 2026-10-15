@@ -1,0 +1,16 @@
+[
+ {"label":"rate xff=203.0.113.1 (1 already used)","xff":"203.0.113.1","token":"tok","name":"Rate Test","email":"rate@example.com","intent":"freelance","message":"rate limit boundary test","repeat":5},
+ {"label":"rotate xff=203.0.113.2","xff":"203.0.113.2","token":"tok","name":"Rate Test","email":"rate@example.com","intent":"freelance","message":"rotated header bypass"},
+ {"label":"xff list spoof '198.51.100.7, 203.0.113.1'","xff":"198.51.100.7, 203.0.113.1","token":"tok","name":"Rate Test","email":"rate@example.com","intent":"freelance","message":"first hop spoofed"},
+ {"label":"honeypot","xff":"203.0.113.50","token":"tok","name":"Bot","email":"bot@example.com","intent":"freelance","message":"spam spam spam spam","website":"http://spam.example"},
+ {"label":"CRLF in name","xff":"203.0.113.51","token":"tok","name":"Eve\r\nBcc: victim@example.com","email":"eve@example.com","intent":"freelance","message":"header injection attempt"},
+ {"label":"CRLF in email","xff":"203.0.113.51","token":"tok","name":"Eve","email":"eve@example.com\r\nBcc: victim@example.com","intent":"freelance","message":"header injection attempt"},
+ {"label":"bad intent","xff":"203.0.113.51","token":"tok","name":"Eve","email":"eve@example.com","intent":"admin","message":"bad intent value here"},
+ {"label":"name 101 chars","xff":"203.0.113.51","token":"tok","name":"NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN","email":"eve@example.com","intent":"freelance","message":"long name test here"},
+ {"label":"message 9 chars","xff":"203.0.113.51","token":"tok","name":"Eve","email":"eve@example.com","intent":"freelance","message":"123456789"},
+ {"label":"email no tld","xff":"203.0.113.51","token":"tok","name":"Eve","email":"eve@localhost","intent":"freelance","message":"email without tld"},
+ {"label":"NUL in message","xff":"203.0.113.51","token":"tok","name":"Eve","email":"eve@example.com","intent":"freelance","message":"hello\u0000world nul char"},
+ {"label":"token 2049 chars","xff":"203.0.113.52","token":"TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT","name":"Eve","email":"eve@example.com","intent":"freelance","message":"token length check"},
+ {"label":"intent as array/object","xff":"203.0.113.53","token":"tok","name":"Eve","email":"eve@example.com","intent":"freelance","message":"duplicate fields","raw":{}},
+ {"label":"no xff header","token":"tok","name":"NoXFF","email":"noxff@example.com","intent":"research","message":"no forwarded header"}
+]

@@ -1,0 +1,2 @@
+[{"label":"valid with token","xff":"203.0.113.80","token":"tok","name":"TS","email":"ts@example.com","intent":"research","message":"turnstile secret test"},
+ {"label":"valid without token","xff":"203.0.113.81","name":"TS","email":"ts@example.com","intent":"research","message":"turnstile secret test"}]

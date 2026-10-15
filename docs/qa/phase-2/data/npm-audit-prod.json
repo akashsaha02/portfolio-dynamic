@@ -1,0 +1,274 @@
+{
+ "metadata": {
+  "info": 0,
+  "low": 2,
+  "moderate": 6,
+  "high": 10,
+  "critical": 0,
+  "total": 18
+ },
+ "packages": {
+  "@payloadcms/db-mongodb": {
+   "severity": "moderate",
+   "isDirect": true,
+   "range": ">=3.85.2",
+   "via": [
+    "payload"
+   ]
+  },
+  "@payloadcms/graphql": {
+   "severity": "moderate",
+   "isDirect": false,
+   "range": ">=3.85.2",
+   "via": [
+    "payload"
+   ]
+  },
+  "@payloadcms/next": {
+   "severity": "high",
+   "isDirect": true,
+   "range": "*",
+   "via": [
+    "@payloadcms/graphql",
+    "@payloadcms/ui",
+    "payload",
+    "sass"
+   ]
+  },
+  "@payloadcms/plugin-cloud-storage": {
+   "severity": "high",
+   "isDirect": false,
+   "range": ">=1.1.2-beta.0",
+   "via": [
+    "@payloadcms/ui",
+    "find-node-modules",
+    "payload"
+   ]
+  },
+  "@payloadcms/richtext-lexical": {
+   "severity": "moderate",
+   "isDirect": true,
+   "range": "3.0.0-alpha.18 - 3.0.0-alpha.38 || >=3.85.2",
+   "via": [
+    "@payloadcms/next",
+    "@payloadcms/ui",
+    "payload"
+   ]
+  },
+  "@payloadcms/storage-vercel-blob": {
+   "severity": "moderate",
+   "isDirect": true,
+   "range": ">=3.85.2",
+   "via": [
+    "@payloadcms/plugin-cloud-storage",
+    "payload"
+   ]
+  },
+  "@payloadcms/ui": {
+   "severity": "moderate",
+   "isDirect": true,
+   "range": ">=3.85.2",
+   "via": [
+    "payload"
+   ]
+  },
+  "braces": {
+   "severity": "high",
+   "isDirect": false,
+   "range": "*",
+   "via": [
+    {
+     "title": "braces vulnerable to stack-exhaustion denial of service through deeply nested patterns",
+     "url": "https://github.com/advisories/GHSA-vfj7-8cjw-p6xm",
+     "severity": "high",
+     "range": "<=3.0.3"
+    }
+   ]
+  },
+  "chokidar": {
+   "severity": "high",
+   "isDirect": false,
+   "range": "2.0.0 - 3.6.0",
+   "via": [
+    "braces"
+   ]
+  },
+  "dompurify": {
+   "severity": "low",
+   "isDirect": false,
+   "range": "<=3.4.15",
+   "via": [
+    {
+     "title": "DOMPurify: IN_PLACE: node-removing afterSanitize hook leaves detached subtree event handlers armed, causing DOM XSS",
+     "url": "https://github.com/advisories/GHSA-p98j-92pf-mc4p",
+     "severity": "low",
+     "range": ">=3.4.13 <=3.4.15"
+    },
+    {
+     "title": "DOMPurify: IN_PLACE returns a force-removed rawtext root whose text carries attacker markup — pure HTML reparse executes",
+     "url": "https://github.com/advisories/GHSA-6688-9rhm-gjv2",
+     "severity": "low",
+     "range": "<=3.4.15"
+    }
+   ]
+  },
+  "find-node-modules": {
+   "severity": "high",
+   "isDirect": false,
+   "range": ">=1.0.2",
+   "via": [
+    "findup-sync"
+   ]
+  },
+  "findup-sync": {
+   "severity": "high",
+   "isDirect": false,
+   "range": ">=0.4.0",
+   "via": [
+    "micromatch"
+   ]
+  },
+  "micromatch": {
+   "severity": "high",
+   "isDirect": false,
+   "range": ">=0.2.0",
+   "via": [
+    "braces"
+   ]
+  },
+  "monaco-editor": {
+   "severity": "low",
+   "isDirect": false,
+   "range": ">=0.57.0-rc.2",
+   "via": [
+    "dompurify"
+   ]
+  },
+  "next": {
+   "severity": "high",
+   "isDirect": true,
+   "range": "16.0.0 - 16.3.7",
+   "via": [
+    {
+     "title": "Next.js: Pending `use cache` fill can leak Draft Mode content into regular responses and persisted pages",
+     "url": "https://github.com/advisories/GHSA-3w37-wq28-93x7",
+     "severity": "moderate",
+     "range": ">=16.3.0 <16.3.8"
+    },
+    {
+     "title": "Next.js has cache poisoning of SSG and ISR pages in self-hosted applications",
+     "url": "https://github.com/advisories/GHSA-4jqv-mc3x-m676",
+     "severity": "moderate",
+     "range": ">=16.0.0 <16.3.8"
+    },
+    {
+     "title": "Next.js has information disclosure in development server's Model Context Protocol endpoint",
+     "url": "https://github.com/advisories/GHSA-39w2-rjm5-chcv",
+     "severity": "low",
+     "range": ">=16.0.0 <16.3.8"
+    },
+    {
+     "title": "Next.js has information disclosure in App Router metadata image routes via dynamicParams bypass",
+     "url": "https://github.com/advisories/GHSA-f87g-xv8r-7p7x",
+     "severity": "moderate",
+     "range": ">=16.0.0 <16.3.8"
+    },
+    {
+     "title": "Next.js has cache poisoning in SSG/ISR rendering that leads to cross-user content substitution and persistent denial of service",
+     "url": "https://github.com/advisories/GHSA-mcj8-r9mp-w47p",
+     "severity": "moderate",
+     "range": ">=16.0.0 <16.3.8"
+    },
+    {
+     "title": "Next.js has Server-Side Request Forgery in Image Optimization",
+     "url": "https://github.com/advisories/GHSA-cjq9-62q9-8jv4",
+     "severity": "high",
+     "range": ">=16.0.0 <16.3.8"
+    }
+   ]
+  },
+  "payload": {
+   "severity": "moderate",
+   "isDirect": true,
+   "range": ">=3.85.2",
+   "via": [
+    "undici"
+   ]
+  },
+  "sass": {
+   "severity": "high",
+   "isDirect": false,
+   "range": "1.6.0 - 1.78.0",
+   "via": [
+    "chokidar"
+   ]
+  },
+  "undici": {
+   "severity": "high",
+   "isDirect": false,
+   "range": "7.0.0 - 7.29.0",
+   "via": [
+    {
+     "title": "undici vulnerable to Denial of Service via unhandled error in WebSocket permessage-deflate decompression",
+     "url": "https://github.com/advisories/GHSA-3wwx-pv8p-q78v",
+     "severity": "moderate",
+     "range": ">=7.28.0 <7.29.1"
+    },
+    {
+     "title": "undici vulnerable to Denial of Service via orphaned RetryHandler response body",
+     "url": "https://github.com/advisories/GHSA-pmjh-fq2x-6v4x",
+     "severity": "moderate",
+     "range": ">=7.11.0 <7.29.1"
+    },
+    {
+     "title": "undici vulnerable to downstream response splitting via retry interceptor",
+     "url": "https://github.com/advisories/GHSA-r53p-7pc4-xj5r",
+     "severity": "low",
+     "range": ">=7.0.0 <7.29.1"
+    },
+    {
+     "title": "undici vulnerable to Denial of Service via unrequested WebSocket subprotocol",
+     "url": "https://github.com/advisories/GHSA-rfgv-xxqx-mfg5",
+     "severity": "high",
+     "range": ">=7.0.0 <7.29.1"
+    },
+    {
+     "title": "undici vulnerable to Denial of Service via unbounded decompression of compressed responses",
+     "url": "https://github.com/advisories/GHSA-3xpg-4rpp-hhhm",
+     "severity": "moderate",
+     "range": ">=7.15.0 <7.29.1"
+    },
+    {
+     "title": "undici vulnerable to cross-user cookie disclosure via Set-Cookie caching in shared caches",
+     "url": "https://github.com/advisories/GHSA-2jfj-6hjv-fm6j",
+     "severity": "moderate",
+     "range": ">=7.0.0 <7.29.1"
+    },
+    {
+     "title": "undici vulnerable to response truncation via oversized chunked responses in the dump interceptor",
+     "url": "https://github.com/advisories/GHSA-2gqq-gqf2-x968",
+     "severity": "low",
+     "range": ">=7.1.0 <7.29.1"
+    },
+    {
+     "title": "undici vulnerable to TLS certificate validation bypass via dropped connect options in BalancedPool",
+     "url": "https://github.com/advisories/GHSA-w293-vg96-wgc3",
+     "severity": "high",
+     "range": ">=7.24.1 <7.29.1"
+    },
+    {
+     "title": "undici vulnerable to caching and replay of unsafe HTTP method responses",
+     "url": "https://github.com/advisories/GHSA-8436-99hf-9mmv",
+     "severity": "low",
+     "range": ">=7.0.0 <7.29.1"
+    },
+    {
+     "title": "undici vulnerable to Denial of Service via WebSocketStream unclean close",
+     "url": "https://github.com/advisories/GHSA-rx4f-c7p8-82vq",
+     "severity": "moderate",
+     "range": ">=7.0.0 <7.29.1"
+    }
+   ]
+  }
+ }
+}

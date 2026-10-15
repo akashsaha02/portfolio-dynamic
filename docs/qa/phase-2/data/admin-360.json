@@ -1,0 +1,277 @@
+{
+  "tag": "phone",
+  "pages": {
+    "login": {
+      "overflowX": 0,
+      "total": 4,
+      "small": 4,
+      "offenders": [
+        "input[323x40] email",
+        "input[323x40] Password",
+        "a[94x16] Forgot password?",
+        "button[323x37] Login"
+      ],
+      "widest": null
+    },
+    "dashboard": {
+      "overflowX": 0,
+      "total": 17,
+      "small": 7,
+      "offenders": [
+        "button[22x22] Open Menu",
+        "a[16x16] A",
+        "button[18x18] dropdown-indicator",
+        "a[25x25] Account",
+        "a[47x20] All unread",
+        "a[60x20] All messages",
+        "a[125x20] Edit text in Profile → Status"
+      ],
+      "widest": null
+    },
+    "messages-list": {
+      "overflowX": 0,
+      "total": 25,
+      "small": 25,
+      "offenders": [
+        "button[22x22] Open Menu",
+        "a[16x16] A",
+        "a[25x25] Account",
+        "input[328x34] Search by Name Or Email",
+        "button[162x30] Columns",
+        "button[162x30] Filters",
+        "a[63x36] Unread",
+        "a[38x36] All",
+        "input[20x20] select-all",
+        "button[18x28] Sort by Name Ascending",
+        "button[18x28] Sort by Name Descending",
+        "button[18x28] Sort by Intent Ascending",
+        "button[18x28] Sort by Intent Descending",
+        "input[20x20] INPUT",
+        "a[128x40] \"><svg onload=alert(2)>",
+        "input[20x20] INPUT",
+        "a[128x20] Ev‮e​x",
+        "input[20x20] INPUT",
+        "a[128x20] Size",
+        "input[20x20] INPUT",
+        "a[128x20] NoXFF",
+        "input[20x20] INPUT",
+        "a[128x20] Eve",
+        "input[20x20] INPUT",
+        "a[128x20] Eve"
+      ],
+      "widest": null,
+      "h1": "Messages"
+    },
+    "messages-unread": {
+      "overflowX": 0,
+      "total": 25,
+      "small": 25,
+      "offenders": [
+        "button[22x22] Open Menu",
+        "a[16x16] A",
+        "a[25x25] Account",
+        "input[328x34] Search by Name Or Email",
+        "button[162x30] Columns",
+        "button[162x30] Filters",
+        "a[64x36] Unread",
+        "a[38x36] All",
+        "input[20x20] select-all",
+        "button[18x28] Sort by Name Ascending",
+        "button[18x28] Sort by Name Descending",
+        "button[18x28] Sort by Intent Ascending",
+        "button[18x28] Sort by Intent Descending",
+        "input[20x20] INPUT",
+        "a[128x40] \"><svg onload=alert(2)>",
+        "input[20x20] INPUT",
+        "a[128x20] Ev‮e​x",
+        "input[20x20] INPUT",
+        "a[128x20] Size",
+        "input[20x20] INPUT",
+        "a[128x20] NoXFF",
+        "input[20x20] INPUT",
+        "a[128x20] Eve",
+        "input[20x20] INPUT",
+        "a[128x20] Eve"
+      ],
+      "widest": null,
+      "h1": "Messages"
+    },
+    "message-detail": {
+      "overflowX": 0,
+      "total": 12,
+      "small": 12,
+      "offenders": [
+        "button[22x22] Open Menu",
+        "a[16x16] A",
+        "a[53x20] Messages",
+        "a[25x25] Account",
+        "a[43x32] API",
+        "button[49x30] Save",
+        "button[30x30] popup-button popup-button--default popup",
+        "input[328x40] name",
+        "input[328x40] email",
+        "button[18x18] dropdown-indicator",
+        "textarea[328x38] <script>alert('stored')</script> hello t",
+        "input[20x20] read"
+      ],
+      "widest": null,
+      "h1": "<img src=x onerror=alert(1)>"
+    },
+    "projects-list": {
+      "overflowX": 0,
+      "total": 38,
+      "small": 38,
+      "offenders": [
+        "button[22x22] Open Menu",
+        "a[16x16] A",
+        "a[25x25] Account",
+        "a[78x22] Create new Project",
+        "input[328x34] Search by Name",
+        "button[162x30] Columns",
+        "button[162x30] Filters",
+        "button[18x18] Sort by Order Ascending",
+        "input[20x20] select-all",
+        "button[18x28] Sort by Name Ascending",
+        "button[18x28] Sort by Name Descending",
+        "button[18x28] Sort by Year Ascending",
+        "button[18x28] Sort by Year Descending",
+        "div[20x22] DIV",
+        "div[20x22] sort-row active",
+        "input[20x20] INPUT",
+        "a[128x20] Nook",
+        "div[20x22] DIV",
+        "div[20x22] sort-row active",
+        "input[20x20] INPUT",
+        "a[128x20] SoulMatch",
+        "div[20x22] DIV",
+        "div[20x22] sort-row active",
+        "input[20x20] INPUT",
+        "a[128x20] Abroadly"
+      ],
+      "widest": null,
+      "h1": "Projects"
+    },
+    "project-edit": {
+      "overflowX": 0,
+      "total": 18,
+      "small": 18,
+      "offenders": [
+        "button[22x22] Open Menu",
+        "a[16x16] A",
+        "a[43x20] Projects",
+        "a[25x25] Account",
+        "a[92x32] Versions",
+        "a[43x32] API",
+        "button[105x22] Revert to published",
+        "button[30x30] Live Preview",
+        "button[78x30] Save Draft",
+        "button[109x30] Publish changes",
+        "button[30x30] popup-button popup-button--default popup",
+        "input[328x40] name",
+        "input[328x40] kind",
+        "input[3x20] rs__input",
+        "div[20x20] clear-indicator",
+        "button[18x18] dropdown-indicator",
+        "input[328x40] year",
+        "textarea[328x38] QA-DRAFT-LEAK draft summary of abroadly"
+      ],
+      "widest": null,
+      "h1": "Abroadly"
+    },
+    "live-preview": {
+      "overflowX": 0,
+      "total": 16,
+      "small": 16,
+      "offenders": [
+        "button[22x22] Open Menu",
+        "a[16x16] A",
+        "a[43x20] Projects",
+        "a[25x25] Account",
+        "a[92x32] Versions",
+        "a[43x32] API",
+        "button[105x22] Revert to published",
+        "button[30x30] Exit Live Preview",
+        "button[78x30] Save Draft",
+        "button[109x30] Publish changes",
+        "button[30x30] popup-button popup-button--default popup",
+        "button[78x18] Responsive",
+        "input[50x18] live-preview-width",
+        "input[50x18] live-preview-height",
+        "button[48x18] 100%",
+        "a[18x18] live-preview-toolbar-controls__external"
+      ],
+      "widest": null,
+      "h1": "Abroadly"
+    },
+    "media-create": {
+      "overflowX": 0,
+      "total": 8,
+      "small": 8,
+      "offenders": [
+        "button[22x22] Open Menu",
+        "a[16x16] A",
+        "a[34x20] Media",
+        "a[25x25] Account",
+        "button[49x30] Save",
+        "button[77x22] Select a file",
+        "button[69x22] Paste URL",
+        "input[328x40] alt"
+      ],
+      "widest": null,
+      "h1": "[Untitled]"
+    },
+    "profile": {
+      "overflowX": 0,
+      "total": 14,
+      "small": 14,
+      "offenders": [
+        "button[22x22] Open Menu",
+        "a[16x16] A",
+        "a[25x25] Account",
+        "a[43x32] API",
+        "button[30x30] Live Preview",
+        "button[49x30] Save",
+        "button[53x30] Identity",
+        "button[43x30] About",
+        "button[35x30] Links",
+        "button[42x30] Status",
+        "input[328x40] name",
+        "input[328x40] role",
+        "input[328x40] headline",
+        "input[328x40] location"
+      ],
+      "widest": null,
+      "h1": "Profile"
+    }
+  },
+  "dialogs": [],
+  "consoleErrors": [],
+  "availability": {
+    "buttonBox": "91x44",
+    "statusText": "",
+    "afterClosed": {
+      "status": "closed",
+      "label": "Open to full-stack roles"
+    },
+    "pressedAfterReload": "true",
+    "afterOpen": {
+      "status": "open",
+      "label": "Open to full-stack roles"
+    }
+  },
+  "dragHandles": [
+    "button.pill pill--style-light pill--size-small pill-selec 0x0",
+    "button.pill pill--style-light pill--size-small pill-selec 0x0",
+    "button.pill pill--style-light pill--size-small pill-selec 0x0",
+    "button.pill pill--style-light pill--size-small pill-selec 0x0",
+    "button.pill pill--style-light pill--size-small pill-selec 0x0",
+    "button.pill pill--style-light pill--size-small pill-selec 0x0"
+  ],
+  "livePreview": {
+    "frames": [
+      "http://localhost:3650/admin/collections/projects/6ad060b0eb234fc3d165c62d",
+      "http://localhost:3650/work/abroadly"
+    ],
+    "iframe": 1
+  }
+}

@@ -1,0 +1,179 @@
+fixtures: {
+  draftNew: 201,
+  draftId: '6ad0617af645c2ec8cd1197d',
+  draftEdit: 200,
+  linkNext: 200
+}
+ids: {
+  projects: '6ad060b0eb234fc3d165c62d',
+  experience: '6ad060b0eb234fc3d165c660',
+  publications: '6ad060b1eb234fc3d165c674',
+  skills: '6ad060afeb234fc3d165c568',
+  education: '6ad060b1eb234fc3d165c67e',
+  media: '6ad060b1eb234fc3d165c683',
+  messages: '6ad0616ef645c2ec8cd11973',
+  users: '6ad060aeeb234fc3d165c55e',
+  'rate-limits': undefined,
+  'payload-locked-documents': undefined,
+  'payload-preferences': undefined,
+  'payload-migrations': undefined
+}
+| Target | Operation | Anonymous | Admin | Note |
+| --- | --- | --- | --- | --- |
+| projects | list | 200 (5 docs) | 200 (6 docs) LEAK |  |
+| projects | findByID | 200 | 200 |  |
+| projects | count | 200 (total 5) | 200 (total 6) |  |
+| projects | versions | 403 | 200 (8 docs) LEAK |  |
+| projects | ?draft=true list | 200 (4 docs) | 200 (6 docs) LEAK |  |
+| projects | docAccess | 200 | 200 |  |
+| projects | create (anon) | 403 | - |  |
+| projects | update by id (anon) | 403 | - |  |
+| projects | bulk update (anon) | 403 | - |  |
+| projects | delete by id (anon) | 403 | - |  |
+| projects | bulk delete (anon) | 403 | - |  |
+| experience | list | 200 (4 docs) | 200 (4 docs) |  |
+| experience | findByID | 200 | 200 |  |
+| experience | count | 200 (total 4) | 200 (total 4) |  |
+| experience | versions | 403 | 500 |  |
+| experience | ?draft=true list | 200 (4 docs) | 200 (4 docs) |  |
+| experience | docAccess | 200 | 200 |  |
+| experience | create (anon) | 403 | - |  |
+| experience | update by id (anon) | 403 | - |  |
+| experience | bulk update (anon) | 403 | - |  |
+| experience | delete by id (anon) | 403 | - |  |
+| experience | bulk delete (anon) | 403 | - |  |
+| publications | list | 200 (2 docs) | 200 (2 docs) |  |
+| publications | findByID | 200 | 200 |  |
+| publications | count | 200 (total 2) | 200 (total 2) |  |
+| publications | versions | 403 | 500 |  |
+| publications | ?draft=true list | 200 (2 docs) | 200 (2 docs) |  |
+| publications | docAccess | 200 | 200 |  |
+| publications | create (anon) | 403 | - |  |
+| publications | update by id (anon) | 403 | - |  |
+| publications | bulk update (anon) | 403 | - |  |
+| publications | delete by id (anon) | 403 | - |  |
+| publications | bulk delete (anon) | 403 | - |  |
+| skills | list | 200 (36 docs) | 200 (36 docs) |  |
+| skills | findByID | 200 | 200 |  |
+| skills | count | 200 (total 36) | 200 (total 36) |  |
+| skills | versions | 403 | 500 |  |
+| skills | ?draft=true list | 200 (36 docs) | 200 (36 docs) |  |
+| skills | docAccess | 200 | 200 |  |
+| skills | create (anon) | 403 | - |  |
+| skills | update by id (anon) | 403 | - |  |
+| skills | bulk update (anon) | 403 | - |  |
+| skills | delete by id (anon) | 403 | - |  |
+| skills | bulk delete (anon) | 403 | - |  |
+| education | list | 200 (1 docs) | 200 (1 docs) |  |
+| education | findByID | 200 | 200 |  |
+| education | count | 200 (total 1) | 200 (total 1) |  |
+| education | versions | 403 | 500 |  |
+| education | ?draft=true list | 200 (1 docs) | 200 (1 docs) |  |
+| education | docAccess | 200 | 200 |  |
+| education | create (anon) | 403 | - |  |
+| education | update by id (anon) | 403 | - |  |
+| education | bulk update (anon) | 403 | - |  |
+| education | delete by id (anon) | 403 | - |  |
+| education | bulk delete (anon) | 403 | - |  |
+| media | list | 200 (4 docs) | 200 (4 docs) |  |
+| media | findByID | 200 | 200 |  |
+| media | count | 200 (total 4) | 200 (total 4) |  |
+| media | versions | 403 | 500 |  |
+| media | ?draft=true list | 200 (4 docs) | 200 (4 docs) |  |
+| media | docAccess | 200 | 200 |  |
+| media | create (anon) | 403 | - |  |
+| media | update by id (anon) | 403 | - |  |
+| media | bulk update (anon) | 403 | - |  |
+| media | delete by id (anon) | 403 | - |  |
+| media | bulk delete (anon) | 403 | - |  |
+| messages | list | 403 | 200 (12 docs) |  |
+| messages | findByID | 403 | 200 |  |
+| messages | count | 403 | 200 (total 12) |  |
+| messages | versions | 403 | 500 |  |
+| messages | ?draft=true list | 403 | 200 (12 docs) |  |
+| messages | docAccess | 200 | 200 |  |
+| messages | create (anon) | 403 | - |  |
+| messages | update by id (anon) | 403 | - |  |
+| messages | bulk update (anon) | 403 | - |  |
+| messages | delete by id (anon) | 403 | - |  |
+| messages | bulk delete (anon) | 403 | - |  |
+| users | list | 403 | 200 (1 docs) |  |
+| users | findByID | 403 | 200 |  |
+| users | count | 403 | 200 (total 1) |  |
+| users | versions | 403 | 500 |  |
+| users | ?draft=true list | 403 | 200 (1 docs) |  |
+| users | docAccess | 200 | 200 |  |
+| users | create (anon) | 403 | - |  |
+| users | update by id (anon) | 403 | - |  |
+| users | bulk update (anon) | 403 | - |  |
+| users | delete by id (anon) | 403 | - |  |
+| users | bulk delete (anon) | 403 | - |  |
+| rate-limits | list | 403 | 403 |  |
+| rate-limits | findByID | 403 | 403 |  |
+| rate-limits | count | 403 | 403 |  |
+| rate-limits | versions | 403 | 500 |  |
+| rate-limits | ?draft=true list | 403 | 403 |  |
+| rate-limits | docAccess | 404 | 404 |  |
+| rate-limits | create (anon) | 403 | - |  |
+| rate-limits | update by id (anon) | 403 | - |  |
+| rate-limits | bulk update (anon) | 403 | - |  |
+| rate-limits | delete by id (anon) | 403 | - |  |
+| rate-limits | bulk delete (anon) | 403 | - |  |
+| payload-locked-documents | list | 403 | 200 (0 docs) |  |
+| payload-locked-documents | findByID | 403 | 404 |  |
+| payload-locked-documents | count | 403 | 200 (total 0) |  |
+| payload-locked-documents | versions | 403 | 500 |  |
+| payload-locked-documents | ?draft=true list | 403 | 200 (0 docs) |  |
+| payload-locked-documents | docAccess | 404 | 404 |  |
+| payload-locked-documents | create (anon) | 403 | - |  |
+| payload-locked-documents | update by id (anon) | 403 | - |  |
+| payload-locked-documents | bulk update (anon) | 403 | - |  |
+| payload-locked-documents | delete by id (anon) | 403 | - |  |
+| payload-locked-documents | bulk delete (anon) | 403 | - |  |
+| payload-preferences | list | 403 | 200 (0 docs) |  |
+| payload-preferences | findByID | 200 | 200 |  |
+| payload-preferences | count | 200 | 200 |  |
+| payload-preferences | versions | 200 | 200 |  |
+| payload-preferences | ?draft=true list | 403 | 200 (0 docs) |  |
+| payload-preferences | docAccess | 404 | 404 |  |
+| payload-preferences | create (anon) | 403 | - |  |
+| payload-preferences | update by id (anon) | 403 | - |  |
+| payload-preferences | bulk update (anon) | 403 | - |  |
+| payload-preferences | delete by id (anon) | 401 | - |  |
+| payload-preferences | bulk delete (anon) | 403 | - |  |
+| payload-migrations | list | 501 | 501 |  |
+| payload-migrations | findByID | 501 | 501 |  |
+| payload-migrations | count | 501 | 501 |  |
+| payload-migrations | versions | 501 | 501 |  |
+| payload-migrations | ?draft=true list | 501 | 501 |  |
+| payload-migrations | docAccess | 501 | 501 |  |
+| payload-migrations | create (anon) | 501 | - |  |
+| payload-migrations | update by id (anon) | 501 | - |  |
+| payload-migrations | bulk update (anon) | 501 | - |  |
+| payload-migrations | delete by id (anon) | 501 | - |  |
+| payload-migrations | bulk delete (anon) | 501 | - |  |
+| where _status=draft | GET | 200 (0 docs) | 200 (1 docs) LEAK |  |
+| draft-only by id | GET | 404 | 200 LEAK |  |
+| draft-only by id ?draft=true | GET | 404 | 200 LEAK |  |
+| draft-only by slug | GET | 200 (0 docs) | 200 (1 docs) LEAK |  |
+| abroadly ?draft=true | GET | 200 | 200 LEAK |  |
+| nook depth=2 (nextProject -> draft) | GET | 200 | 200 LEAK | anon nextProject="6ad0617af645c2ec8cd1197d" |
+| versions by id | GET | 403 | 404 |  |
+| where summary like LEAK | GET | 200 (0 docs) | 200 (2 docs) LEAK |  |
+| select _status | GET | 200 (4 docs) | 200 (6 docs) |  |
+| globals profile | GET | 200 | 200 |  |
+| globals site-settings | GET | 200 | 200 |  |
+| globals profile versions | GET | 403 | 500 |  |
+| globals profile access | POST | 200 | 200 |  |
+| access (schema) | GET | 200 | 200 |  |
+| graphql GET | GET | 404 | 404 |  |
+| graphql-playground | GET | 404 | 404 |  |
+| users/me | GET | 200 | 200 |  |
+| users/init | GET | 200 | 200 |  |
+| og | GET | 400 | 400 |  |
+| graphql POST | POST | 404 | - |  |
+| global profile | update (anon) | 403 | - |  |
+| global site-settings | update (anon) | 403 | - |  |
+| messages | create (admin) | - | 403 |  |
+| rate-limits | list/create (admin) | - | 403 / 403 |  |
+| users | update other fields (anon unlock) | 403 | - |  |
