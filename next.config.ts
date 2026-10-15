@@ -7,6 +7,7 @@ const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
+  // cacheComponents stays off: see docs/decisions/cache-components.md (work plan 2.2 spike).
 
   // Lets the Editorial and Folio e2e builds sit side by side (e.g. NEXT_DIST_DIR=.next-folio).
   // `next build` and `next start` must see the same value. Must stay inside the project.
