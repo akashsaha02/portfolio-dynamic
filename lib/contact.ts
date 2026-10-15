@@ -98,6 +98,11 @@ const VISIBLE = "\\p{L}\\p{M}\\p{N}\\p{Extended_Pictographic}\\p{Emoji_Modifier}
 const STRAY_JOINER = new RegExp(`(^|[^${VISIBLE}])[\\u200C\\u200D]|[\\u200C\\u200D](?![${VISIBLE}])`, "u");
 // Email addresses are plain text: no format characters (Unicode category Cf) at all.
 const FORMAT_CHAR = new RegExp("\\p{Cf}", "u");
+// Message body only (QA N-02): invisible characters that text copied from web pages often carries,
+// and that can't disguise anything in a body that never reaches a header or the subject: soft
+// hyphen U+00AD, zero-width space U+200B, word joiner U+2060, BOM U+FEFF. They are removed instead
+// of rejecting the message. Bidi controls and the rest of HIDDEN are still refused.
+const STRIP_FROM_BODY = new RegExp("[\\u00AD\\u200B\\u2060\\uFEFF]", "g");
 
 /** True when `value` hides characters a reader can't see (bidi controls, zero-width, stray joiners). */
 export function hasHiddenCharacters(value: string): boolean {
@@ -121,7 +126,11 @@ export function validateContact(source: FormSource): ContactValidation {
   const name = read(source, CONTACT_FIELDS.name).normalize("NFC").trim();
   const email = read(source, CONTACT_FIELDS.email).normalize("NFC").trim();
   const intent = read(source, CONTACT_FIELDS.intent).trim();
-  const message = read(source, CONTACT_FIELDS.message).normalize("NFC").replace(/\r\n?/g, "\n").trim();
+  const message = read(source, CONTACT_FIELDS.message)
+    .normalize("NFC")
+    .replace(/\r\n?/g, "\n")
+    .replace(STRIP_FROM_BODY, "")
+    .trim();
 
   const fieldErrors: Partial<Record<ContactField, string>> = {};
 
@@ -148,8 +157,11 @@ export function validateContact(source: FormSource): ContactValidation {
     fieldErrors.message = `Please write at least ${CONTACT_LIMITS.messageMin} characters.`;
   else if (message.length > CONTACT_LIMITS.messageMax)
     fieldErrors.message = `Please keep it under ${CONTACT_LIMITS.messageMax} characters.`;
-  else if (CONTROL_MULTILINE.test(message) || hasHiddenCharacters(message))
+  else if (CONTROL_MULTILINE.test(message))
     fieldErrors.message = "Your message contains characters I can’t accept.";
+  else if (hasHiddenCharacters(message))
+    fieldErrors.message =
+      "Your message contains hidden text-direction or formatting characters. Please retype the part you pasted.";
 
   if (Object.keys(fieldErrors).length > 0 || !isIntent(intent)) {
     return { kind: "invalid", fieldErrors, values: { name, email, intent, message } };
