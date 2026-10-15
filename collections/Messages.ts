@@ -12,9 +12,13 @@ export const Messages: CollectionConfig = {
   slug: "messages",
   admin: {
     useAsTitle: "name",
-    defaultColumns: ["name", "email", "intent", "read", "createdAt"],
+    defaultColumns: ["name", "intent", "read", "createdAt"],
+    listSearchableFields: ["name", "email"],
     group: "Inbox",
-    description: "Messages from the contact form. Mark them read once handled.",
+    description: "Messages from the contact form, newest first. Tick “Read” once handled.",
+    components: {
+      beforeListTable: ["/components/admin/MessagesFilter#MessagesFilter"],
+    },
   },
   defaultSort: "-createdAt",
   access: {

@@ -10,7 +10,10 @@ import { day, httpUrl } from "../lib/payload/validate";
  */
 export const Profile: GlobalConfig = {
   slug: "profile",
-  admin: { group: "Settings" },
+  admin: {
+    group: "Settings",
+    description: "Who you are, your links, résumé and availability. Live Preview shows the home page.",
+  },
   access: {
     read: anyone,
     update: isAdmin,
@@ -174,6 +177,10 @@ export const Profile: GlobalConfig = {
             {
               name: "availability",
               type: "group",
+              admin: {
+                description:
+                  "The “available for work” badge on the site. Open: looking. Limited: only the right fit. Closed: not taking work. The Dashboard has a one-tap switch; it keeps the badge text, so update the text here when it no longer fits.",
+              },
               fields: [
                 {
                   type: "row",
@@ -202,9 +209,12 @@ export const Profile: GlobalConfig = {
             {
               name: "now",
               type: "group",
-              admin: { description: "The “Now” line on About. Leave the text empty to hide it." },
+              admin: {
+                description:
+                  "The “Now” line on About: one or two sentences on what you’re working on or learning at the moment. Leave the text empty to hide it.",
+              },
               fields: [
-                { name: "text", type: "textarea" },
+                { name: "text", type: "textarea", admin: { description: "Shape: “Building X. Learning Y.”" } },
                 {
                   name: "updated",
                   type: "text",

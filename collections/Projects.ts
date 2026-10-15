@@ -34,8 +34,11 @@ export const Projects: CollectionConfig = {
   orderable: true,
   admin: {
     useAsTitle: "name",
-    defaultColumns: ["name", "type", "year", "featured", "_status"],
+    // Few columns so the list fits a phone; `type` and the rest are a tap away in "Columns".
+    defaultColumns: ["name", "year", "featured", "_status"],
     group: "Content",
+    description:
+      "Drag rows to reorder (while the list isn’t sorted by a column); the site uses this order. Changes stay drafts until you press Publish.",
   },
   versions: {
     drafts: true,
@@ -51,7 +54,20 @@ export const Projects: CollectionConfig = {
   hooks: revalidateCollection("projects"),
   fields: [
     { name: "name", type: "text", required: true },
-    slugField({ useAsSlug: "name" }),
+    slugField({
+      useAsSlug: "name",
+      overrides: (row) => {
+        for (const field of row.fields) {
+          if ("name" in field && field.name === "slug") {
+            field.admin = {
+              ...field.admin,
+              description: "The /work/… address. Don’t change it once published: old links would break.",
+            };
+          }
+        }
+        return row;
+      },
+    }),
     {
       name: "kind",
       type: "text",
@@ -135,9 +151,18 @@ export const Projects: CollectionConfig = {
     {
       name: "caseStudy",
       type: "group",
-      admin: { description: "Projects with a case study get a /work/[slug] page." },
+      admin: {
+        description:
+          "Optional long-form write-up. Tick “Has a case study” to give the project its own page at /work/<slug> and fill in the five short sections; untick to show the project only in the /work list.",
+      },
       fields: [
-        { name: "enabled", label: "Has a case study", type: "checkbox", defaultValue: false },
+        {
+          name: "enabled",
+          label: "Has a case study",
+          type: "checkbox",
+          defaultValue: false,
+          admin: { description: "On: the project gets its own page and the fields below appear." },
+        },
         caseStudyText("role", "Role", "Short, for the facts row."),
         caseStudyText("problem", "Problem", "One short paragraph."),
         caseStudyText("built", "What I built", "One short paragraph."),

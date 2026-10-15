@@ -111,6 +111,9 @@ export interface Config {
   };
   locale: null;
   widgets: {
+    'unread-messages': UnreadMessagesWidget;
+    availability: AvailabilityWidget;
+    'quick-links': QuickLinksWidget;
     collections: CollectionsWidget;
   };
   user: User;
@@ -138,6 +141,8 @@ export interface UserAuthOperations {
   };
 }
 /**
+ * Drag rows to reorder (while the list isn’t sorted by a column); the site uses this order. Changes stay drafts until you press Publish.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "projects".
  */
@@ -149,6 +154,9 @@ export interface Project {
    * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
   generateSlug?: boolean | null;
+  /**
+   * The /work/… address. Don’t change it once published: old links would break.
+   */
   slug: string;
   /**
    * One line, e.g. “Study abroad agency platform”.
@@ -189,9 +197,12 @@ export interface Project {
    */
   phoneShots?: (string | Media)[] | null;
   /**
-   * Projects with a case study get a /work/[slug] page.
+   * Optional long-form write-up. Tick “Has a case study” to give the project its own page at /work/<slug> and fill in the five short sections; untick to show the project only in the /work list.
    */
   caseStudy?: {
+    /**
+     * On: the project gets its own page and the fields below appear.
+     */
     enabled?: boolean | null;
     /**
      * Short, for the facts row.
@@ -281,6 +292,8 @@ export interface Media {
   height?: number | null;
 }
 /**
+ * Most recent first. Drag rows to reorder (while the list isn’t sorted by a column).
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "experience".
  */
@@ -362,7 +375,7 @@ export interface Education {
   createdAt: string;
 }
 /**
- * Messages from the contact form. Mark them read once handled.
+ * Messages from the contact form, newest first. Tick “Read” once handled.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "messages".
@@ -378,6 +391,8 @@ export interface Message {
   createdAt: string;
 }
 /**
+ * Your login. Keep exactly one account here.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
@@ -733,6 +748,8 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   createdAt?: T;
 }
 /**
+ * Who you are, your links, résumé and availability. Live Preview shows the home page.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "profile".
  */
@@ -815,6 +832,9 @@ export interface Profile {
    * /resume serves the latest upload.
    */
   resume?: (string | null) | Media;
+  /**
+   * The “available for work” badge on the site. Open: looking. Limited: only the right fit. Closed: not taking work. The Dashboard has a one-tap switch; it keeps the badge text, so update the text here when it no longer fits.
+   */
   availability: {
     status: 'open' | 'limited' | 'closed';
     /**
@@ -823,9 +843,12 @@ export interface Profile {
     label: string;
   };
   /**
-   * The “Now” line on About. Leave the text empty to hide it.
+   * The “Now” line on About: one or two sentences on what you’re working on or learning at the moment. Leave the text empty to hide it.
    */
   now?: {
+    /**
+     * Shape: “Building X. Learning Y.”
+     */
     text?: string | null;
     /**
      * Last updated, YYYY-MM-DD. Change it whenever the text changes.
@@ -962,6 +985,36 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "unread-messages_widget".
+ */
+export interface UnreadMessagesWidget {
+  data?: {
+    [k: string]: unknown;
+  };
+  width: 'small' | 'medium' | 'large' | 'x-large' | 'full';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "availability_widget".
+ */
+export interface AvailabilityWidget {
+  data?: {
+    [k: string]: unknown;
+  };
+  width: 'small' | 'medium' | 'large' | 'x-large' | 'full';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "quick-links_widget".
+ */
+export interface QuickLinksWidget {
+  data?: {
+    [k: string]: unknown;
+  };
+  width: 'medium' | 'large' | 'x-large' | 'full';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

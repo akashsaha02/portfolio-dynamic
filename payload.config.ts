@@ -20,6 +20,7 @@ import { Skills } from "./collections/Skills";
 import { Users } from "./collections/Users";
 import { Profile } from "./globals/Profile";
 import { SiteSettings } from "./globals/SiteSettings";
+import { livePreviewUrl, PREVIEW_BREAKPOINTS } from "./lib/payload/preview";
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -29,7 +30,64 @@ export default buildConfig({
   admin: {
     user: Users.slug,
     importMap: { baseDir: dirname },
-    meta: { titleSuffix: " · Portfolio admin" },
+    meta: {
+      // Page titles read "Dashboard · Akash · Admin", ... (Payload adds the space before the suffix).
+      titleSuffix: "· Akash · Admin",
+      description: "Content admin for Akash Saha's portfolio.",
+      openGraph: { siteName: "Akash · Admin", description: "Content admin for Akash Saha's portfolio." },
+      icons: [{ rel: "icon", type: "image/x-icon", url: "/favicon.ico" }],
+      robots: { index: false, follow: false },
+      // No dynamic OG images for admin pages: turns off Payload's /api/og endpoint.
+      defaultOGImageType: "off",
+    },
+    components: {
+      graphics: {
+        Logo: "/components/admin/Brand#AdminLogo",
+        Icon: "/components/admin/Brand#AdminIcon",
+      },
+    },
+    // Dashboard widgets (Payload's modular dashboard, @experimental in 3.90). Widgets are Server
+    // Components in components/admin/. `defaultLayout` is what a fresh login sees; once the admin
+    // rearranges the dashboard, Payload keeps that layout in their preferences ("Reset layout" in
+    // the dashboard menu brings this one back). On screens ≤ 768 px every widget is full width.
+    dashboard: {
+      widgets: [
+        {
+          slug: "unread-messages",
+          label: "Unread messages",
+          Component: "/components/admin/UnreadMessagesWidget#UnreadMessagesWidget",
+          minWidth: "small",
+        },
+        {
+          slug: "availability",
+          label: "Availability",
+          Component: "/components/admin/AvailabilityWidget#AvailabilityWidget",
+          minWidth: "small",
+        },
+        {
+          slug: "quick-links",
+          label: "Quick links",
+          Component: "/components/admin/QuickLinksWidget#QuickLinksWidget",
+          minWidth: "medium",
+        },
+      ],
+      defaultLayout: [
+        { widgetSlug: "unread-messages", width: "medium" },
+        { widgetSlug: "availability", width: "medium" },
+        { widgetSlug: "quick-links", width: "full" },
+        // Payload's built-in collection/global cards.
+        { widgetSlug: "collections", width: "full" },
+      ],
+    },
+    // Live preview pane for projects (/work/{slug}, or /work without a case study) and the profile
+    // (/). URLs come from lib/payload/preview.ts. Phase 3 (task 3.4) adds RefreshRouteOnSave on
+    // the site and the draft-mode hop so the pane shows unsaved drafts and refreshes on save.
+    livePreview: {
+      collections: ["projects"],
+      globals: ["profile"],
+      url: livePreviewUrl,
+      breakpoints: PREVIEW_BREAKPOINTS,
+    },
   },
   collections: [Projects, Experience, Publications, Skills, Education, Media, Messages, Users, RateLimits],
   globals: [Profile, SiteSettings],
