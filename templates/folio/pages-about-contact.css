@@ -437,6 +437,36 @@
     overflow: hidden;
   }
 
+  /* Spam check (Turnstile): one muted line under the questions, aligned with the inputs. The widget
+     is invisible for most visitors and its container empty, so it takes no space until Cloudflare
+     asks for a click (data-visible); the status line is in the server HTML, so nothing shifts. */
+  .tpl-folio .f-check {
+    min-width: 0;
+    padding-left: var(--f-q-num);
+  }
+  .tpl-folio .f-check-widget[data-visible] {
+    margin-bottom: 1rem;
+  }
+  .tpl-folio .f-check-status {
+    max-width: 44ch;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    color: var(--fg-muted);
+    transition: color var(--dur-fast) var(--ease-inout);
+  }
+  .tpl-folio .f-check-status:is(
+      [data-state="ready"],
+      [data-state="interactive"],
+      [data-state="error"],
+      [data-state="unsupported"],
+      [data-state="unavailable"]
+    ) {
+    color: var(--ink);
+  }
+  .tpl-folio .f-check-status:is([data-state="error"], [data-state="unsupported"], [data-state="unavailable"]) {
+    font-weight: 500;
+  }
+
   /* The send row: a hairline with the round button on it (RoundButton lg sizes). */
   .tpl-folio .f-contact-end {
     --f-cta: 9rem;
