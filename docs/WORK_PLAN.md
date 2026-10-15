@@ -84,14 +84,14 @@ Merge order: 1.1 → 1.2 → 1.8 → 1.3 → 1.6 → 1.5 → 1.4 → 1.7. Task 1
 
 | ID | Task | Owner | Depends | Done when | Status |
 | --- | --- | --- | --- | --- | --- |
-| 2.1 | Free accounts: MongoDB Atlas free cluster (dev + prod databases), Vercel Blob store, Resend API key, Cloudflare Turnstile keys; secrets into `.env.local` and Vercel env | **Akash** (monitoring writes the steps in `docs/ops/accounts.md`) | 1.G | Keys exist; nothing committed | doing |
-| 2.2 | Install Payload 3 (Mongo adapter, Lexical, Vercel Blob storage); ESM config, `withPayload`, `(payload)` route group; **`cacheComponents` spike** → `docs/decisions/cache-components.md` | backend | 2.1 | `/admin` loads locally; decision written | doing |
-| 2.3 | Collections + globals (guide §7): `profile`, `site-settings`, `projects` (drafts/versions), `experience`, `publications`, `skills`, `education`, `media` (alt required), `messages`, `users` (single admin, no sign-up). Access control on every collection | backend | 2.2 | CRUD works in `/admin`; anonymous API calls denied where they should be | doing |
-| 2.4 | Seed script: imports `lib/content.ts` + `public/projects/*` into Payload; idempotent | backend | 2.3 | Running it twice gives the same data; admin shows all current content | doing |
-| 2.5 | Real `submitContact`: validation, honeypot, Turnstile, Mongo-backed rate limit, save to `messages`, Resend notification (`onboarding@resend.dev` → Akash). Same signature as the 0.2 stub | backend | 2.3 | Success / invalid / spam / rate-limited paths verified with a script | todo |
-| 2.6 | Admin dashboard: unread-messages widget, availability toggle, quick links, drag-to-reorder projects and experience | backend | 2.3 | Usable on a phone | todo |
-| 2.7 | Route handlers and SEO: `/resume` → latest upload, `sitemap.ts`, `robots.ts`, OG images, `JsonLd` (`Person`, `ScholarlyArticle`), `/api/draft` (auth-checked) | backend | 2.3 | Each responds correctly locally | todo |
-| 2.8 | `Telemetry` component (Vercel Analytics + Speed Insights) and error-reporting setup in `instrumentation*.ts`; handed to backend for mounting in Phase 3 | monitoring | 1.G | Component ready; free-tier notes updated | doing |
+| 2.1 | Free accounts: MongoDB Atlas free cluster (dev + prod databases), Vercel Blob store, Resend API key, Cloudflare Turnstile keys; secrets into `.env.local` and Vercel env | **Akash** (monitoring writes the steps in `docs/ops/accounts.md`) | 1.G | Keys exist; nothing committed | done |
+| 2.2 | Install Payload 3 (Mongo adapter, Lexical, Vercel Blob storage); ESM config, `withPayload`, `(payload)` route group; **`cacheComponents` spike** → `docs/decisions/cache-components.md` | backend | 2.1 | `/admin` loads locally; decision written | done |
+| 2.3 | Collections + globals (guide §7): `profile`, `site-settings`, `projects` (drafts/versions), `experience`, `publications`, `skills`, `education`, `media` (alt required), `messages`, `users` (single admin, no sign-up). Access control on every collection | backend | 2.2 | CRUD works in `/admin`; anonymous API calls denied where they should be | done |
+| 2.4 | Seed script: imports `lib/content.ts` + `public/projects/*` into Payload; idempotent | backend | 2.3 | Running it twice gives the same data; admin shows all current content | done |
+| 2.5 | Real `submitContact`: validation, honeypot, Turnstile, Mongo-backed rate limit, save to `messages`, Resend notification (`onboarding@resend.dev` → Akash). Same signature as the 0.2 stub | backend | 2.3 | Success / invalid / spam / rate-limited paths verified with a script | doing |
+| 2.6 | Admin dashboard: unread-messages widget, availability toggle, quick links, drag-to-reorder projects and experience | backend | 2.3 | Usable on a phone | doing |
+| 2.7 | Route handlers and SEO: `/resume` → latest upload, `sitemap.ts`, `robots.ts`, OG images, `JsonLd` (`Person`, `ScholarlyArticle`), `/api/draft` (auth-checked) | backend | 2.3 | Each responds correctly locally | doing |
+| 2.8 | `Telemetry` component (Vercel Analytics + Speed Insights) and error-reporting setup in `instrumentation*.ts`; handed to backend for mounting in Phase 3 | monitoring | 1.G | Component ready; free-tier notes updated | done |
 | 2.G | **Gate:** security review (auth in every action/handler, secrets not in client bundle, access rules, input validation), admin usable on a phone, seed matches static content | qa | 2.2–2.8 | PASS | todo |
 
 Merge order: 2.2 → 2.3 → 2.4 → 2.5 → 2.6 → 2.7 → 2.8.
