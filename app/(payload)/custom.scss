@@ -56,18 +56,23 @@
   font-size: 0.875rem;
 }
 
-.ak-widget__status:empty {
-  display: none;
-}
+// `.ak-widget__status` is a live region: never hide it with display:none, even while empty, or
+// screen readers may miss "Saving…" / "Saved" (QA F-10). An empty <p> has no height anyway.
 
 .ak-widget__foot {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem 1.25rem;
+  gap: 0 1rem;
   margin-top: auto;
   font-size: 0.875rem;
 
   a {
+    // 44 px tap target on phones (QA F-09); the padding widens the hit area, not the text.
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 0.25rem;
+    margin-inline: -0.25rem;
     color: var(--theme-text);
     text-decoration: underline;
     text-underline-offset: 0.2em;
@@ -233,6 +238,13 @@
   font-size: 0.75rem;
 }
 
+// Projects list: reorder hint (components/admin/ProjectsListHint.tsx)
+.ak-list-hint {
+  margin: 0 0 1rem;
+  color: var(--theme-elevation-650);
+  font-size: 0.875rem;
+}
+
 // Messages list: Unread / All switch
 .ak-filter {
   display: inline-flex;
@@ -246,8 +258,8 @@
 .ak-filter__btn {
   display: inline-flex;
   align-items: center;
-  min-height: 36px;
-  padding: 0 1rem;
+  min-height: 44px; // tap target (QA F-09)
+  padding: 0 1.25rem;
   border-radius: 999px;
   color: var(--theme-text);
   text-decoration: none;

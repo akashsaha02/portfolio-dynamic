@@ -28,6 +28,26 @@ The admin lives at **`/admin`** on the site (e.g. `https://<your-domain>/admin`)
 
 **Other settings.** Profile (who you are, links, Now line, availability) and Site settings (template, SEO defaults, banner, contact form on/off) are under Settings.
 
+## Locked out or lost the password
+
+"Forgot password" in the login screen sends no email (no mail service is set up), so recovery runs from your own computer with the project checked out:
+
+1. Locked after 5 wrong tries? Wait 15 minutes and try again. If it keeps locking (someone else is guessing), reset as below; it also clears the lock.
+2. Put the **target environment's** `DATABASE_URI` and `PAYLOAD_SECRET` in `.env.local` (for production: the Atlas URI and the production secret from Vercel → Settings → Environment Variables). Run it locally, never on Vercel.
+3. Run, with your login email and a new password of at least 12 characters:
+
+   ```sh
+   RESET_ADMIN_PASSWORD='a new long passphrase' npm run admin:reset-password -- you@example.com
+   ```
+
+   PowerShell: `$env:RESET_ADMIN_PASSWORD='a new long passphrase'; npm run admin:reset-password -- you@example.com`
+
+4. It prints "Password reset for …". It never prints the password. Every open session is signed out, so log in again everywhere. Remove the production values from `.env.local` afterwards.
+
+Use a login email that is **not** the public one shown on the site: anyone who knows the login email can keep the account locked by guessing wrong 5 times every 15 minutes. Change it in Settings → Users.
+
+**First deploy.** A deployment on Vercel never offers "create the first user" to visitors. Create the admin before connecting the database: run `npm run seed` locally with the Atlas `DATABASE_URI` and `SEED_ADMIN_EMAIL` / `SEED_ADMIN_PASSWORD` set. (`ALLOW_FIRST_USER=1` on Vercel re-opens the browser sign-up for one deploy; remove it right after.)
+
 ## Don't
 
 - **Don't create a second user.** The site allows exactly one account, and it will refuse a second one. To change your email or password, edit your own user (Settings → Users).

@@ -5,8 +5,38 @@ import { fileURLToPath } from "node:url";
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
+// Security headers on every route: site, admin, API, OG images (QA F-03).
+// - Framing: same origin only. The admin's live preview iframes the site on the same origin, so
+//   'self' keeps it working; any other site is refused (clickjacking). X-Frame-Options is the
+//   legacy twin of `frame-ancestors` for old browsers.
+// - No script-src CSP yet: Payload's admin needs 'unsafe-inline' and the Turnstile widget loads from
+//   challenges.cloudflare.com, so a real policy is its own task (work plan 4.5). This CSP carries
+//   only `frame-ancestors`, which restricts nothing else. HSTS is sent by Vercel on its domains.
+// - Payload's SVG file route sets its own stricter CSP (script-src 'none'), which replaces this one
+//   for those responses; X-Frame-Options still applies there.
+const securityHeaders = [
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+  { key: "X-Frame-Options", value: "SAMEORIGIN" },
+  { key: "Content-Security-Policy", value: "frame-ancestors 'self'" },
+];
+
+// The admin and the JSON API should never show up in search results (robots.txt already disallows
+// crawling; this also covers pages linked from elsewhere).
+const noindex = [{ key: "X-Robots-Tag", value: "noindex, nofollow" }];
+
 const nextConfig: NextConfig = {
   reactCompiler: true,
+  // Drops "X-Powered-By: Next.js, Payload" (withPayload adds it only when this isn't false).
+  poweredByHeader: false,
+  async headers() {
+    return [
+      { source: "/:path*", headers: securityHeaders },
+      { source: "/api/:path*", headers: noindex },
+      { source: "/admin/:path*", headers: noindex },
+    ];
+  },
   // cacheComponents stays off: see docs/decisions/cache-components.md (work plan 2.2 spike).
 
   // Lets the Editorial and Folio e2e builds sit side by side (e.g. NEXT_DIST_DIR=.next-folio).

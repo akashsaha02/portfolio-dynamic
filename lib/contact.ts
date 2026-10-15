@@ -82,6 +82,28 @@ const CONTROL_SINGLE_LINE = /[\u0000-\u001F\u007F]/;
 // Pragmatic check: one @, no spaces, a dot in the domain. Real verification is the reply.
 const EMAIL = /^[^\s@]+@[^\s@.]+(\.[^\s@.]+)+$/;
 
+// Invisible characters that can disguise text (QA F-06): "Ev‮e​x" renders as "Evxe" in
+// the admin inbox and the email subject.
+// - Bidi controls: ALM U+061C, LRM/RLM U+200E-200F, embeddings/overrides U+202A-202E, isolates
+//   U+2066-2069.
+// - Invisible / zero-width: soft hyphen U+00AD, U+180E, zero-width space U+200B, word joiner and
+//   invisible operators U+2060-2064, BOM U+FEFF, Hangul fillers U+3164 and U+FFA0.
+// Built with RegExp strings: tsconfig targets ES2017, which predates \p{...} regex literals.
+const HIDDEN = new RegExp("[\\u061C\\u200E\\u200F\\u202A-\\u202E\\u2066-\\u2069\\u00AD\\u180E\\u200B\\u2060-\\u2064\\uFEFF\\u3164\\uFFA0]");
+// ZWNJ U+200C and ZWJ U+200D are allowed only between two visible characters: they are part of
+// Bengali, Hindi and Persian spelling (Bengali ra + ZWJ + hasant + ya) and of emoji sequences
+// (woman + ZWJ + laptop). Anywhere else (start,
+// end, next to a space or another joiner) they only hide things.
+const VISIBLE = "\\p{L}\\p{M}\\p{N}\\p{Extended_Pictographic}\\p{Emoji_Modifier}";
+const STRAY_JOINER = new RegExp(`(^|[^${VISIBLE}])[\\u200C\\u200D]|[\\u200C\\u200D](?![${VISIBLE}])`, "u");
+// Email addresses are plain text: no format characters (Unicode category Cf) at all.
+const FORMAT_CHAR = new RegExp("\\p{Cf}", "u");
+
+/** True when `value` hides characters a reader can't see (bidi controls, zero-width, stray joiners). */
+export function hasHiddenCharacters(value: string): boolean {
+  return HIDDEN.test(value) || STRAY_JOINER.test(value);
+}
+
 function isIntent(value: string): value is ContactIntent {
   return (CONTACT_INTENTS as readonly string[]).includes(value);
 }
@@ -95,10 +117,11 @@ function isIntent(value: string): value is ContactIntent {
 export function validateContact(source: FormSource): ContactValidation {
   if (read(source, CONTACT_FIELDS.honeypot).trim() !== "") return { kind: "spam" };
 
-  const name = read(source, CONTACT_FIELDS.name).trim();
-  const email = read(source, CONTACT_FIELDS.email).trim();
+  // NFC first, so composed and decomposed spellings of the same name are stored the same way.
+  const name = read(source, CONTACT_FIELDS.name).normalize("NFC").trim();
+  const email = read(source, CONTACT_FIELDS.email).normalize("NFC").trim();
   const intent = read(source, CONTACT_FIELDS.intent).trim();
-  const message = read(source, CONTACT_FIELDS.message).replace(/\r\n?/g, "\n").trim();
+  const message = read(source, CONTACT_FIELDS.message).normalize("NFC").replace(/\r\n?/g, "\n").trim();
 
   const fieldErrors: Partial<Record<ContactField, string>> = {};
 
@@ -106,9 +129,17 @@ export function validateContact(source: FormSource): ContactValidation {
   else if (name.length > CONTACT_LIMITS.nameMax)
     fieldErrors.name = `Please keep your name under ${CONTACT_LIMITS.nameMax} characters.`;
   else if (CONTROL_SINGLE_LINE.test(name)) fieldErrors.name = "Please write your name on one line.";
+  else if (hasHiddenCharacters(name))
+    fieldErrors.name = "Your name contains hidden formatting characters. Please type it again.";
 
   if (email === "") fieldErrors.email = "Please add your email so I can reply.";
-  else if (email.length > CONTACT_LIMITS.emailMax || !EMAIL.test(email) || CONTROL_SINGLE_LINE.test(email))
+  else if (
+    email.length > CONTACT_LIMITS.emailMax ||
+    !EMAIL.test(email) ||
+    CONTROL_SINGLE_LINE.test(email) ||
+    FORMAT_CHAR.test(email) ||
+    hasHiddenCharacters(email)
+  )
     fieldErrors.email = "That email doesn’t look right. Check it and try again.";
 
   if (!isIntent(intent)) fieldErrors.intent = "Please pick what you’re looking for.";
@@ -117,7 +148,8 @@ export function validateContact(source: FormSource): ContactValidation {
     fieldErrors.message = `Please write at least ${CONTACT_LIMITS.messageMin} characters.`;
   else if (message.length > CONTACT_LIMITS.messageMax)
     fieldErrors.message = `Please keep it under ${CONTACT_LIMITS.messageMax} characters.`;
-  else if (CONTROL_MULTILINE.test(message)) fieldErrors.message = "Your message contains characters I can’t accept.";
+  else if (CONTROL_MULTILINE.test(message) || hasHiddenCharacters(message))
+    fieldErrors.message = "Your message contains characters I can’t accept.";
 
   if (Object.keys(fieldErrors).length > 0 || !isIntent(intent)) {
     return { kind: "invalid", fieldErrors, values: { name, email, intent, message } };
