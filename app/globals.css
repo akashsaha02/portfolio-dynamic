@@ -1,4 +1,13 @@
-@import "tailwindcss";
+/*
+ * Tailwind scans only the code that renders the public site (work plan 5.2). Automatic detection
+ * also read docs/, tests/, scripts/ and .claude/ (hundreds of class names in Markdown) and shipped
+ * their utilities in this render-blocking file. A new template under templates/ is picked up; code
+ * that renders classes anywhere else needs its own @source line here.
+ */
+@import "tailwindcss" source(none);
+@source "../app/(site)";
+@source "../templates";
+@source "../components";
 /* Folio template styles (guide §3). Scoped to .tpl-folio / f- classes; linked on every route. */
 @import "../templates/folio/folio.css";
 
