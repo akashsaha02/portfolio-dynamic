@@ -570,7 +570,8 @@ html[data-folio-menu-open] body {
   }
   .f-menu[data-open] .f-menu-item {
     transform: none;
-    transition-delay: calc(0.12s + var(--i, 0) * 0.05s);
+    /* two beats after the panel starts, then one per link */
+    transition-delay: calc((var(--i, 0) + 2) * var(--stagger));
   }
   .f-menu-link {
     font-variation-settings: "wdth" 100;
@@ -869,7 +870,7 @@ html[data-folio-menu-open] body {
   .f-reveal[data-armed][data-in] .f-w > span {
     transform: none;
     transition: transform var(--dur-slow) var(--ease-inout);
-    transition-delay: calc(var(--l, 0) * 0.07s);
+    transition-delay: calc(var(--l, 0) * var(--stagger));
   }
 
   /* Experience <details> on phone: a plus that turns into a minus. */

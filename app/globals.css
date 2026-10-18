@@ -18,6 +18,8 @@
   --dur: 0.5s;
   --dur-smooth: 0.7s;
   --dur-slow: 0.9s;
+  /* Delay between siblings in a sequence (menu links, reveal lines). */
+  --stagger: 0.06s;
   --section-y: max(2.5rem, 12svh);
   --gutter: clamp(1.25rem, 4vw, 2.5rem);
   --hairline: rgb(40 44 32 / 0.18);
