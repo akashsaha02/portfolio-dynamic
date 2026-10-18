@@ -10,10 +10,13 @@ import "../globals.css";
 // plan 2.2), which is why this is a route group and there is no app/layout.tsx.
 // Template-specific chrome (smooth scroll, extra fonts) belongs in the template, not here.
 
+// Latin, weight axis only, at the default width (wdth 100): 40 KB instead of 98 KB with the wdth
+// axis (work plan 5.2, QA F-02). Folio's condensed name marquee loads its own small static cut
+// (templates/folio/fonts.ts). The preloader's Bangla and Hindi greetings were never in Mona Sans
+// (no such glyphs); they use the system font either way.
 const mona = Mona_Sans({
   variable: "--font-mona",
   subsets: ["latin"],
-  axes: ["wdth"],
   display: "swap",
 });
 

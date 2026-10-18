@@ -126,8 +126,9 @@
  * Type. Sentence case at wdth 100 everywhere; wdth 75 uppercase only for the hero name marquee.
  * ------------------------------------------------------------------------------------------- */
 
+/* Its own static condensed cut (fonts.ts, set on the hero); the text font covers anything else. */
 @utility type-marquee {
-  font-variation-settings: "wdth" 75;
+  font-family: var(--font-mona-condensed), var(--font-mona), system-ui, sans-serif;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: -0.01em;
