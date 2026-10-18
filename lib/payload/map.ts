@@ -46,7 +46,10 @@ export type ContentDocs = {
   education: PayloadEducation[];
 };
 
-export type SettingsDoc = Pick<SiteSetting, "activeTemplate" | "contactFormEnabled" | "announcement">;
+export type SettingsDoc = Pick<SiteSetting, "contactFormEnabled" | "announcement"> & {
+  /** A string, not `TemplateId`: the database may still hold a retired id such as "editorial". */
+  activeTemplate: string | null | undefined;
+};
 
 type Relation<T> = string | T | null | undefined;
 
