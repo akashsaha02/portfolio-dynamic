@@ -16,6 +16,9 @@ Your worktree has no `node_modules` and no build output. Before anything else ru
 ## Lean test mode (the user asked for this on 2026-10-12)
 Write specs, run each new spec file once on one project to confirm it passes, fix only real failures in your own specs. No 3x flake runs or full-matrix timing inside a task; the full suite runs once at the phase gate and in Phase 4. Keep reports short.
 
+## Disk hygiene (the drive filled up on 2026-10-18)
+Every worktree carries its own node_modules (>1 GB with Payload) and build folders. Before you finish: delete your worktree's `.next`, `.next-folio`, `media`, `test-results` and `playwright-report` folders if you created them, and stop any server or in-memory DB you started. Do NOT run more than one `npm ci` at a time on this machine if another agent is installing; if you see ENOSPC or "No space left on device", stop, commit what you have, and report it instead of retrying.
+
 ## Read first, every task
 1. `docs/WORK_PLAN.md`: your task ID, dependencies and "done when".
 2. `docs/REBUILD_GUIDE.md` §4 (behaviour per page, phone vs desktop) and §5 (mobile-first rules). These are your acceptance criteria.

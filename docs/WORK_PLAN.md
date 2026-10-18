@@ -182,6 +182,7 @@ Rule for every feature: it must keep the guide §5 budgets and §9 free-tier lim
 
 ## Rules for everyone
 
+- **Disk hygiene.** Each agent worktree has its own node_modules and builds (several GB across a phase). The lead clears finished worktrees' node_modules/.next folders after merging; agents delete their own build/test output before finishing.
 - **Build first, test later (user decision, 2026-10-12).** Tasks run only typecheck + one build. Screenshots, Lighthouse, axe, cross-browser matrices and the full e2e suite run once per phase gate, and defects are fixed in one batch afterwards. Reports stay short.
 - Mobile first, free tier only, read the Next.js 16 docs before using an API (see each agent file).
 - Stay inside your owned paths; ask for everything else in your report.

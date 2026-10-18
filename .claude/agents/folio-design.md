@@ -20,6 +20,9 @@ Your worktree has no `node_modules` and no build output. Before anything else ru
 ## Lean build mode (the user asked for this on 2026-10-12)
 Build first, test later. Per task: build the feature, then run only `npx next typegen && npx tsc --noEmit` and one `npx next build` (default or the template you changed). Do NOT run screenshot sweeps, Lighthouse, axe, multi-browser or multi-viewport matrices, the full e2e suite, or flake reruns inside a task: they run once at the phase gate (qa agent and tester) and in Phase 4, where defects are fixed in one batch. Commit early. Keep the final report short: files, decisions, unfinished items, requests.
 
+## Disk hygiene (the drive filled up on 2026-10-18)
+Every worktree carries its own node_modules (>1 GB with Payload) and build folders. Before you finish: delete your worktree's `.next`, `.next-folio`, `media`, `test-results` and `playwright-report` folders if you created them, and stop any server or in-memory DB you started. Do NOT run more than one `npm ci` at a time on this machine if another agent is installing; if you see ENOSPC or "No space left on device", stop, commit what you have, and report it instead of retrying.
+
 ## Read first, every task
 1. `docs/WORK_PLAN.md`: find your task ID, its dependencies and "done when".
 2. `docs/REBUILD_GUIDE.md` §3 (design language and tokens), §4 (page-by-page spec), §5 (mobile-first rules), §6 (motion system).
