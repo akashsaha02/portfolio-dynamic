@@ -23,6 +23,28 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # .env.example is committed to a public repo: it must hold placeholders only. Cheap grep, runs before install.
+      - name: Guard .env.example (no real secrets)
+        run: |
+          f=.env.example
+          bad=0
+          # Connection string with user:password (placeholders like <user>:<password> are allowed).
+          if grep -nE 'mongodb(\+srv)?://[^:/@<[:space:]]+:[^@<[:space:]]+@' "$f"; then
+            echo "::error file=$f::Connection string with credentials in $f"; bad=1
+          fi
+          # Resend API keys.
+          if grep -nE 're_[A-Za-z0-9_]{16,}' "$f"; then
+            echo "::error file=$f::Looks like a Resend key in $f"; bad=1
+          fi
+          # Uncommented KEY=value with a long random-looking value (Cloudflare Turnstile test keys are allowed).
+          if grep -E '^[A-Z][A-Z0-9_]*=' "$f" | grep -vE '=[12]x0+[A-Za-z]*$' | grep -nE '=[A-Za-z0-9+/_.~-]{24,}$'; then
+            echo "::error file=$f::Long random-looking value in $f"; bad=1
+          fi
+          if [ "$bad" -ne 0 ]; then
+            echo "Remove real values from $f (it is public). If one was pushed, rotate it at the provider."
+            exit 1
+          fi
+
       - uses: actions/setup-node@v4
         with:
           node-version: 22

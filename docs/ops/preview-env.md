@@ -4,6 +4,14 @@ How a deployed site connects to MongoDB Atlas, Blob, Resend and Turnstile, how t
 
 Checked against current docs on 2026-10-15: [Vercel environment variables](https://vercel.com/docs/environment-variables) (changes apply only to new deployments; a Preview variable can apply to all non-production branches or one specific branch, and a branch-specific value overrides the general Preview value), [Deployment Protection](https://vercel.com/docs/deployment-protection) (Standard Protection covers every deployment except production domains; it is available on Hobby), [Atlas database users](https://www.mongodb.com/docs/atlas/security-add-mongodb-users/) (built-in roles apply to the whole project; use specific privileges to limit a user to one database; SCRAM users authenticate against `admin`), [Atlas free cluster limits](https://www.mongodb.com/docs/atlas/reference/free-shared-limitations/).
 
+> **Never put real values in `.env.example`.** It is committed to a public repo, so anything in it is published (and stays in the history even after you delete it). Real values go only in `.env.local` (git-ignored). Leave every secret in `.env.example` empty or a placeholder such as `<user>:<password>`.
+>
+> How to catch a slip:
+> - Before every commit that touches it, run `git diff .env.example` (and `git diff --cached .env.example` once staged). Only comments and empty values should change.
+> - CI backstop: the `check` job in `.github/workflows/ci.yml` has a "Guard .env.example" step that fails on a connection string with a password, a Resend `re_` key, or a long random-looking value. It runs on the pull request, so it is a safety net, not a substitute for the diff (by then the commit exists).
+> - Optional local pre-commit hook (`.git/hooks/pre-commit`, not committed): fail when `git diff --cached -U0 .env.example` shows an added non-comment line whose value after `=` is 24 or more characters, for example `git diff --cached -U0 .env.example | grep -E '^\+[^+#]*=.{24,}' && exit 1`.
+> - If a real value was ever pushed: rotate it at the provider first (Atlas user password, Resend key, and so on), then clean the file. Deleting it from the file does not un-publish it.
+
 ## 1. Scopes at a glance
 
 One Atlas free cluster, two databases, two users. Vercel has three scopes; we use two.
@@ -35,9 +43,22 @@ Rules of thumb:
 - `DATABASE_URI` set: the template comes from the database, Site settings > `activeTemplate`, and **the database wins**. Switching it in the admin changes the live site without a redeploy. The `SITE_TEMPLATE` variable is ignored for rendering.
 - `DATABASE_URI` unset (CI, a laptop with no database, a build before Atlas is connected): the static fallback applies and `SITE_TEMPLATE` (`editorial` default, or `folio`) picks the template.
 - `npm run seed` writes the first value into the database from `SITE_TEMPLATE` when it creates Site settings, so seed with `SITE_TEMPLATE=folio` if Folio should be the starting template. After that, change it only in the admin.
-- Status on `main` at adf3f4e: `lib/data.ts` still reads only `SITE_TEMPLATE` (the Payload read lands in Phase 3). Until then the env var is what a deployment uses; this section describes the target behaviour the gate checks in section 5. Remove the Preview-only `SITE_TEMPLATE=folio` rule from `docs/ops/vercel-setup.md` step 3 once the database value is live, or the two sources will be confusing.
+- The Payload read is live (Phase 3). Remove the interim Preview-only `SITE_TEMPLATE=folio` variable in Vercel once `DATABASE_URI` is set on Preview and seeded (`docs/ops/vercel-setup.md` step 3), or the two sources will be confusing. An unreachable database fails the build or render on purpose; it does not fall back to the static copy.
 
 ## 3. Seeding a database from your laptop
+
+### Pre-flight before seeding Atlas
+
+Tick all of these before `npm run seed`. A seed writes to whichever database the string points at.
+
+- [ ] `BLOB_READ_WRITE_TOKEN` is in `.env.local` (from the Blob store's `.env.local` tab). Without it images are saved on your disk and are broken on Vercel.
+- [ ] `SEED_ADMIN_EMAIL` and `SEED_ADMIN_PASSWORD` are set (shell or `.env.local`) if the database has no admin yet. Password from your password manager; unset them afterwards.
+- [ ] `DATABASE_URI` points at the intended database: `.../portfolio-dev` for dev and Preview, `.../portfolio` for production. Read the host and database name (not the password) twice before running.
+- [ ] The user in that string is the limited one (`portfolio-dev` or `portfolio-prod`, access to its own database only), **not** the Atlas default admin user or any `atlasAdmin` user. Password URL-encoded.
+- [ ] Network: you are online and Atlas Network Access allows your connection (`0.0.0.0/0` per `docs/ops/accounts.md` section 1, or your current IP). A timeout or `ECONNREFUSED` is almost always this.
+- [ ] `PAYLOAD_SECRET` is set (a throwaway value is fine for a seed).
+- [ ] Run `npm run seed` (expect created/updated/unchanged counts; run it again and expect all unchanged), then `npm run verify:parity` and expect "no differences" (exit code 0).
+- [ ] Afterwards: unset `SEED_ADMIN_*`, and restore `.env.local` to the dev database if you seeded production.
 
 `npm run seed` (`payload run scripts/seed.ts`) imports the static content and images into whatever `DATABASE_URI` points at. It is idempotent: a second run changes nothing. It needs `DATABASE_URI` and `PAYLOAD_SECRET` from the shell or `.env.local`, and it creates the admin only when the users collection is empty and `SEED_ADMIN_EMAIL` and `SEED_ADMIN_PASSWORD` are set.
 
