@@ -126,8 +126,9 @@
  * Type. Sentence case at wdth 100 everywhere; wdth 75 uppercase only for the hero name marquee.
  * ------------------------------------------------------------------------------------------- */
 
+/* Its own static condensed cut (fonts.ts, set on the hero); the text font covers anything else. */
 @utility type-marquee {
-  font-variation-settings: "wdth" 75;
+  font-family: var(--font-mona-condensed), var(--font-mona), system-ui, sans-serif;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: -0.01em;
@@ -495,6 +496,22 @@ html[data-folio-menu-open] body {
     }
   }
 
+  /*
+   * md+ curved left edge (CurvedEdge, hidden on phone). Its path ends sit on the panel's edge, so
+   * scaling the SVG from that edge moves only the control point: the curve bows while the panel
+   * slides and flattens as it settles, then bows again on the way out (dennissnellenberg.com).
+   * Same duration and easing as the slide. Reduced motion keeps the static curve.
+   */
+  @media (prefers-reduced-motion: no-preference) {
+    .f-menu-curve {
+      transform-origin: 100% 50%;
+      transition: transform var(--dur-smooth) var(--ease-inout);
+    }
+    .f-menu[data-open] .f-menu-curve {
+      transform: scaleX(0);
+    }
+  }
+
   .f-menu-backdrop {
     display: none;
     position: fixed;
@@ -553,7 +570,8 @@ html[data-folio-menu-open] body {
   }
   .f-menu[data-open] .f-menu-item {
     transform: none;
-    transition-delay: calc(0.12s + var(--i, 0) * 0.05s);
+    /* two beats after the panel starts, then one per link */
+    transition-delay: calc((var(--i, 0) + 2) * var(--stagger));
   }
   .f-menu-link {
     font-variation-settings: "wdth" 100;
@@ -594,6 +612,7 @@ html[data-folio-menu-open] body {
       --f-cta: 13rem;
     }
   }
+  /* The curve's tween is at the end of this file (scroll-driven, behind @supports). */
   .f-footer-rule {
     margin-top: calc(var(--f-cta) / 2 + 2rem);
   }
@@ -851,7 +870,7 @@ html[data-folio-menu-open] body {
   .f-reveal[data-armed][data-in] .f-w > span {
     transform: none;
     transition: transform var(--dur-slow) var(--ease-inout);
-    transition-delay: calc(var(--l, 0) * 0.07s);
+    transition-delay: calc(var(--l, 0) * var(--stagger));
   }
 
   /* Experience <details> on phone: a plus that turns into a minus. */
@@ -884,6 +903,52 @@ html[data-folio-menu-open] body {
   }
   .f-details[open] .f-details-icon::after {
     transform: rotate(0deg);
+  }
+
+  /*
+   * Sliding cover rows (sections/SlidingCovers.tsx). Full bleed and clipped sideways, so nothing
+   * scrolls horizontally at 320. Static by default: the second row sits half a tile further left
+   * than the first, two offset rows of covers. The motion below only moves them.
+   */
+  .f-slide {
+    --f-slide-w: 44vw;
+    --f-slide-gap: 0.75rem;
+    display: grid;
+    gap: var(--f-slide-gap);
+    overflow-x: clip;
+    padding-top: var(--section-y);
+  }
+  .f-slide-row {
+    display: flex;
+    gap: var(--f-slide-gap);
+    width: max-content;
+    transform: translate3d(calc(var(--f-slide-w) * -0.25), 0, 0);
+  }
+  .f-slide-row + .f-slide-row {
+    transform: translate3d(calc(var(--f-slide-w) * -0.75), 0, 0);
+  }
+  .f-slide-tile {
+    flex: none;
+    width: var(--f-slide-w);
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    border-radius: 0.75rem;
+    background: color-mix(in srgb, currentColor 8%, transparent);
+  }
+  @media (min-width: 768px) {
+    .f-slide {
+      --f-slide-w: 30vw;
+      --f-slide-gap: 1.25rem;
+    }
+    .f-slide-tile {
+      border-radius: 1rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .f-slide {
+      --f-slide-w: 24vw;
+      --f-slide-gap: 1.5rem;
+    }
   }
 
   /* Inline links in headings (experience companies): underline on a fine pointer. */
@@ -924,6 +989,68 @@ html[data-folio-menu-open] body {
     .f-parallax {
       animation: f-parallax linear both;
       animation-timeline: view();
+    }
+  }
+}
+
+/*
+ * The cover rows travel one tile width each, in opposite directions, over the strip's whole
+ * crossing of the viewport: scroll-linked (linear, it is the scroll), compositor-only. Fine pointer
+ * and motion allowed only, never on width alone; elsewhere they keep the static offset above.
+ */
+@keyframes f-slide-a {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(calc(var(--f-slide-w) * -1), 0, 0);
+  }
+}
+@keyframes f-slide-b {
+  from {
+    transform: translate3d(calc(var(--f-slide-w) * -1.25), 0, 0);
+  }
+  to {
+    transform: translate3d(calc(var(--f-slide-w) * -0.25), 0, 0);
+  }
+}
+@supports (animation-timeline: view()) {
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .f-slide {
+      view-timeline: --f-slide block;
+    }
+    .f-slide-row {
+      animation: f-slide-a linear both;
+      animation-timeline: --f-slide;
+    }
+    .f-slide-row + .f-slide-row {
+      animation-name: f-slide-b;
+    }
+  }
+}
+
+/*
+ * Footer curve: flattens from the full bow (as it comes up from the bottom of the screen) to a
+ * straight edge by the time it reaches the middle. The SVG is the timeline and stays put; only its
+ * path scales, from the bottom edge where it meets the footer. Static curve where unsupported or
+ * with reduced motion. Touch too: it is scroll-linked CSS, no JS.
+ */
+@keyframes f-curve-flatten {
+  to {
+    transform: scaleY(0);
+  }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .f-footer-curve {
+      view-timeline: --f-footer-curve block;
+    }
+    .f-footer-curve path {
+      transform-box: view-box;
+      transform-origin: 50% 100%;
+      animation: f-curve-flatten linear both;
+      animation-timeline: --f-footer-curve;
+      animation-range: entry 0% contain 50%;
     }
   }
 }

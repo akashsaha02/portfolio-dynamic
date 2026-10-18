@@ -8,7 +8,8 @@ import { useEffect, useRef, useState, type ButtonHTMLAttributes, type ReactNode 
 // own text is not a live region, so the change would be silent otherwise).
 //
 // Where the Clipboard API is missing or refused (plain http, an old WebView, a denied
-// permission) it navigates to `fallbackHref` instead, e.g. the mailto: link.
+// permission) it navigates to `fallbackHref` instead, e.g. the mailto: link; without one it
+// announces `failedStatus`, so a failed copy is never silent.
 
 type CopyButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onClick" | "type" | "children"> & {
   /** Text put on the clipboard. */
@@ -16,6 +17,8 @@ type CopyButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onClick" |
   /** Announced after a successful copy, e.g. "Email address copied". */
   status: string;
   fallbackHref?: string;
+  /** Announced when the copy fails and there is no fallbackHref. */
+  failedStatus?: string;
   /** How long `data-copied` stays on, in ms. */
   resetAfter?: number;
   children: ReactNode;
@@ -25,34 +28,39 @@ export function CopyButton({
   value,
   status,
   fallbackHref,
+  failedStatus = "Couldn’t copy: the browser blocked the clipboard",
   resetAfter = 2400,
   children,
   ...button
 }: CopyButtonProps) {
-  const [copied, setCopied] = useState(false);
+  const [state, setState] = useState<"idle" | "copied" | "failed">("idle");
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   useEffect(() => () => clearTimeout(timer.current), []);
 
   const copy = async () => {
+    let next: "copied" | "failed" = "copied";
     try {
       await navigator.clipboard.writeText(value);
     } catch {
-      if (fallbackHref) window.location.href = fallbackHref;
-      return;
+      if (fallbackHref) {
+        window.location.href = fallbackHref;
+        return;
+      }
+      next = "failed";
     }
-    setCopied(true);
+    setState(next);
     clearTimeout(timer.current);
-    timer.current = setTimeout(() => setCopied(false), resetAfter);
+    timer.current = setTimeout(() => setState("idle"), resetAfter);
   };
 
   return (
     <>
-      <button type="button" data-copied={copied ? "" : undefined} onClick={copy} {...button}>
+      <button type="button" data-copied={state === "copied" ? "" : undefined} onClick={copy} {...button}>
         {children}
       </button>
       <span role="status" className="sr-only">
-        {copied ? status : ""}
+        {state === "copied" ? status : state === "failed" ? failedStatus : ""}
       </span>
     </>
   );

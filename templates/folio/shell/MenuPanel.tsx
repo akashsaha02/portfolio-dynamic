@@ -7,10 +7,11 @@ import { RoundButton } from "../ui/RoundButton";
 import { useMenu } from "./MenuRoot";
 import { MENU_ID } from "./pages";
 
-// The menu panel (guide §4.1): full-screen ink on phone, ~40vw from md with a static curved left
-// edge (the morph is work plan 5.1) over a dimmed backdrop. It slides with a CSS transform
-// (.f-menu in folio.css, --ease-inout, .7s); reduced motion makes that instant through the global
-// kill-switch. The links are server-rendered children; a click on any same-tab link closes it.
+// The menu panel (guide §4.1): full-screen ink on phone, ~40vw from md with a curved left edge
+// over a dimmed backdrop. It slides with a CSS transform (.f-menu in folio.css, --ease-inout,
+// --dur-smooth) and the curve bows while it moves, flattening as the panel settles (.f-menu-curve,
+// work plan 5.1); reduced motion makes the slide instant and keeps the static curve. The links are
+// server-rendered children; a click on any same-tab link closes it.
 //
 // Modal behaviour: focus moves to the close button, Tab and Shift+Tab wrap inside the panel (the
 // page behind is inert, but the layout's skip link sits outside the shell), Esc and the backdrop
@@ -99,7 +100,7 @@ export function MenuPanel({ children }: { children: ReactNode }) {
         className="f-menu surface-ink"
         onClick={onClick}
       >
-        <CurvedEdge edge="left" fill="var(--ink)" className="hidden md:block" />
+        <CurvedEdge edge="left" fill="var(--ink)" className="f-menu-curve hidden md:block" />
         <div className="f-corner absolute z-1">
           <RoundButton size="sm" aria-label="Close menu" data-menu-close="" onClick={hide}>
             <Close />

@@ -17,6 +17,9 @@ type ResearchProps = {
 
 function PublicationEntry({ pub }: { pub: Publication }) {
   const href = pub.url ?? (pub.doi ? `https://doi.org/${pub.doi}` : undefined);
+  const linkLabel = pub.doi ? "DOI" : "Paper";
+  // Copied verbatim (IEEE Xplore's export); a blank field means there is none yet.
+  const bibtex = pub.bibtex?.trim() ? pub.bibtex : undefined;
 
   return (
     <li className="border-t border-(--rule) py-8 first:border-t-0 first:pt-0 md:py-10">
@@ -27,16 +30,23 @@ function PublicationEntry({ pub }: { pub: Publication }) {
       <p className="mt-2 type-label">
         {pub.venue}, {pub.year}
       </p>
-      {href || pub.bibtex ? (
+      {href || bibtex ? (
         <div className="mt-6 flex flex-wrap gap-3">
           {href ? (
-            <FillButton href={href} external variant="outline" icon={<ArrowUpRight />}>
-              {pub.doi ? "DOI" : "Paper"}
+            <FillButton
+              href={href}
+              external
+              variant="outline"
+              icon={<ArrowUpRight />}
+              // Several entries would otherwise share the name "DOI"; the visible label leads.
+              aria-label={`${linkLabel}: ${pub.title} (opens in a new tab)`}
+            >
+              {linkLabel}
             </FillButton>
           ) : null}
-          {pub.bibtex ? (
+          {bibtex ? (
             <CopyButton
-              value={pub.bibtex}
+              value={bibtex}
               status="BibTeX copied"
               aria-label={`Copy BibTeX for ${pub.title}`}
               className="f-btn f-btn-outline f-roll-host min-h-12 px-6 text-base"

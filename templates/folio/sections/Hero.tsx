@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { Profile } from "@/lib/content-types";
+import { monaCondensed } from "../fonts";
 import { NameMarquee } from "../motion/NameMarquee";
 import { Chip } from "../ui/Chip";
 import { capSizes } from "../ui/image-sizes";
@@ -21,7 +22,11 @@ export function Hero({ profile }: HeroProps) {
   const { name, headline, location, portrait, availability } = profile;
 
   return (
-    <section data-folio-hero="" aria-labelledby="hero-title" className="f-hero surface-paper">
+    <section
+      data-folio-hero=""
+      aria-labelledby="hero-title"
+      className={`f-hero surface-paper ${monaCondensed.variable}`}
+    >
       <h1 id="hero-title" className="sr-only">
         {name}
       </h1>
@@ -34,8 +39,12 @@ export function Hero({ profile }: HeroProps) {
         preload
         fetchPriority="high"
         // Rendered at min(64svh, 130vw) on phone and min(84svh, 92vw) from md (folio.css);
-        // capped at the 1024 px source on dense screens (image-sizes.ts).
-        sizes={capSizes(portrait.width, "(min-width: 1024px) 84vh, (min-width: 768px) 92vw, 130vw")}
+        // capped at the 1024 px source on dense screens (image-sizes.ts), and on 1x screens taller
+        // than ~1286 px, where 84vh alone would ask for w=1280 of the same pixels (QA F-11).
+        sizes={capSizes(
+          portrait.width,
+          `(min-width: 1024px) and (min-height: 1286px) ${portrait.width}px, (min-width: 1024px) 84vh, (min-width: 768px) 92vw, 130vw`,
+        )}
         className="f-hero-portrait"
       />
 
