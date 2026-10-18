@@ -887,6 +887,52 @@ html[data-folio-menu-open] body {
     transform: rotate(0deg);
   }
 
+  /*
+   * Sliding cover rows (sections/SlidingCovers.tsx). Full bleed and clipped sideways, so nothing
+   * scrolls horizontally at 320. Static by default: the second row sits half a tile further left
+   * than the first, two offset rows of covers. The motion below only moves them.
+   */
+  .f-slide {
+    --f-slide-w: 44vw;
+    --f-slide-gap: 0.75rem;
+    display: grid;
+    gap: var(--f-slide-gap);
+    overflow-x: clip;
+    padding-top: var(--section-y);
+  }
+  .f-slide-row {
+    display: flex;
+    gap: var(--f-slide-gap);
+    width: max-content;
+    transform: translate3d(calc(var(--f-slide-w) * -0.25), 0, 0);
+  }
+  .f-slide-row + .f-slide-row {
+    transform: translate3d(calc(var(--f-slide-w) * -0.75), 0, 0);
+  }
+  .f-slide-tile {
+    flex: none;
+    width: var(--f-slide-w);
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    border-radius: 0.75rem;
+    background: color-mix(in srgb, currentColor 8%, transparent);
+  }
+  @media (min-width: 768px) {
+    .f-slide {
+      --f-slide-w: 30vw;
+      --f-slide-gap: 1.25rem;
+    }
+    .f-slide-tile {
+      border-radius: 1rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .f-slide {
+      --f-slide-w: 24vw;
+      --f-slide-gap: 1.5rem;
+    }
+  }
+
   /* Inline links in headings (experience companies): underline on a fine pointer. */
   @media (hover: hover) and (pointer: fine) {
     .f-link:hover {
@@ -925,6 +971,42 @@ html[data-folio-menu-open] body {
     .f-parallax {
       animation: f-parallax linear both;
       animation-timeline: view();
+    }
+  }
+}
+
+/*
+ * The cover rows travel one tile width each, in opposite directions, over the strip's whole
+ * crossing of the viewport: scroll-linked (linear, it is the scroll), compositor-only. Fine pointer
+ * and motion allowed only, never on width alone; elsewhere they keep the static offset above.
+ */
+@keyframes f-slide-a {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(calc(var(--f-slide-w) * -1), 0, 0);
+  }
+}
+@keyframes f-slide-b {
+  from {
+    transform: translate3d(calc(var(--f-slide-w) * -1.25), 0, 0);
+  }
+  to {
+    transform: translate3d(calc(var(--f-slide-w) * -0.25), 0, 0);
+  }
+}
+@supports (animation-timeline: view()) {
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .f-slide {
+      view-timeline: --f-slide block;
+    }
+    .f-slide-row {
+      animation: f-slide-a linear both;
+      animation-timeline: --f-slide;
+    }
+    .f-slide-row + .f-slide-row {
+      animation-name: f-slide-b;
     }
   }
 }
