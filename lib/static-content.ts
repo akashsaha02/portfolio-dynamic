@@ -14,7 +14,14 @@ import type {
   PublicationStatus,
   SiteContent,
 } from "./content-types";
-import { isTemplateId, TEMPLATE_IDS, type SiteSettings, type TemplateId } from "../templates/types";
+import {
+  DEFAULT_TEMPLATE,
+  isTemplateId,
+  RETIRED_TEMPLATE_IDS,
+  TEMPLATE_IDS,
+  type SiteSettings,
+  type TemplateId,
+} from "../templates/types";
 
 const PUBLICATION_STATUS: Record<raw.Publication["status"], PublicationStatus> = {
   Published: "published",
@@ -130,13 +137,30 @@ export function staticSiteContent(): SiteContent {
   };
 }
 
-/** `SITE_TEMPLATE`, validated. The template switch when there is no database (and in tests). */
+/**
+ * `SITE_TEMPLATE`, validated. The template switch when there is no database (and in tests).
+ * Unset or empty: folio. A retired id ("editorial", git tag v1-editorial) also gives folio, with a
+ * warning, so an old .env or Vercel variable doesn't break a build. Anything else is a typo and
+ * fails loudly.
+ */
 export function envTemplate(): TemplateId {
-  const value = process.env.SITE_TEMPLATE?.trim() || "editorial";
-  if (!isTemplateId(value)) {
-    throw new Error(`SITE_TEMPLATE="${value}" is not a template. Use one of: ${TEMPLATE_IDS.join(", ")}`);
+  const value = process.env.SITE_TEMPLATE?.trim();
+  if (!value) return DEFAULT_TEMPLATE;
+  if (isTemplateId(value)) return value;
+  if (RETIRED_TEMPLATE_IDS.includes(value)) {
+    warnRetired(value);
+    return DEFAULT_TEMPLATE;
   }
-  return value;
+  throw new Error(`SITE_TEMPLATE="${value}" is not a template. Use one of: ${TEMPLATE_IDS.join(", ")} (or leave it unset).`);
+}
+
+let warned = false;
+function warnRetired(value: string): void {
+  if (warned) return;
+  warned = true;
+  console.warn(
+    `[template] SITE_TEMPLATE="${value}" was retired (git tag v1-editorial); using "${DEFAULT_TEMPLATE}". Remove the variable.`,
+  );
 }
 
 /** lib/content.ts settings as `SiteSettings`, with the template from SITE_TEMPLATE. */

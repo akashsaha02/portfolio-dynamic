@@ -7,6 +7,10 @@ Date: 2026-10-15. Next 16.3.7, Payload 3.90.2 (`@payloadcms/next`), React 19.2.8
 **Off for now.** `next.config.ts` does not set `cacheComponents`. It is one template fix away from
 working, so Phase 3 should re-test it (see "To turn it on").
 
+**Update 2026-10-18 (work plan 5.2):** Editorial is retired (git tag `v1-editorial`), so the
+blocker below is gone: Folio was the template that already built. Still off; re-testing is now only
+step 2 onwards of "To turn it on later", and is a lead decision (not part of 5.2).
+
 ## What was tried
 
 `cacheComponents: true` in `next.config.ts`, with the Payload admin installed and the in-memory dev
@@ -38,12 +42,11 @@ alike, so switching later only touches `lib/data.ts`.
 
 ## To turn it on later
 
-1. Design: make the Editorial footer year deterministic (e.g. pass it as data, or render it in a
-   Client Component), so `/` prerenders. Folio already builds.
+1. ~~Design: make the Editorial footer year deterministic.~~ Done by retiring Editorial (5.2).
 2. Backend: set `cacheComponents: true`; in `lib/data.ts` replace `unstable_cache` with
    `'use cache'` + `cacheLife('max')` + `cacheTag(...)`. Never read `cookies()`/`headers()` inside.
 3. Optional: silence the admin dev errors with `export const instant = false` in
    `app/(payload)/admin/[[...segments]]/page.tsx` (a Payload-generated file: re-apply after
    regenerating it).
-4. Re-run: both template builds, `next start`, admin login, edit + publish a project, upload an
+4. Re-run: the build, `next start`, admin login, edit + publish a project, upload an
    image, and check the public page updates after the save.

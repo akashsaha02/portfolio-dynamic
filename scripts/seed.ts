@@ -19,7 +19,7 @@ import { getPayload, type CollectionSlug, type Where } from "payload";
 import config from "../payload.config";
 import { SKILL_GROUPS } from "../collections/Skills";
 import * as raw from "../lib/content";
-import { isTemplateId } from "../templates/types";
+import { envTemplate } from "../lib/static-content";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -287,10 +287,10 @@ async function seedGlobals(): Promise<void> {
     now: { text: p.now.text, updated: p.now.updated },
   });
 
-  const template = process.env.SITE_TEMPLATE?.trim() || "editorial";
   const announcement = raw.settings.announcement;
   await upsertGlobal("site-settings", {
-    activeTemplate: isTemplateId(template) ? template : "editorial",
+    // SITE_TEMPLATE (validated; unset or retired = folio) is the first value; the admin owns it after.
+    activeTemplate: envTemplate(),
     versionLabel: raw.site.versionLabel,
     contactFormEnabled: raw.settings.contactFormEnabled,
     seo: { title: raw.site.seo.title, description: raw.site.seo.description },

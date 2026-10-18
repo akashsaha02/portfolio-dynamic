@@ -73,7 +73,7 @@ const nextConfig: NextConfig = {
 
   // cacheComponents stays off: see docs/decisions/cache-components.md (work plan 2.2 spike).
 
-  // Lets the Editorial and Folio e2e builds sit side by side (e.g. NEXT_DIST_DIR=.next-folio).
+  // Lets two builds sit side by side (e.g. the e2e runner's NEXT_DIST_DIR=.next-folio).
   // `next build` and `next start` must see the same value. Must stay inside the project.
   distDir: process.env.NEXT_DIST_DIR || ".next",
 
@@ -89,8 +89,9 @@ const nextConfig: NextConfig = {
     // layouts: phones 360-414 @2-3x -> 828 / 1080 / 1280; tablet 768 / 1024 @2x -> 828-1600;
     // desktop 1440 @1x -> 828, @2x -> 1600. Defaults were 640 ... 3840 (8 widths).
     deviceSizes: [640, 828, 1080, 1280, 1600],
-    // Only the editorial phone mockup is narrower than a phone (~190-400 px). 32-128 were never
-    // requested. Defaults were 32, 48, 64, 96, 128, 256, 384.
+    // For images narrower than a phone: Folio's 64/96 px avatars at 2-3x and small phone shots.
+    // 32-128 were never requested. Defaults were 32, 48, 64, 96, 128, 256, 384. Folio's capSizes()
+    // (templates/folio/ui/image-sizes.ts) mirrors imageSizes + deviceSizes: change both together.
     imageSizes: [256, 384],
     // Sources in public/ are versioned by filename (rename to change), and Payload/Blob uploads
     // get new URLs, so a long TTL is safe: 31 days, Vercel's maximum. Default is 4 hours.

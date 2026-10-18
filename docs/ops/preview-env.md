@@ -40,10 +40,12 @@ Rules of thumb:
 
 ## 2. Which template renders (precedence)
 
-- `DATABASE_URI` set: the template comes from the database, Site settings > `activeTemplate`, and **the database wins**. Switching it in the admin changes the live site without a redeploy. The `SITE_TEMPLATE` variable is ignored for rendering.
-- `DATABASE_URI` unset (CI, a laptop with no database, a build before Atlas is connected): the static fallback applies and `SITE_TEMPLATE` (`editorial` default, or `folio`) picks the template.
-- `npm run seed` writes the first value into the database from `SITE_TEMPLATE` when it creates Site settings, so seed with `SITE_TEMPLATE=folio` if Folio should be the starting template. After that, change it only in the admin.
-- The Payload read is live (Phase 3). Remove the interim Preview-only `SITE_TEMPLATE=folio` variable in Vercel once `DATABASE_URI` is set on Preview and seeded (`docs/ops/vercel-setup.md` step 3), or the two sources will be confusing. An unreachable database fails the build or render on purpose; it does not fall back to the static copy.
+Folio is the only template since work plan 5.2 (Editorial retired, git tag `v1-editorial`), so this only matters again if a second template is added.
+
+- `DATABASE_URI` set: the template comes from the database, Site settings > `activeTemplate`, and **the database wins**. The `SITE_TEMPLATE` variable is ignored for rendering. A stored `editorial` (from before 5.2) reads as `folio`.
+- `DATABASE_URI` unset (CI, a laptop with no database, a build before Atlas is connected): the static fallback applies and `SITE_TEMPLATE` (default and only value `folio`) picks the template.
+- `npm run seed` writes `activeTemplate` from `SITE_TEMPLATE` (unset = `folio`). No need to set it.
+- Delete any leftover `SITE_TEMPLATE` variable in Vercel (Preview or Production); it no longer does anything useful. An unreachable database fails the build or render on purpose; it does not fall back to the static copy.
 
 ## 3. Seeding a database from your laptop
 
@@ -69,11 +71,11 @@ Also set `BLOB_READ_WRITE_TOKEN` for the seed run (copy it from the store's `.en
 Preview (dev) database:
 
 1. In `.env.local` set `DATABASE_URI` to the `portfolio-dev` string, a throwaway `PAYLOAD_SECRET`, and `BLOB_READ_WRITE_TOKEN`.
-2. Run (bash): `SEED_ADMIN_EMAIL='you+admin@example.com' SEED_ADMIN_PASSWORD='<password manager>' SITE_TEMPLATE=folio npm run seed`
-   PowerShell: set `$env:SEED_ADMIN_EMAIL`, `$env:SEED_ADMIN_PASSWORD`, `$env:SITE_TEMPLATE`, run `npm run seed`, then `Remove-Item Env:SEED_ADMIN_EMAIL, Env:SEED_ADMIN_PASSWORD, Env:SITE_TEMPLATE`.
+2. Run (bash): `SEED_ADMIN_EMAIL='you+admin@example.com' SEED_ADMIN_PASSWORD='<password manager>' npm run seed`
+   PowerShell: set `$env:SEED_ADMIN_EMAIL`, `$env:SEED_ADMIN_PASSWORD`, run `npm run seed`, then `Remove-Item Env:SEED_ADMIN_EMAIL, Env:SEED_ADMIN_PASSWORD`.
 3. Expect a per-collection created/updated/unchanged summary. Re-run it to confirm everything reads "unchanged".
 
-Production database: same, with `DATABASE_URI` set to the `portfolio` string as `portfolio-prod`, a different admin password, and `SITE_TEMPLATE` set to the template to launch with. Restore `.env.local` to the dev values afterwards so a later `npm run dev` or reset never touches production by accident.
+Production database: same, with `DATABASE_URI` set to the `portfolio` string as `portfolio-prod`, and a different admin password. Restore `.env.local` to the dev values afterwards so a later `npm run dev` or reset never touches production by accident.
 
 Network note: your laptop IP needs no separate Atlas Network Access entry because `0.0.0.0/0` is already allowed for Vercel (`docs/ops/accounts.md` section 1), but the laptop connection still needs a working internet connection and the exact `mongodb+srv://` string (URL-encoded password).
 
@@ -105,7 +107,7 @@ Production keeps showing whatever `main` builds until you merge, so do this when
 | Edit goes live without a redeploy | Admin: change a project title, **Publish**; reload the public page (no new deployment in the Vercel list) | New title shows within one page load |
 | Draft stays private | Edit a project, **Save draft** only | Public page still shows the old text; the Live Preview / preview URL shows the draft |
 | Contact reaches inbox and email | Submit the form with the real (or test) Turnstile key | Message in Inbox > Messages; email arrives; a second submission beyond the limit shows the friendly wait message |
-| Template switch | Site settings > Active template: Folio to Editorial and back | Site changes without a redeploy; Vercel deployment count unchanged; no error in runtime logs |
+| Settings change goes live | Site settings > turn the announcement banner on, Save; then off again (the template switch is gone: Folio is the only template since 5.2) | Site changes without a redeploy; Vercel deployment count unchanged; no error in runtime logs |
 | Unauthorised access | Open `/api/users` or `/admin` signed out | Refused / redirected to login |
 | Runtime logs clean | Vercel > project > Logs (kept 1 hour on Hobby), filter errors during the checks | No errors other than expected 4xx info lines |
 

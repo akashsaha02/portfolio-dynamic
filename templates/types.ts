@@ -1,12 +1,31 @@
 import type { ComponentType } from "react";
 import type { Project, SiteContent } from "@/lib/content-types";
 
-/** Every template id the registry knows. Add an id here and an entry in registry.ts together. */
-export const TEMPLATE_IDS = ["editorial", "folio"] as const;
+/**
+ * Every template id the registry knows. Add an id here and an entry in registry.ts together.
+ * Folio is the only template: Editorial (the v1 design) was retired in work plan 5.2 and lives on
+ * at git tag `v1-editorial`.
+ */
+export const TEMPLATE_IDS = ["folio"] as const;
 export type TemplateId = (typeof TEMPLATE_IDS)[number];
 
-export function isTemplateId(value: string): value is TemplateId {
-  return (TEMPLATE_IDS as readonly string[]).includes(value);
+/** Used when nothing picks a template, and for ids that are no longer (or never were) templates. */
+export const DEFAULT_TEMPLATE: TemplateId = "folio";
+
+/** Ids that were templates once. Stored values (the database, old env files) fall back quietly. */
+export const RETIRED_TEMPLATE_IDS: readonly string[] = ["editorial"];
+
+export function isTemplateId(value: unknown): value is TemplateId {
+  return typeof value === "string" && (TEMPLATE_IDS as readonly string[]).includes(value);
+}
+
+/**
+ * A stored template id as a current one: valid ids pass through, anything else (a retired id such
+ * as "editorial", empty, unknown) becomes DEFAULT_TEMPLATE. For values already in a database,
+ * where failing would take the site down; input you control should be checked with isTemplateId.
+ */
+export function toTemplateId(value: unknown): TemplateId {
+  return isTemplateId(value) ? value : DEFAULT_TEMPLATE;
 }
 
 export type Announcement = {
@@ -67,6 +86,10 @@ export type TemplateMeta = {
 
 export type TemplateDefinition = {
   meta: TemplateMeta;
-  /** Loaded on demand, so only the active template's module is evaluated per request. */
-  load: () => Promise<{ default: TemplateModule }>;
+  /**
+   * The template's pages, imported statically. With one template there is nothing to defer. If a
+   * second one is added, every template's Client Components join the same route graph and ship on
+   * every route; measure first-load JS then (work plan 5.2 found 7.6 KB gz from Editorial on Folio).
+   */
+  module: TemplateModule;
 };
