@@ -1,12 +1,25 @@
 import { test, expect, type Page } from "@playwright/test";
 import { expectAxeClean, expectNoHorizontalScroll, isFolio, waitForHydration, watchConsole } from "./folio-helpers";
+import { adminLogin, isDb, mongoFind, useClientIp } from "./db-helpers";
 
 // Folio Contact page and form (task 1.6; guide §4.6). Folio projects only.
 // contactFormEnabled=false is not covered: it needs a content change.
+//
+// Two servers run this file:
+// - folio-* (playwright.config.ts): keyless and DB-free, so a valid submit FAILS CLOSED.
+// - folio-db-* (playwright.db.config.ts, `npm run test:e2e:db`): built with the Turnstile test site
+//   key, secret + in-memory Mongo, so a valid submit SUCCEEDS and the message lands in `messages`.
 
-test.beforeEach(({}, testInfo) => {
+let clientIp = "";
+test.beforeEach(async ({ context }, testInfo) => {
   test.skip(!isFolio(testInfo), "Folio only");
+  // A distinct client IP per test so the 5-per-hour rate limit is never hit.
+  if (isDb(testInfo)) clientIp = await useClientIp(context);
 });
+
+/** Fail-closed tests only make sense on the keyless server. */
+const keylessOnly = (testInfo: import("@playwright/test").TestInfo) =>
+  test.skip(isDb(testInfo), "keyless server only: the keyed server accepts valid submissions");
 
 const name = (p: Page) => p.locator("#contact-name");
 const email = (p: Page) => p.locator("#contact-email");
@@ -30,8 +43,49 @@ async function fillValid(page: Page) {
   await message(page).fill("Hello, I would like to talk about a project.");
 }
 
-// Since task 2.5 the form calls the real submitContact. The e2e runs a production build with no
-// Turnstile secret, so a valid submit fails closed. These helpers assert that documented behaviour.
+/**
+ * Keyed server: the widget loads on the first interaction with the form and a single-use token
+ * lands in the form once Cloudflare's test key answers. Clicking before `ready` would post no token.
+ * Keyless server: there is no widget, nothing to wait for.
+ */
+async function waitForCheck(page: Page) {
+  const status = page.locator(".f-check-status");
+  if ((await status.count()) === 0) return;
+  await expect(status).toHaveAttribute("data-state", "ready", { timeout: 30_000 });
+}
+
+/** Message landed: via the REST API with the admin JWT, and no raw IP anywhere. */
+async function expectMessageStored(emailAddr: string, body: string) {
+  const { api } = await adminLogin();
+  let doc: Record<string, unknown> | undefined;
+  await expect
+    .poll(
+      async () => {
+        const res = await api.get(`/api/messages?where[email][equals]=${encodeURIComponent(emailAddr)}&limit=5`);
+        doc = ((await res.json()) as { docs: Record<string, unknown>[] }).docs[0];
+        return doc?.id ? 1 : 0;
+      },
+      { timeout: 15_000 },
+    )
+    .toBe(1);
+  expect(doc).toMatchObject({ name: "Ada Lovelace", email: emailAddr, intent: "freelance", body, read: false });
+  await api.dispose();
+
+  // Straight from Mongo: the stored document carries no IP, and the rate-limit key is a hash.
+  const [raw] = await mongoFind("messages", { email: emailAddr });
+  expect(JSON.stringify(raw)).not.toContain(clientIp);
+  expect(Object.keys(raw).filter((k) => /ip|forwarded|address/i.test(k))).toEqual([]);
+  const limits = await mongoFind("rate-limits");
+  expect(limits.length).toBeGreaterThan(0);
+  expect(JSON.stringify(limits)).not.toContain(clientIp);
+  for (const l of limits) expect(l.key).toMatch(/^[0-9a-f]{64}$/);
+}
+
+const VALID_BODY = "Hello, I would like to talk about a project.";
+const uniqueEmail = () => `ada+${Date.now()}-${Math.floor(Math.random() * 1e6)}@example.com`;
+
+// Since task 2.5 the form calls the real submitContact. The keyless e2e build has no Turnstile
+// secret, so a valid submit fails closed. These helpers assert that documented behaviour.
 const FAIL_CLOSED = /The form isn.t available right now/;
 async function expectFailClosed(page: Page) {
   await expect(summary(page)).toBeFocused();
@@ -111,7 +165,8 @@ test("a partial submit refills every field", async ({ page }) => {
   await expect(message(page)).toHaveValue("short");
 });
 
-test("valid submit fails closed without a Turnstile secret and keeps the values", async ({ page }) => {
+test("valid submit fails closed without a Turnstile secret and keeps the values", async ({ page }, testInfo) => {
+  keylessOnly(testInfo);
   await open(page);
   await fillValid(page);
   await submit(page).click();
@@ -119,19 +174,26 @@ test("valid submit fails closed without a Turnstile secret and keeps the values"
   await expectAxeClean(page);
 });
 
-test.fixme("valid submit shows the confirmation and focuses its heading (restored in 3.3 with the Turnstile widget + test DB)", async ({ page }) => {
+test("valid submit shows the confirmation, stores the message and offers another", async ({ page }, testInfo) => {
+  test.skip(!isDb(testInfo), "needs the keyed + DB server (npm run test:e2e:db)");
+  const addr = uniqueEmail();
   await open(page);
   await fillValid(page);
+  await email(page).fill(addr);
+  await waitForCheck(page);
   await submit(page).click();
   const heading = page.locator(".f-contact-sent h2");
   await expect(heading).toBeVisible();
   await expect(heading).toBeFocused();
   await expect(page.locator("form.f-contact-form")).toHaveCount(0);
   await expectAxeClean(page);
+  await expectMessageStored(addr, VALID_BODY);
 
   await page.getByRole("button", { name: "Send another message" }).click();
   await expect(name(page)).toBeFocused();
   await expect(name(page)).toHaveValue("");
+  await expect(email(page)).toHaveValue("");
+  await expect(message(page)).toHaveValue("");
 });
 
 test("a filled honeypot still looks like success", async ({ page }) => {
@@ -178,7 +240,7 @@ test("input attributes and sizes suit phones", async ({ page }) => {
   }
 });
 
-test("keyboard-only completion with arrow keys on the radios", async ({ page }) => {
+test("keyboard-only completion with arrow keys on the radios", async ({ page }, testInfo) => {
   await open(page);
   await name(page).focus();
   await page.keyboard.type("Grace Hopper");
@@ -197,18 +259,24 @@ test("keyboard-only completion with arrow keys on the radios", async ({ page }) 
   await page.keyboard.type("A message long enough to pass.");
   await page.keyboard.press("Tab");
   await expect(submit(page)).toBeFocused();
+  await waitForCheck(page);
+  await expect(submit(page)).toBeFocused();
   await page.keyboard.press("Enter");
-  // Fail-closed in the e2e build (no Turnstile secret). Success path: see the fixme below.
-  await expect(summary(page)).toContainText(FAIL_CLOSED);
-  await expect(page.locator(".f-contact-sent")).toHaveCount(0);
+  if (isDb(testInfo)) {
+    // Keyed server: the keyboard path reaches the confirmation.
+    await expect(page.locator(".f-contact-sent h2")).toBeFocused();
+  } else {
+    // Keyless server: fails closed.
+    await expect(summary(page)).toContainText(FAIL_CLOSED);
+    await expect(page.locator(".f-contact-sent")).toHaveCount(0);
+  }
 });
-
-test.fixme("keyboard-only completion reaches the confirmation (restored in 3.3 with the Turnstile widget + test DB)", async () => {});
 
 test.describe("reduced motion", () => {
   test.use({ reducedMotion: "reduce" });
 
-  test("the form works and fails closed without a Turnstile secret", async ({ page }) => {
+  test("the form works and fails closed without a Turnstile secret", async ({ page }, testInfo) => {
+    keylessOnly(testInfo);
     await open(page);
     await submit(page).click();
     await expect(summary(page)).toBeFocused();
@@ -217,5 +285,14 @@ test.describe("reduced motion", () => {
     await expectFailClosed(page);
   });
 
-  test.fixme("the confirmation shows (restored in 3.3 with the Turnstile widget + test DB)", async () => {});
+  test("the confirmation shows", async ({ page }, testInfo) => {
+    test.skip(!isDb(testInfo), "needs the keyed + DB server (npm run test:e2e:db)");
+    await open(page);
+    await submit(page).click();
+    await expect(summary(page)).toBeFocused();
+    await fillValid(page);
+    await waitForCheck(page);
+    await submit(page).click();
+    await expect(page.locator(".f-contact-sent h2")).toBeFocused();
+  });
 });
