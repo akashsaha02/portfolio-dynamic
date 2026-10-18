@@ -1,4 +1,5 @@
-import { defineConfig, devices } from "@playwright/test";
+import { defineConfig } from "@playwright/test";
+import { viewports } from "./e2e/viewports";
 
 // Both templates are built and served side by side: Editorial from .next on :3100, Folio from
 // .next-folio on :3101 (next.config.ts reads NEXT_DIST_DIR; `build` and `start` must agree).
@@ -7,26 +8,25 @@ import { defineConfig, devices } from "@playwright/test";
 // tests but both servers still start (set PW_TEMPLATE=folio|editorial to start only one).
 // PW_PORT_BASE moves both servers (Editorial = base, Folio = base+1) so parallel worktrees can
 // each run their own; default 3100 is what CI uses.
+//
+// This suite is DB-free and keyless. The DB-backed suite (contact success path, Phase 3 backend
+// behaviour) is playwright.db.config.ts: `npm run test:e2e:db`, server on base+2.
 const portBase = Number(process.env.PW_PORT_BASE ?? 3100);
 const only = process.env.PW_TEMPLATE;
 const withEditorial = only !== "folio";
 const withFolio = only !== "editorial";
 
-const viewports = [
-  { name: "phone", use: { ...devices["Pixel 7"], viewport: { width: 360, height: 740 }, isMobile: true, hasTouch: true } },
-  {
-    name: "phone-large",
-    use: { ...devices["iPhone 14"], viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true },
-    // WebKit hydrates slowly under full-matrix CPU load; only this project gets the longer expect timeout.
-    expect: { timeout: 15_000 },
-  },
-  { name: "tablet", use: { ...devices["Desktop Chrome"], viewport: { width: 768, height: 1024 }, hasTouch: true } },
-  { name: "desktop", use: { ...devices["Desktop Chrome"], viewport: { width: 1440, height: 900 } } },
-];
-
 const server = (template: "editorial" | "folio", port: number, distDir: string) => ({
   command: `npm run build && npm run start -- -p ${port}`,
-  env: { SITE_TEMPLATE: template, NEXT_DIST_DIR: distDir },
+  // DATABASE_URI and the Turnstile keys are forced empty (an empty value beats .env.local), so
+  // the site reads the static content and the contact form fails closed.
+  env: {
+    SITE_TEMPLATE: template,
+    NEXT_DIST_DIR: distDir,
+    DATABASE_URI: "",
+    NEXT_PUBLIC_TURNSTILE_SITE_KEY: "",
+    TURNSTILE_SECRET_KEY: "",
+  },
   url: `http://localhost:${port}`,
   reuseExistingServer: !process.env.CI,
   timeout: 300_000,
@@ -34,6 +34,7 @@ const server = (template: "editorial" | "folio", port: number, distDir: string) 
 
 export default defineConfig({
   testDir: "./e2e",
+  testIgnore: /db-backend\.spec\.ts/,
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
