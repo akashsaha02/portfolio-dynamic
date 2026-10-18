@@ -97,7 +97,7 @@ test("draft -> preview only: anonymous visitors never see it, the admin preview 
 
 test("availability toggle (updateTag): the hero changes on the next request", async ({ browser }) => {
   // The status dot in the hero chip is drawn unless the status is "closed".
-  const dot = (html: string) => /f-hero-role.*?<\/div>/s.exec(html)?.[0].includes("f-dot") ?? false;
+  const dot = (html: string) => /f-hero-role[\s\S]*?<\/div>/.exec(html)?.[0].includes("f-dot") ?? false;
   expect(dot(await page("/")())).toBe(true); // seeded status is "open"
 
   const context = await browser.newContext({ baseURL: DB_BASE_URL, storageState: admin.storageState });
