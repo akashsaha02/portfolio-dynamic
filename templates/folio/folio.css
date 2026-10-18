@@ -496,6 +496,22 @@ html[data-folio-menu-open] body {
     }
   }
 
+  /*
+   * md+ curved left edge (CurvedEdge, hidden on phone). Its path ends sit on the panel's edge, so
+   * scaling the SVG from that edge moves only the control point: the curve bows while the panel
+   * slides and flattens as it settles, then bows again on the way out (dennissnellenberg.com).
+   * Same duration and easing as the slide. Reduced motion keeps the static curve.
+   */
+  @media (prefers-reduced-motion: no-preference) {
+    .f-menu-curve {
+      transform-origin: 100% 50%;
+      transition: transform var(--dur-smooth) var(--ease-inout);
+    }
+    .f-menu[data-open] .f-menu-curve {
+      transform: scaleX(0);
+    }
+  }
+
   .f-menu-backdrop {
     display: none;
     position: fixed;
@@ -595,6 +611,7 @@ html[data-folio-menu-open] body {
       --f-cta: 13rem;
     }
   }
+  /* The curve's tween is at the end of this file (scroll-driven, behind @supports). */
   .f-footer-rule {
     margin-top: calc(var(--f-cta) / 2 + 2rem);
   }
@@ -1007,6 +1024,32 @@ html[data-folio-menu-open] body {
     }
     .f-slide-row + .f-slide-row {
       animation-name: f-slide-b;
+    }
+  }
+}
+
+/*
+ * Footer curve: flattens from the full bow (as it comes up from the bottom of the screen) to a
+ * straight edge by the time it reaches the middle. The SVG is the timeline and stays put; only its
+ * path scales, from the bottom edge where it meets the footer. Static curve where unsupported or
+ * with reduced motion. Touch too: it is scroll-linked CSS, no JS.
+ */
+@keyframes f-curve-flatten {
+  to {
+    transform: scaleY(0);
+  }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .f-footer-curve {
+      view-timeline: --f-footer-curve block;
+    }
+    .f-footer-curve path {
+      transform-box: view-box;
+      transform-origin: 50% 100%;
+      animation: f-curve-flatten linear both;
+      animation-timeline: --f-footer-curve;
+      animation-range: entry 0% contain 50%;
     }
   }
 }

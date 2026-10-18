@@ -2,8 +2,10 @@ import type { CSSProperties } from "react";
 
 // Curved section edge (guide §4.1 menu panel, §4.2 footer): a quadratic curve that bulges out of
 // one edge of its (position: relative) host, filled with the host's colour. Static by default.
-// The path is `M… Q…` with the control point at twice the depth, so a later tween (footer
-// flattening on scroll, the menu panel morph in 1.2) only has to move that one number.
+// The path is `M… Q…` with both ends on the host's edge and the control point at twice the depth,
+// so scaling the SVG (or its path) towards that edge moves only the control point: that is how the
+// menu panel morph and the footer flattening animate it, transform-only, in CSS (folio.css
+// .f-menu-curve, .f-footer-curve; work plan 5.1).
 //
 // The SVG is absolutely positioned outside the host, so it paints over the next section as long
 // as that section is not itself positioned later in the DOM; give the host `relative z-[1]` if

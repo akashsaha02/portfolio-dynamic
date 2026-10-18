@@ -9,7 +9,8 @@ import { Check, CopyIcon } from "../ui/icons";
 import { Magnetic } from "../ui/Magnetic";
 import { RoundButton } from "../ui/RoundButton";
 
-// Footer (guide §4.2 row 7): an ink surface whose curved top edge rises into the paper above.
+// Footer (guide §4.2 row 7): an ink surface whose curved top edge rises into the paper above and
+// flattens as it scrolls up the screen (CSS scroll-driven where supported, .f-footer-curve).
 // Optional avatar + "Let's work together", the big round "Get in touch" sitting on a hairline,
 // email (copy on tap) and optional phone as pills, stacked full width on phone and side by side
 // from md, then version · live local time · socials above the bottom safe area.
@@ -34,7 +35,7 @@ export function Footer({ profile, site, variant = "full" }: FooterProps) {
       aria-labelledby={compact ? undefined : "footer-title"}
       className="f-footer relative surface-ink mt-[7svh] md:mt-[12svh]"
     >
-      <CurvedEdge edge="top" fill="var(--ink)" />
+      <CurvedEdge edge="top" fill="var(--ink)" className="f-footer-curve" />
       <div className={`f-bleed ${compact ? "pt-10 md:pt-14" : "pt-section"}`}>
         {compact ? null : <FooterCta profile={profile} />}
 
