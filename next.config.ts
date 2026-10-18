@@ -51,6 +51,14 @@ const nextConfig: NextConfig = {
       { source: "/api/media/file/:path*", headers: uploadHeaders },
     ];
   },
+  // Telemetry JS only in Vercel production builds (components/shared/Telemetry.tsx). Replaced at
+  // build time in server code, so the client code isn't even bundled anywhere else.
+  compiler: {
+    defineServer: {
+      "process.env.VERCEL_TELEMETRY": process.env.VERCEL_ENV === "production" ? "on" : "off",
+    },
+  },
+
   // cacheComponents stays off: see docs/decisions/cache-components.md (work plan 2.2 spike).
 
   // Lets the Editorial and Folio e2e builds sit side by side (e.g. NEXT_DIST_DIR=.next-folio).
