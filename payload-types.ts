@@ -141,8 +141,6 @@ export interface UserAuthOperations {
   };
 }
 /**
- * Drag rows to reorder (while the list isn’t sorted by a column); the site uses this order. Changes stay drafts until you press Publish.
- *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "projects".
  */
@@ -865,9 +863,9 @@ export interface Profile {
 export interface SiteSetting {
   id: string;
   /**
-   * Which template renders the public site.
+   * Which template renders the public site. Folio is the only one (Editorial v1 is archived).
    */
-  activeTemplate: 'editorial' | 'folio';
+  activeTemplate: 'folio';
   /**
    * Footer label, e.g. 2026 © Edition.
    */

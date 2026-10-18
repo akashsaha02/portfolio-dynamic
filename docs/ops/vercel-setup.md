@@ -1,6 +1,6 @@
 # Vercel setup (preview deploys)
 
-Goal: every branch and pull request gets its own URL you can open on your phone, while Production (`main`) keeps showing the Editorial design until launch. About 10 minutes, all in the browser. Nothing here needs the Vercel CLI, and nothing needs a credit card.
+Goal: every branch and pull request gets its own URL you can open on your phone. (Since work plan 5.2, Folio is the only template; the Editorial design is archived at git tag `v1-editorial`.) About 10 minutes, all in the browser. Nothing here needs the Vercel CLI, and nothing needs a credit card.
 
 UI wording was checked against the Vercel docs on 2026-10-12 (links at the bottom). Vercel renames menus now and then; if a label differs, search the sidebar for the words in bold.
 
@@ -28,7 +28,7 @@ UI wording was checked against the Vercel docs on 2026-10-12 (links at the botto
    | Install Command | default, Override off |
 
    Do not add environment variables on this page. Add them in step 3 so you can pick the right scope for each.
-6. Click **Deploy**. The first build takes about a minute and publishes **Production** from `main`. It will show the Editorial design, which is correct.
+6. Click **Deploy**. The first build takes about a minute and publishes **Production** from `main`. It shows the Folio design.
 
 ## 2. Pin Node 22 and check the production branch
 
@@ -45,16 +45,11 @@ Go to **Settings** then **Environment Variables**. For each: type the **Name**, 
 
 | Name | Value | Environments | Why |
 | --- | --- | --- | --- |
-| `SITE_TEMPLATE` | `folio` | **Preview only** (untick Production and Development). **Interim only, see the note below** | Until a database is connected, previews show the new Folio design through this variable. Production has no value, so it falls back to `editorial` until launch. |
 | `NEXT_PUBLIC_SITE_URL` | your production URL, for example `https://portfolio-dynamic.vercel.app` | **Optional**: Production (and Preview if you like) | Only used for canonical and Open Graph tags. It is derived automatically from Vercel's own system variables (the production domain on Production, the deployment URL on Previews), so skip it unless you want to advertise a different domain (for example a custom one). |
 
-Both are read at build time, so a change only applies to the next deployment. After saving, go to **Deployments**, open the three-dot menu on the latest deployment and choose **Redeploy**, or just push a new commit.
+It is read at build time, so a change only applies to the next deployment. After saving, go to **Deployments**, open the three-dot menu on the latest deployment and choose **Redeploy**, or just push a new commit.
 
-**When to remove `SITE_TEMPLATE` (interim rule).** The variable is only the no-database fallback. Once `DATABASE_URI` is set for a scope, the template comes from the database (admin, Site settings, **Active template**) and `SITE_TEMPLATE` is ignored for that scope. So:
-
-- No database yet (the situation until Atlas is connected): keep `SITE_TEMPLATE=folio` on Preview as above; it is the only thing that picks the template.
-- Right after you add `DATABASE_URI` to Preview and the seeded database shows the template you want: **delete `SITE_TEMPLATE` from Preview** (leaving it is harmless but confusing, since it looks like it controls something). Redeploy.
-- Launch: do not add `SITE_TEMPLATE` to Production. With `DATABASE_URI` on Production, switch the template in the admin (no redeploy). Only if Production ran without a database would you set `SITE_TEMPLATE=folio` there. The seed copies `SITE_TEMPLATE` into the database once (`docs/ops/preview-env.md` section 2).
+**`SITE_TEMPLATE` is no longer needed.** Folio is the only template and the default (work plan 5.2). If an earlier setup added `SITE_TEMPLATE` (for example `folio` on Preview), delete it; a leftover `editorial` value still builds, as Folio, with a warning in the build log.
 
 Node is pinned by `engines` in `package.json` (`22.x`), which Vercel honours; the dashboard setting in step 2 should match it. When the two differ, `package.json` wins.
 
@@ -90,7 +85,7 @@ Notes on the other options on that page: **Password Protection** is not availabl
 After the first deploy and after setting the env vars (redeploy once):
 
 - [ ] The project Overview shows a **Production** deployment from `main` with status Ready, and the site loads on the `*.vercel.app` production URL.
-- [ ] Production shows the **Editorial** design (no `SITE_TEMPLATE` and no `DATABASE_URI` there; with a database, the admin's Active template decides).
+- [ ] Production shows the **Folio** design.
 - [ ] Push a test branch (or open a PR). Within about a minute a **Preview** deployment appears under **Deployments** and a bot comment shows up on the PR.
 - [ ] The preview URL loads and shows the **Folio** design.
 - [ ] `/`, `/work`, `/work/abroadly`, `/about`, `/contact` all load on the preview, with no console errors and images visible.
@@ -115,13 +110,13 @@ Counters are per region, so a limit can be exceeded across regions. This is a br
 
 ## Why there is no `vercel.json`
 
-Vercel detects Next.js and runs `next build` with the right output on its own, `.vercel/` is already in `.gitignore`, and the build needs no git-ignored files (a build from a fresh clone with `SITE_TEMPLATE=folio` and `NEXT_PUBLIC_SITE_URL` set passes with no `.env` file). Redirects, headers and image limits live in `next.config.ts`. Add `vercel.json` only if we later need cron jobs, region pinning, or per-branch build skipping.
+Vercel detects Next.js and runs `next build` with the right output on its own, `.vercel/` is already in `.gitignore`, and the build needs no git-ignored files (a build from a fresh clone with `NEXT_PUBLIC_SITE_URL` set passes with no `.env` file). Redirects, headers and image limits live in `next.config.ts`. Add `vercel.json` only if we later need cron jobs, region pinning, or per-branch build skipping.
 
 ## What can go wrong
 
 - **Repository missing in the import list.** The Vercel GitHub app does not have access to it. GitHub, then Settings, Applications, Vercel, Configure, add the repo. Or the repo is owned by an organization (not allowed on Hobby).
 - **Build fails on install.** See the npm note in step 2.
-- **Preview still shows Editorial.** With no `DATABASE_URI`: the env var was added after that deployment was built, or it is scoped to Production; check the scope, then redeploy. With `DATABASE_URI` set, `SITE_TEMPLATE` is ignored; change Active template in the admin.
+- **A deployment still shows Editorial.** It was built from a commit before work plan 5.2; redeploy from current `main` or the branch.
 - **Preview asks for Vercel login on the phone.** See "If the phone shows a Vercel login page".
 - **No preview appears.** The branch was not pushed, or the commit author is not the Hobby team owner (for a private or organization repo). Here the repo is public and personal, so this should not apply.
 - **Hobby limits.** 100 deployments a day and 100 GB transfer a month; one push to a PR branch is one deployment. See `docs/ops/free-tier.md`.

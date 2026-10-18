@@ -1,7 +1,7 @@
-// Static site content. This is the seed source until Payload is live (work plan 2.4), and the
-// Editorial template (components/hero, components/sections) still imports it directly.
+// Static site content: the seed source (scripts/seed.ts) and, through lib/static-content.ts, the
+// no-database fallback (local builds, CI, e2e).
 //
-// New templates must NOT import this file: they get `SiteContent` from `lib/data.ts` via props.
+// Templates must NOT import this file: they get `SiteContent` from `lib/data.ts` via props.
 // Fields marked "derived" were worked out from existing entries or public sources and should be
 // confirmed by Akash in the content pass (work plan 1.8 / 5.3).
 
@@ -23,8 +23,6 @@ export const profile = {
   // Draft by lead: first sentence of `about`, pending Akash's OK.
   statement: "I build web products end to end, from the database schema to the screen people tap.",
   // phone: omitted on purpose; guide §13 keeps it off unless Akash wants it public.
-  github,
-  linkedin,
   intro:
     "Full-stack developer in Dhaka. I build SaaS products with MongoDB, Express, React and Node, and I’ve published research on deep learning for plant disease detection.",
   about:
@@ -193,9 +191,9 @@ export type Project = {
   slug: string;
   kind: string;
   type: "fullstack" | "ml";
-  /** Display period used by the Editorial cards. */
+  /** Display period ("2024–25"); becomes `year` in SiteContent when `year` is absent. */
   period?: string;
-  /** Display year for new templates when `period` is absent. */
+  /** Display year. Takes precedence over `period`. */
   year?: string;
   /** Shown in Folio's "Recent work" (guide §4.2: Abroadly, Nook, SoulMatch, Cerebral Insights). */
   featured: boolean;
@@ -211,7 +209,7 @@ export type Project = {
   caseStudy?: CaseStudy;
 };
 
-// Array order is the display order. First entry is the Editorial featured project.
+// Array order is the display order.
 export const projects: Project[] = [
   {
     name: "Abroadly",
