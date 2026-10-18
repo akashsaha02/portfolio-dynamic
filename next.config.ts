@@ -34,6 +34,16 @@ const uploadHeaders = [
   },
 ];
 
+// PDFs (the résumé): the same policy without `sandbox`, which stops Chrome's built-in PDF viewer
+// from rendering the file. A PDF can't run script in the site's origin (the viewer is isolated), so
+// the sandbox only matters for SVG/HTML-like files, and those keep it.
+const uploadPdfHeaders = [
+  {
+    key: "Content-Security-Policy",
+    value: "default-src 'none'; img-src 'self' data:; style-src 'unsafe-inline'; frame-ancestors 'self'",
+  },
+];
+
 // The admin and the JSON API should never show up in search results (robots.txt already disallows
 // crawling; this also covers pages linked from elsewhere).
 const noindex = [{ key: "X-Robots-Tag", value: "noindex, nofollow" }];
@@ -49,6 +59,8 @@ const nextConfig: NextConfig = {
       { source: "/admin/:path*", headers: noindex },
       // Must stay after the site-wide rule: the last matching rule wins for Content-Security-Policy.
       { source: "/api/media/file/:path*", headers: uploadHeaders },
+      // After the upload rule, so it wins for PDFs only. Case-insensitive extension.
+      { source: "/api/media/file/:file(.*\\.[pP][dD][fF])", headers: uploadPdfHeaders },
     ];
   },
   // Telemetry JS only in Vercel production builds (components/shared/Telemetry.tsx). Replaced at
