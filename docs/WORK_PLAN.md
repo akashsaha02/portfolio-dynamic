@@ -128,7 +128,7 @@ Merge order: 3.1 → 3.2 → 3.3 → 3.4 → 3.5; 3.6 alongside.
 | 4.4 | CI: full unit + e2e (phone + desktop Chromium, WebKit phone), Lighthouse CI blocking with guide §5 budgets | monitoring | 4.1–4.3 | CI fails on a deliberate regression, passes on main | done |
 | 4.5 | Full audit: spec, mobile rules, accessibility (keyboard + screen reader), performance per page, motion, security, free-tier settings | qa | 3.G | Findings report with owners | done |
 | 4.6 | Fix every blocker and major finding from 4.2–4.5 | folio-design / backend (by owner) | 4.5 | QA re-check passes | done |
-| 4.G | **Gate:** all tests green in CI, QA PASS | qa | 4.1–4.6 | PASS | todo |
+| 4.G | **Gate:** all tests green in CI, QA PASS | qa | 4.1–4.6 | PASS | done |
 
 ---
 
