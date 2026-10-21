@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { CopyButton } from "@/components/shared/CopyButton";
 import { LocalTime } from "@/components/shared/LocalTime";
+import { LiveVisitors } from "@/components/shared/realtime/LiveVisitors";
 import type { Profile, SiteMeta } from "@/lib/content-types";
 import { RollLabel } from "../ui/Action";
 import { CurvedEdge } from "../ui/CurvedEdge";
@@ -66,6 +67,8 @@ export function Footer({ profile, site, variant = "full" }: FooterProps) {
               </dd>
             </div>
           </dl>
+          {/* "N people here now" (work plan 6.5, realtime task); renders nothing until it is live. */}
+          <LiveVisitors className="flex min-h-11 items-center text-sm" />
           <div>
             <p className="type-label">Annotations</p>
             <AnnotationsToggle />
