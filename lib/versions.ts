@@ -32,7 +32,7 @@ export const VERSIONS: VersionEntry[] = [
     name: "Editorial",
     period: "Oct 2026",
     description: "The first version: one long page on paper and ink with a lime accent.",
-    href: "/v/editorial/",
+    href: "/v/editorial",
     tag: "v1-editorial",
     image: {
       src: "/v/editorial-cover.webp",
