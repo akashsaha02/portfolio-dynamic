@@ -93,9 +93,52 @@ export type TemplateMeta = {
   id: TemplateId;
   name: string;
   description: string;
-  /** `legacy` = archived design kept for the version archive (work plan 6.3). */
+  /**
+   * `current` = can be activated in the admin. `placeholder` = still being built: the admin can
+   * preview it but not activate it. `legacy` = archived design kept for the version archive.
+   */
   status: "current" | "legacy" | "placeholder";
 };
+
+/**
+ * Name, description and status of every template. Plain data (no React), so the Payload config
+ * (globals/SiteSettings.ts), the admin dashboard and the preview banner can read it without
+ * importing the template modules; registry.ts pairs each entry with its pages.
+ * To make a template selectable in the admin, set its `status` to "current" here and run
+ * `npm run generate:types` (the `activeTemplate` options change).
+ */
+export const TEMPLATE_META: Record<TemplateId, TemplateMeta> = {
+  folio: {
+    id: "folio",
+    name: "Folio",
+    description: "Mobile-first multi-page template (guide §3–§4).",
+    status: "current",
+  },
+  index: {
+    id: "index",
+    name: "Index",
+    description: "Two-column, recruiter-first: everything on one scroll (work plan 6.4).",
+    status: "placeholder",
+  },
+};
+
+/** Ids the admin may activate: templates whose status is `current`, in TEMPLATE_IDS order. */
+export const ACTIVATABLE_TEMPLATE_IDS: readonly TemplateId[] = TEMPLATE_IDS.filter(
+  (id) => TEMPLATE_META[id].status === "current",
+);
+
+export function isActivatableTemplateId(value: unknown): value is TemplateId {
+  return isTemplateId(value) && TEMPLATE_META[value].status === "current";
+}
+
+/**
+ * A stored `activeTemplate` as one the site may publish: activatable ids pass through; anything
+ * else (retired, placeholder, unknown) becomes DEFAULT_TEMPLATE. Used by the site-settings
+ * global's hooks, so a template set back to `placeholder` stops rendering for visitors.
+ */
+export function toActivatableTemplateId(value: unknown): TemplateId {
+  return isActivatableTemplateId(value) ? value : DEFAULT_TEMPLATE;
+}
 
 export type TemplateDefinition = {
   meta: TemplateMeta;

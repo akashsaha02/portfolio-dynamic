@@ -114,6 +114,7 @@ export interface Config {
     'unread-messages': UnreadMessagesWidget;
     availability: AvailabilityWidget;
     'quick-links': QuickLinksWidget;
+    templates: TemplatesWidget;
     collections: CollectionsWidget;
   };
   user: User;
@@ -863,7 +864,7 @@ export interface Profile {
 export interface SiteSetting {
   id: string;
   /**
-   * Which template renders the public site. Folio is the only one (Editorial v1 is archived).
+   * Which template renders the public site. To look at one first, use Preview in the dashboard's Templates widget.
    */
   activeTemplate: 'folio';
   /**
@@ -1009,6 +1010,16 @@ export interface AvailabilityWidget {
  * via the `definition` "quick-links_widget".
  */
 export interface QuickLinksWidget {
+  data?: {
+    [k: string]: unknown;
+  };
+  width: 'medium' | 'large' | 'x-large' | 'full';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "templates_widget".
+ */
+export interface TemplatesWidget {
   data?: {
     [k: string]: unknown;
   };

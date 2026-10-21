@@ -31,7 +31,7 @@ import type {
   SkillGroup,
 } from "../content-types";
 import { formatPeriod } from "../format";
-import { toTemplateId, type SiteSettings } from "../../templates/types";
+import { toActivatableTemplateId, type SiteSettings } from "../../templates/types";
 import { PUBLICATION_STATUSES, SKILL_GROUPS } from "./options";
 
 /** What lib/payload/read.ts loads for `SiteContent`. Lists are already in drag order. */
@@ -226,9 +226,10 @@ export function mapSiteContent(docs: ContentDocs): SiteContent {
 export function mapSettings(s: SettingsDoc): SiteSettings {
   const a = s.announcement;
   return {
-    // A stored id that is no longer a template ("editorial", retired in 5.2) renders the default
-    // instead of failing every page. globals/SiteSettings.ts coerces it on read and save as well.
-    activeTemplate: toTemplateId(s.activeTemplate),
+    // A stored id that is no longer a template ("editorial", retired in 5.2) or not activatable
+    // yet (a `placeholder`) renders the default instead of failing every page or publishing an
+    // unfinished design. globals/SiteSettings.ts coerces it on read and save as well.
+    activeTemplate: toActivatableTemplateId(s.activeTemplate),
     contactFormEnabled: s.contactFormEnabled ?? true,
     announcement: a?.enabled && filled(a.text) ? { text: a.text, ...optional("url", a.url) } : null,
   };

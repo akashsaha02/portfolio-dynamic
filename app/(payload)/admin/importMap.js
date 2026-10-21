@@ -6,6 +6,7 @@ import { AdminLogo as AdminLogo_81fda60f3e3709e861f40982a767707d } from '../../.
 import { UnreadMessagesWidget as UnreadMessagesWidget_97ade92fe76c6e4b3d6604cc070c3cb4 } from '../../../components/admin/UnreadMessagesWidget'
 import { AvailabilityWidget as AvailabilityWidget_8cd773d8420869e543fa2b25b41063c1 } from '../../../components/admin/AvailabilityWidget'
 import { QuickLinksWidget as QuickLinksWidget_e729bb006c1eb0962baf9e22f1a53833 } from '../../../components/admin/QuickLinksWidget'
+import { TemplatesWidget as TemplatesWidget_ed6e2f89429d26b7556315ee3b19ce08 } from '../../../components/admin/TemplatesWidget'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 import { VercelBlobClientUploadHandler as VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e } from '@payloadcms/storage-vercel-blob/client'
 
@@ -19,6 +20,7 @@ export const importMap = {
   "/components/admin/UnreadMessagesWidget#UnreadMessagesWidget": UnreadMessagesWidget_97ade92fe76c6e4b3d6604cc070c3cb4,
   "/components/admin/AvailabilityWidget#AvailabilityWidget": AvailabilityWidget_8cd773d8420869e543fa2b25b41063c1,
   "/components/admin/QuickLinksWidget#QuickLinksWidget": QuickLinksWidget_e729bb006c1eb0962baf9e22f1a53833,
+  "/components/admin/TemplatesWidget#TemplatesWidget": TemplatesWidget_ed6e2f89429d26b7556315ee3b19ce08,
   "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1,
   "@payloadcms/storage-vercel-blob/client#VercelBlobClientUploadHandler": VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e
 }

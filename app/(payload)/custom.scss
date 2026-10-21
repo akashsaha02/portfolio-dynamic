@@ -271,6 +271,107 @@
   }
 }
 
+// Shared bits for the 6.x widgets
+.ak-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.ak-badge--ok {
+  margin-left: 0.5rem;
+  background: var(--theme-success-500);
+  color: var(--theme-bg);
+}
+
+.ak-templates__name .ak-badge:not(.ak-badge--ok) {
+  margin-left: 0.5rem;
+  font-weight: 400;
+}
+
+.ak-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px; // tap target (QA F-09)
+  padding: 0 1rem;
+  border: 1px solid var(--theme-elevation-250);
+  border-radius: 999px;
+  background: var(--theme-elevation-0);
+  color: var(--theme-text);
+  font: inherit;
+  font-size: 0.875rem;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover:not(:disabled) {
+    border-color: var(--theme-text);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--theme-text);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+
+  &--primary {
+    border-color: var(--theme-text);
+    background: var(--theme-text);
+    color: var(--theme-bg);
+  }
+}
+
+// Templates widget (work plan 6.4)
+.ak-templates {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li + li {
+    border-top: 1px solid var(--theme-elevation-100);
+  }
+}
+
+.ak-templates__item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  padding: 0.6rem 0;
+}
+
+.ak-templates__text {
+  display: flex;
+  flex: 1 1 14rem;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.ak-templates__name {
+  font-weight: 600;
+}
+
+.ak-templates__desc {
+  color: var(--theme-elevation-650);
+  font-size: 0.85rem;
+}
+
+.ak-templates__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 @media (max-width: 480px) {
   .ak-segmented__hint {
     display: none;

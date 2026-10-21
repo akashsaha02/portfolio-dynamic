@@ -3,9 +3,11 @@ import { CACHE_TAGS } from "../lib/cache-tags";
 import { anyone, isAdmin } from "../lib/payload/access";
 import { revalidateGlobal } from "../lib/payload/revalidate";
 import { link } from "../lib/payload/validate";
-import { DEFAULT_TEMPLATE, TEMPLATE_IDS, toTemplateId } from "../templates/types";
+import { ACTIVATABLE_TEMPLATE_IDS, DEFAULT_TEMPLATE, TEMPLATE_META, toActivatableTemplateId } from "../templates/types";
 
-const coerceTemplate: FieldHook = ({ value }) => toTemplateId(value);
+// Only templates with status "current" (TEMPLATE_META) are options; a stored id that isn't one
+// (retired "editorial", a template set back to "placeholder") reads and saves as the default.
+const coerceTemplate: FieldHook = ({ value }) => toActivatableTemplateId(value);
 
 /**
  * Site-wide settings. `activeTemplate`, `contactFormEnabled` and `announcement` map to
@@ -26,11 +28,14 @@ export const SiteSettings: GlobalConfig = {
       type: "select",
       required: true,
       defaultValue: DEFAULT_TEMPLATE,
-      options: TEMPLATE_IDS.map((id) => ({ label: id[0].toUpperCase() + id.slice(1), value: id })),
+      options: ACTIVATABLE_TEMPLATE_IDS.map((id) => ({ label: TEMPLATE_META[id].name, value: id })),
       // A stored id that is no longer an option ("editorial", retired in work plan 5.2) reads as
       // the default, so the admin form shows a valid choice and saving it doesn't fail validation.
       hooks: { afterRead: [coerceTemplate], beforeValidate: [coerceTemplate] },
-      admin: { description: "Which template renders the public site. Folio is the only one (Editorial v1 is archived)." },
+      admin: {
+        description:
+          "Which template renders the public site. To look at one first, use Preview in the dashboard's Templates widget.",
+      },
     },
     {
       name: "versionLabel",

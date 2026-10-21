@@ -101,11 +101,18 @@ export default buildConfig({
           Component: "/components/admin/QuickLinksWidget#QuickLinksWidget",
           minWidth: "medium",
         },
+        {
+          slug: "templates",
+          label: "Templates",
+          Component: "/components/admin/TemplatesWidget#TemplatesWidget",
+          minWidth: "medium",
+        },
       ],
       defaultLayout: [
         { widgetSlug: "unread-messages", width: "medium" },
         { widgetSlug: "availability", width: "medium" },
         { widgetSlug: "quick-links", width: "full" },
+        { widgetSlug: "templates", width: "full" },
         // Payload's built-in collection/global cards.
         { widgetSlug: "collections", width: "full" },
       ],

@@ -14,18 +14,23 @@
 //
 // Draft mode (3.4): drafts are read only when draft mode is on AND the request carries the
 // admin's Payload session; those reads skip the cache (Next also bypasses unstable_cache in draft
-// mode). Request data (draftMode/headers) is only read outside the cached functions.
+// mode). Request data (draftMode/headers/cookies) is only read outside the cached functions.
+//
+// Template preview (6.4): the same admin-in-draft-mode check, plus a cookie from
+// /api/template-preview, swaps `activeTemplate` in getSettings(). Everyone else gets the
+// published setting.
 
 import { unstable_cache } from "next/cache";
-import { draftMode, headers } from "next/headers";
+import { cookies, draftMode, headers } from "next/headers";
 import type { Payload, TypedUser } from "payload";
 import { cache } from "react";
 import { CACHE_TAGS } from "./cache-tags";
 import type { Project, CaseStudy, SiteContent } from "./content-types";
+import { TEMPLATE_PREVIEW_COOKIE } from "./draft";
 import { mapSettings, mapSiteContent } from "./payload/map";
 import { readContentDocs, readSettingsDoc } from "./payload/read";
 import { staticSettings, staticSiteContent } from "./static-content";
-import type { SiteSettings } from "@/templates/types";
+import { isTemplateId, type SiteSettings, type TemplateId } from "@/templates/types";
 
 /** Safety net only: tags do the real invalidation. One day, in seconds. */
 const SAFETY_REVALIDATE = 86_400;
@@ -113,12 +118,30 @@ export const getSiteContent = cache(async (): Promise<SiteContent> => {
 });
 
 /**
+ * The template the admin is previewing (work plan 6.4), or null. Only when draft mode is on, the
+ * request carries the admin's session (getPreviewUser) AND the preview cookie set by
+ * /api/template-preview holds a template id. The cookie is read only after those checks, so a
+ * visitor's request never reads it and prerendered pages stay static.
+ */
+export const getPreviewTemplate = cache(async (): Promise<TemplateId | null> => {
+  const admin = await getPreviewUser();
+  if (!admin) return null;
+  const value = (await cookies()).get(TEMPLATE_PREVIEW_COOKIE)?.value;
+  return isTemplateId(value) ? value : null;
+});
+
+/**
  * Site settings: the active template plus operational toggles. From the Payload `site-settings`
  * global when there is a database; otherwise lib/content.ts with SITE_TEMPLATE (build time).
- * The global has no drafts, so preview and live read the same document.
+ * The global has no drafts, so preview and live read the same document; a template preview only
+ * swaps `activeTemplate`, outside the cached read (draft requests skip the cache anyway).
  */
 export const getSettings = cache(async (): Promise<SiteSettings> => {
-  return hasDatabase() ? readPublishedSettings() : staticSettings();
+  const [published, preview] = await Promise.all([
+    hasDatabase() ? readPublishedSettings() : staticSettings(),
+    getPreviewTemplate(),
+  ]);
+  return preview ? { ...published, activeTemplate: preview } : published;
 });
 
 type WithCaseStudy = Project & { caseStudy: CaseStudy };

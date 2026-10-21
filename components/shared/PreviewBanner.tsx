@@ -1,6 +1,7 @@
 import { draftMode, headers } from "next/headers";
-import { getPreviewUser } from "@/lib/data";
+import { getPreviewTemplate, getPreviewUser } from "@/lib/data";
 import { originFromHeaders } from "@/lib/payload/preview";
+import { TEMPLATE_META } from "@/templates/types";
 import { RefreshRouteOnSave } from "./RefreshRouteOnSave";
 
 /**
@@ -8,7 +9,7 @@ import { RefreshRouteOnSave } from "./RefreshRouteOnSave";
  * nothing unless draft mode is on, so prerendered pages are unchanged and ship no extra JS.
  *
  * In draft mode it says whether drafts are shown (signed-in admin) or not (draft cookie but no
- * session), mounts the live-preview refresher for the admin, and offers "Exit preview": a plain
+ * session), names the template when the admin is previewing one (work plan 6.4), mounts the live-preview refresher for the admin, and offers "Exit preview": a plain
  * GET form to /api/draft/disable, not a <Link> (a prefetch would clear the cookie early). The
  * route sends the editor back to this page.
  */
@@ -16,8 +17,13 @@ export async function PreviewBanner() {
   const { isEnabled } = await draftMode();
   if (!isEnabled) return null;
 
-  const user = await getPreviewUser();
+  const [user, previewTemplate] = await Promise.all([getPreviewUser(), getPreviewTemplate()]);
   const serverURL = originFromHeaders(await headers());
+  const message = previewTemplate
+    ? `Previewing the ${TEMPLATE_META[previewTemplate].name} template, with unpublished drafts. Visitors still see the published site.`
+    : user
+      ? "Preview: you’re seeing unpublished drafts. Visitors still see the published site."
+      : "Preview mode is on, but you’re signed out, so this is the published site.";
 
   return (
     <>
@@ -27,9 +33,7 @@ export async function PreviewBanner() {
         className="fixed inset-x-4 bottom-4 z-50 mx-auto flex max-w-md flex-wrap items-center justify-between gap-x-4 gap-y-2 rounded-2xl bg-ink px-4 py-3 text-sm text-on-ink shadow-lg"
       >
         <p role="status" className="min-w-0 flex-1">
-          {user
-            ? "Preview: you’re seeing unpublished drafts. Visitors still see the published site."
-            : "Preview mode is on, but you’re signed out, so this is the published site."}
+          {message}
         </p>
         <form method="get" action="/api/draft/disable">
           <button

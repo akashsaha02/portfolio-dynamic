@@ -1,4 +1,12 @@
-// Helpers for the draft-mode route handlers in app/(site)/api/draft/.
+// Helpers for the draft-mode route handlers in app/(site)/api/draft/ and
+// app/(site)/api/template-preview/.
+
+/**
+ * Cookie that holds the template id the admin is previewing (work plan 6.4). Set only by
+ * /api/template-preview for a signed-in admin, cleared by /api/draft/disable. lib/data.ts honours
+ * it only in draft mode AND with the admin's session, so the cookie alone does nothing.
+ */
+export const TEMPLATE_PREVIEW_COOKIE = "ak-template-preview";
 
 /**
  * The same-origin path to send the editor to after toggling draft mode, from `?path=`.
