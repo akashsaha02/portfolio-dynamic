@@ -2,6 +2,7 @@ import type { CSSProperties } from "react";
 import Link from "next/link";
 import type { Profile } from "@/lib/content-types";
 import { RollLabel } from "../ui/Action";
+import { CommandMenuEntry } from "./MenuTriggers";
 import { ariaCurrent, MORE_PAGES, SHELL_PAGES, type ShellPage } from "./pages";
 
 // What the menu panel shows (guide §4.1): big links (Home, Work, About, Contact) with a lime dot
@@ -51,6 +52,10 @@ export function MenuNav({ profile, current, section }: MenuNavProps) {
                 </Link>
               </li>
             ))}
+            {/* Touch only: the ⌘K menu has no other way in there (work plan 6.2). */}
+            <li className="f-cmdk-touch">
+              <CommandMenuEntry />
+            </li>
           </ul>
         </nav>
         <div>

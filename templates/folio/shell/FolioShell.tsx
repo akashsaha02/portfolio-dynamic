@@ -1,5 +1,7 @@
 import { ViewTransition, type ReactNode } from "react";
+import { CommandMenu } from "@/components/shared/CommandMenu";
 import type { TemplateProps } from "../../types";
+import { folioCommands } from "../commands";
 import { FocusMain } from "./FocusMain";
 import { Footer, type FooterVariant } from "./Footer";
 import { MenuNav } from "./MenuNav";
@@ -27,6 +29,9 @@ import "../transitions.css";
 // with no DOM node above it in the subtree that mounts. `default="none"` keeps every other
 // transition (form actions, filters) from animating. No-op where View Transitions are missing.
 // FocusMain puts focus on the new <main> after each client navigation (QA F-04).
+//
+// The ⌘K command menu (work plan 6.2, components/shared/CommandMenu.tsx) is mounted here with
+// Folio's commands (commands.ts); only its listener ships, the dialog loads on first open.
 
 type FolioShellProps = TemplateProps & {
   /** The page being shown: aria-current="page" and the dot in the top bar and the menu. */
@@ -78,6 +83,8 @@ export function FolioShell({ content, settings, current, section, footerVariant,
           <Footer profile={profile} site={site} variant={footerVariant} />
           <FocusMain />
         </MenuRoot>
+        {/* Outside MenuRoot, so the open panel's `inert` never covers it (work plan 6.2). */}
+        <CommandMenu items={folioCommands(content)} />
       </div>
     </ViewTransition>
   );

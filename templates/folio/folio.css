@@ -423,6 +423,37 @@ html[data-folio-menu-open] body {
     }
   }
 
+  /* ⌘K (work plan 6.2): the top bar's pill exists for a fine pointer, the menu panel's entry for
+     everything else. Never keyed on width. */
+  .f-cmdk-trigger {
+    display: none;
+    min-height: 2.75rem;
+    min-width: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    padding-inline: 0.875rem;
+    border: 1px solid color-mix(in srgb, currentColor 32%, transparent);
+    border-radius: 9999px;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: 1;
+    transition: border-color var(--dur-fast) var(--ease-inout);
+  }
+  .f-cmdk-trigger kbd {
+    font-family: inherit;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .f-cmdk-trigger {
+      display: inline-flex;
+    }
+    .f-cmdk-trigger:hover {
+      border-color: currentColor;
+    }
+    .f-cmdk-touch {
+      display: none;
+    }
+  }
+
   /* Where the burger sits, and the panel's close button on top of it. */
   .f-corner {
     top: max(1rem, env(safe-area-inset-top));
