@@ -43,6 +43,7 @@ Every variable is described in [`docs/ops/env.md`](docs/ops/env.md). Real values
 | `npm run seed` | Import the static content into the database in `DATABASE_URI` (idempotent) |
 | `npm run verify:parity` | Check the database matches the static content |
 | `npm run admin:reset-password` | Reset the admin password ([`docs/admin-guide.md`](docs/admin-guide.md)) |
+| `node scripts/snapshot-version.mjs <tag> <id> [--cover]` | Freeze an old design for the version archive: builds git tag `<tag>` as a static export in a temp folder outside the repo and copies it to `public/v/<id>/` (noindex, "older version" banner). `--cover` also saves a 1600×1000 screenshot to `public/v/<id>-cover.webp`. Add the entry to `lib/versions.ts` first (its `period` goes in the banner). Example: `node scripts/snapshot-version.mjs v1-editorial editorial --cover` |
 
 ## Project layout
 

@@ -1,0 +1,3 @@
+:HL["/v/editorial/_next/static/chunks/0r9lyv2r_4-hs.css","style"]
+:HL["/v/editorial/_next/static/media/c89730c3ffa99552-s.p.1zjat_zsa1d11.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}},"staleTime":300,"buildId":"2BNCgJBCCSTxPOGL3NwCa"}

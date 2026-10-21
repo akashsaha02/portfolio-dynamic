@@ -48,6 +48,17 @@ const uploadPdfHeaders = [
 // crawling; this also covers pages linked from elsewhere).
 const noindex = [{ key: "X-Robots-Tag", value: "noindex, nofollow" }];
 
+// Version archive (work plan 6.3): frozen static exports of retired designs in public/v/<id>/,
+// built by scripts/snapshot-version.mjs. `:id` is one lowercase slug segment, so /v (the archive
+// page) and files like /v/editorial-cover.webp never match a rewrite.
+const SNAPSHOT_ID = ":id([a-z0-9-]+)";
+// Their search value is the live site, so the copies stay out of the index (the HTML also has a
+// robots meta); `follow` lets crawlers still reach the current site through the banner link.
+const snapshotNoindex = [{ key: "X-Robots-Tag", value: "noindex" }];
+// Next's export puts a content hash (or the build id) in every path under _next/static, and a
+// snapshot is never rebuilt in place, so those files can be cached for a year.
+const immutable = [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }];
+
 const nextConfig: NextConfig = {
   reactCompiler: true,
   // Drops "X-Powered-By: Next.js, Payload" (withPayload adds it only when this isn't false).
@@ -61,6 +72,18 @@ const nextConfig: NextConfig = {
       { source: "/api/media/file/:path*", headers: uploadHeaders },
       // After the upload rule, so it wins for PDFs only. Case-insensitive extension.
       { source: "/api/media/file/:file(.*\\.[pP][dD][fF])", headers: uploadPdfHeaders },
+      { source: "/v/:path+", headers: snapshotNoindex },
+      { source: `/v/${SNAPSHOT_ID}/_next/static/:path*`, headers: immutable },
+    ];
+  },
+  // Public files aren't served for a folder path, so a snapshot's pages (exported with
+  // trailingSlash, as <page>/index.html) are rewritten to their index.html. These are afterFiles
+  // rewrites: real files (scripts, images) are served first and /v stays the archive page.
+  // `/v/<id>/` reaches here as `/v/<id>` after Next's usual trailing-slash redirect.
+  async rewrites() {
+    return [
+      { source: `/v/${SNAPSHOT_ID}`, destination: "/v/:id/index.html" },
+      { source: `/v/${SNAPSHOT_ID}/:path+`, destination: "/v/:id/:path+/index.html" },
     ];
   },
   // Telemetry JS only in Vercel production builds (components/shared/Telemetry.tsx). Replaced at

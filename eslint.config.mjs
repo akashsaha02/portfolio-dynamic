@@ -20,6 +20,8 @@ const eslintConfig = defineConfig([
     // Agent worktrees (with their own builds) and QA helper scripts.
     ".claude/**",
     "docs/qa/**",
+    // Version archive snapshots: another build's minified output (scripts/snapshot-version.mjs).
+    "public/v/**",
   ]),
 ]);
 
