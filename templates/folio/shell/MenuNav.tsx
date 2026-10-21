@@ -2,12 +2,12 @@ import type { CSSProperties } from "react";
 import Link from "next/link";
 import type { Profile } from "@/lib/content-types";
 import { RollLabel } from "../ui/Action";
-import { ariaCurrent, SHELL_PAGES, type ShellPage } from "./pages";
+import { ariaCurrent, MORE_PAGES, SHELL_PAGES, type ShellPage } from "./pages";
 
 // What the menu panel shows (guide §4.1): big links (Home, Work, About, Contact) with a lime dot
-// before the current page or section, then email and socials. Server-rendered; MenuPanel
-// supplies the behaviour. The links slide in with a short stagger as the panel opens
-// (.f-menu-item).
+// before the current page or section, then the secondary pages (Archive, Older versions), email
+// and socials. Server-rendered; MenuPanel supplies the behaviour. The big links slide in with a
+// short stagger as the panel opens (.f-menu-item).
 
 type MenuNavProps = {
   profile: Pick<Profile, "email" | "socials">;
@@ -39,6 +39,20 @@ export function MenuNav({ profile, current, section }: MenuNavProps) {
       </nav>
 
       <div className="mt-auto grid gap-8 pt-14 sm:grid-cols-2">
+        <nav aria-labelledby="folio-menu-more" className="sm:col-span-2">
+          <p id="folio-menu-more" className="type-label">
+            More
+          </p>
+          <ul className="mt-1 flex flex-wrap gap-x-6 gap-y-2">
+            {MORE_PAGES.map((p) => (
+              <li key={p.href}>
+                <Link href={p.href} className="f-roll-host inline-flex min-h-11 items-center">
+                  <RollLabel>{p.label}</RollLabel>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
         <div>
           <p className="type-label">Email</p>
           <a

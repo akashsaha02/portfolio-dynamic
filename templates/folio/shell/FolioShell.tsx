@@ -36,6 +36,11 @@ type FolioShellProps = TemplateProps & {
    * and the dot, so the link reads as "current" without claiming to be this page.
    */
   section?: ShellPage;
+  /**
+   * The page's name for the page-transition curtain (work plan 6.9), e.g. a project's name on its
+   * case study. Defaults to the label of `current` (Home, Work, About, Contact).
+   */
+  title?: string;
   /** "compact" drops the footer's call to action (for /contact, which is that action). */
   footerVariant?: FooterVariant;
   children: ReactNode;

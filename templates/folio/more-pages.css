@@ -1,0 +1,123 @@
+/*
+ * Folio Archive and Versions pages (work plan 6.1, 6.3). Imported by pages/Archive.tsx and
+ * pages/Versions.tsx; scoped to `.tpl-folio` with `f-` classes, plain CSS on the tokens from
+ * app/globals.css. Restates Tailwind's layer order first, like work.css.
+ */
+@layer theme, base, components, utilities;
+
+@layer components {
+  /* -------------------------------------------------------------------------------------------
+   * Archive table. Phone: every row is a stacked block between hairlines and the header row is
+   * visually hidden (still read as column headers). md: a real table, Kind folded into the
+   * Project cell. lg: Kind gets its own column.
+   * ----------------------------------------------------------------------------------------- */
+
+  .tpl-folio .f-archive {
+    display: block;
+    width: 100%;
+    border-bottom: 1px solid var(--rule);
+    text-align: left;
+  }
+  .tpl-folio .f-archive :is(thead, tbody, tr) {
+    display: block;
+  }
+  .tpl-folio .f-archive :is(th, td) {
+    display: block;
+    font-weight: inherit;
+  }
+  .tpl-folio .f-archive thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .tpl-folio .f-archive tbody tr {
+    display: grid;
+    gap: 0.5rem;
+    padding-block: 1.5rem;
+    border-top: 1px solid var(--rule);
+  }
+  .tpl-folio .f-archive-kind {
+    display: none !important;
+  }
+  .tpl-folio .f-archive tbody .f-archive-links {
+    margin-top: 0.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .tpl-folio .f-archive {
+      display: table;
+      border-collapse: collapse;
+    }
+    .tpl-folio .f-archive thead {
+      position: static;
+      width: auto;
+      height: auto;
+      overflow: visible;
+      clip-path: none;
+      display: table-header-group;
+    }
+    .tpl-folio .f-archive tbody {
+      display: table-row-group;
+    }
+    .tpl-folio .f-archive tr,
+    .tpl-folio .f-archive tbody tr {
+      display: table-row;
+      padding: 0;
+    }
+    .tpl-folio .f-archive :is(th, td) {
+      display: table-cell;
+      padding: 1.75rem 1.5rem 1.75rem 0;
+      vertical-align: baseline;
+    }
+    .tpl-folio .f-archive thead th {
+      padding-top: 0;
+      padding-bottom: 1.25rem;
+      font-size: 0.875rem;
+      line-height: 1.35;
+      letter-spacing: 0.01em;
+      color: var(--fg-muted);
+    }
+    .tpl-folio .f-archive tbody tr {
+      border-top: 1px solid var(--rule);
+    }
+    .tpl-folio .f-archive-year {
+      width: 6.5rem;
+      white-space: nowrap;
+    }
+    .tpl-folio .f-archive-stack {
+      width: 30%;
+    }
+    .tpl-folio .f-archive .f-archive-links {
+      margin: 0;
+      padding-right: 0;
+      text-align: right;
+      white-space: nowrap;
+    }
+  }
+  @media (min-width: 1024px) {
+    .tpl-folio .f-archive-kind {
+      display: table-cell !important;
+      width: 22%;
+    }
+    .tpl-folio .f-archive-stack {
+      width: 24%;
+    }
+  }
+
+  /* Fine pointer: the hovered row stays, the others dim (as the project rows). Keyboard focus in
+     a row does the same when the mouse is elsewhere. */
+  .tpl-folio .f-archive tbody tr {
+    transition: opacity var(--dur) var(--ease-inout);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .tpl-folio .f-archive tbody:has(tr:hover) tr:not(:hover) {
+      opacity: 0.35;
+    }
+  }
+  .tpl-folio .f-archive tbody:has(tr:focus-within):not(:has(tr:hover)) tr:not(:focus-within) {
+    opacity: 0.35;
+  }
+}

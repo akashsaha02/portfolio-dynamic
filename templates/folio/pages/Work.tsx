@@ -2,12 +2,15 @@
 // Phone, tablet and touch get tiles (one column, two from md); lg with a fine pointer starts on
 // hairline rows (Project · Kind · Stack · Year) and can switch to the two-column tiles. Both
 // presentations are in the HTML; work.css shows one, keyed on the pointer media query, never on
-// width alone. Server Component; WorkBrowser is the only client leaf.
+// width alone. "Full archive" at the end leads to /archive (work plan 6.1). Server Component;
+// WorkBrowser is the only client leaf.
 
 import type { Project } from "@/lib/content-types";
 import type { TemplateProps } from "../../types";
 import { ProjectHoverRows } from "../motion/ProjectHoverModal";
 import { FolioShell } from "../shell/FolioShell";
+import { FillButton } from "../ui/FillButton";
+import { ArrowRight } from "../ui/icons";
 import { ROW_COLUMNS_4, Row, RowList } from "../ui/Row";
 import { Tile } from "../ui/Tile";
 import { WorkBrowser, type WorkFilter } from "../work/WorkBrowser";
@@ -84,6 +87,20 @@ export default function Work({ content, settings }: TemplateProps) {
               </ProjectHoverRows>
             </div>
           </WorkBrowser>
+
+          {/* Every project in one table (work plan 6.1). */}
+          <div className="mt-14 flex md:mt-20 md:justify-center">
+            <FillButton
+              href="/archive"
+              variant="outline"
+              size="lg"
+              block
+              icon={<ArrowRight />}
+              className="justify-between md:w-auto md:justify-center"
+            >
+              Full archive
+            </FillButton>
+          </div>
         </div>
       </main>
     </FolioShell>
