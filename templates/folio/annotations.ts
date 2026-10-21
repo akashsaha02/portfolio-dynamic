@@ -46,10 +46,6 @@ export const NOTES = {
   content:
     "Everything on these pages is edited in a Payload admin at /admin. Pages are prerendered and the content reads are cached under tags; saving in the admin calls revalidateTag, so the change goes live on the next visits without a rebuild.",
 
-  // components/shared/CommandMenu.tsx
-  commandMenu:
-    "Press ⌘K or Ctrl+K. Only the shortcut listener ships with the page; the menu itself is fetched with a dynamic import the first time it opens.",
-
   // components/shared/lab/TomatoClassifier.tsx (work plan 6.7). Placeholder: the ML lab task
   // replaces the component; check this text against it before the Lab page links here.
   lab: "The classifier runs entirely in your browser: the model files are served from this site and the photo you pick is never uploaded.",

@@ -1,6 +1,8 @@
 import { ViewTransition, type ReactNode } from "react";
 import { CommandMenu } from "@/components/shared/CommandMenu";
+import { InlineScript } from "@/components/shared/InlineScript";
 import type { TemplateProps } from "../../types";
+import { ANNOTATIONS_INIT_SCRIPT } from "../annotations";
 import { folioCommands } from "../commands";
 import { FocusMain } from "./FocusMain";
 import { Footer, type FooterVariant } from "./Footer";
@@ -32,6 +34,8 @@ import "../transitions.css";
 //
 // The ⌘K command menu (work plan 6.2, components/shared/CommandMenu.tsx) is mounted here with
 // Folio's commands (commands.ts); only its listener ships, the dialog loads on first open.
+// Annotations (work plan 6.6): an inline script restores the reader's choice before first paint;
+// the notes themselves are server-rendered next to what they explain (ui/Note.tsx).
 
 type FolioShellProps = TemplateProps & {
   /** The page being shown: aria-current="page" and the dot in the top bar and the menu. */
@@ -59,6 +63,8 @@ export function FolioShell({ content, settings, current, section, footerVariant,
   return (
     <ViewTransition enter="f-page-in" exit="f-page-out" default="none">
       <div className="tpl-folio surface-paper relative min-h-svh overflow-x-clip">
+        {/* Notes left on last time show from the first paint (work plan 6.6). */}
+        <InlineScript html={ANNOTATIONS_INIT_SCRIPT} />
         <MenuRoot
           menu={
             <MenuPanel>

@@ -5,6 +5,7 @@ import { NameMarquee } from "../motion/NameMarquee";
 import { Chip } from "../ui/Chip";
 import { capSizes } from "../ui/image-sizes";
 import { ArrowDownRight, Globe } from "../ui/icons";
+import { Note } from "../ui/Note";
 
 // Home hero (guide §4.2 row 1). 100svh (min 34rem), pulled up under the top bar. The cutout
 // portrait stands on the bottom edge and is the LCP element, so it is preloaded and never
@@ -49,6 +50,7 @@ export function Hero({ profile }: HeroProps) {
       />
 
       <NameMarquee name={name} />
+      <Note id="marquee" className="f-note-hero" />
 
       <div className="f-hero-copy">
         <p className="f-hero-pill surface-ink">

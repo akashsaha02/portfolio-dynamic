@@ -2,6 +2,7 @@ import type { CSSProperties } from "react";
 import Link from "next/link";
 import type { Profile } from "@/lib/content-types";
 import { RollLabel } from "../ui/Action";
+import { Note } from "../ui/Note";
 import { CommandMenuEntry } from "./MenuTriggers";
 import { ariaCurrent, MORE_PAGES, SHELL_PAGES, type ShellPage } from "./pages";
 
@@ -38,6 +39,9 @@ export function MenuNav({ profile, current, section }: MenuNavProps) {
           ))}
         </ul>
       </nav>
+
+      {/* Annotations (work plan 6.6): the curved edge, which exists from md only. */}
+      <Note id="menuCurve" md className="mt-10" />
 
       <div className="mt-auto grid gap-8 pt-14 sm:grid-cols-2">
         <nav aria-labelledby="folio-menu-more" className="sm:col-span-2">
