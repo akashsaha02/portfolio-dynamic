@@ -21,7 +21,7 @@ export const templates: Record<TemplateId, TemplateDefinition> = {
       id: "index",
       name: "Index",
       description: "Two-column, recruiter-first: everything on one scroll (work plan 6.4).",
-      status: "placeholder",
+      status: "current",
     },
     module: index,
   },
