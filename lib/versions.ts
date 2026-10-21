@@ -9,7 +9,7 @@ export type VersionEntry = {
   /** Display period, e.g. "Oct 2026" or "2026 – now". */
   period: string;
   description: string;
-  /** Where to see it: "/" for the current design, "/v/<id>/" for a snapshot. */
+  /** Where to see it: "/" for the current design, "/v/<id>" for a snapshot. */
   href: string;
   /** Git tag the snapshot was built from. */
   tag?: string;
