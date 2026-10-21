@@ -117,14 +117,13 @@ test("availability toggle (updateTag): the hero changes on the next request", as
   await context.close();
 });
 
-test("template switch: site-settings activeTemplate changes the template on `/`", async () => {
+test("retired template id: saving \"editorial\" is coerced to Folio and the site stays Folio", async () => {
   const isFolio = async () => (await page("/")()).includes("tpl-folio");
   expect(await isFolio()).toBe(true);
 
-  const set = (activeTemplate: string) => admin.api.post("/api/globals/site-settings", { data: { activeTemplate } });
-  expect((await set("editorial")).ok()).toBe(true);
-  await expect.poll(isFolio, { timeout: 20_000 }).toBe(false);
-
-  expect((await set("folio")).ok()).toBe(true);
-  await expect.poll(isFolio, { timeout: 20_000 }).toBe(true);
+  const res = await admin.api.post("/api/globals/site-settings", { data: { activeTemplate: "editorial" } });
+  expect(res.ok()).toBe(true);
+  const saved = await admin.api.get("/api/globals/site-settings");
+  expect((await saved.json()).activeTemplate).toBe("folio");
+  expect(await isFolio()).toBe(true);
 });

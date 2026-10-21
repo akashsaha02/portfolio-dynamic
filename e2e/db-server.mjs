@@ -19,7 +19,6 @@ const env = {
   ...process.env,
   DATABASE_URI: uri,
   PAYLOAD_SECRET: randomBytes(24).toString("hex"),
-  SITE_TEMPLATE: "folio",
   NEXT_DIST_DIR: ".next-db",
   NEXT_PUBLIC_TURNSTILE_SITE_KEY: process.env.TURNSTILE_SITE_KEY,
   TURNSTILE_SECRET_KEY: process.env.TURNSTILE_SECRET,

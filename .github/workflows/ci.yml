@@ -18,7 +18,7 @@ env:
 jobs:
   check:
     name: Lint, typecheck, unit, build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
@@ -86,7 +86,7 @@ jobs:
 
   e2e:
     name: E2E (Chromium + WebKit)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
@@ -137,7 +137,7 @@ jobs:
         if: steps.has-pw.outputs.present == 'true'
         uses: actions/cache@v4
         with:
-          path: .next/cache
+          path: .next-folio/cache
           key: nextjs-e2e-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx', '!node_modules/**', '!.next/**', '!.next-folio/**') }}
           restore-keys: |
             nextjs-e2e-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-
@@ -161,11 +161,8 @@ jobs:
 
   lighthouse:
     name: Lighthouse CI (mobile, warn-only)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
-    # Audit what we ship: the Folio template. Build and `next start` (via lighthouserc.json) both see this.
-    env:
-      SITE_TEMPLATE: folio
     steps:
       - uses: actions/checkout@v4
 
@@ -184,14 +181,14 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .next/cache
-          key: nextjs-lh-folio-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx', '!node_modules/**', '!.next/**', '!.next-folio/**') }}
+          key: nextjs-lh-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx', '!node_modules/**', '!.next/**', '!.next-folio/**') }}
           restore-keys: |
-            nextjs-lh-folio-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-
+            nextjs-lh-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-
 
-      - name: Build (Folio)
+      - name: Build
         run: npx next build
 
-      # lighthouserc.json starts `next start` on port 3400 (SITE_TEMPLATE=folio) and audits 5 URLs x 3 mobile runs.
+      # lighthouserc.json starts `next start` on port 3400 and audits 5 URLs x 3 mobile runs.
       - name: Lighthouse CI
         uses: treosh/lighthouse-ci-action@v12
         with:

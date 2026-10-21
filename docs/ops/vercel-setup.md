@@ -93,9 +93,9 @@ After the first deploy and after setting the env vars (redeploy once):
 - [ ] Optional: the preview response carries `X-Robots-Tag: noindex` (browser dev tools, Network tab). Vercel adds it to previews so search engines skip them (https://vercel.com/kb/guide/are-vercel-preview-deployment-indexed-by-search-engines).
 - [ ] Build log: Node version line says 22.x, `next build` ends with the route list (`/`, `/about`, `/contact`, `/work`, `/work/[slug]`).
 
-## 7. Web Analytics and Speed Insights (later, not now)
+## 7. Web Analytics and Speed Insights
 
-Do this only after `components/shared/Telemetry.tsx` is mounted in the layout (backend/lead task). Then: project, **Analytics** tab, **Enable** (Web Analytics, 50,000 events a month on Hobby); and the **Speed Insights** tab, **Enable** (10,000 data points over 30 days, shared across the team). Enabling is free on Hobby; both only record on deployments that include the script. Track usage in `docs/ops/free-tier.md`.
+The scripts are mounted, but only in Production builds (`VERCEL_ENV=production`), so previews send nothing. Turn them on: project, **Analytics** tab, **Enable** (Web Analytics, 50,000 events a month on Hobby); and the **Speed Insights** tab, **Enable** (10,000 data points over 30 days, shared across the team). Both are free on Hobby. Track usage in `docs/ops/free-tier.md`.
 
 ## 8. Rate limit the API and admin login (free, do before launch)
 
@@ -107,6 +107,24 @@ Checked 2026-10-15 against https://vercel.com/docs/vercel-firewall/vercel-waf/ra
 4. **Save Rule**, **Review Changes**, **Publish**.
 
 Counters are per region, so a limit can be exceeded across regions. This is a brake, not a guarantee; the per-account login lockout (5 failures, 15 min) is the real login protection.
+
+## 9. Make production wait for CI (Deployment Checks)
+
+By default Vercel puts every successful `main` build live, even when GitHub Actions CI fails on the same commit (that happened on 2026-10-18). Deployment Checks hold each Production deployment until the chosen CI jobs pass. Free on Hobby, no code change.
+
+1. **Settings** > **Environments** > **Production**: make sure automatic assignment of production domains is on (it is off after an Instant Rollback; see `docs/ops/runbook.md`).
+2. **Settings** > **Build and Deployment** > **Deployment Checks** > **Add Checks**. Provider **GitHub**, then pick these two checks (they are the CI job names, so they show up after CI has run at least once):
+   - `Lint, typecheck, unit, build`
+   - `E2E (Chromium + WebKit)`
+   Leave `Lighthouse CI (mobile, warn-only)` out; it only warns.
+3. **Save**. From the next push on, a Production deployment shows its checks as pending, then goes live by itself once both pass (about 15 minutes after the push). A red CI leaves the previous version live.
+4. Emergency: open the deployment and choose **Force Promote** to skip the checks.
+
+If you rename a CI job in `.github/workflows/ci.yml`, update the checks here too: Vercel matches them by name.
+
+## 10. Keep one Vercel project
+
+Two Vercel projects (`akashsaha` and `portfolio-dynamic`) were both connected to this repo on 2026-10-15, so every push builds the site twice and counts twice against the 100-deployments-a-day limit. Keep the one whose production domain you want to share and delete the other: **Settings** > **General** > scroll to **Delete Project**. Deleting a Vercel project does not touch the GitHub repo. Then do sections 2, 3, 7, 8 and 9 on the one you kept.
 
 ## Why there is no `vercel.json`
 
@@ -121,7 +139,10 @@ Vercel detects Next.js and runs `next build` with the right output on its own, `
 - **No preview appears.** The branch was not pushed, or the commit author is not the Hobby team owner (for a private or organization repo). Here the repo is public and personal, so this should not apply.
 - **Hobby limits.** 100 deployments a day and 100 GB transfer a month; one push to a PR branch is one deployment. See `docs/ops/free-tier.md`.
 
-## Doc sources (checked 2026-10-12)
+## Doc sources (checked 2026-10-12; sections 9 and 10 on 2026-10-21)
+
+- Deployment Checks: https://vercel.com/docs/deployment-checks
+- Instant Rollback: https://vercel.com/docs/instant-rollback
 
 - Deploying a Git repository, production branch, preview branches: https://vercel.com/docs/git
 - Vercel for GitHub (preview URL comment, permissions): https://vercel.com/docs/git/vercel-for-github

@@ -196,14 +196,14 @@ describe("lib/payload/map", () => {
     expect(content.publications.map((p) => p.statusLabel)).toEqual(["Published", "Submitted"]);
   });
 
-  it("maps settings and validates the template", () => {
+  it("maps settings and falls back from retired or unknown templates", () => {
     expect(mapSettings({ activeTemplate: "folio", contactFormEnabled: true, announcement: { enabled: false } })).toEqual({
       ...staticSettings(),
       activeTemplate: "folio",
     });
     expect(
       mapSettings({ activeTemplate: "editorial", contactFormEnabled: null, announcement: { enabled: true, text: "Hi", url: "" } }),
-    ).toEqual({ activeTemplate: "editorial", contactFormEnabled: true, announcement: { text: "Hi" } });
-    expect(() => mapSettings({ activeTemplate: "nope" as "folio" })).toThrow(/not a template/);
+    ).toEqual({ activeTemplate: "folio", contactFormEnabled: true, announcement: { text: "Hi" } });
+    expect(mapSettings({ activeTemplate: "nope" }).activeTemplate).toBe("folio");
   });
 });

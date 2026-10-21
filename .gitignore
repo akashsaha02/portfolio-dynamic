@@ -56,3 +56,6 @@ next-env.d.ts
 
 # payload: local-disk media uploads (dev only; production uses Vercel Blob)
 /media/
+
+# mongodump output (docs/ops/runbook.md)
+backups/

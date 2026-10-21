@@ -29,7 +29,7 @@ test.describe("home /", () => {
     expect(errors).toEqual([]);
   });
 
-  test("axe scan (Folio: any violation fails; Editorial: soft)", async ({ page }, testInfo) => {
+  test("axe scan: no violations of any impact", async ({ page }, testInfo) => {
     await page.goto("/");
     await page.waitForLoadState("networkidle");
     const results = await new AxeBuilder({ page }).analyze();
@@ -37,24 +37,10 @@ test.describe("home /", () => {
       body: JSON.stringify(results.violations, null, 2),
       contentType: "application/json",
     });
-    for (const v of results.violations) {
-      testInfo.annotations.push({
-        type: `axe-${v.impact ?? "unknown"}`,
-        description: `${v.id} (${v.nodes.length} nodes): ${v.help} [e.g. ${v.nodes
-          .slice(0, 3)
-          .map((n) => n.target.join(" "))
-          .join(" | ")}]`,
-      });
-    }
-    const blocking = results.violations.filter((v) => v.impact === "serious" || v.impact === "critical");
-    if (testInfo.project.name.startsWith("folio-")) {
-      // Folio has zero axe violations of any impact (F-20): any violation fails.
-      expect(
-        results.violations.map((v) => `${v.impact} ${v.id}: ${v.nodes.map((n) => n.target.join(" ")).join(" | ")}`),
-      ).toEqual([]);
-    } else if (blocking.length) {
-      console.warn(`[axe soft] ${blocking.length} serious/critical: ${blocking.map((v) => v.id).join(", ")}`);
-    }
+    // Zero axe violations of any impact (F-20).
+    expect(
+      results.violations.map((v) => `${v.impact} ${v.id}: ${v.nodes.map((n) => n.target.join(" ")).join(" | ")}`),
+    ).toEqual([]);
   });
 });
 
