@@ -107,12 +107,19 @@ export default buildConfig({
           Component: "/components/admin/TemplatesWidget#TemplatesWidget",
           minWidth: "medium",
         },
+        {
+          slug: "analytics",
+          label: "Visitors (Vercel Analytics)",
+          Component: "/components/admin/AnalyticsWidget#AnalyticsWidget",
+          minWidth: "medium",
+        },
       ],
       defaultLayout: [
         { widgetSlug: "unread-messages", width: "medium" },
         { widgetSlug: "availability", width: "medium" },
+        { widgetSlug: "analytics", width: "medium" },
+        { widgetSlug: "templates", width: "medium" },
         { widgetSlug: "quick-links", width: "full" },
-        { widgetSlug: "templates", width: "full" },
         // Payload's built-in collection/global cards.
         { widgetSlug: "collections", width: "full" },
       ],

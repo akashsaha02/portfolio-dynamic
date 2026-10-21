@@ -97,6 +97,18 @@ After the first deploy and after setting the env vars (redeploy once):
 
 The scripts are mounted, but only in Production builds (`VERCEL_ENV=production`), so previews send nothing. Turn them on: project, **Analytics** tab, **Enable** (Web Analytics, 50,000 events a month on Hobby); and the **Speed Insights** tab, **Enable** (10,000 data points over 30 days, shared across the team). Both are free on Hobby. Track usage in `docs/ops/free-tier.md`.
 
+### Show visitors in the admin dashboard (optional)
+
+The dashboard's **Visitors** widget reads Vercel's Web Analytics API with a token kept on the server (`VERCEL_ANALYTICS_TOKEN`, `docs/ops/env.md`). The API is free and reads the same data as the Analytics tab, so it costs no events. Vercel tokens have no read-only switch; the narrowest is a **project-scoped token**, which can reach only the `akashsaha` project. The site only ever reads with it.
+
+1. Make sure the scope selector at the top left shows your personal account, then open **Settings** > **Tokens** (https://vercel.com/account/tokens).
+2. Name: `portfolio-admin-analytics`. **Scope**: pick the team that owns `akashsaha`, then the **`akashsaha`** project (not "All Projects", which would give the whole team). If the dropdown offers no project list, choose the narrowest scope it does offer.
+3. Expiration: 1 year (or shorter), and put a reminder in your calendar to rotate it. **Create**, then copy the value (shown once; it starts with `vcp_`).
+4. In the `akashsaha` project: **Settings** > **Environment Variables** > add `VERCEL_ANALYTICS_TOKEN`, type **Sensitive**, environment **Production** (Preview too if you want the widget on previews). Leave `VERCEL_ANALYTICS_PROJECT` and `VERCEL_ANALYTICS_TEAM` unset: the project defaults to `akashsaha` and a project-scoped token implies the team.
+5. Redeploy. Sign in to `/admin`: the widget shows 7- and 30-day totals, a daily bar chart and the top pages, refreshed at most once an hour. "Vercel rejected the token" means the token expired, was revoked or has the wrong scope: create a new one and replace the variable.
+
+If the token leaks: delete it on the Tokens page (that stops it at once), create a new one and update the variable.
+
 ## 8. Rate limit the API and admin login (free, do before launch)
 
 Checked 2026-10-15 against https://vercel.com/docs/vercel-firewall/vercel-waf/rate-limiting: WAF Rate Limiting is available on Hobby with **1 rate-limit rule per project** (counting by IP or JA4, fixed window, 10 s to 10 min window, 1,000,000 allowed requests included). Hobby also allows up to 3 custom firewall rules in total. Since there is only one rule, cover `/api/` (Payload's login is `POST /api/users/login`, which is what `/admin/login` calls; the contact form is a server action and is limited in app code).

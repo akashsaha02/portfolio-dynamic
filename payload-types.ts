@@ -115,6 +115,7 @@ export interface Config {
     availability: AvailabilityWidget;
     'quick-links': QuickLinksWidget;
     templates: TemplatesWidget;
+    analytics: AnalyticsWidget;
     collections: CollectionsWidget;
   };
   user: User;
@@ -1020,6 +1021,16 @@ export interface QuickLinksWidget {
  * via the `definition` "templates_widget".
  */
 export interface TemplatesWidget {
+  data?: {
+    [k: string]: unknown;
+  };
+  width: 'medium' | 'large' | 'x-large' | 'full';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "analytics_widget".
+ */
+export interface AnalyticsWidget {
   data?: {
     [k: string]: unknown;
   };

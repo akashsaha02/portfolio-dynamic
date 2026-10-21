@@ -372,6 +372,83 @@
   gap: 0.5rem;
 }
 
+// Analytics widget (work plan 6.8)
+.ak-widget__subtitle {
+  margin: 0 0 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.ak-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 0;
+}
+
+.ak-stat {
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--theme-elevation-150);
+  border-radius: var(--style-radius-m, 6px);
+
+  dd {
+    margin: 0;
+  }
+}
+
+.ak-stat__label {
+  color: var(--theme-elevation-650);
+  font-size: 0.8rem;
+}
+
+.ak-stat__value {
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+
+.ak-stat__unit {
+  font-size: 0.85rem;
+  font-weight: 400;
+}
+
+.ak-stat__sub {
+  color: var(--theme-elevation-650);
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.ak-spark {
+  display: block;
+  width: 100%;
+  height: 3rem;
+
+  rect {
+    fill: var(--theme-elevation-500);
+  }
+
+  rect:hover {
+    fill: var(--theme-text);
+  }
+}
+
+.ak-top__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.35rem 0;
+}
+
+.ak-top__path {
+  min-width: 0;
+  overflow: hidden;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.85rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 @media (max-width: 480px) {
   .ak-segmented__hint {
     display: none;
