@@ -122,9 +122,13 @@ By default Vercel puts every successful `main` build live, even when GitHub Acti
 
 If you rename a CI job in `.github/workflows/ci.yml`, update the checks here too: Vercel matches them by name.
 
-## 10. Keep one Vercel project
+## 10. Keep one Vercel project: `akashsaha`
 
-Two Vercel projects (`akashsaha` and `portfolio-dynamic`) were both connected to this repo on 2026-10-15, so every push builds the site twice and counts twice against the 100-deployments-a-day limit. Keep the one whose production domain you want to share and delete the other: **Settings** > **General** > scroll to **Delete Project**. Deleting a Vercel project does not touch the GitHub repo. Then do sections 2, 3, 7, 8 and 9 on the one you kept.
+Two Vercel projects (`akashsaha` and `portfolio-dynamic`) were both connected to this repo on 2026-10-15, so every push built the site twice and counted twice against the 100-deployments-a-day limit. Decision (2026-10-21): keep **`akashsaha`**, stop **`portfolio-dynamic`**.
+
+1. Open the `portfolio-dynamic` project. Either **Settings** > **Git** > **Disconnect** (stops its builds, keeps the project; reversible), or **Settings** > **General** > **Delete Project** (permanent). Neither touches the GitHub repo.
+2. Open the `akashsaha` project's **Settings** > **Domains** and note its production domain. If `akashsaha.vercel.app` is listed there but still shows the old dark site, production is not being auto-assigned: open **Deployments**, pick the newest Ready Production deployment, **...** > **Promote**, then check section 9 step 1. If it is not listed, that address belongs to your old project (another account or team); remove it there first, then **Add** it here.
+3. Do sections 2, 3, 7, 8 and 9 on `akashsaha`.
 
 ## Why there is no `vercel.json`
 

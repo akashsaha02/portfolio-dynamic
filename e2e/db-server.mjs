@@ -1,7 +1,7 @@
 // webServer for the DB-backed e2e (playwright.db.config.ts): starts an in-memory MongoDB replica
 // set, seeds it, builds the Folio app WITH the Turnstile test site key and DATABASE_URI, then
 // serves it. Killing this process (Playwright does at the end) stops the database.
-import { spawn, spawnSync } from "node:child_process";
+import { spawn } from "node:child_process";
 import { randomBytes } from "node:crypto";
 import { MongoMemoryReplSet } from "mongodb-memory-server";
 
@@ -34,16 +34,26 @@ const env = {
 };
 
 async function stop(code = 0) {
-  await replSet.stop().catch(() => {});
+  // Never hang on the way out: Playwright waits for this process to exit.
+  await Promise.race([replSet.stop().catch(() => {}), new Promise((resolve) => setTimeout(resolve, 10_000))]);
   process.exit(code);
 }
 process.on("SIGINT", () => stop());
 process.on("SIGTERM", () => stop());
 
+// Async on purpose: spawnSync would block this process, which must keep reading mongod's log
+// pipe (mongodb-memory-server listens on it). A full pipe stalls mongod, and the seed with it.
+const run = (script) =>
+  new Promise((resolve) => {
+    const c = spawn("npm", ["run", script], { env, stdio: "inherit", shell: true });
+    c.on("exit", (code) => resolve(code ?? 1));
+    c.on("error", () => resolve(1));
+  });
+
 for (const script of ["seed", "build"]) {
-  const r = spawnSync("npm", ["run", script], { env, stdio: "inherit", shell: true });
-  if (r.status !== 0) {
-    console.error(`[db-server] npm run ${script} failed`);
+  const code = await run(script);
+  if (code !== 0) {
+    console.error(`[db-server] npm run ${script} failed (exit ${code})`);
     await stop(1);
   }
 }

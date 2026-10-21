@@ -64,7 +64,7 @@ If a key was pushed to GitHub, follow `docs/ops/accounts.md`, "If a secret leaks
 
 Monthly check: `docs/ops/free-tier.md`, "Monthly check". The limits most likely to bite:
 
-- Vercel Hobby: 100 deployments a day (two connected projects double every push), Web Analytics 50,000 events a month, Speed Insights 10,000 data points.
+- Vercel Hobby: 100 deployments a day (keep a single project connected to the repo: `akashsaha`), Web Analytics 50,000 events a month, Speed Insights 10,000 data points.
 - Resend: 100 emails a day, 3,000 a month.
 - Atlas M0: 512 MB storage.
 - Vercel Blob (Hobby): stays free while storage and transfer stay small; keep uploads WebP and under about 500 KB.

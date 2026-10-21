@@ -129,6 +129,10 @@ export default function About({ content, settings }: TemplateProps) {
               src={portrait.src}
               alt={portrait.alt}
               fill
+              // The page's LCP (Lighthouse, phone and desktop): eager at high priority, like the
+              // home and case-study heroes.
+              loading="eager"
+              fetchPriority="high"
               // Full width minus the gutters on phone; 5 of 12 columns from md. Capped at the
               // source on dense screens (image-sizes.ts).
               sizes={capSizes(portrait.width, "(min-width: 768px) 40vw, 100vw")}

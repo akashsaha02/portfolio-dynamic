@@ -5,10 +5,14 @@ import AxeBuilder from "@axe-core/playwright";
 export const isFolio = (testInfo: TestInfo) => testInfo.project.name.startsWith("folio-");
 
 /** Collects console errors and uncaught page errors; read `.errors` at the end of the test. */
+// Turnstile's challenge iframe logs its own resource errors in WebKit ("Failed to load resource"
+// from blob:https://challenges.cloudflare.com/...). They come from Cloudflare's frame, not the site.
+const isTurnstileFrame = (url: string) => /^(blob:)?https:\/\/challenges\.cloudflare\.com\//.test(url);
+
 export function watchConsole(page: Page) {
   const errors: string[] = [];
   page.on("console", (m) => {
-    if (m.type() === "error") errors.push(`console: ${m.text()}`);
+    if (m.type() === "error" && !isTurnstileFrame(m.location().url)) errors.push(`console: ${m.text()}`);
   });
   page.on("pageerror", (e) => errors.push(`pageerror: ${e.message}`));
   return { errors };

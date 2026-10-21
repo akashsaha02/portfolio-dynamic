@@ -87,7 +87,7 @@ jobs:
   e2e:
     name: E2E (Chromium + WebKit)
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
 
@@ -148,6 +148,23 @@ jobs:
         env:
           CI: "true"
 
+      # The DB-backed suite (playwright.db.config.ts) runs an in-memory MongoDB; nothing touches Atlas.
+      # mongodb-memory-server downloads its binary on first use, so cache it.
+      - name: Cache MongoDB binary
+        if: steps.has-pw.outputs.present == 'true'
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/mongodb-binaries
+          key: mongodb-binaries-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            mongodb-binaries-${{ runner.os }}-
+
+      - name: E2E tests with database
+        if: steps.has-pw.outputs.present == 'true'
+        run: npm run test:e2e:db
+        env:
+          CI: "true"
+
       - name: Upload Playwright report
         if: failure() && steps.has-pw.outputs.present == 'true'
         uses: actions/upload-artifact@v4
@@ -156,6 +173,8 @@ jobs:
           path: |
             playwright-report/
             test-results/
+            playwright-report-db/
+            test-results-db/
           retention-days: 7
           if-no-files-found: ignore
 

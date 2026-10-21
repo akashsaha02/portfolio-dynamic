@@ -85,13 +85,15 @@ test("draft -> preview only: anonymous visitors never see it, the admin preview 
   await expect(tab).toHaveURL(new RegExp(`/work/${SLUG}$`));
   const banner = tab.getByRole("complementary", { name: "Preview" });
   await expect(banner).toContainText("unpublished drafts");
-  await expect(tab.locator("body")).toContainText(marker);
+  // The case study shows the summary only in its meta description (and Open Graph tags).
+  const description = tab.locator('meta[name="description"]');
+  await expect(description).toHaveAttribute("content", new RegExp(marker));
 
   // Exit preview: back on this page, published version, no banner.
   await banner.getByRole("button", { name: "Exit preview" }).click();
   await expect(tab).toHaveURL(new RegExp(`/work/${SLUG}$`));
   await expect(tab.getByRole("complementary", { name: "Preview" })).toHaveCount(0);
-  await expect(tab.locator("body")).not.toContainText(marker);
+  await expect(description).not.toHaveAttribute("content", new RegExp(marker));
   await context.close();
 });
 

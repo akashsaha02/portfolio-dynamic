@@ -104,12 +104,12 @@ Merge order: 2.2 → 2.3 → 2.4 → 2.5 → 2.6 → 2.7 → 2.8.
 
 | ID | Task | Owner | Depends | Done when | Status |
 | --- | --- | --- | --- | --- | --- |
-| 3.1 | `getSiteContent()` reads the Payload Local API, maps to `SiteContent`, `'use cache'` + `cacheTag`; templates unchanged | backend | 2.G | Site looks identical to Phase 1 but data comes from Payload | doing |
-| 3.2 | Revalidation: `afterChange` / `afterDelete` hooks → `revalidateTag(tag, 'max')`; settings changes revalidate `settings` | backend | 3.1 | Edit a project in `/admin` → public page updates on next request | doing |
-| 3.3 | Contact form switches from the stub to the real `submitContact`; Turnstile widget added to the form | folio-design (UI) + backend (wiring) | 2.5, 3.1 | Message lands in the admin inbox and in Akash's email | doing |
-| 3.4 | Live preview + draft mode: `RefreshRouteOnSave`, preview banner, drafts visible only in preview | backend | 3.2 | Draft edits show in preview, not on the live site | doing |
-| 3.5 | Mount `Telemetry`; images served from Vercel Blob through `next/image` with the free-tier settings (guide §9.2) | backend | 2.8, 3.1 | Analytics events visible on preview; image variants limited | doing |
-| 3.6 | Preview environment: env vars set on Vercel, Atlas network access for Vercel, seed the preview database | monitoring (+ Akash approves) | 3.1 | Preview deploy works end to end | todo |
+| 3.1 | `getSiteContent()` reads the Payload Local API, maps to `SiteContent`, `'use cache'` + `cacheTag`; templates unchanged | backend | 2.G | Site looks identical to Phase 1 but data comes from Payload | done |
+| 3.2 | Revalidation: `afterChange` / `afterDelete` hooks → `revalidateTag(tag, 'max')`; settings changes revalidate `settings` | backend | 3.1 | Edit a project in `/admin` → public page updates on next request | done |
+| 3.3 | Contact form switches from the stub to the real `submitContact`; Turnstile widget added to the form | folio-design (UI) + backend (wiring) | 2.5, 3.1 | Message lands in the admin inbox and in Akash's email | done |
+| 3.4 | Live preview + draft mode: `RefreshRouteOnSave`, preview banner, drafts visible only in preview | backend | 3.2 | Draft edits show in preview, not on the live site | done |
+| 3.5 | Mount `Telemetry`; images served from Vercel Blob through `next/image` with the free-tier settings (guide §9.2) | backend | 2.8, 3.1 | Analytics events visible on preview; image variants limited | done |
+| 3.6 | Preview environment: env vars set on Vercel, Atlas network access for Vercel, seed the preview database | monitoring (+ Akash approves) | 3.1 | Preview deploy works end to end | todo (Akash) |
 | 3.G | **Gate:** end-to-end check on the preview: edit → live, contact → inbox + email, draft → preview only; site still matches Phase 1 visually | qa | 3.1–3.6 | PASS | todo |
 
 Merge order: 3.1 → 3.2 → 3.3 → 3.4 → 3.5; 3.6 alongside.
@@ -122,12 +122,12 @@ Merge order: 3.1 → 3.2 → 3.3 → 3.4 → 3.5; 3.6 alongside.
 
 | ID | Task | Owner | Depends | Done when | Status |
 | --- | --- | --- | --- | --- | --- |
-| 4.1 | Unit tests: `lib/data.ts` mapping, contact validation, spam and rate-limit logic, access-control functions, helpers (BibTeX, time formatting) | tester | 3.G | Green; meaningful coverage of `lib/` | todo |
-| 4.2 | E2E, every page × 4 viewports: loads clean, one `<h1>`, axe, no horizontal scroll, reduced motion, menu, tiles vs rows + hover modal, filters, case-study navigation, contact success/error/spam (Resend + Turnstile mocked) | tester | 3.G | Green on all projects; 0 flaky after 3 runs | todo |
-| 4.3 | Admin E2E with `mongodb-memory-server`: login, edit project → public page, reorder, availability toggle, anonymous can't read messages | tester | 3.G | Green | todo |
-| 4.4 | CI: full unit + e2e (phone + desktop Chromium, WebKit phone), Lighthouse CI blocking with guide §5 budgets | monitoring | 4.1–4.3 | CI fails on a deliberate regression, passes on main | todo |
-| 4.5 | Full audit: spec, mobile rules, accessibility (keyboard + screen reader), performance per page, motion, security, free-tier settings | qa | 3.G | Findings report with owners | todo |
-| 4.6 | Fix every blocker and major finding from 4.2–4.5 | folio-design / backend (by owner) | 4.5 | QA re-check passes | todo |
+| 4.1 | Unit tests: `lib/data.ts` mapping, contact validation, spam and rate-limit logic, access-control functions, helpers (BibTeX, time formatting) | tester | 3.G | Green; meaningful coverage of `lib/` | done |
+| 4.2 | E2E, every page × 4 viewports: loads clean, one `<h1>`, axe, no horizontal scroll, reduced motion, menu, tiles vs rows + hover modal, filters, case-study navigation, contact success/error/spam (Resend + Turnstile mocked) | tester | 3.G | Green on all projects; 0 flaky after 3 runs | done |
+| 4.3 | Admin E2E with `mongodb-memory-server`: login, edit project → public page, reorder, availability toggle, anonymous can't read messages | tester | 3.G | Green | done |
+| 4.4 | CI: full unit + e2e (phone + desktop Chromium, WebKit phone), Lighthouse CI blocking with guide §5 budgets | monitoring | 4.1–4.3 | CI fails on a deliberate regression, passes on main | done |
+| 4.5 | Full audit: spec, mobile rules, accessibility (keyboard + screen reader), performance per page, motion, security, free-tier settings | qa | 3.G | Findings report with owners | done |
+| 4.6 | Fix every blocker and major finding from 4.2–4.5 | folio-design / backend (by owner) | 4.5 | QA re-check passes | done |
 | 4.G | **Gate:** all tests green in CI, QA PASS | qa | 4.1–4.6 | PASS | todo |
 
 ---
@@ -138,11 +138,11 @@ Merge order: 3.1 → 3.2 → 3.3 → 3.4 → 3.5; 3.6 alongside.
 
 | ID | Task | Owner | Depends | Done when | Status |
 | --- | --- | --- | --- | --- | --- |
-| 5.1 | Polish: sliding image rows (static on phone), curved menu-edge morph, footer curve tween, BibTeX copy, micro-interaction timing pass (one easing family, durations from tokens) | folio-design | 4.G | Budgets still met | todo |
-| 5.2 | Performance pass: drop Editorial from the live registry (its 7.6 KB gz client chunk ships on every Folio route while both templates share one route graph; it moves to the archive in 6.3), site JS ≤ 60 KB gzipped excluding the React/Next runtime, motion libraries loaded after first paint, LCP ≤ 2.0s on phone, image sizes, font subsetting | folio-design + backend | 4.G | Lighthouse numbers in the QA report meet §5 | todo |
-| 5.3 | Content pass with Akash in `/admin`: case-study facts, copy, screenshots, résumé, availability | **Akash** + backend | 4.G | Every page reviewed by Akash | todo |
-| 5.4 | Real-device test: Android Chrome (low-end), iPhone Safari, landscape, reduced motion, VoiceOver/TalkBack on menu and form | **Akash** with qa's checklist | 5.1–5.3 | Checklist signed off | todo |
-| 5.5 | Launch: production env vars, production deploy (Akash approves), optional free domain (`*.is-a.dev`), UptimeRobot monitor, `docs/ops/runbook.md` (backup, key rotation, quota limits) | monitoring | 5.4 | Live URL; monitor green; runbook complete | todo |
+| 5.1 | Polish: sliding image rows (static on phone), curved menu-edge morph, footer curve tween, BibTeX copy, micro-interaction timing pass (one easing family, durations from tokens) | folio-design | 4.G | Budgets still met | done |
+| 5.2 | Performance pass: drop Editorial from the live registry (its 7.6 KB gz client chunk ships on every Folio route while both templates share one route graph; it moves to the archive in 6.3), site JS ≤ 60 KB gzipped excluding the React/Next runtime, motion libraries loaded after first paint, LCP ≤ 2.0s on phone, image sizes, font subsetting | folio-design + backend | 4.G | Lighthouse numbers in the QA report meet §5 | done |
+| 5.3 | Content pass with Akash in `/admin`: case-study facts, copy, screenshots, résumé, availability | **Akash** + backend | 4.G | Every page reviewed by Akash | todo (Akash) |
+| 5.4 | Real-device test: Android Chrome (low-end), iPhone Safari, landscape, reduced motion, VoiceOver/TalkBack on menu and form | **Akash** with qa's checklist | 5.1–5.3 | Checklist signed off | todo (Akash) |
+| 5.5 | Launch: production env vars, production deploy (Akash approves), optional free domain (`*.is-a.dev`), UptimeRobot monitor, `docs/ops/runbook.md` (backup, key rotation, quota limits) | monitoring | 5.4 | Live URL; monitor green; runbook complete | doing |
 | 5.G | **Launch gate:** every page × every width, Lighthouse all pages, a11y, security re-check on production | qa | 5.1–5.5 | PASS | todo |
 
 ---

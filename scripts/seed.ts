@@ -15,6 +15,7 @@
 
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import type { MongooseAdapter } from "@payloadcms/db-mongodb";
 import { getPayload, type CollectionSlug, type Where } from "payload";
 import config from "../payload.config";
 import { SKILL_GROUPS } from "../collections/Skills";
@@ -24,6 +25,13 @@ import { envTemplate } from "../lib/static-content";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 const payload = await getPayload({ config });
+
+// A fresh database (a new Atlas cluster, the in-memory e2e one) creates its collections and
+// indexes in the background after Payload connects. A transaction that writes meanwhile fails with
+// WriteConflict ("catalog changes") or stalls, so wait for those builds before the first write.
+// Model.init() resolves when mongoose's automatic createCollection + index build has finished.
+const db = payload.db as unknown as MongooseAdapter;
+await Promise.all([...Object.values(db.collections), ...Object.values(db.versions), db.globals].map((model) => model.init()));
 const base = { overrideAccess: true, context: { disableRevalidate: true } } as const;
 
 const stats: Record<string, { created: number; updated: number; unchanged: number }> = {};
