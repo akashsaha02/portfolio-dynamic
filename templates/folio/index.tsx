@@ -18,8 +18,9 @@ import CaseStudy from "./pages/CaseStudy";
 import Contact from "./pages/Contact";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
+import Versions from "./pages/Versions";
 import Work from "./pages/Work";
 
-const folio: TemplateModule = { Home, Work, CaseStudy, About, Contact, NotFound, Archive };
+const folio: TemplateModule = { Home, Work, CaseStudy, About, Contact, NotFound, Archive, Versions };
 
 export default folio;

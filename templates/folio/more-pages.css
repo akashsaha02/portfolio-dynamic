@@ -120,4 +120,37 @@
   .tpl-folio .f-archive tbody:has(tr:focus-within):not(:has(tr:hover)) tr:not(:focus-within) {
     opacity: 0.35;
   }
+
+  /* -------------------------------------------------------------------------------------------
+   * Version cards (.f-tile does the stretched link, the ring and the image zoom). A design
+   * without a screenshot shows its name set large, bottom-left, like a tile without a cover.
+   * ----------------------------------------------------------------------------------------- */
+
+  .tpl-folio .f-version-placeholder {
+    display: flex;
+    align-items: flex-end;
+    width: 100%;
+    height: 100%;
+    padding: 1.25rem;
+    font-variation-settings: "wdth" 100;
+    font-weight: 450;
+    font-size: clamp(2.25rem, 1.25rem + 5vw, 5rem);
+    letter-spacing: -0.035em;
+    line-height: 1;
+    color: var(--fg-muted);
+  }
+  @media (min-width: 768px) {
+    .tpl-folio .f-version-placeholder {
+      padding: 1.75rem;
+      font-size: clamp(2.5rem, 0.5rem + 4vw, 5rem);
+    }
+  }
+  .tpl-folio .f-version .f-next-arrow {
+    transition: transform var(--dur) var(--ease-inout);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .tpl-folio .f-version:hover .f-next-arrow {
+      transform: translate3d(0.15em, 0, 0);
+    }
+  }
 }
