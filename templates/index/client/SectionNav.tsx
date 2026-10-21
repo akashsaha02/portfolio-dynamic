@@ -40,7 +40,7 @@ export function SectionNav({ items, className }: { items: NavItem[]; className?:
               className="inline-flex min-h-11 items-center gap-4 text-xs font-semibold tracking-widest uppercase"
             >
               <span aria-hidden="true" className="i-nav-line" />
-              {label}
+              <span className="i-nav-label">{label}</span>
             </a>
           </li>
         ))}

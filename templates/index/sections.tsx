@@ -14,7 +14,7 @@ export function HomeSection({ id, label, children }: { id: string; label: string
   const titleId = `${id}-title`;
   return (
     <section id={id} aria-labelledby={titleId} className="mb-24 md:mb-32 lg:mb-36">
-      <div className="sticky top-0 z-20 -mx-6 mb-6 bg-ink/95 px-6 py-5 md:-mx-12 md:px-12 lg:sr-only">
+      <div className="sticky top-0 z-20 -mx-6 mb-6 bg-ink px-6 py-5 md:-mx-12 md:px-12 lg:sr-only">
         <h2 id={titleId} className={EYEBROW}>
           {label}
         </h2>
@@ -35,11 +35,11 @@ export function ExperienceList({ experience }: { experience: Experience[] }) {
           <div className="sm:col-span-6">
             <h3 className="leading-snug font-medium">
               {job.url ? (
-                <ExternalLink href={job.url} className="i-card-link inline-flex items-baseline gap-1.5">
+                <ExternalLink href={job.url} className="i-card-link">
                   <span>
                     {job.title} · {job.company}
                   </span>
-                  <ArrowUpRight />
+                  <ArrowUpRight className="ml-1.5" />
                 </ExternalLink>
               ) : (
                 <>
@@ -80,19 +80,20 @@ export function ProjectCards({ projects, headingLevel = "h3" }: ProjectCardsProp
         const title = (
           <>
             <span>{p.name}</span>
-            <ArrowUpRight />
+            <ArrowUpRight className="ml-1.5" />
           </>
         );
         return (
           <li key={p.slug} className="i-card grid gap-4 sm:grid-cols-8 sm:gap-8">
-            <div className="sm:order-2 sm:col-span-6">
+            {/* Without a cover the text still starts after the rail, in line with the others. */}
+            <div className={`sm:order-2 sm:col-span-6 ${p.cover ? "" : "sm:col-start-3"}`}>
               <Heading className="leading-snug font-medium">
                 {external ? (
-                  <ExternalLink href={href} className="i-card-link inline-flex items-baseline gap-1.5">
+                  <ExternalLink href={href} className="i-card-link">
                     {title}
                   </ExternalLink>
                 ) : (
-                  <Link href={href} className="i-card-link inline-flex items-baseline gap-1.5">
+                  <Link href={href} className="i-card-link">
                     {title}
                     <span className="sr-only"> case study</span>
                   </Link>

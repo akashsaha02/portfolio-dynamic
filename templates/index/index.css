@@ -26,7 +26,11 @@ html:has(.tpl-index) body {
   outline-color: var(--lime);
 }
 
-/* Section nav (Home, lg): a hairline that lengthens and turns lime for the section in view. */
+/*
+ * Section nav (Home, lg): a hairline that doubles in length and turns lime for the section in
+ * view, pushing its label along. Transforms only: the line's box is always 4rem; at rest it is
+ * scaled to half and the label slides back over the unused half.
+ */
 .tpl-index .i-nav-line {
   width: 4rem;
   height: 1px;
@@ -34,6 +38,13 @@ html:has(.tpl-index) body {
   transform: scaleX(0.5);
   transform-origin: left;
   transition: transform var(--dur) var(--ease-inout);
+}
+.tpl-index .i-nav-label {
+  transform: translateX(-2rem);
+  transition: transform var(--dur) var(--ease-inout);
+}
+.tpl-index .i-nav a[aria-current] .i-nav-label {
+  transform: none;
 }
 .tpl-index .i-nav a {
   color: var(--fg-muted);
@@ -113,7 +124,7 @@ html:has(.tpl-index) body {
   .tpl-index .i-outline:hover {
     border-color: var(--lime);
   }
-  .tpl-index .i-nav a:hover .i-nav-line {
+  .tpl-index .i-nav a:hover :is(.i-nav-line, .i-nav-label) {
     transform: none;
   }
 }

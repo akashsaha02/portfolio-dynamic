@@ -68,7 +68,7 @@ export function IndexPage({ content, settings, current, section, wide, children 
                   <Link
                     href={p.href}
                     aria-current={p.id === current ? "page" : p.id === section ? "true" : undefined}
-                    className="i-link inline-flex min-h-11 items-center px-2 text-sm text-(--fg-muted) decoration-lime decoration-2 underline-offset-8 aria-[current]:text-on-ink aria-[current]:underline"
+                    className="i-link inline-flex min-h-11 min-w-11 items-center justify-center px-2 text-sm text-(--fg-muted) decoration-lime decoration-2 underline-offset-8 aria-[current]:text-on-ink aria-[current]:underline"
                   >
                     {p.label}
                   </Link>
@@ -96,7 +96,7 @@ export function Footer({ content }: Pick<TemplateProps, "content">) {
           { href: "/v", label: "Older versions of this site" },
         ].map((l) => (
           <li key={l.href}>
-            <Link href={l.href} className="i-link inline-flex min-h-11 items-center px-2">
+            <Link href={l.href} className="i-link inline-flex min-h-11 min-w-11 items-center justify-center px-2">
               {l.label}
             </Link>
           </li>

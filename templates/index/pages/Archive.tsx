@@ -56,7 +56,7 @@ export default function Archive(props: TemplateProps) {
               const name = (
                 <>
                   {p.name}
-                  <ArrowUpRight />
+                  <ArrowUpRight className="ml-1.5" />
                 </>
               );
               return (
@@ -64,11 +64,11 @@ export default function Archive(props: TemplateProps) {
                   <td className="py-4 pr-4 text-sm whitespace-nowrap text-(--fg-muted) tabular-nums">{p.year}</td>
                   <th scope="row" className="py-4 pr-4 font-medium">
                     {external ? (
-                      <ExternalLink href={href} className="i-link -my-2.5 inline-flex min-h-11 items-center gap-1.5">
+                      <ExternalLink href={href} className="i-link -my-3 inline-block py-3">
                         {name}
                       </ExternalLink>
                     ) : (
-                      <Link href={href} className="i-link -my-2.5 inline-flex min-h-11 items-center gap-1.5">
+                      <Link href={href} className="i-link -my-3 inline-block py-3">
                         {name}
                         <span className="sr-only"> case study</span>
                       </Link>

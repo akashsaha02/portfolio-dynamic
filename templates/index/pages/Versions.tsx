@@ -21,10 +21,10 @@ export default function Versions({ versions, ...props }: VersionsPageProps) {
             const label = (
               <>
                 <span>{v.name}</span>
-                <ArrowUpRight />
+                <ArrowUpRight className="ml-1.5" />
               </>
             );
-            const linkClass = "i-card-link inline-flex items-baseline gap-1.5";
+            const linkClass = "i-card-link";
             return (
               <li key={v.id} className="i-card grid gap-2 sm:grid-cols-8 sm:gap-8">
                 <p className="mt-1 text-xs font-semibold tracking-wide text-(--fg-muted) uppercase sm:col-span-2">
