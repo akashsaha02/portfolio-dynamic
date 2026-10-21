@@ -1,4 +1,5 @@
 import folio from "./folio";
+import index from "./index/index";
 import type { TemplateDefinition, TemplateId, TemplateModule } from "./types";
 
 /**
@@ -14,6 +15,15 @@ export const templates: Record<TemplateId, TemplateDefinition> = {
       status: "current",
     },
     module: folio,
+  },
+  index: {
+    meta: {
+      id: "index",
+      name: "Index",
+      description: "Two-column, recruiter-first: everything on one scroll (work plan 6.4).",
+      status: "placeholder",
+    },
+    module: index,
   },
 };
 

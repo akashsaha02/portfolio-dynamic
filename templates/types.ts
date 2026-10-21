@@ -1,12 +1,13 @@
 import type { ComponentType } from "react";
 import type { Project, SiteContent } from "@/lib/content-types";
+import type { VersionEntry } from "@/lib/versions";
 
 /**
  * Every template id the registry knows. Add an id here and an entry in registry.ts together.
- * Folio is the only template: Editorial (the v1 design) was retired in work plan 5.2 and lives on
- * at git tag `v1-editorial`.
+ * Folio (default) and Index (work plan 6.4, two-column and recruiter-first). Editorial (the v1
+ * design) was retired in 5.2: git tag `v1-editorial`, snapshot at /v/editorial/ (6.3).
  */
-export const TEMPLATE_IDS = ["folio"] as const;
+export const TEMPLATE_IDS = ["folio", "index"] as const;
 export type TemplateId = (typeof TEMPLATE_IDS)[number];
 
 /** Used when nothing picks a template, and for ids that are no longer (or never were) templates. */
@@ -59,6 +60,12 @@ export type CaseStudyPageProps = TemplateProps & {
   next: Project | null;
 };
 
+/** Props of the version archive page (/v, work plan 6.3). */
+export type VersionsPageProps = TemplateProps & {
+  /** Every design the site has had, newest first; the current one has `current: true`. */
+  versions: VersionEntry[];
+};
+
 /**
  * A template is a set of page components. Only `Home` is required; a route whose page the
  * active template does not provide responds with 404. All pages are Server Components at the
@@ -74,6 +81,12 @@ export type TemplateModule = {
   About?: ComponentType<TemplateProps>;
   Contact?: ComponentType<TemplateProps>;
   NotFound?: ComponentType<TemplateProps>;
+  /** /archive: every project in one table (work plan 6.1). */
+  Archive?: ComponentType<TemplateProps>;
+  /** /lab: the in-browser ML demo (work plan 6.7). */
+  Lab?: ComponentType<TemplateProps>;
+  /** /v: older versions of this site (work plan 6.3). */
+  Versions?: ComponentType<VersionsPageProps>;
 };
 
 export type TemplateMeta = {
@@ -87,9 +100,9 @@ export type TemplateMeta = {
 export type TemplateDefinition = {
   meta: TemplateMeta;
   /**
-   * The template's pages, imported statically. With one template there is nothing to defer. If a
-   * second one is added, every template's Client Components join the same route graph and ship on
-   * every route; measure first-load JS then (work plan 5.2 found 7.6 KB gz from Editorial on Folio).
+   * The template's pages, imported statically. Every template's Client Components join the same
+   * route graph and ship on every route whichever template is active (work plan 5.2 found 7.6 KB
+   * gz from Editorial on Folio), so a template keeps its own Client Components few and small.
    */
   module: TemplateModule;
 };
