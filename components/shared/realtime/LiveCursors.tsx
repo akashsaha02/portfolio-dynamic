@@ -10,47 +10,51 @@ import { useEffect } from "react";
  * ./cursors.ts and docs/ops/free-tier.md.
  */
 export function LiveCursors() {
-  if (process.env.NEXT_PUBLIC_REALTIME !== "on") return null;
-  return <Cursors />;
+  return Cursors ? <Cursors /> : null;
 }
 
-function Cursors() {
-  useEffect(() => {
-    const fine = matchMedia("(hover: hover) and (pointer: fine)");
-    const reduced = matchMedia("(prefers-reduced-motion: reduce)");
-    let stop: (() => void) | undefined;
-    let loading = false;
-    let cancelled = false;
+// Build-time flag (next.config.ts). The bundler resolves this `if` before it follows imports, so
+// with "off" the lazy chunks below are never built or referenced.
+let Cursors: (() => null) | null = null;
+if (process.env.NEXT_PUBLIC_REALTIME === "on") {
+  Cursors = function Cursors() {
+    useEffect(() => {
+      const fine = matchMedia("(hover: hover) and (pointer: fine)");
+      const reduced = matchMedia("(prefers-reduced-motion: reduce)");
+      let stop: (() => void) | undefined;
+      let loading = false;
+      let cancelled = false;
 
-    const update = () => {
-      const allowed = fine.matches && !reduced.matches;
-      if (!allowed) {
+      const update = () => {
+        const allowed = fine.matches && !reduced.matches;
+        if (!allowed) {
+          stop?.();
+          stop = undefined;
+          return;
+        }
+        if (stop || loading) return;
+        loading = true;
+        import("./cursors")
+          .then(({ mountCursors }) => {
+            if (!cancelled && !stop && fine.matches && !reduced.matches) stop = mountCursors();
+          })
+          .catch(() => {})
+          .finally(() => {
+            loading = false;
+          });
+      };
+
+      update();
+      fine.addEventListener("change", update);
+      reduced.addEventListener("change", update);
+      return () => {
+        cancelled = true;
+        fine.removeEventListener("change", update);
+        reduced.removeEventListener("change", update);
         stop?.();
-        stop = undefined;
-        return;
-      }
-      if (stop || loading) return;
-      loading = true;
-      import("./cursors")
-        .then(({ mountCursors }) => {
-          if (!cancelled && !stop && fine.matches && !reduced.matches) stop = mountCursors();
-        })
-        .catch(() => {})
-        .finally(() => {
-          loading = false;
-        });
-    };
+      };
+    }, []);
 
-    update();
-    fine.addEventListener("change", update);
-    reduced.addEventListener("change", update);
-    return () => {
-      cancelled = true;
-      fine.removeEventListener("change", update);
-      reduced.removeEventListener("change", update);
-      stop?.();
-    };
-  }, []);
-
-  return null;
+    return null;
+  };
 }

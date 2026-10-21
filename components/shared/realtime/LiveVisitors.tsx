@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { withCore } from "./lazy";
 
 /**
  * "N here now" (work plan 6.5): open tabs on the whole site, from Ably presence on one site-wide
@@ -9,34 +8,46 @@ import { withCore } from "./lazy";
  * connection is up (it waits for idle, a visible tab and no Save-Data), and when realtime is off.
  *
  * Markup for styling: `<span class={className} data-live-visitors={N}>N here now</span>`. It
- * appears after load, so reserve no space for it in a way that shifts other content (CLS).
+ * appears after load, so place it where appearing doesn't shift other content (CLS).
  */
 export function LiveVisitors({ className }: { className?: string }) {
-  // Build-time flag (next.config.ts): with "off" everything below is dead code and dropped.
-  if (process.env.NEXT_PUBLIC_REALTIME !== "on") return null;
-  return <Visitors className={className} />;
+  return Visitors ? <Visitors className={className} /> : null;
 }
 
-function Visitors({ className }: { className?: string }) {
-  const [count, setCount] = useState(0);
+type Props = { className?: string };
 
-  useEffect(
-    () =>
-      withCore(({ retain, watchMembers }) => {
-        const release = retain();
-        const unwatch = watchMembers((members) => setCount(members.length));
-        return () => {
-          unwatch();
-          release();
-        };
-      }),
-    [],
-  );
+// Build-time flag (next.config.ts). The bundler resolves this `if` before following imports, so
+// with "off" neither this code nor the lazy chunks it loads (./core, ./ably) are built at all.
+let Visitors: ((props: Props) => React.ReactNode) | null = null;
+if (process.env.NEXT_PUBLIC_REALTIME === "on") {
+  Visitors = function Visitors({ className }: Props) {
+    const [count, setCount] = useState(0);
 
-  if (count <= 1) return null;
-  return (
-    <span className={className} data-live-visitors={count}>
-      {count} here now
-    </span>
-  );
+    useEffect(() => {
+      let stop: (() => void) | undefined;
+      let cancelled = false;
+      import("./core")
+        .then(({ retain, watchMembers }) => {
+          if (cancelled) return;
+          const release = retain();
+          const unwatch = watchMembers((members) => setCount(members.length));
+          stop = () => {
+            unwatch();
+            release();
+          };
+        })
+        .catch(() => {});
+      return () => {
+        cancelled = true;
+        stop?.();
+      };
+    }, []);
+
+    if (count <= 1) return null;
+    return (
+      <span className={className} data-live-visitors={count}>
+        {count} here now
+      </span>
+    );
+  };
 }
