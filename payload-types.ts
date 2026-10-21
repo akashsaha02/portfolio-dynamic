@@ -74,6 +74,7 @@ export interface Config {
     education: Education;
     media: Media;
     messages: Message;
+    'reaction-counts': ReactionCount;
     users: User;
     'rate-limits': RateLimit;
     'payload-kv': PayloadKv;
@@ -90,6 +91,7 @@ export interface Config {
     education: EducationSelect<false> | EducationSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     messages: MessagesSelect<false> | MessagesSelect<true>;
+    'reaction-counts': ReactionCountsSelect<false> | ReactionCountsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'rate-limits': RateLimitsSelect<false> | RateLimitsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -391,6 +393,19 @@ export interface Message {
   createdAt: string;
 }
 /**
+ * Live 👏 totals on the case-study pages. Read-only: visitors add to them.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "reaction-counts".
+ */
+export interface ReactionCount {
+  id: string;
+  slug: string;
+  count: number;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * Your login. Keep exactly one account here.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -675,6 +690,16 @@ export interface MessagesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "reaction-counts_select".
+ */
+export interface ReactionCountsSelect<T extends boolean = true> {
+  slug?: T;
+  count?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
@@ -867,7 +892,7 @@ export interface SiteSetting {
   /**
    * Which template renders the public site. To look at one first, use Preview in the dashboard's Templates widget.
    */
-  activeTemplate: 'folio';
+  activeTemplate: 'folio' | 'index';
   /**
    * Footer label, e.g. 2026 © Edition.
    */

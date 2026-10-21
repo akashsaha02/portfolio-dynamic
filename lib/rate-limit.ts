@@ -1,5 +1,6 @@
-// Contact-form rate limit: the pure parts (window math, IP extraction, IP hashing).
-// Storage lives in lib/payload/rate-limit-store.ts. Unit-tested in tests/contact-backend.test.ts.
+// Rate limits for public writes (contact form, case-study reactions): the pure parts (window math,
+// IP extraction, IP hashing). Storage lives in lib/payload/rate-limit-store.ts. Unit-tested in
+// tests/contact-backend.test.ts.
 
 import { createHmac } from "node:crypto";
 
@@ -13,6 +14,16 @@ const DAY = 24 * HOUR;
 export const CONTACT_RATE_LIMITS: readonly RateLimitWindow[] = [
   { windowMs: HOUR, max: 5 },
   { windowMs: DAY, max: 20 },
+];
+
+/**
+ * Per visitor IP, case-study reactions (work plan 6.5): at most 20 requests in 10 minutes and 60 a
+ * day, across all case studies. The browser batches quick taps (up to MAX_CLAPS_PER_REQUEST claps
+ * per request), so that is up to 100 claps / 10 min and 300 a day per visitor.
+ */
+export const REACTION_RATE_LIMITS: readonly RateLimitWindow[] = [
+  { windowMs: 10 * MINUTE, max: 20 },
+  { windowMs: DAY, max: 60 },
 ];
 
 /** How far back the store must look: the longest window. */
@@ -102,8 +113,14 @@ export function clientIpFromHeaders(headers: Pick<Headers, "get">, options: Clie
   return UNKNOWN_IP;
 }
 
-/** HMAC-SHA256 of the IP keyed with the server secret, so the stored key can't be reversed to an IP. */
-export function hashClientIp(ip: string, secret: string): string {
+/** What a rate limit counts; part of the hashed key, so each scope has its own buckets. */
+export type RateLimitScope = "contact" | "reaction";
+
+/**
+ * HMAC-SHA256 of the IP keyed with the server secret, so the stored key can't be reversed to an IP.
+ * The scope is mixed in, so contact and reaction hits share the collection but never a bucket.
+ */
+export function hashClientIp(ip: string, secret: string, scope: RateLimitScope = "contact"): string {
   if (!secret) throw new Error("hashClientIp needs a secret (PAYLOAD_SECRET)");
-  return createHmac("sha256", secret).update(`contact:${ip}`).digest("hex");
+  return createHmac("sha256", secret).update(`${scope}:${ip}`).digest("hex");
 }

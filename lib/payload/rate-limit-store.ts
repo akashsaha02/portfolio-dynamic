@@ -1,5 +1,6 @@
-// Mongo-backed storage for the contact rate limit (collections/RateLimits.ts). The window math is
-// pure and lives in lib/rate-limit.ts. Server only: imported by the contact Server Action.
+// Mongo-backed storage for the rate limits (collections/RateLimits.ts). The window math is pure
+// and lives in lib/rate-limit.ts. Server only: used by the contact Server Action and the reactions
+// route (app/(site)/api/reactions/[slug]/route.ts).
 
 import type { Payload } from "payload";
 import {
@@ -7,7 +8,9 @@ import {
   evaluateRateLimit,
   hashClientIp,
   lookbackMs,
+  REACTION_RATE_LIMITS,
   type RateLimitDecision,
+  type RateLimitScope,
   type RateLimitWindow,
 } from "../rate-limit";
 
@@ -39,12 +42,32 @@ function ensureTtlIndex(payload: Payload): Promise<void> {
  * Not atomic: two simultaneous requests can both pass at the edge of a window. That is fine for
  * a contact form; Turnstile already stops automated floods.
  */
-export async function consumeContactRateLimit(
+export function consumeContactRateLimit(
   payload: Payload,
   ip: string,
-  { now = Date.now(), limits = CONTACT_RATE_LIMITS }: { now?: number; limits?: readonly RateLimitWindow[] } = {},
+  { now = Date.now(), limits = CONTACT_RATE_LIMITS }: ConsumeOptions = {},
 ): Promise<RateLimitDecision> {
-  const key = hashClientIp(ip, payload.secret);
+  return consumeRateLimit(payload, ip, "contact", { now, limits });
+}
+
+/** The same for case-study reactions, with its own buckets and REACTION_RATE_LIMITS. */
+export function consumeReactionRateLimit(
+  payload: Payload,
+  ip: string,
+  { now = Date.now(), limits = REACTION_RATE_LIMITS }: ConsumeOptions = {},
+): Promise<RateLimitDecision> {
+  return consumeRateLimit(payload, ip, "reaction", { now, limits });
+}
+
+type ConsumeOptions = { now?: number; limits?: readonly RateLimitWindow[] };
+
+async function consumeRateLimit(
+  payload: Payload,
+  ip: string,
+  scope: RateLimitScope,
+  { now, limits }: Required<ConsumeOptions>,
+): Promise<RateLimitDecision> {
+  const key = hashClientIp(ip, payload.secret, scope);
   const lookback = lookbackMs(limits);
   const maxHits = Math.max(...limits.map((l) => l.max));
 

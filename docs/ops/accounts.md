@@ -118,6 +118,19 @@ The admin cookie is accepted only for origins in the allowlist (`lib/origins.ts`
   Then open `http://192.168.1.23:3000/admin` on the phone. Remove the variable afterwards; do not set a LAN origin on Vercel. If Windows Firewall asks, allow Node on private networks only.
 - Symptom checklist: login returns 200 and nothing happens, saves do nothing, or you are logged out immediately. First check the address bar host against the lists above.
 
+## 9. Ably (optional: live visitors, reactions, cursors)
+
+Only when you want realtime (work plan 6.5/6.9). Without this key the site builds and runs exactly as before, with no realtime code shipped. Free package: no card, no time limit; limits and what uses them in `docs/ops/free-tier.md` ("Ably: what eats the quota").
+
+1. Sign up at https://ably.com (free). Create an app named `portfolio` (any region; leave defaults: no persistence, no integrations, no extra channel rules or namespaces needed).
+2. App > **API Keys**. Either copy the **Root** key, or (safer) **Create a new API key** named `portfolio-server` with only **Publish**, **Subscribe** and **Presence** on resource `*` (no History, Stats, Push or Channel metadata). Browsers never see this key: the server signs 1-hour tokens with narrower rights from it, and a token can't have more rights than its key.
+3. Copy the **full** key (`appId.keyId:secret`, including the colon and the secret) into your password manager.
+4. Vercel > Settings > Environment Variables: `ABLY_API_KEY` = the key, **Production** only, Sensitive on. Then **redeploy**: the key is checked at build time to switch realtime on. Reactions also need `DATABASE_URI` in the same scope.
+5. Local testing (optional): create a second app `portfolio-dev` and put its key in `.env.local`, so local runs never count against production stats (channel names already differ per environment).
+6. Check after a day: app > **Stats** (messages, peak connections). Add a Usage log row in `free-tier.md` at the monthly check.
+
+To turn realtime off: delete `ABLY_API_KEY` in Vercel and redeploy. To rotate: create a new key, swap it in Vercel, redeploy, then revoke the old key in Ably.
+
 ## Where each value goes
 
 Local file is `.env.local` in the repo root (git-ignored, never committed). Vercel: Project > Settings > Environment Variables; for each variable tick the environments shown. GitHub secrets are not needed yet (CI builds without secrets).
@@ -131,6 +144,7 @@ Local file is `.env.local` in the repo root (git-ignored, never committed). Verc
 | `CONTACT_TO_EMAIL` | your Resend account email | yes | yes | yes | no |
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | test key `1x00000000000000000000AA` | yes | real or test key | real key | no |
 | `TURNSTILE_SECRET_KEY` | test secret `1x0000000000000000000000000000000AA` | yes | real or test secret | real secret | no |
+| `ABLY_API_KEY` (optional) | `portfolio-dev` app key, or unset | optional | normally unset | `portfolio` app key | no |
 
 Mark every variable except `NEXT_PUBLIC_TURNSTILE_SITE_KEY` as **Sensitive** when Vercel offers the toggle (value hidden after save). Names are the canonical list in `docs/ops/env.md`.
 
@@ -144,7 +158,8 @@ Treat any secret that appeared in chat, a commit, a screenshot or a log as leake
 4. `BLOB_READ_WRITE_TOKEN`: Vercel > Storage > the store > settings > regenerate the read-write token (it updates the connected project; run `vercel env pull` locally).
 5. `RESEND_API_KEY`: Resend > API Keys > delete the key, create a new one, update Vercel and `.env.local`.
 6. `TURNSTILE_SECRET_KEY`: Cloudflare > Turnstile > the widget > rotate the secret key, update Vercel.
-7. Check the usage pages (`docs/ops/free-tier.md`) for unexpected spikes over the next days.
+7. `ABLY_API_KEY`: Ably > the app > API Keys > create a new key with the same rights, swap it in Vercel, redeploy, then **Revoke** the old key (existing browser tokens die within an hour).
+8. Check the usage pages (`docs/ops/free-tier.md`) for unexpected spikes over the next days.
 
 ## Checklist (tick as you go)
 
@@ -155,4 +170,5 @@ Treat any secret that appeared in chat, a commit, a screenshot or a log as leake
 - [ ] `PAYLOAD_SECRET` generated (three different values: local, preview, production)
 - [ ] `.env.local` filled in with the dev values (test Turnstile keys)
 - [ ] Vercel env vars set per the table (Preview and Production scopes, sensitive toggle on)
+- [ ] (Optional, realtime) Ably: app `portfolio`, server key saved, `ABLY_API_KEY` in Vercel Production, redeployed
 - [ ] Told the lead "done" (not the values). Nothing committed: `git status` shows no `.env*` files
