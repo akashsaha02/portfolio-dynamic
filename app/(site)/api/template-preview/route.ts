@@ -1,6 +1,7 @@
 import config from "@payload-config";
 import { cookies, draftMode } from "next/headers";
 import { getPayload } from "payload";
+import { hasDatabase } from "@/lib/data";
 import { redirectTo, safeRedirectPath, TEMPLATE_PREVIEW_COOKIE } from "@/lib/draft";
 import { isTemplateId } from "@/templates/types";
 
@@ -15,13 +16,14 @@ import { isTemplateId } from "@/templates/types";
 // new tab; the request changes nothing on the site, only this browser's preview state.
 
 const noStore = { "Cache-Control": "no-store" };
+const unauthorized = () => new Response("Sign in to the admin to preview templates.", { status: 401, headers: noStore });
 
 export async function GET(request: Request) {
+  // No database (static builds, e2e): there is no admin to be signed in as.
+  if (!hasDatabase()) return unauthorized();
   const payload = await getPayload({ config });
   const { user } = await payload.auth({ headers: request.headers });
-  if (user?.collection !== "users") {
-    return new Response("Sign in to the admin to preview templates.", { status: 401, headers: noStore });
-  }
+  if (user?.collection !== "users") return unauthorized();
 
   const template = new URL(request.url).searchParams.get("template");
   if (!isTemplateId(template)) {

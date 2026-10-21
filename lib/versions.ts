@@ -34,5 +34,11 @@ export const VERSIONS: VersionEntry[] = [
     description: "The first version: one long page on paper and ink with a lime accent.",
     href: "/v/editorial/",
     tag: "v1-editorial",
+    image: {
+      src: "/v/editorial-cover.webp",
+      alt: "The Editorial version: AKASH SAHA in huge dark letters behind a portrait, a lime signature and a pill-shaped menu on pale paper.",
+      width: 1600,
+      height: 1000,
+    },
   },
 ];
