@@ -1,4 +1,6 @@
 "use client";
+// Out of the React Compiler (as client/ContactForm.tsx): it re-renders once per section change.
+"use no memo";
 
 import { useEffect, useState } from "react";
 

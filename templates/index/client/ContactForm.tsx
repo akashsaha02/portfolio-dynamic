@@ -1,4 +1,7 @@
 "use client";
+// Out of the React Compiler: its memo caches doubled this module, which ships on every route of
+// both templates, and an uncontrolled form that re-renders only per answer doesn't need them.
+"use no memo";
 
 import { useActionState, useEffect, useRef, useState, type FormEvent, type MouseEvent } from "react";
 import {
