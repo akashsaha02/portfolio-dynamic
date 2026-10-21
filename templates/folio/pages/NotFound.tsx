@@ -16,7 +16,7 @@ const WAYS_BACK = [
 
 export default function NotFound({ content, settings }: TemplateProps) {
   return (
-    <FolioShell content={content} settings={settings}>
+    <FolioShell content={content} settings={settings} title="Page not found">
       <main id="main" tabIndex={-1} className="outline-none">
         <div className="f-bleed pt-[calc(var(--section-y)/2)] pb-section">
           <p className="type-label tabular-nums">404</p>

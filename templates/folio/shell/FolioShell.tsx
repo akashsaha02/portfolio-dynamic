@@ -10,7 +10,8 @@ import { MenuNav } from "./MenuNav";
 import { MenuPanel } from "./MenuPanel";
 import { MenuRoot } from "./MenuRoot";
 import { FixedBurger } from "./MenuTriggers";
-import type { ShellPage } from "./pages";
+import { PageCurtain } from "./PageCurtain";
+import { SHELL_PAGES, type ShellPage } from "./pages";
 import { TopBar } from "./TopBar";
 import "../transitions.css";
 
@@ -26,10 +27,11 @@ import "../transitions.css";
 // clock, all small and free of GSAP (Magnetic fetches GSAP lazily on fine pointers only).
 //
 // Page transitions (work plan 1.7): the root sits in a <ViewTransition>, so every client
-// navigation between Folio routes (Next runs them as React Transitions) crossfades the page; see
+// navigation between Folio routes (Next runs them as React Transitions) animates the page; see
 // transitions.css. It must stay the outermost element: React only runs enter/exit for a boundary
 // with no DOM node above it in the subtree that mounts. `default="none"` keeps every other
 // transition (form actions, filters) from animating. No-op where View Transitions are missing.
+// Since 6.9 the animation is an ink curtain with the new page's name (PageCurtain, `title`).
 // FocusMain puts focus on the new <main> after each client navigation (QA F-04).
 //
 // The ⌘K command menu (work plan 6.2, components/shared/CommandMenu.tsx) is mounted here with
@@ -55,10 +57,11 @@ type FolioShellProps = TemplateProps & {
   children: ReactNode;
 };
 
-export function FolioShell({ content, settings, current, section, footerVariant, children }: FolioShellProps) {
+export function FolioShell({ content, settings, current, section, title, footerVariant, children }: FolioShellProps) {
   const { profile, site } = content;
   const firstName = profile.name.split(" ")[0];
   const { announcement } = settings;
+  const curtainTitle = title ?? SHELL_PAGES.find((p) => p.id === current)?.label ?? profile.name;
 
   return (
     <ViewTransition enter="f-page-in" exit="f-page-out" default="none">
@@ -91,6 +94,7 @@ export function FolioShell({ content, settings, current, section, footerVariant,
         </MenuRoot>
         {/* Outside MenuRoot, so the open panel's `inert` never covers it (work plan 6.2). */}
         <CommandMenu items={folioCommands(content)} />
+        <PageCurtain title={curtainTitle} />
       </div>
     </ViewTransition>
   );
