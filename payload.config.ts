@@ -16,6 +16,7 @@ import { Messages } from "./collections/Messages";
 import { Projects } from "./collections/Projects";
 import { Publications } from "./collections/Publications";
 import { RateLimits } from "./collections/RateLimits";
+import { ReactionCounts } from "./collections/ReactionCounts";
 import { Skills } from "./collections/Skills";
 import { Users } from "./collections/Users";
 import { Profile } from "./globals/Profile";
@@ -120,7 +121,18 @@ export default buildConfig({
       breakpoints: PREVIEW_BREAKPOINTS,
     },
   },
-  collections: [Projects, Experience, Publications, Skills, Education, Media, Messages, Users, RateLimits],
+  collections: [
+    Projects,
+    Experience,
+    Publications,
+    Skills,
+    Education,
+    Media,
+    Messages,
+    ReactionCounts,
+    Users,
+    RateLimits,
+  ],
   globals: [Profile, SiteSettings],
   editor: lexicalEditor(),
   // Payload refuses to start without it (getPayload throws), so a missing secret fails loudly.

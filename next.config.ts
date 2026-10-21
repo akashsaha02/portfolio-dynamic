@@ -5,6 +5,8 @@ import { fileURLToPath } from "node:url";
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
+const realtimeOn = Boolean(process.env.ABLY_API_KEY?.trim());
+
 // Security headers on every route: site, admin, API, OG images (QA F-03).
 // - Framing: same origin only. The admin's live preview iframes the site on the same origin, so
 //   'self' keeps it working; any other site is refused (clickjacking). X-Frame-Options is the
@@ -69,6 +71,19 @@ const nextConfig: NextConfig = {
     defineServer: {
       "process.env.VERCEL_TELEMETRY": process.env.VERCEL_ENV === "production" ? "on" : "off",
     },
+  },
+
+  // Realtime (work plan 6.5/6.9, lib/realtime/channels.ts): decided at BUILD time, inlined into
+  // client and server code. Off unless ABLY_API_KEY is set for the build; with "off" the realtime
+  // components return null and their code (and the lazy Ably chunk) is dropped from the bundles.
+  // Only on/off flags reach the browser here, never the key itself.
+  env: {
+    NEXT_PUBLIC_REALTIME: realtimeOn ? "on" : "off",
+    // Reactions also need the database (totals live in MongoDB): compiled out without DATABASE_URI.
+    NEXT_PUBLIC_REACTIONS: realtimeOn && process.env.DATABASE_URI?.trim() ? "on" : "off",
+    // Part of every channel name, so previews and local runs never share channels with production.
+    NEXT_PUBLIC_REALTIME_SCOPE:
+      process.env.VERCEL_ENV === "production" ? "live" : process.env.VERCEL_ENV === "preview" ? "preview" : "dev",
   },
 
   // cacheComponents stays off: see docs/decisions/cache-components.md (work plan 2.2 spike).
