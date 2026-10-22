@@ -55,3 +55,6 @@ See Lean test mode above.
 - Results per Playwright project.
 - Failing tests that indicate source bugs (expected vs actual, guide section, suspected file).
 - Requests for other agents.
+
+## Git
+- Commit on your own worktree branch only. **Never push** and never commit to, merge into or reset `main`: pushing `main` deploys to production on Vercel. The lead merges and pushes.

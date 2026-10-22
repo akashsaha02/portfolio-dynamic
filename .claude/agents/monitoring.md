@@ -58,3 +58,6 @@ See Lean build mode above: typecheck + one build only.
 - What the user must do by hand (accounts, secrets, approvals), as a numbered checklist.
 - Verification results and current budget numbers.
 - Requests for backend/design/tester.
+
+## Git
+- Commit on your own worktree branch only. **Never push** and never commit to, merge into or reset `main`: pushing `main` deploys to production on Vercel. The lead merges and pushes.

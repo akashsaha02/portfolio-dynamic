@@ -53,3 +53,6 @@ See Lean build mode above: typecheck + one build only.
 - Files changed.
 - How you verified (commands + results, widths checked).
 - Requests for other agents (backend, tester, monitoring) and open questions for the lead.
+
+## Git
+- Commit on your own worktree branch only. **Never push** and never commit to, merge into or reset `main`: pushing `main` deploys to production on Vercel. The lead merges and pushes.
