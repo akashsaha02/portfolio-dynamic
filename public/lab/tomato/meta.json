@@ -1,23 +1,23 @@
 {
   "title": "Tomato leaf classifier (demo)",
-  "date": "2026-10-21",
-  "task": "provisional",
+  "date": "2026-10-22",
+  "task": "Classifies a photo of one tomato leaf into 10 classes: 9 diseases or pests, or healthy.",
   "model": {
     "name": "MobileNetV3-Small",
     "backbone": "MobileNetV3-Small",
-    "weightsInit": "provisional",
-    "head": "provisional",
-    "parameters": 0,
-    "training": "provisional",
-    "augmentation": "provisional",
+    "weightsInit": "ImageNet (keras.applications, alpha 1.0, 224 x 224)",
+    "head": "Global average pooling, dropout 0.2, dense softmax over 10 classes",
+    "parameters": 944890,
+    "training": "First the new layer alone for 2 rounds (epochs), then the whole network for 6 more at a small, decaying learning rate; the best round on the validation photos (round 5) was kept. About 110 minutes on a laptop CPU, no GPU.",
+    "augmentation": "Each training photo is randomly cropped, flipped, turned and lightened or darkened, so the model can't just memorise how the dataset's photos were framed.",
     "details": {
-      "optimizer": "provisional",
-      "learningRate": "provisional",
+      "optimizer": "Adam",
+      "learningRate": "1e-3 (head), then 3e-4 with cosine decay to 1.5e-5 (fine-tuning)",
       "batchSize": 32,
       "labelSmoothing": 0.1,
-      "batchNorm": "provisional",
-      "augmentation": "provisional",
-      "framework": "provisional"
+      "batchNorm": "frozen statistics (inference mode) throughout",
+      "augmentation": "random square crop of 70-100% of the short side, horizontal and vertical flips, rotation up to +/-29 degrees (reflect fill), brightness and contrast +/-15%",
+      "framework": "TensorFlow 2.21.0, Keras 3.15.1, Python 3.12"
     }
   },
   "input": {
@@ -25,15 +25,18 @@
     "channels": "RGB",
     "range": "0-255",
     "layout": "NHWC, batch of 1",
-    "preprocessing": "provisional"
+    "preprocessing": "Centre square crop, resized to 224 x 224 RGB, values 0-255 as float32 (the model rescales them to -1..1 itself)."
   },
-  "output": "provisional",
+  "output": "Softmax probabilities over 10 classes, in the order of labels.json",
   "files": {
-    "format": "provisional",
+    "format": "TensorFlow.js graph model (tensorflowjs 4.22.0 converter)",
     "weights": "float16",
-    "bytes": 2000000,
-    "list": ["model.json"],
-    "runtime": "provisional"
+    "bytes": 2065173,
+    "list": [
+      "model.json",
+      "group1-shard1of1.bin"
+    ],
+    "runtime": "@tensorflow/tfjs-core + tfjs-converter 4.22.0, WebGL backend, CPU backend fallback"
   },
   "dataset": {
     "name": "PlantVillage, tomato leaves (colour images)",
@@ -41,36 +44,232 @@
     "repository": "https://github.com/spMohanty/PlantVillage-Dataset",
     "licence": "CC BY-SA 3.0",
     "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
-    "licenceSource": "provisional",
+    "licenceSource": "Hughes & Salathé (2015), arXiv:1511.08060: images released under CC BY-SA 3.0 Unported, 'with the clarification that algorithms trained on the data fall under the same license'.",
     "credit": "Hughes & Salathé, 2015; Mohanty, Hughes & Salathé, 2016",
-    "citation": ["provisional"],
+    "citation": [
+      "D. P. Hughes and M. Salathé, An open access repository of images on plant health to enable the development of mobile disease diagnostics, arXiv:1511.08060, 2015.",
+      "S. P. Mohanty, D. P. Hughes and M. Salathé, Using deep learning for image-based plant disease detection, Frontiers in Plant Science 7:1419, 2016. doi:10.3389/fpls.2016.01419"
+    ],
     "images": 18160,
     "train": 14439,
     "val": 1857,
     "test": 1864,
-    "split": "provisional"
+    "split": "80/10/10 per class, by leaf: the dataset's leaf map (leaf_grouping/leaf-map.json), 'Leaf N' names, and blocks of 20 consecutive photo numbers for unmapped camera series, so photos of one leaf never cross splits (seed 1307). Stricter than the dataset's own 80/20 split, which leaves 37% of tomato photos ungrouped."
   },
-  "val": { "float16": { "images": 1857, "accuracy": 0 } },
+  "val": {
+    "float32": {
+      "images": 1857,
+      "accuracy": 0.9768
+    },
+    "float16": {
+      "images": 1857,
+      "accuracy": 0.9763
+    },
+    "uint8": {
+      "images": 1857,
+      "accuracy": 0.9526
+    }
+  },
   "test": {
     "images": 1864,
-    "accuracy": 0,
-    "macroRecall": 0,
-    "perClassRecall": { "Early blight": 0 },
-    "confusion": [[0]],
-    "measured": "provisional",
-    "kerasFloat32Accuracy": 0
+    "accuracy": 0.9764,
+    "macroRecall": 0.9677,
+    "perClassRecall": {
+      "Bacterial spot": 0.9769,
+      "Early blight": 0.81,
+      "Late blight": 1,
+      "Leaf mould": 1,
+      "Septoria leaf spot": 0.9628,
+      "Spider mites (two-spotted)": 1,
+      "Target spot": 0.9313,
+      "Yellow leaf curl virus": 0.9963,
+      "Mosaic virus": 1,
+      "Healthy": 1
+    },
+    "confusion": [
+      [
+        211,
+        0,
+        2,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        2
+      ],
+      [
+        0,
+        81,
+        11,
+        4,
+        0,
+        0,
+        2,
+        0,
+        2,
+        0
+      ],
+      [
+        0,
+        0,
+        191,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        96,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        4,
+        1,
+        181,
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        168,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        0,
+        9,
+        149,
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        542,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        40,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        161
+      ]
+    ],
+    "measured": "These files, TensorFlow.js 4.22.0 (wasm backend) in Node, images resized to 224 x 224 with sharp. Read once, after the format was chosen on the validation photos.",
+    "kerasFloat32Accuracy": 0.9764
   },
-  "licence": { "model": "CC BY-SA 3.0", "samples": "CC BY-SA 3.0", "why": "provisional" },
+  "licence": {
+    "model": "CC BY-SA 3.0",
+    "samples": "CC BY-SA 3.0 (PlantVillage photos, re-encoded as WebP)",
+    "why": "The dataset's terms put algorithms trained on it under the same licence."
+  },
   "samples": [
     {
-      "file": "samples/placeholder.webp",
+      "file": "samples/late-blight.webp",
+      "label": "Late blight",
+      "source": "PlantVillage raw/color/Tomato___Late_blight/283ff0be-6e5e-4b4e-bf21-639780b77ffc___GHLB2 Leaf 8636.JPG",
+      "bytes": 6934,
+      "predicted": "Late blight",
+      "probability": 0.8755
+    },
+    {
+      "file": "samples/septoria-leaf-spot.webp",
+      "label": "Septoria leaf spot",
+      "source": "PlantVillage raw/color/Tomato___Septoria_leaf_spot/efea9c03-36aa-4c64-b376-22343fb6803f___Matt.S_CG 2779.JPG",
+      "bytes": 18800,
+      "predicted": "Septoria leaf spot",
+      "probability": 0.9645
+    },
+    {
+      "file": "samples/bacterial-spot.webp",
+      "label": "Bacterial spot",
+      "source": "PlantVillage raw/color/Tomato___Bacterial_spot/96e66b34-f4b6-40d7-9459-53fd4da64a9f___GCREC_Bact.Sp 5793.JPG",
+      "bytes": 11352,
+      "predicted": "Bacterial spot",
+      "probability": 0.9129
+    },
+    {
+      "file": "samples/yellow-leaf-curl-virus.webp",
+      "label": "Yellow leaf curl virus",
+      "source": "PlantVillage raw/color/Tomato___Tomato_Yellow_Leaf_Curl_Virus/b1b63ecf-c676-4203-83b9-ff49bb5cb7a4___YLCV_NREC 2989.JPG",
+      "bytes": 15436,
+      "predicted": "Yellow leaf curl virus",
+      "probability": 0.9571
+    },
+    {
+      "file": "samples/healthy.webp",
+      "label": "Healthy",
+      "source": "PlantVillage raw/color/Tomato___healthy/9b0e031b-27c2-4c62-8923-ccc3ce5a4048___GH_HL Leaf 401.1.JPG",
+      "bytes": 15116,
+      "predicted": "Healthy",
+      "probability": 0.9009
+    },
+    {
+      "file": "samples/early-blight.webp",
       "label": "Early blight",
-      "source": "provisional",
-      "bytes": 0,
-      "predicted": "Early blight",
-      "probability": 0
+      "source": "PlantVillage raw/color/Tomato___Early_blight/b2b63d7c-d8f7-44ff-b53e-6214ddbed5d9___RS_Erly.B 9509.JPG",
+      "bytes": 18336,
+      "predicted": "Late blight",
+      "probability": 0.5105
     }
   ],
-  "limits": ["provisional"],
-  "notThePaper": "provisional"
+  "limits": [
+    "PlantVillage photos show single leaves, picked and laid on a plain grey or black sheet, shot outdoors in daylight; leaves on the plant, busy backgrounds or other lighting will fool it more often.",
+    "It only knows these ten classes, so a photo of another plant, another disease or no leaf at all still gets one of them, sometimes with high confidence.",
+    "Test accuracy is measured on PlantVillage photos only, so it says little about photos from a field."
+  ],
+  "notThePaper": "Not the model from Comparative Performance of Deep Learning Algorithms in Tomato Disease Detection (IEEE CONIT 2025): a separate, much smaller model trained for this page."
 }
