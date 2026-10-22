@@ -1,0 +1,76 @@
+{
+  "title": "Tomato leaf classifier (demo)",
+  "date": "2026-10-21",
+  "task": "provisional",
+  "model": {
+    "name": "MobileNetV3-Small",
+    "backbone": "MobileNetV3-Small",
+    "weightsInit": "provisional",
+    "head": "provisional",
+    "parameters": 0,
+    "training": "provisional",
+    "augmentation": "provisional",
+    "details": {
+      "optimizer": "provisional",
+      "learningRate": "provisional",
+      "batchSize": 32,
+      "labelSmoothing": 0.1,
+      "batchNorm": "provisional",
+      "augmentation": "provisional",
+      "framework": "provisional"
+    }
+  },
+  "input": {
+    "size": 224,
+    "channels": "RGB",
+    "range": "0-255",
+    "layout": "NHWC, batch of 1",
+    "preprocessing": "provisional"
+  },
+  "output": "provisional",
+  "files": {
+    "format": "provisional",
+    "weights": "float16",
+    "bytes": 2000000,
+    "list": ["model.json"],
+    "runtime": "provisional"
+  },
+  "dataset": {
+    "name": "PlantVillage, tomato leaves (colour images)",
+    "url": "https://huggingface.co/datasets/mohanty/PlantVillage",
+    "repository": "https://github.com/spMohanty/PlantVillage-Dataset",
+    "licence": "CC BY-SA 3.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "licenceSource": "provisional",
+    "credit": "Hughes & Salathé, 2015; Mohanty, Hughes & Salathé, 2016",
+    "citation": ["provisional"],
+    "images": 18160,
+    "train": 14439,
+    "val": 1857,
+    "test": 1864,
+    "split": "provisional"
+  },
+  "val": { "float16": { "images": 1857, "accuracy": 0 } },
+  "test": {
+    "images": 1864,
+    "accuracy": 0,
+    "macroRecall": 0,
+    "perClassRecall": { "Early blight": 0 },
+    "confusion": [[0]],
+    "measured": "provisional",
+    "kerasFloat32Accuracy": 0
+  },
+  "licence": { "model": "CC BY-SA 3.0", "samples": "CC BY-SA 3.0", "why": "provisional" },
+  "samples": [
+    {
+      "file": "samples/placeholder.webp",
+      "label": "Early blight",
+      "source": "provisional",
+      "bytes": 0,
+      "predicted": "Early blight",
+      "probability": 0
+    }
+  ],
+  "limits": ["provisional"],
+  "notThePaper": "provisional"
+}

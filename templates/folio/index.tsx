@@ -14,9 +14,10 @@ import About from "./pages/About";
 import CaseStudy from "./pages/CaseStudy";
 import Contact from "./pages/Contact";
 import Home from "./pages/Home";
+import Lab from "./pages/Lab";
 import NotFound from "./pages/NotFound";
 import Work from "./pages/Work";
 
-const folio: TemplateModule = { Home, Work, CaseStudy, About, Contact, NotFound };
+const folio: TemplateModule = { Home, Work, CaseStudy, About, Contact, NotFound, Lab };
 
 export default folio;
