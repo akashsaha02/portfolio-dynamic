@@ -1,19 +1,20 @@
+// Folio Lab, /lab (work plan 6.7): the in-browser tomato-leaf classifier. The title and one line;
+// the research it grew out of (the tomato publication and research role, from content, left out
+// when absent); the demo; then "How it works": the model's facts and four numbered steps, all from
+// public/lab/tomato/meta.json. Blocks follow Home's Research: a hairline, the label in 3 of 12
+// columns from md, the content in the other 9. Server Component; the demo is the only client part
+// and TF.js loads when the visitor presses Classify. Not in the shell's menu (pages.ts) yet.
+
 import type { ReactNode } from "react";
 import { TomatoClassifier } from "@/components/shared/lab/TomatoClassifier";
 import type { Experience, Publication } from "@/lib/content-types";
 import meta from "@/public/lab/tomato/meta.json";
 import type { TemplateProps } from "../../types";
 import { FolioShell } from "../shell/FolioShell";
+import { Action } from "../ui/Action";
 import { Chip } from "../ui/Chip";
 import { FillButton } from "../ui/FillButton";
 import { ArrowUpRight } from "../ui/icons";
-
-// Folio Lab, /lab (work plan 6.7): the in-browser tomato-leaf classifier. The title and one line;
-// the research it grew out of (the tomato publication and research role, from content, left out
-// when absent); the demo; then "How it works": the model's facts and four numbered steps, all from
-// public/lab/tomato/meta.json. Blocks follow Home's Research: a hairline, the label in 3 of 12
-// columns from md, the content in the other 9. Server Component; the demo is the only client part
-// and TF.js loads when the visitor presses Classify.
 
 const percent = new Intl.NumberFormat("en-GB", { style: "percent", maximumFractionDigits: 1 });
 const count = (n: number) => n.toLocaleString("en-GB");
@@ -149,17 +150,28 @@ function HowItWorks() {
       </ul>
 
       <p className="mt-12 max-w-[60ch] text-sm leading-relaxed text-pretty text-(--fg-muted)">
-        Dataset:{" "}
-        <a href={dataset.url} className="underline underline-offset-4" target="_blank" rel="noopener noreferrer">
-          PlantVillage<span className="sr-only"> (opens in a new tab)</span>
-        </a>{" "}
-        ({dataset.credit}), licensed{" "}
-        <a href={dataset.licenceUrl} className="underline underline-offset-4" target="_blank" rel="noopener noreferrer">
-          {dataset.licence}<span className="sr-only"> (opens in a new tab)</span>
-        </a>
-        . Its terms put models trained on it under the same licence, so the model files and sample photos are{" "}
-        {dataset.licence} too.
+        Dataset: PlantVillage ({dataset.credit}), licensed {dataset.licence}. Its terms put models trained on it
+        under the same licence, so the model files and sample photos are {dataset.licence} too.
       </p>
+      {/* 44px targets, as the case-study fact links (work/Facts.tsx). */}
+      <ul className="mt-2 flex flex-wrap gap-x-6">
+        <li>
+          <Action href={dataset.url} external className="f-link -mx-1 inline-flex min-h-11 items-center gap-1.5 px-1 font-medium">
+            Dataset
+            <ArrowUpRight />
+          </Action>
+        </li>
+        <li>
+          <Action
+            href={dataset.licenceUrl}
+            external
+            className="f-link -mx-1 inline-flex min-h-11 items-center gap-1.5 px-1 font-medium"
+          >
+            Licence ({dataset.licence})
+            <ArrowUpRight />
+          </Action>
+        </li>
+      </ul>
     </Block>
   );
 }
