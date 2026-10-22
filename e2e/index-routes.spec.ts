@@ -27,7 +27,12 @@ async function smallTargets(page: Page) {
       const style = getComputedStyle(el);
       if (style.visibility === "hidden" || style.display === "none") continue;
       // Radios and checkboxes are covered by their 44px label.
-      const target = el instanceof HTMLInputElement && /radio|checkbox/.test(el.type) ? (el.closest("label") ?? el) : el;
+      let target: HTMLElement =
+        el instanceof HTMLInputElement && /radio|checkbox/.test(el.type) ? (el.closest("label") ?? el) : el;
+      // Stretched card links: the ::after pseudo covers the positioned card, which is the real target.
+      if (getComputedStyle(el, "::after").position === "absolute" && el.offsetParent instanceof HTMLElement) {
+        target = el.offsetParent;
+      }
       const r = target.getBoundingClientRect();
       if (r.width === 0 || r.height === 0) continue;
       if (r.width < 43.5 || r.height < 43.5) {
