@@ -32,6 +32,8 @@
     "**/*.mts",
     ".next-folio/types/**/*.ts",
     ".next-folio/dev/types/**/*.ts",
+    ".next-index/types/**/*.ts",
+    ".next-index/dev/types/**/*.ts",
     ".next-db/types/**/*.ts",
     ".next-db/dev/types/**/*.ts"
   ],

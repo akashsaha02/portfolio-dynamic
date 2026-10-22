@@ -9,6 +9,10 @@ import { viewports } from "./e2e/viewports";
 // This suite is DB-free and keyless. The DB-backed suite (contact success path, Phase 3 backend
 // behaviour) is playwright.db.config.ts: `npm run test:e2e:db`, server on base+2.
 const port = Number(process.env.PW_PORT_BASE ?? 3100);
+// Second server: the same app built with SITE_TEMPLATE=index (no database, so the template comes
+// from the environment at build time) into .next-index on base+3. Projects "index-<viewport>"
+// run only e2e/index-*.spec.ts; the "folio-*" projects skip those files.
+const indexPort = port + 3;
 
 export default defineConfig({
   testDir: "./e2e",
@@ -19,23 +23,51 @@ export default defineConfig({
   reporter: [["html", { open: "never", outputFolder: "playwright-report" }], ["list"]],
   outputDir: "test-results",
   use: { trace: "on-first-retry" },
-  webServer: {
-    command: `npm run build && npm run start -- -p ${port}`,
-    // DATABASE_URI and the Turnstile keys are forced empty (an empty value beats .env.local), so
-    // the site reads the static content and the contact form fails closed.
-    env: {
-      NEXT_DIST_DIR: ".next-folio",
-      DATABASE_URI: "",
-      NEXT_PUBLIC_TURNSTILE_SITE_KEY: "",
-      TURNSTILE_SECRET_KEY: "",
+  webServer: [
+    {
+      command: `npm run build && npm run start -- -p ${port}`,
+      // DATABASE_URI and the Turnstile keys are forced empty (an empty value beats .env.local), so
+      // the site reads the static content and the contact form fails closed.
+      env: {
+        NEXT_DIST_DIR: ".next-folio",
+        DATABASE_URI: "",
+        NEXT_PUBLIC_TURNSTILE_SITE_KEY: "",
+        TURNSTILE_SECRET_KEY: "",
+        ABLY_API_KEY: "",
+        VERCEL_ANALYTICS_TOKEN: "",
+      },
+      url: `http://localhost:${port}`,
+      reuseExistingServer: !process.env.CI,
+      timeout: 300_000,
     },
-    url: `http://localhost:${port}`,
-    reuseExistingServer: !process.env.CI,
-    timeout: 300_000,
-  },
-  projects: viewports.map((v) => ({
-    ...v,
-    name: `folio-${v.name}`,
-    use: { ...v.use, baseURL: `http://localhost:${port}` },
-  })),
+    {
+      command: `npm run build && npm run start -- -p ${indexPort}`,
+      env: {
+        NEXT_DIST_DIR: ".next-index",
+        SITE_TEMPLATE: "index",
+        DATABASE_URI: "",
+        NEXT_PUBLIC_TURNSTILE_SITE_KEY: "",
+        TURNSTILE_SECRET_KEY: "",
+        ABLY_API_KEY: "",
+        VERCEL_ANALYTICS_TOKEN: "",
+      },
+      url: `http://localhost:${indexPort}`,
+      reuseExistingServer: !process.env.CI,
+      timeout: 300_000,
+    },
+  ],
+  projects: [
+    ...viewports.map((v) => ({
+      ...v,
+      name: `folio-${v.name}`,
+      testIgnore: /(db-backend|index-.*)\.spec\.ts/,
+      use: { ...v.use, baseURL: `http://localhost:${port}` },
+    })),
+    ...viewports.map((v) => ({
+      ...v,
+      name: `index-${v.name}`,
+      testMatch: /index-.*\.spec\.ts/,
+      use: { ...v.use, baseURL: `http://localhost:${indexPort}` },
+    })),
+  ],
 });
