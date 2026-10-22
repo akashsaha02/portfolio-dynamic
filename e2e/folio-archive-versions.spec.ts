@@ -85,7 +85,8 @@ test.describe("/v", () => {
     await page.goto("/v");
     const link = page.locator("main article").getByRole("link", { name: /^Editorial/ });
     await expect(link).toHaveAttribute("href", "/v/editorial");
-    expect((await link.boundingBox())!.height).toBeGreaterThanOrEqual(44);
+    // A stretched link: the whole card (the link's ::after) is the tap target.
+    expect((await page.locator("main article").filter({ has: link }).boundingBox())!.height).toBeGreaterThanOrEqual(44);
   });
 
   test("no horizontal scroll at 320px", async ({ page }) => {

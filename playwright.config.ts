@@ -60,7 +60,7 @@ export default defineConfig({
     ...viewports.map((v) => ({
       ...v,
       name: `folio-${v.name}`,
-      testIgnore: /index-.*\.spec\.ts/,
+      testIgnore: /(db-backend|index-.*)\.spec\.ts/,
       use: { ...v.use, baseURL: `http://localhost:${port}` },
     })),
     ...viewports.map((v) => ({

@@ -212,7 +212,9 @@ test.describe("page curtain", () => {
     await cmdField(page).fill("older");
     await page.keyboard.press("Enter");
     await expect(page.locator("h1")).toHaveText("Older versions");
+    await expect(cmdDialog(page)).toBeHidden();
     await page.keyboard.press("ControlOrMeta+k");
+    await expect(cmdField(page)).toBeFocused();
     await cmdField(page).fill("lab");
     await page.keyboard.press("Enter");
     await expect(page.locator("h1")).toHaveText("Lab");
