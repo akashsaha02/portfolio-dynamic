@@ -30,7 +30,7 @@ function ProjectLinks({ project }: { project: Project }) {
   const { live, code } = projectLinks(project);
 
   return (
-    <ul className="-mb-2.5 flex flex-wrap gap-x-5 md:-my-2.5 md:justify-end lg:gap-x-6">
+    <ul className="-mb-2.5 flex flex-wrap gap-x-5 md:-my-2.5 md:flex-nowrap md:justify-end lg:gap-x-6">
       {project.caseStudy ? (
         <li>
           <Link href={`/work/${project.slug}`} className={LINK}>

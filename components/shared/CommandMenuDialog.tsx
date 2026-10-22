@@ -143,12 +143,15 @@ export default function CommandMenuDialog({ open, items, label, placeholder, onC
         onClose();
       }}
       onClick={onDialogClick}
-      className="fixed inset-0 m-0 h-full border-0 max-h-none w-full max-w-none overflow-hidden bg-transparent p-0 text-on-ink backdrop:bg-[rgb(40_44_32/0.45)]"
+      // Templates with a two-tone focus ring read these: lime on ink inside the panel.
+      className="fixed inset-0 m-0 h-full border-0 [--focus-halo:var(--ink)] [--focus-ring:var(--lime)] max-h-none w-full max-w-none overflow-hidden bg-transparent p-0 text-on-ink backdrop:bg-[rgb(40_44_32/0.45)]"
     >
       <div
         className="mx-auto mt-[max(0.75rem,env(safe-area-inset-top))] flex max-h-[min(36rem,calc(100dvh-1.5rem))] w-[min(40rem,calc(100%-2*max(var(--gutter),env(safe-area-inset-left))))] flex-col overflow-hidden rounded-2xl bg-ink shadow-[0_0_0_1px_var(--hairline-on-ink)] transition-[opacity,translate] duration-(--dur-fast) ease-inout starting:-translate-y-2 starting:opacity-0 motion-reduce:transition-none md:mt-[14svh] md:max-h-[min(36rem,72svh)]"
       >
-        <div className="flex items-center gap-2 border-b border-hairline-on-ink pr-2">
+        {/* The field always has focus while open: its focus indicator is the caret and this
+            rule turning lime, not a ring around the field. */}
+        <div className="flex items-center gap-2 border-b border-hairline-on-ink pr-2 transition-colors duration-(--dur-fast) ease-inout has-[input:focus-visible]:border-lime">
           <input
             ref={input}
             type="text"
@@ -170,12 +173,12 @@ export default function CommandMenuDialog({ open, items, label, placeholder, onC
               setActive(0);
             }}
             onKeyDown={onKeyDown}
-            className="min-h-14 min-w-0 flex-1 bg-transparent px-5 text-lg text-on-ink outline-none placeholder:text-[rgb(244_244_237/0.6)]"
+            className="min-h-14 min-w-0 flex-1 bg-transparent px-5 text-lg text-on-ink shadow-none! outline-none! placeholder:text-[rgb(244_244_237/0.6)]"
           />
           <button
             type="button"
             onClick={() => onClose()}
-            className="inline-flex min-h-11 shrink-0 items-center rounded-full px-4 text-sm font-medium text-[rgb(244_244_237/0.75)] transition-colors duration-(--dur-fast) ease-inout hover:text-on-ink focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-lime"
+            className="inline-flex min-h-11 shrink-0 items-center rounded-full px-4 text-sm font-medium text-[rgb(244_244_237/0.75)] transition-colors duration-(--dur-fast) ease-inout hover:text-on-ink focus-visible:outline-2 focus-visible:outline-lime"
           >
             Close
           </button>
