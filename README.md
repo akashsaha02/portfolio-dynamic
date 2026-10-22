@@ -2,9 +2,13 @@
 
 Personal portfolio: work, case studies, research, about and a contact form. Mobile first, with an admin panel at `/admin` to edit every piece of content without a redeploy. Runs entirely on free tiers.
 
+Also: two templates you can switch (and preview first) from the admin, a project archive, a ⌘K command menu, "how this was built" notes, an archive of older versions of the site, a Lab page with a tomato-leaf disease classifier that runs in the browser, live visitor counts, reactions and cursors (Ably), and a page-view widget in the admin.
+
 ## Stack
 
-- **Site:** Next.js 16 (App Router), React 19 with the React Compiler, Tailwind CSS 4. The design ("Folio") lives in `templates/folio/`. GSAP is loaded lazily and never on first paint.
+- **Site:** Next.js 16 (App Router), React 19 with the React Compiler, Tailwind CSS 4. Two templates: "Folio" (`templates/folio/`, default) and "Index" (`templates/index/`, two columns on ink). GSAP is loaded lazily and never on first paint.
+- **Lab:** a MobileNetV3-Small classifier (TensorFlow.js, 2 MB, loaded only when you press Classify), trained on PlantVillage tomato images (CC BY-SA 3.0); see [`docs/decisions/ml-lab.md`](docs/decisions/ml-lab.md).
+- **Realtime (optional):** Ably free tier, off unless `ABLY_API_KEY` is set at build time.
 - **Content:** Payload CMS 3 with MongoDB Atlas (free M0) and Vercel Blob for images. Without a database the site renders the static copy in `lib/content.ts`.
 - **Contact form:** Server Action with validation, honeypot, Cloudflare Turnstile, rate limiting, saved to the admin inbox, then emailed through Resend.
 - **Quality:** Vitest unit tests, Playwright end-to-end tests (phone, large phone, tablet, desktop; Chromium and WebKit; axe accessibility checks), Lighthouse CI, GitHub Actions.
@@ -48,9 +52,13 @@ Every variable is described in [`docs/ops/env.md`](docs/ops/env.md). Real values
 ## Project layout
 
 ```text
-app/(site)/        public routes: /, /work, /work/[slug], /about, /contact, /resume, OG images
+app/(site)/        public routes: /, /work, /work/[slug], /about, /contact, /archive, /lab, /v, /resume, OG images
 app/(payload)/     Payload admin and REST API
-templates/folio/   the design: shell, sections, pages, motion, styles
+templates/folio/   the default design: shell, sections, pages, motion, styles
+templates/index/   the second design (two columns on ink)
+components/shared/ pieces both templates use: ⌘K menu, lab classifier, realtime, contact widget
+public/v/          frozen snapshots of older designs (scripts/snapshot-version.mjs)
+public/lab/        the classifier's model files and sample photos
 lib/               content types, data source switch, contact pipeline, SEO
 collections/, globals/   Payload content model
 e2e/, tests/       Playwright and Vitest suites

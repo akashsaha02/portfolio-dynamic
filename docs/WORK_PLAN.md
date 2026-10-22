@@ -151,17 +151,17 @@ Merge order: 3.1 → 3.2 → 3.3 → 3.4 → 3.5; 3.6 alongside.
 
 Each feature runs the same mini-cycle: **UI → backend → connect → test → refine**, owned by the same agents, gated by `qa`. One feature at a time, in this order unless Akash reprioritises (details in guide §12 and §10):
 
-| ID | Feature | Agents | Free service |
-| --- | --- | --- | --- |
-| 6.1 | Project archive `/archive` (year, project, built with, links) | design, backend, tester | — |
-| 6.2 | ⌘K command menu (jump to section, copy email, open GitHub) | design, tester | — |
-| 6.3 | Version archive `/v/<template>` + "Older versions of this site" link (starts with `v1-editorial`) | backend, design | — |
-| 6.4 | Second template ("Index") + template switcher with preview in admin | design, backend, tester | — |
-| 6.5 | Live visitor count and live reactions on case studies | backend, design, tester, monitoring | Ably free |
-| 6.6 | Annotations toggle ("how this was built" notes) | design | — |
-| 6.7 | ML lab page with an in-browser tomato-leaf classifier demo | design, backend | — |
-| 6.8 | Analytics widget in the admin dashboard | backend, monitoring | Vercel Analytics |
-| 6.9 | Page-transition curtain, live cursors (desktop only) and other flashier effects | design | — |
+| ID | Feature | Agents | Free service | Status |
+| --- | --- | --- | --- | --- |
+| 6.1 | Project archive `/archive` (year, project, built with, links) | design, backend, tester | — | done |
+| 6.2 | ⌘K command menu (jump to section, copy email, open GitHub) | design, tester | — | done |
+| 6.3 | Version archive `/v/<template>` + "Older versions of this site" link (starts with `v1-editorial`) | backend, design | — | done |
+| 6.4 | Second template ("Index") + template switcher with preview in admin | design, backend, tester | — | done |
+| 6.5 | Live visitor count and live reactions on case studies | backend, design, tester, monitoring | Ably free | built (off until ABLY_API_KEY) |
+| 6.6 | Annotations toggle ("how this was built" notes) | design | — | done (Folio) |
+| 6.7 | ML lab page with an in-browser tomato-leaf classifier demo | design, backend | — | done |
+| 6.8 | Analytics widget in the admin dashboard | backend, monitoring | Vercel Analytics | built (needs VERCEL_ANALYTICS_TOKEN) |
+| 6.9 | Page-transition curtain, live cursors (desktop only) and other flashier effects | design | — | done (curtain; cursors off until ABLY_API_KEY; WebGL tile hover not built) |
 
 Rule for every feature: it must keep the guide §5 budgets and §9 free-tier limits, and it must not break any earlier test.
 
