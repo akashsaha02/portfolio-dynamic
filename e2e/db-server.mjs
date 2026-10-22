@@ -30,6 +30,8 @@ const env = {
   SEED_ADMIN_PASSWORD: process.env.ADMIN_PASSWORD,
   // Never send real mail from a test run (an empty value also beats anything in .env.local).
   RESEND_API_KEY: "",
+  ABLY_API_KEY: "",
+  VERCEL_ANALYTICS_TOKEN: "",
   CONTACT_TO_EMAIL: "",
 };
 

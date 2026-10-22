@@ -129,3 +129,87 @@ test("retired template id: saving \"editorial\" is coerced to Folio and the site
   expect((await saved.json()).activeTemplate).toBe("folio");
   expect(await isFolio()).toBe(true);
 });
+
+// ---- Phase 6: template preview (6.4), template activation, analytics widget (6.8) ----
+
+test("template preview: 401 anonymous, 400 for an unknown id, and no cookie is set either way", async () => {
+  const anonymous = await anon.get("/api/template-preview?template=index&path=/", { maxRedirects: 0 });
+  expect(anonymous.status()).toBe(401);
+  expect(anonymous.headers()["set-cookie"] ?? "").toBe("");
+
+  for (const bad of ["nope", "editorial", ""]) {
+    const res = await admin.api.get(`/api/template-preview?template=${bad}&path=/`, { maxRedirects: 0 });
+    expect(res.status(), `template=${bad}`).toBe(400);
+    expect(res.headers()["set-cookie"] ?? "").toBe("");
+  }
+});
+
+test("template preview: the admin sees Index with the banner, anonymous visitors still get Folio, exit clears it", async ({ browser }) => {
+  expect(await (await anon.get("/")).text()).toContain("tpl-folio");
+
+  const context = await browser.newContext({ baseURL: DB_BASE_URL, storageState: admin.storageState });
+  const tab = await context.newPage();
+  await tab.goto("/api/template-preview?template=index&path=/");
+  await expect(tab).toHaveURL(/\/$/);
+  await expect(tab.locator(".tpl-index")).toHaveCount(1);
+  await expect(tab.locator(".tpl-folio")).toHaveCount(0);
+  const banner = tab.getByRole("complementary", { name: "Preview" });
+  await expect(banner).toContainText("Previewing the Index template");
+
+  // The preview is this browser's only: a visitor without the cookie still gets the published Folio.
+  const html = await (await anon.get("/")).text();
+  expect(html).toContain("tpl-folio");
+  expect(html).not.toContain("tpl-index");
+
+  // It sticks across pages while the preview lasts.
+  await tab.goto("/about");
+  await expect(tab.locator(".tpl-index")).toHaveCount(1);
+
+  await tab.goto("/");
+  await tab.getByRole("complementary", { name: "Preview" }).getByRole("button", { name: "Exit preview" }).click();
+  await expect(tab.getByRole("complementary", { name: "Preview" })).toHaveCount(0);
+  await expect(tab.locator(".tpl-folio")).toHaveCount(1);
+  await expect(tab.locator(".tpl-index")).toHaveCount(0);
+  const cookies = await context.cookies();
+  expect(cookies.filter((c) => /template/i.test(c.name))).toEqual([]);
+  await context.close();
+});
+
+test("activating Index through site-settings switches / for anonymous visitors, then Folio comes back", async () => {
+  const set = (activeTemplate: string) => admin.api.post("/api/globals/site-settings", { data: { activeTemplate } });
+  try {
+    const res = await set("index");
+    expect(res.ok()).toBe(true);
+    expect((await (await admin.api.get("/api/globals/site-settings")).json()).activeTemplate).toBe("index");
+    await expect.poll(async () => (await page("/")()).includes("tpl-index"), { timeout: 20_000 }).toBe(true);
+    for (const path of ["/work", "/archive", "/v"]) {
+      const html = await page(path)();
+      expect(html, path).toContain("tpl-index");
+      expect(html, path).not.toContain("tpl-folio");
+    }
+    expect((await anon.get("/work/does-not-exist")).status()).toBe(404);
+  } finally {
+    expect((await set("folio")).ok()).toBe(true);
+  }
+  await expect.poll(async () => (await page("/")()).includes("tpl-folio"), { timeout: 20_000 }).toBe(true);
+  expect(await page("/")()).not.toContain("tpl-index");
+});
+
+test("analytics widget: the dashboard shows the not-set-up state without a token", async ({ browser }) => {
+  const context = await browser.newContext({ baseURL: DB_BASE_URL, storageState: admin.storageState });
+  const tab = await context.newPage();
+  await tab.goto("/admin");
+  const widget = tab.locator("section.ak-widget").filter({ has: tab.locator("#ak-analytics-title") });
+  await expect(widget).toBeVisible({ timeout: 30_000 });
+  await expect(widget).toContainText("Not set up yet");
+  await expect(widget).toContainText("VERCEL_ANALYTICS_TOKEN");
+  await context.close();
+});
+
+test("templates widget: the dashboard offers a preview link for Index", async ({ browser }) => {
+  const context = await browser.newContext({ baseURL: DB_BASE_URL, storageState: admin.storageState });
+  const tab = await context.newPage();
+  await tab.goto("/admin");
+  await expect(tab.locator('a[href*="/api/template-preview?template=index"]').first()).toBeVisible({ timeout: 30_000 });
+  await context.close();
+});
