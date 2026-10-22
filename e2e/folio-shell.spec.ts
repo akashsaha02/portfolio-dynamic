@@ -212,7 +212,8 @@ test.describe("footer", () => {
 
   test("version, socials and no horizontal scroll", async ({ page }) => {
     const footer = page.locator("footer");
-    await expect(footer.getByText("Version")).toBeAttached();
+    // exact: the footer also links "Older versions of this site" (work plan 6.3).
+    await expect(footer.getByText("Version", { exact: true })).toBeAttached();
     expect(await footer.locator('ul[aria-labelledby="footer-socials"] a').count()).toBeGreaterThan(0);
     await noHorizontalScroll(page);
   });
@@ -220,7 +221,8 @@ test.describe("footer", () => {
   test("copy email announces and (Chromium) fills the clipboard", async ({ page, context, browserName }) => {
     if (browserName === "chromium") await context.grantPermissions(["clipboard-read", "clipboard-write"]);
     const copy = page.locator('footer button[aria-label^="Copy email"]');
-    const status = page.locator("footer [role=status]");
+    // The copy button's own live region (the annotations toggle has one too, work plan 6.6).
+    const status = copy.locator("xpath=following-sibling::*[@role='status'][1]");
     await copy.scrollIntoViewIfNeeded();
     await expect(copy).toHaveAttribute("aria-label", `Copy email address ${PROFILE_EMAIL}`);
     await copy.click();
