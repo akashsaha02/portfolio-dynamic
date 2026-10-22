@@ -4,6 +4,7 @@
 // is invented. One h1 (the project name), an h2 per block. Server Component, no client JS of
 // its own.
 
+import { Reactions } from "@/components/shared/realtime/Reactions";
 import type { CaseStudyPageProps } from "../../types";
 import { FolioShell } from "../shell/FolioShell";
 import { Facts } from "../work/Facts";
@@ -18,7 +19,7 @@ export default function CaseStudy({ content, settings, project, next }: CaseStud
   const phonesTitle = `${project.slug}-phones`;
 
   return (
-    <FolioShell content={content} settings={settings} section="work">
+    <FolioShell content={content} settings={settings} section="work" title={project.name}>
       <main id="main" tabIndex={-1} className="outline-none">
         <header className="f-bleed pt-[calc(var(--section-y)/2)]">
           <h1 className="type-display">{project.name}</h1>
@@ -37,6 +38,9 @@ export default function CaseStudy({ content, settings, project, next }: CaseStud
         <div className="f-bleed py-section">
           <Story caseStudy={caseStudy} slug={project.slug} />
         </div>
+
+        {/* Live reactions (work plan 6.5, realtime task); renders nothing until it is live. */}
+        <Reactions slug={project.slug} className="f-bleed pb-section" />
 
         {project.phoneShots.length ? (
           <section aria-labelledby={phonesTitle} className="pb-section">

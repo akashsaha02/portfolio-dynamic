@@ -8,6 +8,7 @@ import { FolioShell } from "../shell/FolioShell";
 import { RollLabel } from "../ui/Action";
 import { Chip } from "../ui/Chip";
 import { ArrowUpRight, Check, CopyIcon } from "../ui/icons";
+import { Note, Notes } from "../ui/Note";
 import "../pages-about-contact.css";
 
 // Folio Contact (guide §4.6, work plan 1.6). The h1 and availability, then the numbered form
@@ -119,6 +120,10 @@ export default function Contact({ content, settings }: TemplateProps) {
             {formEnabled ? (
               <div className="f-contact-main">
                 <ContactForm labelledBy="contact-title" />
+                {/* Annotations (work plan 6.6): what happens on "Send". */}
+                <Notes className="mt-10">
+                  <Note id="contactPipeline" />
+                </Notes>
               </div>
             ) : null}
             <ContactDetails profile={profile} />

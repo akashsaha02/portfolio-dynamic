@@ -11,6 +11,22 @@ export const SHELL_PAGES: { id: ShellPage; href: string; label: string }[] = [
 ];
 
 /**
+ * Flip to true when the Folio Lab page (work plan 6.7) is registered in templates/folio/index.tsx:
+ * until then /lab answers 404, so nothing links to it.
+ */
+export const LAB_READY = false;
+
+/**
+ * The secondary pages (work plan 6.1, 6.3, 6.7): the menu panel's and the footer's "More" lists and
+ * the command menu. Not in the top bar.
+ */
+export const MORE_PAGES: { href: string; label: string }[] = [
+  { href: "/archive", label: "Archive" },
+  ...(LAB_READY ? [{ href: "/lab", label: "Lab" }] : []),
+  { href: "/v", label: "Older versions" },
+];
+
+/**
  * aria-current for a shell link: "page" on the page itself, "true" on the section a deeper page
  * sits in (Work on a case study), so only the exact page claims to be the current page.
  */

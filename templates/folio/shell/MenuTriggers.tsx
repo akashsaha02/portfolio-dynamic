@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { openCommandMenu, preloadCommandMenu } from "@/components/shared/CommandMenu";
 import { Burger } from "../ui/icons";
 import { Magnetic } from "../ui/Magnetic";
 import { RoundButton } from "../ui/RoundButton";
@@ -23,6 +24,31 @@ export function MenuButton({ className }: { className?: string }) {
       className={`f-roll-host inline-flex min-h-11 min-w-11 items-center justify-center px-3 font-medium ${className ?? ""}`}
     >
       <RollLabel>Menu</RollLabel>
+    </button>
+  );
+}
+
+/**
+ * The command menu from inside the menu panel (work plan 6.2): the touch way in, since phones and
+ * tablets have no ⌘K and the top bar's pill is fine-pointer only (hidden there, .f-cmdk-touch). Closes
+ * the panel first; once its trigger has focus back, the command menu opens and will return focus
+ * there.
+ */
+export function CommandMenuEntry() {
+  const { hide } = useMenu();
+  return (
+    <button
+      type="button"
+      aria-haspopup="dialog"
+      onPointerDown={preloadCommandMenu}
+      onClick={() => {
+        hide();
+        // Two frames: the close commits and MenuRoot hands focus back to the trigger first.
+        requestAnimationFrame(() => requestAnimationFrame(openCommandMenu));
+      }}
+      className="f-roll-host inline-flex min-h-11 items-center"
+    >
+      <RollLabel>Search and shortcuts</RollLabel>
     </button>
   );
 }

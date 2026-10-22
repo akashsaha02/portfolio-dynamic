@@ -1,36 +1,102 @@
 /*
- * Folio page transitions (guide §4.1 "Page transitions", work plan 1.7). Imported by
- * shell/FolioShell.tsx, so it is only linked on Folio pages; every selector is a Folio view
- * transition class, so nothing here can touch Editorial.
+ * Folio page transitions (guide §4.1, §12; work plan 1.7, 6.9). Imported by shell/FolioShell.tsx,
+ * so it is only linked on Folio pages; every selector is a Folio class or view transition name.
  *
  * FolioShell wraps each page in <ViewTransition enter="f-page-in" exit="f-page-out">. A client
- * navigation between two Folio routes then makes React run one view transition with two
- * snapshots: the old page (::view-transition-old(.f-page-out)) and the new one
- * (::view-transition-new(.f-page-in)). React drops the `root` snapshot, so they are separate
- * groups, the new one painted above the old.
+ * navigation between two Folio routes makes React run one view transition: the old page
+ * (::view-transition-old(.f-page-out)), the new one (::view-transition-new(.f-page-in)), painted
+ * above it, and, from 6.9, the new page's curtain (shell/PageCurtain.tsx), which only exists
+ * while a view transition runs and is captured as its own snapshot, `f-curtain`.
  *
- * The crossfade: the old page holds still underneath while the new page fades in over it. Both
- * pages are opaque paper, so this reads as a crossfade, and anything that is identical in both
- * (the top bar at the top of the page, the paper itself) never dims at the midpoint the way two
- * opposite fades would. Opacity only, no movement; the shell does not slide or scale.
+ * The curtain, 700 ms in all (--f-curtain): an ink screen with the destination page's name
+ * rises from the bottom with a curved top edge that flattens as it arrives (0–43%), holds
+ * (43–57%), then lifts away with the curve on its bottom edge (57–100%). It is a clip-path on
+ * the snapshot, so nothing but the clip moves; both halves use --ease-inout. Underneath, the old
+ * page holds still and the new page swaps in at the midpoint, while the curtain covers the
+ * screen.
  *
- * Browsers without View Transitions (or without the callback-object form React needs) just swap
- * the page, as before. Reduced motion: no animation at all, the swap is instant.
+ * Fallbacks: browsers without `:active-view-transition` get the 1.7 crossfade instead (the
+ * curtain can't show there). Browsers without View Transitions, or without the callback-object
+ * form React needs, just swap the page. Reduced motion: no curtain and no animation, an instant
+ * swap. The first load never has a view transition, so never a curtain.
  */
 
-::view-transition-old(.f-page-out) {
-  /* A no-op keyframe keeps the old snapshot up for exactly as long as the new one fades. */
-  animation: f-page-hold var(--dur-fast) linear both;
+/* The curtain element: never rendered outside a transition. */
+.tpl-folio .f-curtain {
+  display: none;
 }
 
+/* Clicks during a transition reach the live page instead of the overlay. */
+::view-transition-group(.f-page-out),
+::view-transition-group(.f-page-in),
+::view-transition-group(f-curtain) {
+  pointer-events: none;
+}
+
+/* 1.7 crossfade: the old page holds still underneath while the new page fades in over it. */
+::view-transition-old(.f-page-out) {
+  animation: f-page-hold var(--dur-fast) linear both;
+}
 ::view-transition-new(.f-page-in) {
   animation: f-page-in var(--dur-fast) var(--ease-inout) both;
 }
 
-/* Clicks during the fade reach the live page instead of the overlay. */
-::view-transition-group(.f-page-out),
-::view-transition-group(.f-page-in) {
-  pointer-events: none;
+@supports selector(:active-view-transition) {
+  @media (prefers-reduced-motion: no-preference) {
+    :root {
+      --f-curtain: 700ms;
+    }
+
+    /* The page a navigation just mounted shows its curtain for the transition's length only. */
+    html:active-view-transition .tpl-folio .f-curtain[data-run] {
+      display: grid;
+      place-items: center;
+      position: fixed;
+      z-index: 100;
+      inset: 0;
+      padding-inline: max(var(--gutter), env(safe-area-inset-left));
+      view-transition-name: f-curtain;
+    }
+
+    ::view-transition-group(f-curtain) {
+      z-index: 1;
+      animation: none;
+    }
+    ::view-transition-new(f-curtain) {
+      animation: f-curtain var(--f-curtain) linear both;
+    }
+    /* A second navigation inside the first one's second can still find the previous curtain
+       marked; it must never show as an old snapshot. */
+    ::view-transition-old(f-curtain) {
+      display: none;
+    }
+
+    /* The old page stays up until the curtain covers it; the new one appears under the curtain. */
+    ::view-transition-old(.f-page-out) {
+      animation: f-page-hold var(--f-curtain) linear both;
+    }
+    ::view-transition-new(.f-page-in) {
+      animation: f-page-swap var(--f-curtain) linear both;
+    }
+  }
+}
+
+.tpl-folio .f-curtain-title {
+  display: flex;
+  align-items: center;
+  gap: 0.25em;
+  max-width: 100%;
+  font-variation-settings: "wdth" 100;
+  font-weight: 450;
+  font-size: clamp(2.25rem, 1.25rem + 5vw, 5.5rem);
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+.tpl-folio .f-curtain-title .f-dot {
+  width: 0.18em;
+  height: 0.18em;
 }
 
 @keyframes f-page-hold {
@@ -45,9 +111,40 @@
   }
 }
 
+/* Hidden until the curtain is fully up (43%), shown from the middle of the hold. */
+@keyframes f-page-swap {
+  0%,
+  50% {
+    opacity: 0;
+  }
+  50.01%,
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Rise with a bowed top edge that flattens on arrival; lift with the bow on the bottom edge. */
+@keyframes f-curtain {
+  0% {
+    clip-path: inset(100% 0 0 0 round 50% 50% 0 0 / 10svh 10svh 0 0);
+    animation-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+  }
+  43%,
+  57% {
+    clip-path: inset(0 0 0 0 round 0 0 0 0 / 0 0 0 0);
+  }
+  57% {
+    animation-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+  }
+  100% {
+    clip-path: inset(0 0 100% 0 round 0 0 50% 50% / 0 0 10svh 10svh);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-old(.f-page-out),
-  ::view-transition-new(.f-page-in) {
+  ::view-transition-new(.f-page-in),
+  ::view-transition-new(f-curtain) {
     animation: none;
   }
 }

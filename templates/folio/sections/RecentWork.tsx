@@ -2,6 +2,7 @@ import type { Project } from "@/lib/content-types";
 import { ProjectHoverRows } from "../motion/ProjectHoverModal";
 import { FillButton } from "../ui/FillButton";
 import { Row, RowList } from "../ui/Row";
+import { Note, Notes } from "../ui/Note";
 import { Tile } from "../ui/Tile";
 import "../desktop-fx.css";
 
@@ -27,6 +28,10 @@ export function RecentWork({ projects }: RecentWorkProps) {
       <h2 id="work-title" className="type-label">
         Recent work
       </h2>
+      {/* Annotations (work plan 6.6): where the content comes from. */}
+      <Notes className="mt-6">
+        <Note id="content" />
+      </Notes>
       <ul className="f-recent-tiles mt-8 grid gap-12 md:mt-12 md:grid-cols-2 md:gap-x-8 md:gap-y-16 lg:gap-x-12">
         {featured.map((p) => (
           <li key={p.slug}>
@@ -50,6 +55,10 @@ export function RecentWork({ projects }: RecentWorkProps) {
             <Row key={p.slug} {...link(p)} name={p.name} kind={p.kind} year={p.year} />
           ))}
         </RowList>
+        {/* Inside the rows' wrapper, so it shows only where the hover modal exists. */}
+        <Notes className="mt-6">
+          <Note id="hoverModal" />
+        </Notes>
       </ProjectHoverRows>
       <div className="mt-14 flex md:mt-20 md:justify-center">
         <FillButton href="/work" size="lg" block className="md:w-auto">

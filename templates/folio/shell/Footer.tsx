@@ -1,6 +1,8 @@
 import Image from "next/image";
+import Link from "next/link";
 import { CopyButton } from "@/components/shared/CopyButton";
 import { LocalTime } from "@/components/shared/LocalTime";
+import { LiveVisitors } from "@/components/shared/realtime/LiveVisitors";
 import type { Profile, SiteMeta } from "@/lib/content-types";
 import { RollLabel } from "../ui/Action";
 import { CurvedEdge } from "../ui/CurvedEdge";
@@ -8,12 +10,17 @@ import { FillButton } from "../ui/FillButton";
 import { Check, CopyIcon } from "../ui/icons";
 import { Magnetic } from "../ui/Magnetic";
 import { RoundButton } from "../ui/RoundButton";
+import { Note, Notes } from "../ui/Note";
+import { AnnotationsToggle } from "./AnnotationsToggle";
+import { MORE_PAGES } from "./pages";
 
 // Footer (guide §4.2 row 7): an ink surface whose curved top edge rises into the paper above and
 // flattens as it scrolls up the screen (CSS scroll-driven where supported, .f-footer-curve).
 // Optional avatar + "Let's work together", the big round "Get in touch" sitting on a hairline,
 // email (copy on tap) and optional phone as pills, stacked full width on phone and side by side
-// from md, then version · live local time · socials above the bottom safe area.
+// from md, then version · live local time · more pages (Archive, "Older versions of this site",
+// work plan 6.1 / 6.3) · socials above the bottom safe area. The "How this was built" switch
+// (work plan 6.6) sits in that row; its notes for the footer open the footer.
 //
 // "compact" (the Contact page, work plan 1.7) keeps only the curve and that bottom row: the call
 // to action, the button back to /contact and the email pill would repeat the page itself.
@@ -37,10 +44,16 @@ export function Footer({ profile, site, variant = "full" }: FooterProps) {
     >
       <CurvedEdge edge="top" fill="var(--ink)" className="f-footer-curve" />
       <div className={`f-bleed ${compact ? "pt-10 md:pt-14" : "pt-section"}`}>
+        {/* Annotations (work plan 6.6): the curve above, and how every page arrived. */}
+        <Notes className="mb-12 md:mb-16">
+          <Note id="footerCurve" />
+          <Note id="pageTransitions" />
+        </Notes>
+
         {compact ? null : <FooterCta profile={profile} />}
 
         <div
-          className={`f-footer-bottom grid gap-8 md:flex md:items-end md:justify-between ${compact ? "" : "mt-section pt-6"}`}
+          className={`f-footer-bottom grid gap-8 md:flex md:flex-wrap md:items-end md:justify-between md:gap-x-12 ${compact ? "" : "mt-section pt-6"}`}
         >
           <dl className="flex flex-wrap gap-x-12 gap-y-6">
             <div>
@@ -54,6 +67,27 @@ export function Footer({ profile, site, variant = "full" }: FooterProps) {
               </dd>
             </div>
           </dl>
+          {/* "N people here now" (work plan 6.5, realtime task); renders nothing until it is live. */}
+          <LiveVisitors className="flex min-h-11 items-center text-sm" />
+          <div>
+            <p className="type-label">Annotations</p>
+            <AnnotationsToggle />
+          </div>
+          <nav aria-labelledby="footer-more">
+            <p id="footer-more" className="type-label">
+              More
+            </p>
+            <ul className="-ml-2 flex flex-wrap gap-x-4 gap-y-2">
+              {MORE_PAGES.map((p) => (
+                <li key={p.href}>
+                  <Link href={p.href} className="f-roll-host inline-flex min-h-11 items-center px-2">
+                    {/* Lynn Fisher's line (guide §12): the footer names what /v is. */}
+                    <RollLabel>{p.href === "/v" ? "Older versions of this site" : p.label}</RollLabel>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
           <div>
             <p id="footer-socials" className="type-label">
               Socials

@@ -4,6 +4,7 @@
 // the recent-work hover modal. The preloader (work plan 1.4) is Home only: an overlay that an
 // inline script shows on the first load of the session; the page renders underneath regardless.
 
+import { LiveCursors } from "@/components/shared/realtime/LiveCursors";
 import type { TemplateProps } from "../../types";
 import { Preloader } from "../preloader/Preloader";
 import { Experience } from "../sections/Experience";
@@ -28,6 +29,8 @@ export default function Home({ content, settings }: TemplateProps) {
         <Experience experience={experience} />
         <Research publications={publications} education={education} />
       </main>
+      {/* Other visitors' cursors, fine pointer only (work plan 6.9, realtime task). */}
+      <LiveCursors />
     </FolioShell>
   );
 }

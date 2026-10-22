@@ -423,6 +423,37 @@ html[data-folio-menu-open] body {
     }
   }
 
+  /* ⌘K (work plan 6.2): the top bar's pill exists for a fine pointer, the menu panel's entry for
+     everything else. Never keyed on width. */
+  .f-cmdk-trigger {
+    display: none;
+    min-height: 2.75rem;
+    min-width: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    padding-inline: 0.875rem;
+    border: 1px solid color-mix(in srgb, currentColor 32%, transparent);
+    border-radius: 9999px;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: 1;
+    transition: border-color var(--dur-fast) var(--ease-inout);
+  }
+  .f-cmdk-trigger kbd {
+    font-family: inherit;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .f-cmdk-trigger {
+      display: inline-flex;
+    }
+    .f-cmdk-trigger:hover {
+      border-color: currentColor;
+    }
+    .f-cmdk-touch {
+      display: none;
+    }
+  }
+
   /* Where the burger sits, and the panel's close button on top of it. */
   .f-corner {
     top: max(1rem, env(safe-area-inset-top));
@@ -621,6 +652,103 @@ html[data-folio-menu-open] body {
   }
   .f-footer-bottom {
     padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+  }
+
+  /*
+   * "How this was built" notes (work plan 6.6, ui/Note.tsx). display:none until <html> carries
+   * data-annotations (shell/AnnotationsToggle.tsx), so while off they are neither seen nor read.
+   * They rise in with --ease-inout when turned on (@starting-style below); instantly with reduced
+   * motion. A small ink card on paper, a paper card on ink: the surface's button colours.
+   */
+  .f-note,
+  .f-notes {
+    display: none;
+  }
+  html[data-annotations] .f-note {
+    display: block;
+    max-width: 40ch;
+    padding: 0.875rem 1rem 1rem;
+    border-radius: 0.875rem;
+    background: var(--btn-bg);
+    color: var(--btn-fg);
+    --dot: var(--btn-dot);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    letter-spacing: 0.005em;
+    text-wrap: pretty;
+    transition:
+      opacity var(--dur) var(--ease-inout),
+      translate var(--dur) var(--ease-inout);
+  }
+  html[data-annotations] .f-notes {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  html[data-annotations] .f-note-md {
+    display: none;
+  }
+  @media (min-width: 768px) {
+    html[data-annotations] .f-note-md {
+      display: block;
+    }
+  }
+  .f-note-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.375rem;
+    font-weight: 500;
+  }
+  /* The hero is a composed, full-height section: its note floats bottom-left over the portrait. */
+  .f-note-hero {
+    position: absolute;
+    z-index: 2;
+    left: max(var(--gutter), env(safe-area-inset-left));
+    bottom: 1.25rem;
+    margin-right: max(var(--gutter), env(safe-area-inset-right));
+  }
+
+  /* The annotations switch in the footer: a track and a thumb; the pressed track turns lime. */
+  .f-switch {
+    -webkit-tap-highlight-color: transparent;
+    font-weight: 500;
+  }
+  .f-switch-track {
+    position: relative;
+    flex: none;
+    width: 2.75rem;
+    height: 1.5rem;
+    border: 1px solid color-mix(in srgb, currentColor 40%, transparent);
+    border-radius: 9999px;
+    transition:
+      background-color var(--dur-fast) var(--ease-inout),
+      border-color var(--dur-fast) var(--ease-inout);
+  }
+  .f-switch-thumb {
+    position: absolute;
+    top: 50%;
+    left: 0.25rem;
+    width: 0.875rem;
+    height: 0.875rem;
+    margin-top: -0.4375rem;
+    border-radius: 9999px;
+    background: currentColor;
+    transition: transform var(--dur-fast) var(--ease-inout);
+  }
+  .f-switch[aria-pressed="true"] .f-switch-track {
+    border-color: var(--fill);
+    background: var(--fill);
+  }
+  .f-switch[aria-pressed="true"] .f-switch-thumb {
+    background: var(--fill-fg);
+    transform: translate3d(1.25rem, 0, 0);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .f-switch:hover .f-switch-track {
+      border-color: currentColor;
+    }
   }
 
   /* Copy pill: both labels share one cell, so the pill keeps its width when "Copied" shows. */
@@ -1063,6 +1191,14 @@ html[data-folio-menu-open] body {
   }
   .f-marquee-track {
     padding-left: var(--gutter);
+  }
+}
+
+/* Notes rise in when annotations are turned on (and on load, when they were left on). */
+@starting-style {
+  html[data-annotations] .f-note {
+    opacity: 0;
+    translate: 0 0.5rem;
   }
 }
 
