@@ -1,16 +1,19 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { CommandMenu } from "@/components/shared/CommandMenu";
 import { LocalTime } from "@/components/shared/LocalTime";
 import { LiveVisitors } from "@/components/shared/realtime/LiveVisitors";
 import type { TemplateProps } from "../types";
 import { FocusMain } from "./client/FocusMain";
+import { indexCommands } from "./commands";
 import { EYEBROW } from "./ui";
 import "./index.css";
 
 // The Index shell. `IndexRoot` is the `tpl-index` root every page sits in (ink page, announcement
 // banner, focus after navigation). Home builds its own two columns inside it; every other page
 // uses `IndexPage`: one centred column with a small header (name home, page links) and the footer.
-// Server Components; the only client leaves here are FocusMain, the clock and LiveVisitors.
+// Server Components; the only client leaves here are FocusMain, the clock, LiveVisitors and the
+// ⌘K command menu (only its key listener ships; the dialog loads on first open).
 
 export type IndexPageId = "work" | "archive" | "lab" | "about" | "contact";
 
@@ -22,7 +25,7 @@ const PAGES: { id: IndexPageId; href: string; label: string }[] = [
   { id: "contact", href: "/contact", label: "Contact" },
 ];
 
-export function IndexRoot({ settings, children }: Pick<TemplateProps, "settings"> & { children: ReactNode }) {
+export function IndexRoot({ content, settings, children }: TemplateProps & { children: ReactNode }) {
   const { announcement } = settings;
   return (
     <div className="tpl-index relative min-h-svh overflow-x-clip bg-ink text-on-ink">
@@ -39,6 +42,7 @@ export function IndexRoot({ settings, children }: Pick<TemplateProps, "settings"
       ) : null}
       {children}
       <FocusMain />
+      <CommandMenu items={indexCommands(content)} />
     </div>
   );
 }
@@ -55,7 +59,7 @@ type IndexPageProps = TemplateProps & {
 
 export function IndexPage({ content, settings, current, section, wide, children }: IndexPageProps) {
   return (
-    <IndexRoot settings={settings}>
+    <IndexRoot content={content} settings={settings}>
       <div className={`mx-auto w-full px-6 md:px-12 ${wide ? "max-w-5xl" : "max-w-3xl"}`}>
         <header className="flex flex-wrap items-center justify-between gap-x-6 pt-[max(1.25rem,env(safe-area-inset-top))] md:pt-10">
           <Link href="/" className="-ml-1 inline-flex min-h-11 items-center px-1 text-lg font-semibold tracking-tight">

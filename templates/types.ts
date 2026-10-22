@@ -118,7 +118,7 @@ export const TEMPLATE_META: Record<TemplateId, TemplateMeta> = {
     id: "index",
     name: "Index",
     description: "Two-column, recruiter-first: everything on one scroll (work plan 6.4).",
-    status: "placeholder",
+    status: "current",
   },
 };
 

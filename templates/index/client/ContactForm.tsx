@@ -235,7 +235,7 @@ function Form({ labelledBy, focusFirst, onAgain }: FormProps) {
 
       {TURNSTILE_SITE_KEY ? (
         <div className="min-w-0">
-          <TurnstileWidget ref={turnstileRef} onStatusChange={setCheck} className="data-visible:mb-4" />
+          <TurnstileWidget ref={turnstileRef} onStatusChange={setCheck} theme="dark" className="data-visible:mb-4" />
           <p role="status" className="text-sm text-(--fg-muted)">
             {CHECK_STATUS[check]}
           </p>

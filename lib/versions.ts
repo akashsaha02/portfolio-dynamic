@@ -1,7 +1,11 @@
+import type { TemplateId } from "@/templates/types";
+
 /**
- * Every design this site has had (work plan 6.3), newest first. The current one is the live
- * site; retired ones are frozen static snapshots under public/v/<id>/ (built from their git tag
- * by scripts/snapshot-version, so they never change and never call the backend).
+ * Every design this site has had (work plan 6.3), newest first. Live templates (`template` set)
+ * render at "/"; the /v page shows only the active one, marked current, so a template you are
+ * not using never appears as an "older version". Retired designs are frozen static snapshots under
+ * public/v/<id>/ (built from their git tag by scripts/snapshot-version.mjs, so they never change
+ * and never call the backend).
  */
 export type VersionEntry = {
   id: string;
@@ -13,6 +17,9 @@ export type VersionEntry = {
   href: string;
   /** Git tag the snapshot was built from. */
   tag?: string;
+  /** A live template: shown on /v only while it is the active one. */
+  template?: TemplateId;
+  /** Set by versionsFor() for the active template. */
   current?: boolean;
   /** Optional 16:10 screenshot. */
   image?: { src: string; alt: string; width: number; height: number };
@@ -20,12 +27,20 @@ export type VersionEntry = {
 
 export const VERSIONS: VersionEntry[] = [
   {
+    id: "index",
+    name: "Index",
+    period: "Oct 2026 – now",
+    description: "Two columns on ink: everything a recruiter looks for on one scroll.",
+    href: "/",
+    template: "index",
+  },
+  {
     id: "folio",
     name: "Folio",
     period: "Oct 2026 – now",
     description: "Multi-page, phone-first, with an admin to edit everything.",
     href: "/",
-    current: true,
+    template: "folio",
   },
   {
     id: "editorial",
@@ -42,3 +57,11 @@ export const VERSIONS: VersionEntry[] = [
     },
   },
 ];
+
+/** The /v list for the active template: it (marked current) plus every retired snapshot. */
+export function versionsFor(active: TemplateId): VersionEntry[] {
+  return VERSIONS.filter((v) => !v.template || v.template === active).map((v) => ({
+    ...v,
+    current: v.template === active,
+  }));
+}

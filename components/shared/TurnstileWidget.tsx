@@ -49,6 +49,8 @@ type TurnstileWidgetProps = {
   ref?: Ref<TurnstileHandle>;
   onStatusChange?: (status: TurnstileStatus) => void;
   className?: string;
+  /** Match the form's background: Folio's form is on paper ("light"), Index's on ink ("dark"). */
+  theme?: "light" | "dark";
 };
 
 type TurnstileOptions = {
@@ -110,7 +112,7 @@ function loadTurnstile(): Promise<TurnstileApi> {
   return scriptPromise;
 }
 
-export function TurnstileWidget({ ref, onStatusChange, className }: TurnstileWidgetProps) {
+export function TurnstileWidget({ ref, onStatusChange, className, theme = "light" }: TurnstileWidgetProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const widgetId = useRef<string | undefined>(undefined);
   const [visible, setVisible] = useState(false);
@@ -145,8 +147,8 @@ export function TurnstileWidget({ ref, onStatusChange, className }: TurnstileWid
 
     const options = (): TurnstileOptions => ({
       sitekey,
-      // The form sits on paper; "auto" would follow a dark OS theme and clash.
-      theme: "light",
+      // Fixed to the form's background; "auto" would follow the OS theme and clash.
+      theme,
       size: container.clientWidth >= FLEXIBLE_MIN ? "flexible" : "compact",
       appearance: "interaction-only",
       "refresh-expired": "auto",
@@ -223,7 +225,8 @@ export function TurnstileWidget({ ref, onStatusChange, className }: TurnstileWid
       if (widgetId.current !== undefined) window.turnstile?.remove(widgetId.current);
       widgetId.current = undefined;
     };
-  }, []);
+    // theme is fixed per form; listed so the widget re-renders if a template ever changes it.
+  }, [theme]);
 
   if (!TURNSTILE_SITE_KEY) return null;
   return <div ref={containerRef} className={className} data-visible={visible ? "" : undefined} />;

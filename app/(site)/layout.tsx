@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Mona_Sans } from "next/font/google";
 import { PreviewBanner } from "@/components/shared/PreviewBanner";
 import { Telemetry } from "@/components/shared/Telemetry";
-import { getSiteContent } from "@/lib/data";
+import { getSettings, getSiteContent } from "@/lib/data";
 import { siteUrl } from "@/lib/seo";
 import "../globals.css";
 
@@ -37,9 +37,11 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export const viewport: Viewport = {
-  themeColor: "#ebeee0",
-};
+// Browser chrome matches the active template's page colour: Folio paper, Index ink.
+export async function generateViewport(): Promise<Viewport> {
+  const { activeTemplate } = await getSettings();
+  return { themeColor: activeTemplate === "index" ? "#282c20" : "#ebeee0" };
+}
 
 export default function SiteLayout({ children }: LayoutProps<"/">) {
   return (

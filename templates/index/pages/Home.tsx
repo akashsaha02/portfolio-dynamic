@@ -25,7 +25,7 @@ export default function Home({ content, settings }: TemplateProps) {
   const rest = aboutRest(profile.about, profile.statement);
 
   return (
-    <IndexRoot settings={settings}>
+    <IndexRoot content={content} settings={settings}>
       <div className="mx-auto max-w-screen-xl px-6 md:px-12 lg:flex lg:justify-between lg:gap-12 lg:px-24">
         <header className="pt-[max(3.5rem,env(safe-area-inset-top))] md:pt-20 lg:sticky lg:top-0 lg:flex lg:max-h-svh lg:w-[44%] lg:flex-col lg:justify-between lg:py-20">
           <div>
