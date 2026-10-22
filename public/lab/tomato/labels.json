@@ -1,0 +1,42 @@
+[
+  {
+    "id": "Tomato___Bacterial_spot",
+    "name": "Bacterial spot"
+  },
+  {
+    "id": "Tomato___Early_blight",
+    "name": "Early blight"
+  },
+  {
+    "id": "Tomato___Late_blight",
+    "name": "Late blight"
+  },
+  {
+    "id": "Tomato___Leaf_Mold",
+    "name": "Leaf mould"
+  },
+  {
+    "id": "Tomato___Septoria_leaf_spot",
+    "name": "Septoria leaf spot"
+  },
+  {
+    "id": "Tomato___Spider_mites Two-spotted_spider_mite",
+    "name": "Spider mites (two-spotted)"
+  },
+  {
+    "id": "Tomato___Target_Spot",
+    "name": "Target spot"
+  },
+  {
+    "id": "Tomato___Tomato_Yellow_Leaf_Curl_Virus",
+    "name": "Yellow leaf curl virus"
+  },
+  {
+    "id": "Tomato___Tomato_mosaic_virus",
+    "name": "Mosaic virus"
+  },
+  {
+    "id": "Tomato___healthy",
+    "name": "Healthy"
+  }
+]

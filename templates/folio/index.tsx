@@ -17,10 +17,11 @@ import Archive from "./pages/Archive";
 import CaseStudy from "./pages/CaseStudy";
 import Contact from "./pages/Contact";
 import Home from "./pages/Home";
+import Lab from "./pages/Lab";
 import NotFound from "./pages/NotFound";
 import Versions from "./pages/Versions";
 import Work from "./pages/Work";
 
-const folio: TemplateModule = { Home, Work, CaseStudy, About, Contact, NotFound, Archive, Versions };
+const folio: TemplateModule = { Home, Work, CaseStudy, About, Contact, NotFound, Archive, Lab, Versions };
 
 export default folio;

@@ -14,7 +14,7 @@ export const SHELL_PAGES: { id: ShellPage; href: string; label: string }[] = [
  * Flip to true when the Folio Lab page (work plan 6.7) is registered in templates/folio/index.tsx:
  * until then /lab answers 404, so nothing links to it.
  */
-export const LAB_READY = false;
+export const LAB_READY = true;
 
 /**
  * The secondary pages (work plan 6.1, 6.3, 6.7): the menu panel's and the footer's "More" lists and

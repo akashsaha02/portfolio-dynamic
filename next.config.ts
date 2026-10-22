@@ -61,6 +61,10 @@ const snapshotNoindex = [{ key: "X-Robots-Tag", value: "noindex" }];
 // snapshot is never rebuilt in place, so those files can be cached for a year.
 const immutable = [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }];
 
+// The Lab model (public/lab/tomato/, work plan 6.7): 2 MB the first time someone presses Classify.
+// File names carry no hash, so a day rather than immutable; a retrained model shows up next day.
+const labModel = [{ key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" }];
+
 const nextConfig: NextConfig = {
   reactCompiler: true,
   // Drops "X-Powered-By: Next.js, Payload" (withPayload adds it only when this isn't false).
@@ -76,6 +80,7 @@ const nextConfig: NextConfig = {
       { source: "/api/media/file/:file(.*\\.[pP][dD][fF])", headers: uploadPdfHeaders },
       { source: "/v/:path+", headers: snapshotNoindex },
       { source: `/v/${SNAPSHOT_ID}/_next/static/:path*`, headers: immutable },
+      { source: "/lab/tomato/:path*", headers: labModel },
     ];
   },
   // Public files aren't served for a folder path, so a snapshot's pages (exported with
