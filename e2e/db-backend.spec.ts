@@ -182,10 +182,10 @@ test("activating Index through site-settings switches / for anonymous visitors, 
     expect(res.ok()).toBe(true);
     expect((await (await admin.api.get("/api/globals/site-settings")).json()).activeTemplate).toBe("index");
     await expect.poll(async () => (await page("/")()).includes("tpl-index"), { timeout: 20_000 }).toBe(true);
+    // Other routes revalidate stale-while-revalidate too: the first request may be the old page.
     for (const path of ["/work", "/archive", "/v"]) {
-      const html = await page(path)();
-      expect(html, path).toContain("tpl-index");
-      expect(html, path).not.toContain("tpl-folio");
+      await expect.poll(async () => (await page(path)()).includes("tpl-index"), { timeout: 20_000, message: path }).toBe(true);
+      expect(await page(path)(), path).not.toContain("tpl-folio");
     }
     expect((await anon.get("/work/does-not-exist")).status()).toBe(404);
   } finally {
