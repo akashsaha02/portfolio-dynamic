@@ -1,0 +1,146 @@
+/*
+ * Index template (work plan 6.4): the dark, two-column, recruiter-first counterpart to Folio.
+ * Imported by shell.tsx, so like every template's CSS it is linked on every route: everything is
+ * scoped to `.tpl-index` with `i-` classes. Layout and type are Tailwind utilities in the markup;
+ * this file holds only what utilities can't say cleanly: the page colour, the focus ring on ink,
+ * the nav indicator, stretched card links, and hover effects gated on a fine pointer.
+ *
+ * Plain CSS on the tokens from app/globals.css. It can load before or after globals.css, so it
+ * restates Tailwind's layer order first (as templates/folio/work.css does).
+ */
+@layer theme, base, components, utilities;
+
+/* The page behind the template (overscroll, short pages) is ink too, with dark form controls. */
+html:has(.tpl-index),
+html:has(.tpl-index) body {
+  background: var(--ink);
+  color-scheme: dark;
+}
+
+/* Muted text on ink: 6.6:1, the same tone as Folio's ink sections. */
+.tpl-index {
+  --fg-muted: rgb(244 244 237 / 0.7);
+}
+
+.tpl-index :focus-visible {
+  outline-color: var(--lime);
+}
+
+/*
+ * Section nav (Home, lg): a hairline that doubles in length and turns lime for the section in
+ * view, pushing its label along. Transforms only: the line's box is always 4rem; at rest it is
+ * scaled to half and the label slides back over the unused half.
+ */
+.tpl-index .i-nav-line {
+  width: 4rem;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0.5);
+  transform-origin: left;
+  transition: transform var(--dur) var(--ease-inout);
+}
+.tpl-index .i-nav-label {
+  transform: translateX(-2rem);
+  transition: transform var(--dur) var(--ease-inout);
+}
+.tpl-index .i-nav a[aria-current] .i-nav-label {
+  transform: none;
+}
+.tpl-index .i-nav a {
+  color: var(--fg-muted);
+  transition: color var(--dur-fast) var(--ease-inout);
+}
+.tpl-index .i-nav a[aria-current] {
+  color: var(--on-ink);
+}
+.tpl-index .i-nav a[aria-current] .i-nav-line {
+  transform: none;
+  background: var(--lime);
+}
+
+/*
+ * Cards (experience, projects): the heading's link is stretched over the whole card, and the
+ * focus ring is drawn around the card instead of the link text.
+ */
+.tpl-index .i-card {
+  position: relative;
+}
+.tpl-index .i-card-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.tpl-index .i-card-link:focus-visible {
+  outline: none;
+}
+.tpl-index .i-card:has(.i-card-link:focus-visible) {
+  outline: 2px solid var(--lime);
+  outline-offset: 0.5rem;
+  border-radius: 0.375rem;
+}
+
+.tpl-index .i-arrow {
+  transition: transform var(--dur-fast) var(--ease-inout);
+}
+
+/*
+ * Hover is an enhancement (guide §5 rule 7): only a fine pointer gets the card wash, the dimming
+ * of the other cards, the lime title and the nudged arrow. Touch sees the same content at rest.
+ */
+@media (hover: hover) and (pointer: fine) {
+  .tpl-index .i-card::before {
+    content: "";
+    position: absolute;
+    inset: -1rem;
+    border-radius: 0.375rem;
+    background: rgb(244 244 237 / 0.04);
+    opacity: 0;
+    transition: opacity var(--dur-fast) var(--ease-inout);
+  }
+  .tpl-index .i-cards > li {
+    transition: opacity var(--dur-fast) var(--ease-inout);
+  }
+  .tpl-index .i-cards:has(.i-card-link:hover) > li:not(:has(.i-card-link:hover)) {
+    opacity: 0.5;
+  }
+  .tpl-index .i-card:has(.i-card-link:hover)::before {
+    opacity: 1;
+  }
+  .tpl-index .i-card:has(.i-card-link:hover) .i-card-link,
+  .tpl-index .i-link:hover {
+    color: var(--lime);
+  }
+  .tpl-index .i-card:has(.i-card-link:hover) .i-arrow,
+  .tpl-index .i-link:hover .i-arrow {
+    transform: translate(2px, -2px);
+  }
+  .tpl-index .i-nav a:hover {
+    color: var(--on-ink);
+  }
+  .tpl-index .i-btn:hover {
+    background: var(--on-ink);
+  }
+  .tpl-index .i-outline:hover {
+    border-color: var(--lime);
+  }
+  .tpl-index .i-nav a:hover :is(.i-nav-line, .i-nav-label) {
+    transform: none;
+  }
+}
+
+/* Contact form: the honeypot is off-screen, not display:none, so bots still fill it. */
+.tpl-index .i-hp {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tpl-index *,
+  .tpl-index *::before {
+    transition-property: none !important;
+  }
+}
