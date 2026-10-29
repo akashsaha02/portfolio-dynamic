@@ -1,59 +1,379 @@
-// Admin-only styles for the custom dashboard widgets and branding (components/admin/*, work plan 2.6).
-// Loaded only by the (payload) layout, so nothing here reaches the public site. Uses Payload's
-// theme variables, so light and dark admin themes both work. Prefix: `ak-`.
+// Admin-only styles: brand tokens on top of Payload's theme, the dashboard widgets and branding
+// (components/admin/*). Loaded only by the (payload) layout, so nothing here reaches the public site.
+// Prefix: `ak-`.
+//
+// How it themes Payload instead of fighting it: Payload builds every surface, border and text
+// colour from `--color-base-0…1000` (light reads them in order, dark in reverse) and every
+// "success" state from `--color-success-*`. Re-pointing those two scales at paper → ink and at an
+// olive ramp in lime's hue rebrands the whole admin, light and dark, without touching a component.
+// Payload's CSS sits in `@layer payload-default`; these rules are unlayered, so they win.
+//
+// Sizes are in px on purpose: Payload sets the root font size to 13 px, and 12 px under 1024 px,
+// so rem would shrink the widgets on phones.
+//
+// Lime (#d2ff00) is the one accent: fills behind ink text, dots, the nav marker in dark mode.
+// It is never text on a light background (1:1 on paper).
 
-// --- Branding ---
+// ---------------------------------------------------------------------------------------------
+// Tokens
+// ---------------------------------------------------------------------------------------------
+
+:root {
+  // Brand (guide §3)
+  --ak-paper: #ebeee0;
+  --ak-ink: #282c20;
+  --ak-lime: #d2ff00;
+  --ak-on-ink: #f4f4ed;
+  --ak-ease: cubic-bezier(0.7, 0, 0.3, 1);
+  // Admin UI moves faster than the site: these are controls, not reveals.
+  --ak-dur: 180ms;
+
+  // Neutral scale, paper (0) → ink (800) → near-black (1000), interpolated in OKLab so every step
+  // keeps the same olive temperature. Light theme: page = paper, text = ink. Dark theme (Payload
+  // reverses the scale): page = 900, text = paper. Muted text (650) is 7.5:1 on paper and 7.4:1 on
+  // the dark page.
+  --color-base-0: rgb(235 238 224);
+  --color-base-50: rgb(221 224 211);
+  --color-base-100: rgb(208 211 197);
+  --color-base-150: rgb(195 198 184);
+  --color-base-200: rgb(181 185 171);
+  --color-base-250: rgb(168 172 158);
+  --color-base-300: rgb(156 159 146);
+  --color-base-350: rgb(143 147 133);
+  --color-base-400: rgb(131 134 121);
+  --color-base-450: rgb(118 122 109);
+  --color-base-500: rgb(106 110 97);
+  --color-base-550: rgb(95 99 86);
+  --color-base-600: rgb(83 87 74);
+  --color-base-650: rgb(72 76 63);
+  --color-base-700: rgb(61 65 52);
+  --color-base-750: rgb(50 54 42);
+  --color-base-800: rgb(40 44 32);
+  --color-base-850: rgb(33 36 26);
+  --color-base-900: rgb(25 28 20);
+  --color-base-950: rgb(19 20 14);
+  --color-base-1000: rgb(12 13 9);
+
+  // Success: Payload's own lightness ramp (it was blue), turned to lime's hue with less chroma, so
+  // "Published", toasts and save states read as olive instead of a stray blue.
+  --color-success-50: rgb(242 244 238);
+  --color-success-100: rgb(231 236 221);
+  --color-success-150: rgb(214 224 193);
+  --color-success-200: rgb(200 215 165);
+  --color-success-250: rgb(184 202 141);
+  --color-success-300: rgb(168 189 117);
+  --color-success-350: rgb(155 177 95);
+  --color-success-400: rgb(141 163 78);
+  --color-success-450: rgb(126 147 66);
+  --color-success-500: rgb(115 134 61);
+  --color-success-550: rgb(103 121 52);
+  --color-success-600: rgb(93 110 47);
+  --color-success-650: rgb(82 97 41);
+  --color-success-700: rgb(75 87 40);
+  --color-success-750: rgb(65 76 34);
+  --color-success-800: rgb(56 66 31);
+  --color-success-850: rgb(48 56 27);
+  --color-success-900: rgb(38 44 24);
+  --color-success-950: rgb(30 33 24);
+
+  // Payload's radii were 3/4/8 px; a little softer, still a scale (controls < cards < modals).
+  --style-radius-s: 4px;
+  --style-radius-m: 6px;
+  --style-radius-l: 12px;
+
+  // Widget surfaces. A sheet sits a step lighter than the paper page; hairlines are ink at low
+  // alpha so they blend with whatever is under them.
+  --ak-sheet: rgb(246 247 241);
+  --ak-hairline: rgb(40 44 32 / 0.13);
+  --ak-hairline-strong: rgb(40 44 32 / 0.26);
+  --ak-wash: rgb(40 44 32 / 0.06); // segmented track, badges, code
+  --ak-muted: var(--theme-elevation-650);
+  --ak-lift: 0 1px 2px rgb(40 44 32 / 0.05), 0 2px 6px rgb(40 44 32 / 0.04);
+  --ak-mark: var(--ak-ink); // current-page marker in the nav
+  --ak-radius-card: 12px;
+  --ak-radius-control: 8px;
+}
+
+html[data-theme="dark"] {
+  --ak-sheet: var(--theme-elevation-50);
+  --ak-hairline: rgb(235 238 224 / 0.09);
+  --ak-hairline-strong: rgb(235 238 224 / 0.2);
+  --ak-wash: rgb(235 238 224 / 0.07);
+  // Shadows don't read on dark: the hairline does the lifting.
+  --ak-lift: none;
+  --ak-mark: var(--ak-lime);
+}
+
+// ---------------------------------------------------------------------------------------------
+// Admin-wide touches (light on purpose)
+// ---------------------------------------------------------------------------------------------
+
+::selection {
+  background: var(--ak-lime);
+  color: var(--ak-ink);
+}
+
+// Payload's dark theme sets its own selection colour inside its layer; keep the brand pair.
+html[data-theme="dark"] ::selection {
+  background: var(--ak-lime);
+  color: var(--ak-ink);
+}
+
+// Primary buttons (Login, Save, Publish) fill with lime on hover, like the site's buttons. Only
+// with a real pointer, so a tap doesn't leave a sticky lime button behind.
+@media (hover: hover) and (pointer: fine) {
+  .btn--style-primary {
+    --hover-bg: var(--ak-lime);
+    --hover-color: var(--ak-ink);
+  }
+
+  // These rules beat Payload's own disabled state (unlayered wins), so restate it.
+  .btn--style-primary.btn--disabled {
+    --hover-bg: var(--bg-color);
+    --hover-color: var(--color);
+  }
+}
+
+// iOS zooms the page when a focused field's text is under 16 px; Payload's is 13 px.
+@media (max-width: 768px) {
+  input:not([type="checkbox"], [type="radio"], [type="range"]),
+  textarea,
+  select {
+    font-size: 16px;
+  }
+}
+
+// The nav's current-page marker: ink on paper, lime on the dark theme.
+.nav__link-indicator {
+  background: var(--ak-mark);
+}
+
+// Nav group labels ("Content", "Inbox", "Settings") and field help text were elevation-400, about
+// 3.3:1 on paper; the muted token is 7.5:1.
+.nav-group__toggle,
+.nav__label,
+.field-description {
+  color: var(--ak-muted);
+}
+
+// The "A" home link in the header: Payload sizes it 18 px (16 on phones) and clips its contents, so
+// size it to the 24 px mark, then widen the hit area to 44 px without moving anything.
+.step-nav__home {
+  position: relative;
+  width: 24px;
+  height: 24px;
+
+  > span {
+    display: block;
+    border-radius: 50%;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -10px;
+  }
+
+  // Payload draws its focus ring on this same ::after; keep the ring hugging the disc.
+  &:focus-visible::after {
+    inset: -3px;
+    border-radius: 50%;
+  }
+}
+
+// ---------------------------------------------------------------------------------------------
+// Branding (components/admin/Brand.tsx)
+// ---------------------------------------------------------------------------------------------
 
 .ak-logo {
-  font-size: 1.75rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.32em;
   color: var(--theme-text);
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+// The brand dot. A faint ink ring keeps it visible on paper, where lime alone disappears.
+.ak-logo__dot {
+  width: 0.26em;
+  height: 0.26em;
+  border-radius: 50%;
+  background: var(--ak-lime);
+  box-shadow: inset 0 0 0 1px rgb(40 44 32 / 0.35);
+}
+
+.ak-logo__role {
+  color: var(--ak-muted);
+  font-weight: 450;
 }
 
 .ak-icon {
   display: inline-grid;
   place-items: center;
-  width: 1.75rem;
-  height: 1.75rem;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
-  background: var(--theme-text);
-  color: var(--theme-bg);
+  background: var(--ak-ink);
+  // Lime on ink is 12:1; the ring separates the disc from the dark page.
+  box-shadow: 0 0 0 1px var(--ak-hairline-strong);
+  color: var(--ak-lime);
+  font-size: 12px;
   font-weight: 700;
-  font-size: 0.95rem;
   line-height: 1;
 }
 
-// --- Widgets ---
+.ak-nav-brand {
+  width: 100%;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--ak-hairline);
 
-.ak-widget {
+  .ak-logo {
+    font-size: 20px;
+  }
+}
+
+// Login form on a phone: Payload's large button is 37 px and "Forgot password?" a 16 px line.
+.login__form {
+  .btn--size-large {
+    min-height: 48px;
+  }
+
+  a[href*="forgot"] {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+}
+
+.ak-login-foot {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 14px;
+
+  a {
+    // 44 px tap target (QA F-09).
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 8px;
+    color: var(--ak-muted);
+    text-decoration: underline;
+    text-decoration-color: var(--ak-hairline-strong);
+    text-underline-offset: 0.25em;
+
+    &:hover {
+      color: var(--theme-text);
+      text-decoration-color: currentColor;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------------------------
+// Dashboard frame
+// ---------------------------------------------------------------------------------------------
+
+// Greeting (components/admin/DashboardHeader.tsx). Lines up with the widgets' 6 px outer padding.
+.ak-dash-head {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  height: 100%;
-  padding: 1rem 1.25rem;
-  // Payload's `.card` is a flex row; widgets read top to bottom.
+  gap: 4px;
+  padding: 4px 6px 12px;
+}
+
+.ak-dash-head__title {
+  margin: 0;
+  color: var(--theme-text);
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  text-wrap: balance;
+
+  @media (min-width: 769px) {
+    font-size: 32px;
+  }
+}
+
+.ak-dash-head__meta {
+  margin: 0;
+  color: var(--ak-muted);
+  font-size: 14px;
+}
+
+.dashboard {
+  padding-bottom: 48px;
+}
+
+// ---------------------------------------------------------------------------------------------
+// Widget card: one shell for every widget
+// ---------------------------------------------------------------------------------------------
+
+.ak-widget {
+  // Container queries below follow the widget's own width (the dashboard sizes widgets itself).
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  // Payload's `.card` is a row that spreads its children; widgets read top to bottom.
   align-items: stretch;
+  align-self: stretch;
+  justify-content: flex-start;
+  gap: 16px;
+  height: 100%;
+  min-height: 0;
+  padding: 16px;
+  border: 1px solid var(--ak-hairline);
+  border-radius: var(--ak-radius-card);
+  background: var(--ak-sheet);
+  box-shadow: var(--ak-lift);
+  color: var(--theme-text);
+  font-size: 14px;
+  line-height: 1.45;
+
+  @media (min-width: 769px) {
+    padding: 20px 24px;
+  }
 }
 
 .ak-widget__head {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.5rem;
+  gap: 8px;
+  min-height: 24px;
 }
 
 .ak-widget__title {
   margin: 0;
-  font-size: 1.1rem;
+  color: var(--theme-text);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  line-height: 1.3;
+}
+
+.ak-widget__subtitle {
+  margin: 0 0 8px;
+  color: var(--ak-muted);
+  font-size: 13px;
+  font-weight: 600;
 }
 
 .ak-widget__empty,
 .ak-widget__note,
 .ak-widget__status {
   margin: 0;
-  color: var(--theme-elevation-650);
-  font-size: 0.875rem;
+  color: var(--ak-muted);
+  font-size: 13px;
+  text-wrap: pretty;
+}
+
+.ak-widget__empty {
+  font-size: 14px;
 }
 
 // `.ak-widget__status` is a live region: never hide it with display:none, even while empty, or
@@ -62,100 +382,292 @@
 .ak-widget__foot {
   display: flex;
   flex-wrap: wrap;
-  gap: 0 1rem;
+  gap: 0 20px;
   margin-top: auto;
-  font-size: 0.875rem;
+  font-size: 13px;
 
   a {
     // 44 px tap target on phones (QA F-09); the padding widens the hit area, not the text.
     display: inline-flex;
     align-items: center;
     min-height: 44px;
-    padding: 0 0.25rem;
-    margin-inline: -0.25rem;
+    padding: 0 4px;
+    margin-inline: -4px;
     color: var(--theme-text);
+    font-weight: 500;
     text-decoration: underline;
-    text-underline-offset: 0.2em;
+    text-decoration-color: var(--ak-hairline-strong);
+    text-underline-offset: 0.25em;
+
+    &:hover {
+      text-decoration-color: currentColor;
+    }
   }
 }
 
 .ak-badge {
-  padding: 0.15rem 0.6rem;
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
   border-radius: 999px;
-  background: var(--theme-elevation-100);
-  font-size: 0.8rem;
+  background: var(--ak-wash);
+  color: var(--theme-text);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
   white-space: nowrap;
 
-  &--alert {
-    background: var(--theme-success-500);
-    color: var(--theme-bg);
+  // Lime fill, ink text: 12:1 in both themes.
+  &--live {
+    background: var(--ak-lime);
+    color: var(--ak-ink);
   }
 }
 
-// Unread messages list
-.ak-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-
-  li + li {
-    border-top: 1px solid var(--theme-elevation-100);
-  }
-}
-
-.ak-list__row {
+// Empty and error states (Visitors widget). Dashed edge = "nothing here yet", not broken.
+.ak-empty {
   display: flex;
   flex-direction: column;
-  gap: 0.1rem;
-  min-height: 44px; // tap target
-  padding: 0.5rem 0;
-  color: var(--theme-text);
-  text-decoration: none;
+  gap: 4px;
+  padding: 16px;
+  border: 1px dashed var(--ak-hairline-strong);
+  border-radius: var(--ak-radius-control);
 
-  &:hover .ak-list__main,
-  &:focus-visible .ak-list__main {
-    text-decoration: underline;
+  &[data-tone="error"] {
+    border-style: solid;
+    border-color: var(--theme-error-500);
+  }
+
+  code {
+    padding: 1px 5px;
+    border-radius: 4px;
+    background: var(--ak-wash);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    overflow-wrap: anywhere;
   }
 }
 
-.ak-list__main {
+.ak-empty__title {
+  margin: 0;
+  font-size: 14px;
   font-weight: 600;
 }
 
-.ak-list__meta {
-  color: var(--theme-elevation-650);
-  font-size: 0.85rem;
+.ak-empty__body {
+  margin: 0;
+  color: var(--ak-muted);
+  font-size: 13px;
+  text-wrap: pretty;
 }
 
-// Availability segmented control
+// ---------------------------------------------------------------------------------------------
+// Rows: hairline lists (Inbox, Quick links, Templates, Top pages)
+// ---------------------------------------------------------------------------------------------
+
+.ak-rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-bottom: 1px solid var(--ak-hairline);
+
+  > li {
+    min-width: 0;
+    border-top: 1px solid var(--ak-hairline);
+  }
+}
+
+// Quick links: one column on a phone, then two and three as the widget widens.
+.ak-rows--grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  column-gap: 24px;
+
+  @container (min-width: 520px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @container (min-width: 860px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.ak-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 56px; // one-thumb target, above the 44 px floor (QA F-09)
+  padding: 8px 2px;
+  color: var(--theme-text);
+  text-decoration: none;
+
+  &:focus-visible {
+    outline: 2px solid var(--theme-text);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+.ak-row__text {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.ak-row__title,
+.ak-row__meta {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ak-row__title {
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.2em;
+  transition: text-decoration-color var(--ak-dur) var(--ak-ease);
+}
+
+.ak-row__meta {
+  color: var(--ak-muted);
+  font-size: 13px;
+}
+
+.ak-row__arrow {
+  flex: none;
+  width: 16px;
+  color: var(--ak-muted);
+  font-size: 16px;
+  line-height: 1;
+  text-align: center;
+  transition:
+    transform var(--ak-dur) var(--ak-ease),
+    color var(--ak-dur) var(--ak-ease);
+}
+
+// Unread marker: the brand dot, ringed so it holds on the light sheet.
+.ak-row__dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ak-lime);
+  box-shadow: inset 0 0 0 1px rgb(40 44 32 / 0.4);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ak-row:hover {
+    .ak-row__title {
+      text-decoration-color: currentColor;
+    }
+
+    .ak-row__arrow {
+      color: var(--theme-text);
+      transform: translateX(3px);
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------------------------
+// Inbox (UnreadMessagesWidget)
+// ---------------------------------------------------------------------------------------------
+
+// The figure is the dashboard's focal point: how many people are waiting.
+.ak-figure {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0;
+}
+
+.ak-figure__value {
+  font-size: 48px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+}
+
+.ak-figure__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ak-muted);
+  font-size: 14px;
+}
+
+.ak-figure[data-tone="attention"] .ak-figure__label::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ak-lime);
+  box-shadow: inset 0 0 0 1px rgb(40 44 32 / 0.4);
+}
+
+.ak-figure[data-tone="calm"] .ak-figure__value {
+  color: var(--ak-muted);
+}
+
+// ---------------------------------------------------------------------------------------------
+// Availability (AvailabilityToggle)
+// ---------------------------------------------------------------------------------------------
+
+.ak-availability {
+  display: flex;
+  flex-direction: column;
+
+  // The live region stays in the DOM; it only takes space while it has something to say.
+  .ak-widget__status:not(:empty) {
+    margin-top: 8px;
+  }
+
+  .ak-onsite {
+    margin-top: 12px;
+  }
+}
+
+// One track, three segments; the current one is filled with ink (paper in the dark theme).
 .ak-segmented {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.5rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+  padding: 4px;
+  border-radius: calc(var(--ak-radius-control) + 4px); // concentric with the 8 px segments
+  background: var(--ak-wash);
 }
 
 .ak-segmented__btn {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.1rem;
-  min-height: 44px;
-  padding: 0.6rem 0.75rem;
-  border: 1px solid var(--theme-elevation-150);
-  border-radius: var(--style-radius-m, 6px);
-  background: var(--theme-elevation-0);
+  justify-content: center;
+  gap: 2px;
+  min-width: 0;
+  min-height: 52px; // tap target (QA F-09)
+  padding: 8px 12px;
+  border: 0;
+  border-radius: var(--ak-radius-control);
+  background: transparent;
   color: var(--theme-text);
   font: inherit;
   text-align: left;
   cursor: pointer;
-
-  &:hover:not(:disabled) {
-    border-color: var(--theme-elevation-400);
-  }
+  transition:
+    background-color var(--ak-dur) var(--ak-ease),
+    color var(--ak-dur) var(--ak-ease),
+    transform var(--ak-dur) var(--ak-ease);
 
   &:focus-visible {
     outline: 2px solid var(--theme-text);
     outline-offset: 2px;
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.97);
   }
 
   &:disabled {
@@ -163,162 +675,152 @@
   }
 
   &[aria-pressed="true"] {
-    border-color: var(--theme-text);
-    box-shadow: inset 0 0 0 1px var(--theme-text);
+    background: var(--theme-text);
+    color: var(--theme-bg);
+
+    .ak-segmented__hint {
+      color: inherit;
+      opacity: 0.72;
+    }
   }
 
-  // Status dot, coloured per value; the label carries the meaning, the colour is extra.
+  // Status mark: shape as well as colour, so it reads without colour vision. Open = full lime
+  // dot, Limited = half, Closed = empty ring. The label carries the meaning; this is extra.
   .ak-segmented__label::before {
     content: "";
     display: inline-block;
-    width: 0.5rem;
-    height: 0.5rem;
-    margin-right: 0.4rem;
+    width: 8px;
+    height: 8px;
+    margin-right: 8px;
     border-radius: 50%;
-    background: var(--ak-dot);
-    vertical-align: 0.1em;
+    background: var(--ak-dot, transparent);
+    box-shadow: inset 0 0 0 1px var(--ak-dot-ring, rgb(40 44 32 / 0.45));
+    vertical-align: 0.08em;
   }
 
   &--open {
-    --ak-dot: var(--theme-success-500);
+    --ak-dot: var(--ak-lime);
   }
 
   &--limited {
-    --ak-dot: var(--theme-warning-500);
+    --ak-dot: linear-gradient(90deg, var(--ak-lime) 50%, transparent 50%);
   }
 
   &--closed {
-    --ak-dot: var(--theme-error-500);
+    --ak-dot-ring: currentColor;
   }
+}
+
+html[data-theme="dark"] .ak-segmented__btn:not([aria-pressed="true"]) {
+  --ak-dot-ring: rgb(235 238 224 / 0.5);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ak-segmented__btn:hover:not(:disabled, [aria-pressed="true"]) {
+    background: var(--ak-wash);
+  }
+}
+
+// While saving, the choice stays bright and the others step back.
+.ak-segmented[aria-busy="true"] .ak-segmented__btn:not([aria-pressed="true"]) {
+  opacity: 0.5;
 }
 
 .ak-segmented__label {
+  font-size: 14px;
   font-weight: 600;
-}
-
-.ak-segmented__hint {
-  color: var(--theme-elevation-650);
-  font-size: 0.75rem;
-}
-
-// Quick links
-.ak-links {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
-  gap: 0.5rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.ak-links__item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.1rem;
-  height: 100%;
-  min-height: 44px;
-  padding: 0.6rem 0.75rem;
-  border: 1px solid var(--theme-elevation-150);
-  border-radius: var(--style-radius-m, 6px);
-  color: var(--theme-text);
-  text-decoration: none;
-
-  &:hover,
-  &:focus-visible {
-    border-color: var(--theme-elevation-400);
-  }
-}
-
-.ak-links__label {
-  font-weight: 600;
-}
-
-.ak-links__hint {
-  color: var(--theme-elevation-650);
-  font-size: 0.75rem;
-}
-
-// Projects list: reorder hint (components/admin/ProjectsListHint.tsx)
-.ak-list-hint {
-  margin: 0 0 1rem;
-  color: var(--theme-elevation-650);
-  font-size: 0.875rem;
-}
-
-// Messages list: Unread / All switch
-.ak-filter {
-  display: inline-flex;
-  gap: 0.25rem;
-  margin-bottom: 1rem;
-  padding: 0.25rem;
-  border-radius: 999px;
-  background: var(--theme-elevation-50);
-}
-
-.ak-filter__btn {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px; // tap target (QA F-09)
-  padding: 0 1.25rem;
-  border-radius: 999px;
-  color: var(--theme-text);
-  text-decoration: none;
-
-  &[aria-current="page"] {
-    background: var(--theme-elevation-0);
-    box-shadow: 0 0 0 1px var(--theme-elevation-150);
-    font-weight: 600;
-  }
-}
-
-// Shared bits for the 6.x widgets
-.ak-sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
   white-space: nowrap;
 }
 
-.ak-badge--ok {
-  margin-left: 0.5rem;
-  background: var(--theme-success-500);
-  color: var(--theme-bg);
+.ak-segmented__hint {
+  color: var(--ak-muted);
+  font-size: 12px;
+  line-height: 1.3;
 }
 
-.ak-templates__name .ak-badge:not(.ak-badge--ok) {
-  margin-left: 0.5rem;
-  font-weight: 400;
+// Too narrow for "Looking for work" under each label: the labels say enough.
+@container (max-width: 440px) {
+  .ak-segmented__hint {
+    display: none;
+  }
 }
+
+// "On the site": the badge as visitors see it in the hero (ink chip, lime dot).
+.ak-onsite {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  margin: 0;
+}
+
+.ak-onsite__label {
+  color: var(--ak-muted);
+  font-size: 13px;
+}
+
+.ak-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 100%;
+  min-height: 32px;
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: var(--ak-ink);
+  box-shadow: 0 0 0 1px var(--ak-hairline);
+  color: var(--ak-on-ink);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.ak-chip__dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ak-lime);
+}
+
+// ---------------------------------------------------------------------------------------------
+// Buttons (Templates widget)
+// ---------------------------------------------------------------------------------------------
 
 .ak-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 6px;
   min-height: 44px; // tap target (QA F-09)
-  padding: 0 1rem;
-  border: 1px solid var(--theme-elevation-250);
+  padding: 0 18px;
+  border: 1px solid var(--ak-hairline-strong);
   border-radius: 999px;
-  background: var(--theme-elevation-0);
+  background: transparent;
   color: var(--theme-text);
   font: inherit;
-  font-size: 0.875rem;
+  font-size: 14px;
+  font-weight: 500;
   text-decoration: none;
+  white-space: nowrap;
   cursor: pointer;
-
-  &:hover:not(:disabled) {
-    border-color: var(--theme-text);
-  }
+  transition:
+    background-color var(--ak-dur) var(--ak-ease),
+    border-color var(--ak-dur) var(--ak-ease),
+    color var(--ak-dur) var(--ak-ease),
+    transform var(--ak-dur) var(--ak-ease);
 
   &:focus-visible {
     outline: 2px solid var(--theme-text);
     outline-offset: 2px;
   }
 
+  &:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+
   &:disabled {
     cursor: not-allowed;
-    opacity: 0.55;
+    opacity: 0.5;
   }
 
   &--primary {
@@ -328,14 +830,36 @@
   }
 }
 
-// Templates widget (work plan 6.4)
+.ak-button__icon {
+  color: var(--ak-muted);
+  font-size: 13px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ak-button:hover:not(:disabled) {
+    border-color: var(--theme-text);
+  }
+
+  // Same lime fill as the site's buttons and the admin's primary buttons.
+  .ak-button--primary:hover:not(:disabled) {
+    border-color: var(--ak-lime);
+    background: var(--ak-lime);
+    color: var(--ak-ink);
+  }
+}
+
+// ---------------------------------------------------------------------------------------------
+// Templates (TemplatesWidget, work plan 6.4)
+// ---------------------------------------------------------------------------------------------
+
 .ak-templates {
   margin: 0;
   padding: 0;
   list-style: none;
+  border-bottom: 1px solid var(--ak-hairline);
 
-  li + li {
-    border-top: 1px solid var(--theme-elevation-100);
+  > li {
+    border-top: 1px solid var(--ak-hairline);
   }
 }
 
@@ -344,52 +868,63 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 0.5rem 1rem;
-  padding: 0.6rem 0;
+  gap: 12px 16px;
+  padding: 14px 0;
 }
 
 .ak-templates__text {
   display: flex;
-  flex: 1 1 14rem;
+  flex: 1 1 220px;
   flex-direction: column;
-  gap: 0.1rem;
+  gap: 4px;
   min-width: 0;
 }
 
 .ak-templates__name {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
   font-weight: 600;
 }
 
 .ak-templates__desc {
-  color: var(--theme-elevation-650);
-  font-size: 0.85rem;
+  color: var(--ak-muted);
+  font-size: 13px;
+  text-wrap: pretty;
 }
 
 .ak-templates__actions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
+
+  // Activate's error message sits on its own line under the buttons.
+  .ak-widget__status:not(:empty) {
+    flex-basis: 100%;
+    color: var(--theme-error-500);
+  }
 }
 
-// Analytics widget (work plan 6.8)
-.ak-widget__subtitle {
-  margin: 0 0 0.25rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-}
+// ---------------------------------------------------------------------------------------------
+// Visitors (AnalyticsWidget, work plan 6.8)
+// ---------------------------------------------------------------------------------------------
 
 .ak-stats {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.75rem;
+  gap: 16px;
   margin: 0;
 }
 
 .ak-stat {
-  padding: 0.6rem 0.75rem;
-  border: 1px solid var(--theme-elevation-150);
-  border-radius: var(--style-radius-m, 6px);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 12px;
+  border-top: 1px solid var(--ak-hairline-strong);
 
   dd {
     margin: 0;
@@ -397,60 +932,203 @@
 }
 
 .ak-stat__label {
-  color: var(--theme-elevation-650);
-  font-size: 0.8rem;
+  color: var(--ak-muted);
+  font-size: 13px;
 }
 
 .ak-stat__value {
-  font-size: 1.5rem;
+  font-size: 30px;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
-  line-height: 1.2;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
 }
 
 .ak-stat__unit {
-  font-size: 0.85rem;
+  color: var(--ak-muted);
+  font-size: 13px;
   font-weight: 400;
+  letter-spacing: 0;
 }
 
 .ak-stat__sub {
-  color: var(--theme-elevation-650);
-  font-size: 0.85rem;
+  color: var(--ak-muted);
+  font-size: 13px;
   font-variant-numeric: tabular-nums;
 }
 
+// 30 daily bars; today (the last) in full ink so "now" is findable at a glance.
 .ak-spark {
   display: block;
   width: 100%;
-  height: 3rem;
+  height: 56px;
 
   rect {
-    fill: var(--theme-elevation-500);
+    fill: var(--theme-elevation-300);
+    transition: fill var(--ak-dur) var(--ak-ease);
   }
 
+  rect:last-child,
   rect:hover {
     fill: var(--theme-text);
   }
 }
 
+.ak-top {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-bottom: 1px solid var(--ak-hairline);
+}
+
 .ak-top__row {
   display: flex;
   justify-content: space-between;
-  gap: 1rem;
-  padding: 0.35rem 0;
+  gap: 16px;
+  padding: 8px 0;
+  border-top: 1px solid var(--ak-hairline);
+  font-size: 13px;
 }
 
 .ak-top__path {
   min-width: 0;
   overflow: hidden;
-  font-family: var(--font-mono, ui-monospace, monospace);
-  font-size: 0.85rem;
+  font-family: var(--font-mono);
+  font-size: 12px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-@media (max-width: 480px) {
-  .ak-segmented__hint {
-    display: none;
+.ak-top__count {
+  flex: none;
+  color: var(--ak-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+// ---------------------------------------------------------------------------------------------
+// Payload's collection cards on the dashboard: compact rows in the same sheet as the widgets
+// ---------------------------------------------------------------------------------------------
+
+// Columns stay Payload's (one under 400 px): two columns at 360 px would break "Publications".
+.dashboard .collections {
+  --gap: 8px;
+}
+
+.dashboard .collections__wrap {
+  gap: 24px;
+}
+
+.dashboard .collections__label {
+  margin: 0 2px;
+  color: var(--ak-muted);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.4;
+}
+
+.dashboard .collections__card-list {
+  gap: 8px;
+
+  .card {
+    align-items: center;
+    gap: 4px;
+    min-height: 56px;
+    padding: 6px 6px 6px 14px;
+    border-color: var(--ak-hairline);
+    border-radius: 10px;
+    background: var(--ak-sheet);
+    box-shadow: var(--ak-lift);
+  }
+
+  .card--has-onclick:hover {
+    border-color: var(--ak-hairline-strong);
+    background: var(--ak-sheet);
+  }
+
+  .card__title {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  // "Create new" was 22 px wide: give it a full 44 px square.
+  .card__actions .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+// ---------------------------------------------------------------------------------------------
+// List views
+// ---------------------------------------------------------------------------------------------
+
+// Projects list: reorder hint (components/admin/ProjectsListHint.tsx)
+.ak-list-hint {
+  margin: 0 0 16px;
+  color: var(--ak-muted);
+  font-size: 14px;
+  text-wrap: pretty;
+}
+
+// Messages list: Unread / All switch (components/admin/MessagesFilter.tsx), the same track as the
+// availability control.
+.ak-filter {
+  display: inline-flex;
+  gap: 4px;
+  margin-bottom: 16px;
+  padding: 4px;
+  border-radius: 999px;
+  background: var(--ak-wash);
+}
+
+.ak-filter__btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px; // tap target (QA F-09)
+  padding: 0 20px;
+  border-radius: 999px;
+  color: var(--theme-text);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+
+  &[aria-current="page"] {
+    background: var(--theme-text);
+    color: var(--theme-bg);
+    font-weight: 600;
+  }
+}
+
+// ---------------------------------------------------------------------------------------------
+// Shared
+// ---------------------------------------------------------------------------------------------
+
+.ak-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ak-row__title,
+  .ak-row__arrow,
+  .ak-segmented__btn,
+  .ak-button,
+  .ak-spark rect {
+    transition: none;
+  }
+
+  .ak-row:hover .ak-row__arrow,
+  .ak-segmented__btn:active,
+  .ak-button:active {
+    transform: none;
   }
 }

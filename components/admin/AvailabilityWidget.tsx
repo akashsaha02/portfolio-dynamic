@@ -24,11 +24,8 @@ export async function AvailabilityWidget({ req }: WidgetServerProps) {
           Availability
         </h2>
       </header>
-      <AvailabilityToggle status={status} />
-      <p className="ak-widget__note">
-        Badge text: <q>{label || "not set"}</q>. Changing the status keeps this text, so update it if it no longer
-        fits.
-      </p>
+      <AvailabilityToggle status={status} label={label} />
+      <p className="ak-widget__note">Changing the status keeps the badge text, so update it if it no longer fits.</p>
       <footer className="ak-widget__foot">
         <Link href={profileURL}>Edit text in Profile → Status</Link>
       </footer>

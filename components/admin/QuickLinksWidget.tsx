@@ -4,7 +4,11 @@ import { formatAdminURL } from "payload/shared";
 
 type QuickLink = { href: string; label: string; hint: string; external?: boolean };
 
-/** Dashboard widget: the few places Akash goes most (work plan 2.6). Big tap targets for phones. */
+/**
+ * Dashboard widget: the few places Akash goes most (work plan 2.6). Full-width rows on a phone
+ * (one-thumb targets); two or three columns when the widget is wide (container queries in
+ * custom.scss, so it follows the widget's width, not the window's).
+ */
 export function QuickLinksWidget({ req }: WidgetServerProps) {
   const adminRoute = req.payload.config.routes.admin;
   const admin = (path: `/${string}`) => formatAdminURL({ adminRoute, path });
@@ -25,22 +29,33 @@ export function QuickLinksWidget({ req }: WidgetServerProps) {
           Quick links
         </h2>
       </header>
-      <ul className="ak-links">
-        {links.map((link) => (
-          <li key={link.label}>
-            {link.external ? (
-              <a className="ak-links__item" href={link.href} target="_blank" rel="noopener">
-                <span className="ak-links__label">{link.label} ↗</span>
-                <span className="ak-links__hint">{link.hint}</span>
-              </a>
-            ) : (
-              <Link className="ak-links__item" href={link.href}>
-                <span className="ak-links__label">{link.label}</span>
-                <span className="ak-links__hint">{link.hint}</span>
-              </Link>
-            )}
-          </li>
-        ))}
+      <ul className="ak-rows ak-rows--grid">
+        {links.map((link) => {
+          const body = (
+            <>
+              <span className="ak-row__text">
+                <span className="ak-row__title">{link.label}</span>
+                <span className="ak-row__meta">{link.hint}</span>
+              </span>
+              <span className="ak-row__arrow" aria-hidden="true">
+                {link.external ? "↗" : "→"}
+              </span>
+            </>
+          );
+          return (
+            <li key={link.label}>
+              {link.external ? (
+                <a className="ak-row" href={link.href} target="_blank" rel="noopener">
+                  {body}
+                </a>
+              ) : (
+                <Link className="ak-row" href={link.href}>
+                  {body}
+                </Link>
+              )}
+            </li>
+          );
+        })}
       </ul>
     </nav>
   );

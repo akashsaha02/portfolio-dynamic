@@ -4,11 +4,13 @@ The admin lives at **`/admin`** on the site (e.g. `https://<your-domain>/admin`)
 
 **Log in** with your email and password. Five wrong tries lock the account for 15 minutes. You stay signed in for 8 hours.
 
-**Dashboard** (the first screen):
-- **Inbox**: how many messages are unread, and the newest three. Tap one to open it.
-- **Availability**: tap Open, Limited or Closed. The site updates right away. The badge text stays the same, so edit it in Profile → Status if it no longer fits.
+**Dashboard** (the first screen), top to bottom:
+- **Inbox**: the big number is how many messages are unread (a lime dot marks each one); the newest three are listed. Tap one to open it.
+- **Availability**: tap Open, Limited or Closed. The site updates right away. "On the site" shows the badge as visitors see it. The badge text stays the same, so edit it in Profile → Status if it no longer fits.
 - **Quick links**: view the site, preview, résumé, messages, projects, new project.
-- To rearrange the dashboard, use the menu next to "Dashboard" at the top. "Reset layout" restores the default.
+- **Templates** (preview or switch the site's design) and **Visitors** (page views, once analytics is set up).
+- **Content / Inbox / Settings**: every collection; the + creates a new entry.
+- To rearrange the dashboard, use the menu next to "Dashboard" at the top. "Reset layout" restores the default (if you rearranged it before, reset once to get this order).
 
 **Edit a project.** Content → Projects → tap the project. Change the fields, then:
 - **Save draft** keeps your changes private. The site still shows the last published version.
