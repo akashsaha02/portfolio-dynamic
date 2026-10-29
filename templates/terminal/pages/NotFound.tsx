@@ -28,11 +28,11 @@ export default function NotFound(props: TemplateProps) {
         <nav aria-label="Ways back" className="mt-8">
           <ul className="-ml-1 flex flex-wrap gap-x-6">
             {WAYS_BACK.map((l) => (
-              <li key={l.href}>
+              <li key={l.href} className="inline-flex items-center">
+                <span aria-hidden="true" className={MUTED}>
+                  {l.verb}
+                </span>
                 <Link href={l.href} className={`${LINK} px-1`}>
-                  <span aria-hidden="true" className={MUTED}>
-                    {l.verb}
-                  </span>
                   {l.label}
                 </Link>
               </li>

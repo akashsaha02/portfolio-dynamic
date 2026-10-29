@@ -27,6 +27,14 @@ export type VersionEntry = {
 
 export const VERSIONS: VersionEntry[] = [
   {
+    id: "terminal",
+    name: "Terminal",
+    period: "Oct 2026 – now",
+    description: "A developer's command line: monospace, prompt-style headings, projects as ls -l rows.",
+    href: "/",
+    template: "terminal",
+  },
+  {
     id: "brutal",
     name: "Brutal",
     period: "Oct 2026 – now",

@@ -892,7 +892,7 @@ export interface SiteSetting {
   /**
    * Which template renders the public site. To look at one first, use Preview in the dashboard's Templates widget.
    */
-  activeTemplate: 'folio' | 'index' | 'brutal';
+  activeTemplate: 'folio' | 'index' | 'brutal' | 'terminal';
   /**
    * Footer label, e.g. 2026 © Edition.
    */

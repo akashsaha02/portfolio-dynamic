@@ -19,8 +19,9 @@ import "./terminal.css";
 
 export type TerminalPageId = "home" | "work" | "archive" | "lab" | "about" | "contact";
 
-/** The pages as commands. The verb is decoration (aria-hidden; a no-break space, as flex items
- * drop a trailing one); the link's name is the page. */
+/** The pages as commands. The verb is decoration, outside the link (aria-hidden; a no-break
+ * space, as flex items drop a trailing one), so the link's visible text and its name are both the
+ * page (WCAG 2.5.3, label in name: "click work" works for speech input). */
 const PAGES: { id: TerminalPageId; href: string; verb: string; label: string }[] = [
   { id: "work", href: "/work", verb: "cd ", label: "work" },
   { id: "archive", href: "/archive", verb: "ls ", label: "archive" },
@@ -83,11 +84,11 @@ export function TerminalPage({ content, settings, current, section, cwd = "~", c
             <nav aria-label="Main" className="flex items-center">
               <ul className="-mx-2 flex flex-wrap">
                 {PAGES.map((p) => (
-                  <li key={p.id}>
-                    <Link href={p.href} aria-current={mark(p.id)} className="t-a t-nav inline-flex min-h-11 items-center px-2">
-                      <span aria-hidden="true" className={MUTED}>
-                        {p.verb}
-                      </span>
+                  <li key={p.id} className="inline-flex items-center pl-2">
+                    <span aria-hidden="true" className={MUTED}>
+                      {p.verb}
+                    </span>
+                    <Link href={p.href} aria-current={mark(p.id)} className="t-a t-nav inline-flex min-h-11 items-center pr-2">
                       {p.label}
                     </Link>
                   </li>
@@ -143,11 +144,11 @@ function Footer({ content }: Pick<TemplateProps, "content">) {
       <div className="mt-6 flex flex-wrap gap-x-4">
         <Socials socials={profile.socials} />
         <ul aria-label="More pages" className="-ml-1 flex flex-wrap gap-x-4">
-          <li>
+          <li className="inline-flex items-center">
+            <span aria-hidden="true" className={MUTED}>
+              git log:&nbsp;
+            </span>
             <Link href="/v" className={`${LINK} px-1`}>
-              <span aria-hidden="true" className={MUTED}>
-                git log:&nbsp;
-              </span>
               older versions
             </Link>
           </li>

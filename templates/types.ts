@@ -136,7 +136,7 @@ export const TEMPLATE_META: Record<TemplateId, TemplateMeta> = {
     id: "terminal",
     name: "Terminal",
     description: "A developer's command line: monospace, prompt-style navigation, readable text.",
-    status: "placeholder",
+    status: "current",
   },
 };
 
