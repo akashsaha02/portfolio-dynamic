@@ -24,7 +24,9 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
-  reporter: [["html", { open: "never", outputFolder: "playwright-report-templates" }], ["list"]],
+  // In CI the github reporter also posts each failure as an annotation on the run (readable
+  // without downloading the report).
+  reporter: [["html", { open: "never", outputFolder: "playwright-report-templates" }], ["list"], ...(process.env.CI ? [["github"] as const] : [])],
   outputDir: "test-results-templates",
   use: { trace: "on-first-retry" },
   webServer: templates.map((t) => ({
