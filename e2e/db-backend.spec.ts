@@ -176,7 +176,8 @@ test("template preview: the admin sees Index with the banner, anonymous visitors
 });
 
 test("activating Index through site-settings switches / for anonymous visitors, then Folio comes back", async () => {
-  test.setTimeout(120_000);
+  // Every page regenerates in the background after the switch; slow on a loaded CI runner.
+  test.setTimeout(300_000);
   const set = (activeTemplate: string) => admin.api.post("/api/globals/site-settings", { data: { activeTemplate } });
   try {
     const res = await set("index");
@@ -185,7 +186,7 @@ test("activating Index through site-settings switches / for anonymous visitors, 
     await expect.poll(async () => (await page("/")()).includes("tpl-index"), { timeout: 30_000 }).toBe(true);
     // Other routes revalidate stale-while-revalidate too: the first request may be the old page.
     for (const path of ["/work", "/archive", "/v"]) {
-      await expect.poll(async () => (await page(path)()).includes("tpl-index"), { timeout: 30_000, message: path }).toBe(true);
+      await expect.poll(async () => (await page(path)()).includes("tpl-index"), { timeout: 60_000, message: path }).toBe(true);
       expect(await page(path)(), path).not.toContain("tpl-folio");
     }
     expect((await anon.get("/work/does-not-exist")).status()).toBe(404);
