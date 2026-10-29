@@ -27,6 +27,14 @@ export type VersionEntry = {
 
 export const VERSIONS: VersionEntry[] = [
   {
+    id: "brutal",
+    name: "Brutal",
+    period: "Oct 2026 – now",
+    description: "Neo-brutalist: huge type, thick ink borders and flat paper, ink and lime blocks.",
+    href: "/",
+    template: "brutal",
+  },
+  {
     id: "index",
     name: "Index",
     period: "Oct 2026 – now",

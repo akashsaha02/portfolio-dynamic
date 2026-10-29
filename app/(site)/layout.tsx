@@ -37,10 +37,14 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-// Browser chrome matches the active template's page colour: Folio paper, Index ink.
+// Browser chrome matches the active template's page colour (paper unless listed).
+const THEME_COLOR: Partial<Record<string, Viewport["themeColor"]>> = {
+  index: "#282c20",
+};
+
 export async function generateViewport(): Promise<Viewport> {
   const { activeTemplate } = await getSettings();
-  return { themeColor: activeTemplate === "index" ? "#282c20" : "#ebeee0" };
+  return { themeColor: THEME_COLOR[activeTemplate] ?? "#ebeee0" };
 }
 
 export default function SiteLayout({ children }: LayoutProps<"/">) {

@@ -130,7 +130,7 @@ export const TEMPLATE_META: Record<TemplateId, TemplateMeta> = {
     id: "brutal",
     name: "Brutal",
     description: "Stylised: oversized type, thick borders, flat colour blocks and hard shadows.",
-    status: "placeholder",
+    status: "current",
   },
   terminal: {
     id: "terminal",
