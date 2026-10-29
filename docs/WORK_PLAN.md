@@ -161,7 +161,7 @@ Each feature runs the same mini-cycle: **UI → backend → connect → test →
 | 6.6 | Annotations toggle ("how this was built" notes) | design | — | done (Folio) |
 | 6.7 | ML lab page with an in-browser tomato-leaf classifier demo | design, backend | — | done |
 | 6.8 | Analytics widget in the admin dashboard | backend, monitoring | Vercel Analytics | built (needs VERCEL_ANALYTICS_TOKEN) |
-| 6.9 | Page-transition curtain, live cursors (desktop only) and other flashier effects | design | — | done (curtain; cursors off until ABLY_API_KEY; WebGL tile hover not built) |
+| 6.9 | Page-transition curtain, live cursors (desktop only) and other flashier effects | design | — | done (curtain, WebGL tile hover; cursors off until ABLY_API_KEY) |
 
 Rule for every feature: it must keep the guide §5 budgets and §9 free-tier limits, and it must not break any earlier test.
 
