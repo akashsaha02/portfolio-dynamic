@@ -101,14 +101,23 @@ type Image = { src: string; alt: string };
 /** Uploads a file from public/ once (matched by filename); afterwards only keeps `alt` in sync. */
 async function upsertMedia(image: Image): Promise<string> {
   const filename = path.basename(image.src);
+  // Payload renames an upload whose name is taken (portrait.webp -> portrait-7.webp), so match the
+  // original name or that name with a "-<n>" suffix; otherwise a re-run would add a duplicate.
+  const ext = path.extname(filename);
+  const stem = filename.slice(0, -ext.length);
+  const isSameFile = (name: unknown) => {
+    if (typeof name !== "string" || !name.startsWith(stem) || !name.endsWith(ext)) return false;
+    const middle = name.slice(stem.length, name.length - ext.length);
+    return middle === "" || /^-\d+$/.test(middle);
+  };
   const { docs } = await payload.find({
     ...base,
     collection: "media",
-    where: { filename: { equals: filename } },
+    where: { filename: { like: stem } },
     depth: 0,
-    limit: 1,
+    limit: 50,
   });
-  const existing = docs[0];
+  const existing = docs.find((d) => isSameFile(d.filename));
   if (!existing) {
     const doc = await payload.create({
       ...base,
