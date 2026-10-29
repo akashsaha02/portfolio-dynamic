@@ -10,7 +10,7 @@ const OPTIONS: Array<{ value: AvailabilityStatus; label: string; hint: string }>
   { value: "closed", label: "Closed", hint: "Not taking work" },
 ];
 
-export function AvailabilityToggle({ status }: { status: AvailabilityStatus }) {
+export function AvailabilityToggle({ status, label }: { status: AvailabilityStatus; label: string }) {
   const [shown, setShown] = useOptimistic(status);
   const [pending, startTransition] = useTransition();
   // Last outcome, announced by the live region below: "Saved …" or the error.
@@ -28,7 +28,7 @@ export function AvailabilityToggle({ status }: { status: AvailabilityStatus }) {
   }
 
   return (
-    <div>
+    <div className="ak-availability">
       <div className="ak-segmented" role="group" aria-label="Availability status" aria-busy={pending}>
         {OPTIONS.map((option) => (
           <button
@@ -47,6 +47,14 @@ export function AvailabilityToggle({ status }: { status: AvailabilityStatus }) {
       {/* Always rendered (never display:none) so screen readers track it and announce changes. */}
       <p className="ak-widget__status" role="status">
         {pending ? "Saving…" : (outcome ?? "")}
+      </p>
+      {/* What visitors see in the hero: the badge text, with the dot unless the status is Closed. */}
+      <p className="ak-onsite">
+        <span className="ak-onsite__label">On the site</span>
+        <span className="ak-chip" data-status={shown}>
+          {shown === "closed" ? null : <span className="ak-chip__dot" aria-hidden="true" />}
+          {label || "No badge text yet"}
+        </span>
       </p>
     </div>
   );

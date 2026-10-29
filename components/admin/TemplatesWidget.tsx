@@ -37,7 +37,7 @@ export async function TemplatesWidget({ req }: WidgetServerProps) {
               <div className="ak-templates__text">
                 <span className="ak-templates__name">
                   {meta.name}
-                  {isActive ? <span className="ak-badge ak-badge--ok">Live</span> : null}
+                  {isActive ? <span className="ak-badge ak-badge--live">Live</span> : null}
                   {!ready ? <span className="ak-badge">In progress</span> : null}
                 </span>
                 <span className="ak-templates__desc">{meta.description}</span>
@@ -45,6 +45,9 @@ export async function TemplatesWidget({ req }: WidgetServerProps) {
               <div className="ak-templates__actions">
                 <a className="ak-button" href={previewURL} target="_blank" rel="noopener">
                   Preview<span className="ak-sr-only"> {meta.name} (opens in a new tab)</span>
+                  <span className="ak-button__icon" aria-hidden="true">
+                    ↗
+                  </span>
                 </a>
                 {isActive ? null : <ActivateTemplateButton template={id} name={meta.name} disabled={!ready} />}
               </div>

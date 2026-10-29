@@ -72,16 +72,25 @@ export default buildConfig({
       // No dynamic OG images for admin pages: turns off Payload's /api/og endpoint.
       defaultOGImageType: "off",
     },
+    // Branding and look (components/admin/, styles in app/(payload)/custom.scss): Mona Sans via a
+    // provider, the wordmark on the login page and atop the nav, the "A" mark in the header, a
+    // greeting as the dashboard's <h1>, and a link back to the site under the login form.
     components: {
+      providers: ["/components/admin/AdminFont#AdminFont"],
       graphics: {
         Logo: "/components/admin/Brand#AdminLogo",
         Icon: "/components/admin/Brand#AdminIcon",
       },
+      beforeNavLinks: ["/components/admin/Brand#NavBrand"],
+      afterLogin: ["/components/admin/Brand#LoginFooter"],
+      beforeDashboard: ["/components/admin/DashboardHeader#DashboardHeader"],
     },
     // Dashboard widgets (Payload's modular dashboard, @experimental in 3.90). Widgets are Server
     // Components in components/admin/. `defaultLayout` is what a fresh login sees; once the admin
     // rearranges the dashboard, Payload keeps that layout in their preferences ("Reset layout" in
     // the dashboard menu brings this one back). On screens ≤ 768 px every widget is full width.
+    // Order = what needs attention first: inbox and availability, then quick actions, then the
+    // template switcher and visitors, then the content shortcuts.
     dashboard: {
       widgets: [
         {
@@ -118,9 +127,9 @@ export default buildConfig({
       defaultLayout: [
         { widgetSlug: "unread-messages", width: "medium" },
         { widgetSlug: "availability", width: "medium" },
-        { widgetSlug: "analytics", width: "medium" },
-        { widgetSlug: "templates", width: "medium" },
         { widgetSlug: "quick-links", width: "full" },
+        { widgetSlug: "templates", width: "medium" },
+        { widgetSlug: "analytics", width: "medium" },
         // Payload's built-in collection/global cards.
         { widgetSlug: "collections", width: "full" },
       ],

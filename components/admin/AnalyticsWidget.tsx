@@ -21,11 +21,18 @@ export async function AnalyticsWidget({ req }: WidgetServerProps) {
       {result.status === "ok" ? (
         <Summary data={result.data} />
       ) : result.status === "not-configured" ? (
-        <p className="ak-widget__empty">
-          Not set up yet. Add a read-only <code>VERCEL_ANALYTICS_TOKEN</code> in Vercel (docs/ops/vercel-setup.md).
-        </p>
+        <div className="ak-empty">
+          <p className="ak-empty__title">Not set up yet</p>
+          <p className="ak-empty__body">
+            Add a read-only <code>VERCEL_ANALYTICS_TOKEN</code> in Vercel (docs/ops/vercel-setup.md). Page views and
+            visitors then show here, updated hourly.
+          </p>
+        </div>
       ) : (
-        <p className="ak-widget__empty">Analytics unavailable: {result.message}</p>
+        <div className="ak-empty" data-tone="error">
+          <p className="ak-empty__title">Analytics unavailable</p>
+          <p className="ak-empty__body">{result.message}</p>
+        </div>
       )}
     </section>
   );
@@ -76,11 +83,11 @@ function Summary({ data }: { data: AnalyticsSummary }) {
       {data.topPages.length > 0 ? (
         <div>
           <h3 className="ak-widget__subtitle">Top pages, 30 days</h3>
-          <ol className="ak-list ak-top">
+          <ol className="ak-top">
             {data.topPages.map((p) => (
               <li key={p.path} className="ak-top__row">
                 <span className="ak-top__path">{p.path}</span>
-                <span className="ak-list__meta">{number.format(p.pageviews)} views</span>
+                <span className="ak-top__count">{number.format(p.pageviews)} views</span>
               </li>
             ))}
           </ol>
