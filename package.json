@@ -21,7 +21,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
-    "test:e2e:db": "playwright test -c playwright.db.config.ts"
+    "test:e2e:templates": "playwright test -c playwright.templates.config.ts",
+    "test:e2e:db":"playwright test -c playwright.db.config.ts"
   },
   "dependencies": {
     "@payloadcms/db-mongodb": "3.90.2",
