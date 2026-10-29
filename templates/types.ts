@@ -7,7 +7,7 @@ import type { VersionEntry } from "@/lib/versions";
  * Folio (default) and Index (work plan 6.4, two-column and recruiter-first). Editorial (the v1
  * design) was retired in 5.2: git tag `v1-editorial`, snapshot at /v/editorial/ (6.3).
  */
-export const TEMPLATE_IDS = ["folio", "index"] as const;
+export const TEMPLATE_IDS = ["folio", "index", "bento", "brutal", "terminal"] as const;
 export type TemplateId = (typeof TEMPLATE_IDS)[number];
 
 /** Used when nothing picks a template, and for ids that are no longer (or never were) templates. */
@@ -119,6 +119,24 @@ export const TEMPLATE_META: Record<TemplateId, TemplateMeta> = {
     name: "Index",
     description: "Two-column, recruiter-first: everything on one scroll (work plan 6.4).",
     status: "current",
+  },
+  bento: {
+    id: "bento",
+    name: "Bento",
+    description: "Modern: an asymmetric grid of cards, light and dark, built to be scanned in seconds.",
+    status: "placeholder",
+  },
+  brutal: {
+    id: "brutal",
+    name: "Brutal",
+    description: "Stylised: oversized type, thick borders, flat colour blocks and hard shadows.",
+    status: "placeholder",
+  },
+  terminal: {
+    id: "terminal",
+    name: "Terminal",
+    description: "A developer's command line: monospace, prompt-style navigation, readable text.",
+    status: "placeholder",
   },
 };
 

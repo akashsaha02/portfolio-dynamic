@@ -11,8 +11,8 @@ import {
 } from "@/templates/types";
 
 describe("template id helpers", () => {
-  it("knows folio and index; the default is folio", () => {
-    expect([...TEMPLATE_IDS]).toEqual(["folio", "index"]);
+  it("knows every template; the default is folio", () => {
+    expect([...TEMPLATE_IDS]).toEqual(["folio", "index", "bento", "brutal", "terminal"]);
     expect(DEFAULT_TEMPLATE).toBe("folio");
   });
 

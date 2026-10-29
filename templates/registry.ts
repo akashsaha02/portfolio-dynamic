@@ -1,5 +1,8 @@
+import bento from "./bento";
+import brutal from "./brutal";
 import folio from "./folio";
 import index from "./index/index";
+import terminal from "./terminal";
 import { TEMPLATE_META, type TemplateDefinition, type TemplateId, type TemplateModule } from "./types";
 
 /**
@@ -11,6 +14,9 @@ import { TEMPLATE_META, type TemplateDefinition, type TemplateId, type TemplateM
 export const templates: Record<TemplateId, TemplateDefinition> = {
   folio: { meta: TEMPLATE_META.folio, module: folio },
   index: { meta: TEMPLATE_META.index, module: index },
+  bento: { meta: TEMPLATE_META.bento, module: bento },
+  brutal: { meta: TEMPLATE_META.brutal, module: brutal },
+  terminal: { meta: TEMPLATE_META.terminal, module: terminal },
 };
 
 export function getTemplate(id: TemplateId): TemplateModule {
