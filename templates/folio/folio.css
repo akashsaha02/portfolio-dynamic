@@ -343,6 +343,24 @@
       transform: scale(1.03);
     }
   }
+  /* Liquid hover (motion/tile-ripple-gl.ts, work plan 6.9): one shared canvas, moved into the
+     hovered tile's media box and drawn over the <img> (which stays the real image). Fine pointer
+     with motion allowed only; the guard below hides it if either flips mid-hover. */
+  .f-tile[data-ripple] .f-tile-media {
+    position: relative;
+  }
+  .f-tile-gl {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  @media not ((hover: hover) and (pointer: fine)), (prefers-reduced-motion: reduce) {
+    .f-tile-gl {
+      display: none;
+    }
+  }
 
   /* Rows: hairline list. On a fine pointer, hovering one row dims the others. */
   .f-row-link > * {

@@ -8,6 +8,7 @@
 import type { Project } from "@/lib/content-types";
 import type { TemplateProps } from "../../types";
 import { ProjectHoverRows } from "../motion/ProjectHoverModal";
+import { TileRipple } from "../motion/TileRipple";
 import { FolioShell } from "../shell/FolioShell";
 import { FillButton } from "../ui/FillButton";
 import { ArrowRight } from "../ui/icons";
@@ -57,6 +58,8 @@ export default function Work({ content, settings }: TemplateProps) {
                 </li>
               ))}
             </ul>
+            {/* Liquid hover on the tile covers (fine pointer only; the WebGL loads on the first hover). */}
+            <TileRipple />
 
             <div className="f-work-rows mt-14">
               {/* Column labels for sighted users; each row link reads its own cells. */}
