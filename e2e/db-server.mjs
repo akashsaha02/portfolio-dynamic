@@ -33,6 +33,9 @@ const env = {
   ABLY_API_KEY: "",
   VERCEL_ANALYTICS_TOKEN: "",
   CONTACT_TO_EMAIL: "",
+  // Uploads stay on local disk (/api/media/file/...): a Blob token in .env.local would route them to
+  // Vercel Blob and the CSP test (N-01) would fetch the real store.
+  BLOB_READ_WRITE_TOKEN: "",
 };
 
 async function stop(code = 0) {
