@@ -1,0 +1,287 @@
+/*
+ * Bento template: one board of rounded cards on a soft page, light and dark from
+ * prefers-color-scheme. Imported by shell.tsx, so like every template's CSS it is linked on every
+ * route: everything is scoped to `.tpl-bento` with `b-` classes. Type and spacing are Tailwind
+ * utilities in the markup; this file holds the scheme colours, the card, the board's areas per
+ * breakpoint, the work grid and the hover lift (fine pointer only; nothing moves on its own).
+ *
+ * Plain CSS on the tokens from app/globals.css. It can load before or after globals.css, so it
+ * restates Tailwind's layer order first. Cards and grids are in `components`, so a utility in the
+ * markup (p-2 on a project card) wins; the page colour and focus rules stay unlayered, because the
+ * globals they override are unlayered too.
+ */
+@layer theme, base, components, utilities;
+
+/* The page behind the template (overscroll, short pages): paper, or ink in dark mode. */
+html:has(.tpl-bento),
+html:has(.tpl-bento) body {
+  background: var(--paper);
+}
+
+/*
+ * Scheme colours. Muted text is 6.9:1 on a light card and 6.3:1 on a dark one. `--hairline`
+ * (border-hairline) and `--fg-muted` are also what the shared classifier on /lab reads.
+ * `--b-accent` is the accent ink: ink on light, lime on dark (never lime text on light).
+ */
+.tpl-bento {
+  --b-card: #f6f7f0;
+  --b-fg: var(--ink);
+  --fg-muted: var(--muted);
+  --b-chip: rgb(40 44 32 / 0.07);
+  --b-accent: var(--ink);
+  --b-hover: rgb(40 44 32 / 0.4);
+  --b-well: var(--paper);
+  color: var(--b-fg);
+}
+
+@media (prefers-color-scheme: dark) {
+  html:has(.tpl-bento),
+  html:has(.tpl-bento) body {
+    background: var(--ink);
+    color-scheme: dark;
+  }
+  .tpl-bento {
+    --b-card: #32362a;
+    --b-fg: var(--on-ink);
+    --fg-muted: rgb(244 244 237 / 0.7);
+    --hairline: var(--hairline-on-ink);
+    --b-chip: rgb(210 255 0 / 0.1);
+    --b-accent: var(--lime);
+    --b-hover: rgb(244 244 237 / 0.45);
+    --b-well: var(--ink);
+    --btn-bg: var(--on-ink);
+    --btn-fg: var(--ink);
+  }
+  .tpl-bento :focus-visible {
+    outline-color: var(--lime);
+  }
+}
+
+/*
+ * Linked cards: the heading's link is stretched over the whole card (other links in the card sit
+ * above it), and the focus ring is drawn around the card instead of the link text.
+ */
+.tpl-bento .b-stretch:focus-visible {
+  outline: none;
+}
+.tpl-bento .b-lift:has(.b-stretch:focus-visible) {
+  outline: 2px solid var(--b-fg);
+  outline-offset: 3px;
+}
+
+@layer components {
+  /* Page column: header card, main, footer card, with the board's gap between them. */
+  .tpl-bento .b-page {
+    gap: 0.75rem;
+    padding: max(0.75rem, env(safe-area-inset-top)) 0.75rem max(0.75rem, env(safe-area-inset-bottom));
+  }
+
+  .tpl-bento .b-card {
+    position: relative;
+    min-width: 0;
+    border: 1px solid var(--hairline);
+    border-radius: 1.5rem;
+    background: var(--b-card);
+    padding: 1.25rem;
+  }
+  .tpl-bento .b-bar {
+    border-radius: 1.75rem;
+    padding: 0.25rem;
+  }
+
+  /* Boards and grids share one gap; the Home board's areas are set per breakpoint below. */
+  .tpl-bento :is(.b-board, .b-work, .b-grid) {
+    display: grid;
+    gap: 0.75rem;
+  }
+  .tpl-bento .b-board {
+    grid-template-areas: "intro" "avail" "work" "exp" "now" "research" "stack" "contact" "time" "social";
+  }
+
+  @media (min-width: 768px) {
+    .tpl-bento .b-page {
+      gap: 1rem;
+      padding-inline: 1rem;
+    }
+    .tpl-bento .b-card {
+      padding: 1.75rem;
+    }
+    .tpl-bento .b-bar {
+      padding: 0.25rem;
+    }
+    .tpl-bento :is(.b-board, .b-work, .b-grid) {
+      gap: 1rem;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .tpl-bento .b-board {
+      grid-template-areas:
+        "intro avail" "intro time" "intro social"
+        "work work"
+        "exp now" "exp stack"
+        "research research"
+        "contact contact";
+    }
+    .tpl-bento .b-wide {
+      grid-column: 1 / -1;
+    }
+  }
+
+  /* Work grid on tablet: the first card is full width, and so is a last card left on its own. */
+  @media (768px <= width < 1024px) {
+    .tpl-bento .b-work > :is(:first-child, :nth-child(even):last-child) {
+      grid-column: span 2;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .tpl-bento .b-page {
+      padding-inline: 1.5rem;
+    }
+    .tpl-bento :is(.b-board, .b-work) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    .tpl-bento .b-board {
+      grid-template-areas:
+        "intro intro intro avail" "intro intro intro time" "intro intro intro social"
+        "work work work work"
+        "exp exp now now" "exp exp stack stack"
+        "research research contact contact";
+    }
+    /*
+     * Desktop work grid: the first project is the big card (2 × 2), the second sits beside it
+     * (2 × 1) above two small ones, so four projects fill the block. Fewer stretch to fill; after
+     * the fourth they pair up, and a last one on its own takes the row.
+     */
+    .tpl-bento .b-work > :is(:nth-child(2), :nth-child(3):last-child, :nth-child(n + 5)) {
+      grid-column: span 2;
+    }
+    .tpl-bento .b-work > :first-child {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+    .tpl-bento .b-work > :first-child:nth-last-child(2) {
+      grid-row: auto;
+    }
+    .tpl-bento .b-work > :is(:only-child, :nth-child(n + 5):nth-child(odd):last-child) {
+      grid-column: 1 / -1;
+    }
+  }
+
+  /* Chips, buttons, the current page in the bar. */
+  .tpl-bento .b-chip {
+    display: inline-flex;
+    border-radius: 999px;
+    background: var(--b-chip);
+    color: var(--b-accent);
+    padding: 0.25rem 0.625rem;
+    font-size: 0.75rem;
+    line-height: 1.25rem;
+    font-weight: 500;
+  }
+  .tpl-bento .b-btn {
+    background: var(--lime);
+    color: var(--ink);
+  }
+  .tpl-bento :is(.b-pill, .b-choice, .b-input) {
+    border-color: var(--hairline);
+  }
+  .tpl-bento .b-nav[aria-current] {
+    background: var(--b-chip);
+    color: var(--b-accent);
+  }
+
+  /* The availability dot and the live-visitors dot: lime, ringed so it reads on a light card. */
+  .tpl-bento .b-dot,
+  .tpl-bento .b-live::before {
+    display: inline-block;
+    width: 0.625rem;
+    height: 0.625rem;
+    flex-shrink: 0;
+    border-radius: 999px;
+    background: var(--lime);
+    box-shadow: 0 0 0 1px var(--b-hover);
+  }
+  .tpl-bento .b-dot[data-status="closed"] {
+    background: var(--fg-muted);
+  }
+  .tpl-bento .b-live::before {
+    content: "";
+    margin-right: 0.5rem;
+  }
+
+  .tpl-bento .b-stretch::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+  .tpl-bento .b-lift :is(a, button):not(.b-stretch) {
+    position: relative;
+    z-index: 1;
+  }
+
+  /*
+   * Contact form: fields sit in a well a step darker than the card; errors use the accent ink and
+   * always say what is wrong in words. The honeypot is off-screen, not display:none, so bots
+   * still fill it.
+   */
+  .tpl-bento .b-input {
+    background: var(--b-well);
+  }
+  .tpl-bento :is(.b-input[aria-invalid], .b-choice:has(:checked), .b-alert) {
+    border-color: var(--b-accent);
+    box-shadow: inset 0 0 0 1px var(--b-accent);
+  }
+  .tpl-bento .b-choice {
+    accent-color: var(--b-accent);
+  }
+  .tpl-bento .b-error {
+    color: var(--b-accent);
+  }
+  .tpl-bento .b-hp {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  /*
+   * Hover is an enhancement (guide §5 rule 7): only a fine pointer gets the lift and the washes,
+   * and with reduced motion the lift and the arrow nudge stay off (the colour changes remain).
+   */
+  @media (hover: hover) and (pointer: fine) {
+    .tpl-bento :is(.b-lift, .b-arrow, .b-btn, .b-pill, .b-nav) {
+      transition:
+        transform var(--dur-fast) var(--ease-inout),
+        border-color var(--dur-fast) var(--ease-inout),
+        background-color var(--dur-fast) var(--ease-inout),
+        color var(--dur-fast) var(--ease-inout);
+    }
+    .tpl-bento .b-lift:has(.b-stretch:hover) {
+      border-color: var(--b-hover);
+    }
+    .tpl-bento .b-link:hover {
+      text-decoration: underline;
+      text-underline-offset: 0.25em;
+    }
+    .tpl-bento .b-btn:hover {
+      background: var(--b-fg);
+      color: var(--b-card);
+    }
+    .tpl-bento .b-pill:hover {
+      border-color: var(--b-fg);
+    }
+    .tpl-bento .b-nav:hover {
+      background: var(--b-chip);
+    }
+  }
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .tpl-bento .b-lift:has(.b-stretch:hover) {
+      transform: translateY(-4px);
+    }
+    .tpl-bento :is(.b-lift:has(.b-stretch:hover), .b-link:hover) .b-arrow {
+      transform: translate(2px, -2px);
+    }
+  }
+}
