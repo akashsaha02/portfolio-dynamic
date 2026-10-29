@@ -3,6 +3,8 @@
 // with no client JS; colours come from the admin tokens in app/(payload)/custom.scss, so the light
 // and dark admin themes both work. The lime dot is the one accent: decorative, never text.
 
+import Link from "next/link";
+
 export function AdminLogo() {
   return (
     <span className="ak-logo">
@@ -36,7 +38,7 @@ export function NavBrand() {
 export function LoginFooter() {
   return (
     <p className="ak-login-foot">
-      <a href="/">← Back to the site</a>
+      <Link href="/">← Back to the site</Link>
     </p>
   );
 }
