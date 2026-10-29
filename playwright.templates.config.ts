@@ -41,7 +41,7 @@ export default defineConfig({
     },
     url: `http://localhost:${t.port}`,
     reuseExistingServer: !process.env.CI,
-    timeout: 300_000,
+    timeout: 600_000,
   })),
   projects: templates.flatMap((t) =>
     [phone, desktop].map((v) => ({

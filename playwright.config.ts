@@ -38,7 +38,8 @@ export default defineConfig({
       },
       url: `http://localhost:${port}`,
       reuseExistingServer: !process.env.CI,
-      timeout: 300_000,
+      // Two production builds run side by side, and every build now compiles all five templates.
+      timeout: 600_000,
     },
     {
       command: `npm run build && npm run start -- -p ${indexPort}`,
@@ -53,7 +54,7 @@ export default defineConfig({
       },
       url: `http://localhost:${indexPort}`,
       reuseExistingServer: !process.env.CI,
-      timeout: 300_000,
+      timeout: 600_000,
     },
   ],
   projects: [
