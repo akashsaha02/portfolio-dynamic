@@ -8,8 +8,8 @@ import { H1, LINK, MUTED, Prompt } from "../ui";
 // commands. Server Component.
 
 const WAYS_BACK = [
-  { href: "/", verb: "cd ", label: "home" },
-  { href: "/work", verb: "cd ", label: "work" },
+  { href: "/", verb: "cd ", label: "home" },
+  { href: "/work", verb: "cd ", label: "work" },
   { href: "/contact", verb: "./", label: "contact" },
 ] as const;
 

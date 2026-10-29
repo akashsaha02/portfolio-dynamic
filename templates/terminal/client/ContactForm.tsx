@@ -251,7 +251,7 @@ function Form({ labelledBy, focusFirst, onAgain }: FormProps) {
 
       <div>
         <button type="submit" aria-disabled={blocked || undefined} className="t-btn">
-          <span aria-hidden="true">$ </span>
+          <span aria-hidden="true">$&nbsp;</span>
           {pending ? "Sending" : "Send message"}
         </button>
       </div>

@@ -19,12 +19,13 @@ import "./terminal.css";
 
 export type TerminalPageId = "home" | "work" | "archive" | "lab" | "about" | "contact";
 
-/** The pages as commands. The verb is decoration (aria-hidden); the link's name is the page. */
+/** The pages as commands. The verb is decoration (aria-hidden; a no-break space, as flex items
+ * drop a trailing one); the link's name is the page. */
 const PAGES: { id: TerminalPageId; href: string; verb: string; label: string }[] = [
-  { id: "work", href: "/work", verb: "cd ", label: "work" },
-  { id: "archive", href: "/archive", verb: "ls ", label: "archive" },
+  { id: "work", href: "/work", verb: "cd ", label: "work" },
+  { id: "archive", href: "/archive", verb: "ls ", label: "archive" },
   { id: "lab", href: "/lab", verb: "./", label: "lab" },
-  { id: "about", href: "/about", verb: "cat ", label: "about" },
+  { id: "about", href: "/about", verb: "cat ", label: "about" },
   { id: "contact", href: "/contact", verb: "./", label: "contact" },
 ];
 
