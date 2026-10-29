@@ -144,8 +144,8 @@ html:has(.tpl-bento) body {
       grid-template-areas:
         "intro intro intro avail" "intro intro intro time" "intro intro intro social"
         "work work work work"
-        "exp exp now now" "exp exp stack stack"
-        "research research contact contact";
+        "exp exp now now" "exp exp contact contact"
+        "research research stack stack";
     }
     /*
      * Desktop work grid: the first project is the big card (2 × 2), the second sits beside it

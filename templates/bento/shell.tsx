@@ -65,18 +65,21 @@ export function BentoPage({ content, settings, current, section, home, children 
                   </li>
                 );
               })}
+              {/* In the list, so on a phone it wraps with the links instead of taking a row. */}
+              <li>
+                <CommandMenuButton
+                  aria-label="Open the command menu"
+                  className="b-nav inline-flex min-h-11 min-w-11 items-center justify-center gap-2 rounded-full px-3 text-sm font-medium"
+                >
+                  <svg aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" className="size-4">
+                    <circle cx="7" cy="7" r="4.5" />
+                    <path d="M10.5 10.5L14 14" />
+                  </svg>
+                  <ShortcutHint className="hidden font-sans text-xs text-(--fg-muted) md:inline" />
+                </CommandMenuButton>
+              </li>
             </ul>
           </nav>
-          <CommandMenuButton
-            aria-label="Open the command menu"
-            className="b-nav inline-flex min-h-11 min-w-11 items-center justify-center gap-2 rounded-full px-3 text-sm font-medium"
-          >
-            <svg aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" className="size-4">
-              <circle cx="7" cy="7" r="4.5" />
-              <path d="M10.5 10.5L14 14" />
-            </svg>
-            <ShortcutHint className="hidden font-sans text-xs text-(--fg-muted) md:inline" />
-          </CommandMenuButton>
         </Card>
         {children}
         <Footer content={content} clock={!home} />

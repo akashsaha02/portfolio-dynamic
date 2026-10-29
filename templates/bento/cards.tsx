@@ -14,6 +14,8 @@ type ProjectCardProps = {
   /** h3 under Home's "Selected work", h2 on the Work page. */
   headingLevel: "h2" | "h3";
   sizes: string;
+  /** Desktop: cover and text side by side (the card beside the big one; bento.css .b-work). */
+  row?: boolean;
 };
 
 /**
@@ -22,7 +24,7 @@ type ProjectCardProps = {
  * .b-stretch), so the whole card is the target; case studies open in place, the rest go to the
  * live site or repo in a new tab.
  */
-export function ProjectCard({ project: p, headingLevel: Heading, sizes }: ProjectCardProps) {
+export function ProjectCard({ project: p, headingLevel: Heading, sizes, row }: ProjectCardProps) {
   const { href, external } = projectHref(p);
   const title = (
     <>
@@ -31,7 +33,7 @@ export function ProjectCard({ project: p, headingLevel: Heading, sizes }: Projec
     </>
   );
   return (
-    <Card as="article" lift className="flex flex-col p-2">
+    <Card as="article" lift className={`flex flex-col p-2 ${row ? "lg:flex-row lg:items-start" : ""}`}>
       {p.cover ? (
         <Image
           src={p.cover.src}
@@ -39,11 +41,11 @@ export function ProjectCard({ project: p, headingLevel: Heading, sizes }: Projec
           width={p.cover.width}
           height={p.cover.height}
           sizes={sizes}
-          className="w-full rounded-2xl border border-hairline"
+          className={`w-full rounded-2xl border border-hairline ${row ? "lg:w-1/2" : ""}`}
         />
       ) : null}
       {/* mt-auto: in a card taller than its content (the big one on desktop) the text sits low. */}
-      <div className="mt-auto p-3 pt-4 md:p-5">
+      <div className={`mt-auto p-3 pt-4 md:p-5 ${row ? "lg:mt-0 lg:flex-1" : ""}`}>
         <Heading className="text-xl leading-snug font-semibold tracking-tight">
           {external ? (
             <ExternalLink href={href} className="b-stretch">
@@ -75,11 +77,17 @@ export function ProjectGrid({ projects, headingLevel }: { projects: Project[]; h
           key={p.slug}
           project={p}
           headingLevel={headingLevel}
-          // Phone: one column. Tablet: the first card spans both columns. Desktop: half the board.
+          // The second card sits beside the big one on desktop with its cover beside its text, so
+          // the two columns end level (with a stacked cover it would leave a gap in the big card).
+          row={i === 1 && projects.length > 2}
+          // Phone: one column. Tablet: the first card spans both columns. Desktop: half the board,
+          // or a quarter for the side-by-side cover.
           sizes={
             i === 0
               ? "(min-width: 1280px) 624px, (min-width: 1024px) 50vw, 100vw"
-              : "(min-width: 1280px) 624px, (min-width: 768px) 50vw, 100vw"
+              : i === 1 && projects.length > 2
+                ? "(min-width: 1280px) 304px, (min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
+                : "(min-width: 1280px) 624px, (min-width: 768px) 50vw, 100vw"
           }
         />
       ))}
