@@ -21,6 +21,7 @@ import config from "../payload.config";
 import { SKILL_GROUPS } from "../collections/Skills";
 import * as raw from "../lib/content";
 import { envTemplate } from "../lib/static-content";
+import { isTemplateId } from "../templates/types";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -305,9 +306,11 @@ async function seedGlobals(): Promise<void> {
   });
 
   const announcement = raw.settings.announcement;
+  // SITE_TEMPLATE (validated; unset or retired = folio) is only the first value: once the database
+  // has a template, the admin owns it and a re-run of the seed keeps it.
+  const stored = (await payload.findGlobal({ ...base, slug: "site-settings", depth: 0 })) as { activeTemplate?: string };
   await upsertGlobal("site-settings", {
-    // SITE_TEMPLATE (validated; unset or retired = folio) is the first value; the admin owns it after.
-    activeTemplate: envTemplate(),
+    activeTemplate: isTemplateId(stored.activeTemplate) ? stored.activeTemplate : envTemplate(),
     versionLabel: raw.site.versionLabel,
     contactFormEnabled: raw.settings.contactFormEnabled,
     seo: { title: raw.site.seo.title, description: raw.site.seo.description },
