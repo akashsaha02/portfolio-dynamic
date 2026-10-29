@@ -27,6 +27,14 @@ export type VersionEntry = {
 
 export const VERSIONS: VersionEntry[] = [
   {
+    id: "bento",
+    name: "Bento",
+    period: "Oct 2026 – now",
+    description: "Modern: one board of rounded cards of different sizes, light and dark.",
+    href: "/",
+    template: "bento",
+  },
+  {
     id: "terminal",
     name: "Terminal",
     period: "Oct 2026 – now",

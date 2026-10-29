@@ -41,6 +41,11 @@ export async function generateMetadata(): Promise<Metadata> {
 const THEME_COLOR: Partial<Record<string, Viewport["themeColor"]>> = {
   index: "#282c20",
   terminal: "#282c20",
+  // Bento follows the visitor's light/dark setting.
+  bento: [
+    { media: "(prefers-color-scheme: light)", color: "#ebeee0" },
+    { media: "(prefers-color-scheme: dark)", color: "#282c20" },
+  ],
 };
 
 export async function generateViewport(): Promise<Viewport> {

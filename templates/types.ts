@@ -124,7 +124,7 @@ export const TEMPLATE_META: Record<TemplateId, TemplateMeta> = {
     id: "bento",
     name: "Bento",
     description: "Modern: an asymmetric grid of cards, light and dark, built to be scanned in seconds.",
-    status: "placeholder",
+    status: "current",
   },
   brutal: {
     id: "brutal",
