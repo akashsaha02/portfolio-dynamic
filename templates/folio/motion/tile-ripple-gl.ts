@@ -39,10 +39,10 @@ void main() {
   float r = length(d);
   float fall = 1. - smoothstep(0., .55, r);
   fall *= fall;
-  vec2 off = -d * fall * .045 * uHover;
-  off += d / max(r, 1e-4) * sin(r * 34. - uTime * 5.) * fall * .005 * uWave;
-  vec2 p = v + off / k - uDrag * fall * .12 * uHover;
-  vec2 s = uDrag * fall * .03 * uHover;
+  vec2 off = -d * fall * .045 * uHover; // lens
+  off += d / max(r, 1e-4) * sin(r * 34. - uTime * 5.) * fall * .005 * uWave * uHover; // rings
+  vec2 p = v + off / k - uDrag * fall * .12 * uHover; // drag
+  vec2 s = uDrag * fall * .02 * uHover; // a hint of colour split along the drag
   vec4 c = img(p);
   c.r = img(p + s).r;
   c.b = img(p - s).b;
@@ -281,14 +281,15 @@ function frame(now: number) {
   gl.uniform1f(u.uTime, time);
   gl.drawArrays(gl.TRIANGLES, 0, 3);
 
-  // Below these the shader's offsets are well under a pixel: stop drawing.
+  // Every term is scaled by uHover: once it's back to 0 (and the zoom is home) the canvas is
+  // just the image, so it can go. Otherwise stop drawing when the offsets are under a pixel.
+  if (hoverTo === 0 && hover.done && !zooming) return detach();
   const moving = Math.abs(dx) + Math.abs(dy) > 1e-3;
   if (!hover.done || moving || wave > 0.02 || zooming) {
     raf = requestAnimationFrame(frame);
     return;
   }
   last = 0;
-  if (hoverTo === 0) detach();
 }
 
 /** Pointer entered `el` (a [data-ripple] tile) at client (x, y). */
@@ -305,7 +306,20 @@ export function enter(el: HTMLElement, x: number, y: number) {
 
   const m = el.querySelector<HTMLElement>(".f-tile-media");
   const i = m?.querySelector("img");
-  if (!m || !i || !readable(i)) return;
+  if (!m || !i) return;
+  if (!i.complete) {
+    // Lazy and still loading (e.g. just shown by the list/grid toggle): start once it's in,
+    // from wherever the pointer is by then, if it's still over the tile.
+    let at = [x, y];
+    const track = (e: PointerEvent) => (at = [e.clientX, e.clientY]);
+    el.addEventListener("pointermove", track, { passive: true });
+    i.addEventListener("load", () => {
+      el.removeEventListener("pointermove", track);
+      enter(el, at[0], at[1]);
+    }, { once: true });
+    return;
+  }
+  if (!readable(i)) return;
 
   clearTimeout(idle);
   r ??= createRenderer();
