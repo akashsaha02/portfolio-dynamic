@@ -178,6 +178,73 @@ jobs:
           retention-days: 7
           if-no-files-found: ignore
 
+  # Bento, Brutal and Terminal: one build and server each (playwright.templates.config.ts), Chromium
+  # only (phone + desktop). A separate job so the E2E job above doesn't slow down per template.
+  e2e-templates:
+    name: E2E templates (Chromium)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # Match the npm major used locally; npm 10 and 11 disagree on optional peer entries in the lockfile.
+      - name: Use npm 11
+        run: npm install -g npm@11
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Get Playwright version
+        id: pw-version
+        run: echo "version=$(node -p "require('@playwright/test/package.json').version")" >> "$GITHUB_OUTPUT"
+
+      - name: Cache Playwright browsers
+        id: pw-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-chromium-${{ runner.os }}-${{ steps.pw-version.outputs.version }}
+
+      - name: Install Playwright browser and system deps
+        if: steps.pw-cache.outputs.cache-hit != 'true'
+        run: npx playwright install --with-deps chromium
+
+      - name: Install Playwright system deps only (browser cache hit)
+        if: steps.pw-cache.outputs.cache-hit == 'true'
+        run: npx playwright install-deps chromium
+
+      - name: Cache Next.js build caches
+        uses: actions/cache@v4
+        with:
+          path: |
+            .next-bento/cache
+            .next-brutal/cache
+            .next-terminal/cache
+          key: nextjs-e2e-templates-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx', '!node_modules/**', '!.next/**', '!.next-*/**') }}
+          restore-keys: |
+            nextjs-e2e-templates-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-
+
+      - name: E2E tests (Bento, Brutal, Terminal)
+        run: npm run test:e2e:templates
+        env:
+          CI: "true"
+
+      - name: Upload Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-templates
+          path: |
+            playwright-report-templates/
+            test-results-templates/
+          retention-days: 7
+          if-no-files-found: ignore
+
   lighthouse:
     name: Lighthouse CI (mobile, warn-only)
     runs-on: ubuntu-24.04
