@@ -3,10 +3,29 @@ import type { CommandItem } from "@/components/shared/CommandMenu";
 import type { SiteContent } from "@/lib/content-types";
 import { staticSiteContent } from "@/lib/static-content";
 import { folioCommands } from "@/templates/folio/commands";
+import { bentoCommands } from "@/templates/bento/commands";
+import { brutalCommands } from "@/templates/brutal/commands";
 import { indexCommands } from "@/templates/index/commands";
+import { terminalCommands } from "@/templates/terminal/commands";
 
 const content = staticSiteContent();
-const builders = { folio: folioCommands, index: indexCommands } as const;
+const builders = {
+  folio: folioCommands,
+  index: indexCommands,
+  bento: bentoCommands,
+  brutal: brutalCommands,
+  terminal: terminalCommands,
+} as const;
+// Home-page entries that remain when experience, publications and education are empty and no
+// project is featured: the always-present sections, plus "work" where the template shows it for
+// any project (not only featured ones).
+const alwaysOnHome: Record<string, string[]> = {
+  folio: [],
+  index: ["section:about"],
+  bento: ["card:work", "card:contact"],
+  brutal: ["section:work"],
+  terminal: ["section:about", "section:work"],
+};
 
 describe.each(Object.entries(builders))("%s command list", (name, build) => {
   const items = build(content);
@@ -64,7 +83,7 @@ describe.each(Object.entries(builders))("%s command list", (name, build) => {
     const ids = build(empty)
       .filter((i) => i.group === "On the home page")
       .map((i) => i.id);
-    expect(ids).toEqual(name === "index" ? ["section:about"] : []);
+    expect(ids).toEqual(alwaysOnHome[name]);
     expect(items.filter((i) => i.group === "On the home page").length).toBeGreaterThan(0);
   });
 });
@@ -74,7 +93,9 @@ describe("annotations entry", () => {
     const a = folioCommands(content).find((i: CommandItem) => i.id === "annotations")?.action;
     expect(a).toMatchObject({ type: "event", name: "folio:annotations-toggle" });
   });
-  it("Index has none", () => {
-    expect(indexCommands(content).some((i) => i.id === "annotations")).toBe(false);
+  it("Index, Bento, Brutal and Terminal have none", () => {
+    for (const build of [indexCommands, bentoCommands, brutalCommands, terminalCommands]) {
+      expect(build(content).some((i) => i.id === "annotations")).toBe(false);
+    }
   });
 });

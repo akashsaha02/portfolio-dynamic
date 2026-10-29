@@ -60,7 +60,7 @@ export const PROSE = "max-w-[65ch] leading-relaxed text-pretty";
 export const MUTED = "text-(--fg-muted)";
 
 /** Underlined text link, inverted on a fine-pointer hover (terminal.css). */
-export const LINK = "t-a inline-flex min-h-11 items-center";
+export const LINK = "t-a inline-flex min-h-11 min-w-11 items-center";
 
 /** A trailing "↗" for links that leave the site. Decorative: ExternalLink says so in words. */
 export function Out() {

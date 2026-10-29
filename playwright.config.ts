@@ -16,7 +16,7 @@ const indexPort = port + 3;
 
 export default defineConfig({
   testDir: "./e2e",
-  testIgnore: /db-backend\.spec\.ts/,
+  testIgnore: /(db-backend|tpl-.*)\.spec\.ts/, // tpl-*: playwright.templates.config.ts
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
@@ -60,7 +60,7 @@ export default defineConfig({
     ...viewports.map((v) => ({
       ...v,
       name: `folio-${v.name}`,
-      testIgnore: /(db-backend|index-.*)\.spec\.ts/,
+      testIgnore: /(db-backend|index-.*|tpl-.*)\.spec\.ts/,
       use: { ...v.use, baseURL: `http://localhost:${port}` },
     })),
     ...viewports.map((v) => ({

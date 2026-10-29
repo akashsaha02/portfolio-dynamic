@@ -88,7 +88,7 @@ export function TerminalPage({ content, settings, current, section, cwd = "~", c
                     <span aria-hidden="true" className={MUTED}>
                       {p.verb}
                     </span>
-                    <Link href={p.href} aria-current={mark(p.id)} className="t-a t-nav inline-flex min-h-11 items-center pr-2">
+                    <Link href={p.href} aria-current={mark(p.id)} className="t-a t-nav inline-flex min-h-11 min-w-11 items-center pr-2">
                       {p.label}
                     </Link>
                   </li>
