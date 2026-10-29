@@ -1,5 +1,6 @@
 import type { Project } from "@/lib/content-types";
 import { ProjectHoverRows } from "../motion/ProjectHoverModal";
+import { TileRipple } from "../motion/TileRipple";
 import { FillButton } from "../ui/FillButton";
 import { Row, RowList } from "../ui/Row";
 import { Note, Notes } from "../ui/Note";
@@ -46,6 +47,8 @@ export function RecentWork({ projects }: RecentWorkProps) {
           </li>
         ))}
       </ul>
+      {/* Liquid hover on the tile covers (fine pointer only; the WebGL loads on the first hover). */}
+      <TileRipple />
       <ProjectHoverRows
         items={featured.map((p) => ({ name: p.name, cover: p.cover }))}
         className="f-recent-rows mt-12"

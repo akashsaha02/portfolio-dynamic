@@ -6,7 +6,8 @@ import { Action } from "./Action";
 // Project tile, the touch and phone presentation of a project (guide §4.2 "Recent work", §4.3):
 // 16:10 screenshot, name, "kind · year". The name is the link and its ::after stretches over the
 // whole tile, so the tile is one tap target with a short accessible name; the focus ring is
-// drawn around the tile (see .f-tile in folio.css).
+// drawn around the tile (see .f-tile in folio.css). With a fine pointer the cover also gets a
+// WebGL liquid hover (work plan 6.9) where the page mounts <TileRipple /> once.
 
 type TileProps = {
   href: string;
@@ -62,7 +63,8 @@ export function Tile({
   }
 
   return (
-    <article className={`f-tile ${className ?? ""}`}>
+    // data-ripple: the liquid hover (motion/TileRipple.tsx, mounted once next to the tile list).
+    <article data-ripple="" className={`f-tile ${className ?? ""}`}>
       <div className="f-tile-media aspect-[16/10] overflow-hidden rounded-2xl bg-[color-mix(in_srgb,currentColor_8%,transparent)]">
         {image ? (
           <Image
