@@ -1,0 +1,255 @@
+/*
+ * Brutal template (templates v2, docs/decisions/templates-v2.md): neo-brutalism on the brand
+ * colours. Paper, ink and lime as flat blocks, thick ink borders, hard offset shadows, heavy
+ * uppercase type and a visible grid. Imported by shell.tsx, so like every template's CSS it is
+ * linked on every route: everything is scoped to `.tpl-brutal` with `b-` classes, and kept small
+ * (budget 3.5 KB gz). Layout is Tailwind utilities in the markup; this file holds the blocks.
+ *
+ * Lime is a background behind ink text and never text on paper (1.05:1). Lime blocks always carry
+ * an ink border, since lime on paper has no edge of its own. Motion is only the press/hover
+ * offset, for a fine pointer without reduced motion; touch sees the same blocks at rest.
+ *
+ * Plain CSS on the tokens from app/globals.css. It can load before or after globals.css, so it
+ * restates Tailwind's layer order first (as templates/index/index.css does).
+ */
+@layer theme, base, components, utilities;
+
+/* The page behind the template (overscroll, short pages) is paper too. */
+html:has(.tpl-brutal),
+html:has(.tpl-brutal) body {
+  background: var(--paper);
+  color-scheme: light;
+}
+
+/* --bw border width, --sh shadow offset, --shc shadow colour (lime on ink, .b-dark). */
+.tpl-brutal {
+  --bw: 3px;
+  --sh: 4px;
+  --shc: var(--ink);
+  --grid: rgb(40 44 32 / 0.08);
+  background:
+    linear-gradient(var(--grid) 1px, #0000 0) 0 0 / 2rem 2rem,
+    linear-gradient(90deg, var(--grid) 1px, #0000 0) 0 0 / 2rem 2rem,
+    var(--paper);
+}
+@media (min-width: 768px) {
+  .tpl-brutal {
+    --bw: 4px;
+    --sh: 8px;
+  }
+}
+.tpl-brutal .b-dark {
+  --shc: var(--lime);
+}
+
+/* Focus: a thick ink ring, lime on ink; unlayered, like the global ring it replaces. */
+.tpl-brutal :focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 0;
+}
+.tpl-brutal .b-dark :focus-visible {
+  outline-color: var(--lime);
+}
+
+.tpl-brutal .b-card-link:focus-visible {
+  outline: none;
+}
+.tpl-brutal .b-card:has(.b-card-link:focus-visible) {
+  outline: 3px solid var(--ink);
+  outline-offset: 6px;
+}
+
+/*
+ * The blocks, in the components layer so utilities in the markup (padding, text size, case)
+ * can adjust them.
+ */
+@layer components {
+  .b-box,
+  .b-btn,
+  .b-claps > button {
+    border: var(--bw) solid var(--ink);
+    box-shadow: var(--sh) var(--sh) 0 var(--shc);
+  }
+  /* Reactions (components/shared/realtime/Reactions.tsx): the clap button and its count. */
+  .b-claps {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.5rem;
+    font-weight: 900;
+  }
+  .b-claps > button {
+    background: var(--lime);
+  }
+  .b-rule,
+  .b-head {
+    border-bottom: var(--bw) solid var(--ink);
+  }
+
+  /* Type: oversized, heavy, uppercase. overflow-wrap keeps a long word inside 320 px. */
+  .b-display {
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    overflow-wrap: anywhere;
+  }
+  /* The name on Home fills its column: cqi, so it scales with the column rather than the screen. */
+  .b-name {
+    font-size: clamp(3rem, 27cqi, 17rem);
+    line-height: 0.82;
+  }
+  .b-h1 {
+    font-size: clamp(2.75rem, 13vw, 8rem);
+  }
+  .b-h2 {
+    font-size: clamp(2rem, 8vw, 4.5rem);
+  }
+  .b-h3 {
+    font-size: clamp(1.5rem, 6vw, 2.25rem);
+  }
+
+  /* Sticker labels and chips. */
+  .b-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 2px solid var(--ink);
+    padding: 0.125rem 0.5rem;
+    font-size: 0.75rem;
+    line-height: 1.25rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .b-tilt {
+    rotate: -2deg;
+  }
+  .b-dot {
+    width: 0.75rem;
+    height: 0.75rem;
+    border: 2px solid var(--ink);
+  }
+
+  .b-btn {
+    display: inline-flex;
+    min-height: 3rem;
+    min-width: 3rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.25rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  .b-nav {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    border: 2px solid var(--ink);
+    background: var(--paper);
+    padding: 0 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+  .b-nav[aria-current="page"] {
+    background: var(--ink);
+    color: var(--on-ink);
+  }
+  .b-nav[aria-current="true"] {
+    background: var(--lime);
+  }
+
+  /* Project blocks: the cover sits on top, or beside the text in a wide block from md. */
+  .b-cover {
+    width: 100%;
+    border-bottom: var(--bw) solid var(--ink);
+  }
+  @media (min-width: 768px) {
+    .b-wide {
+      flex-direction: row;
+    }
+    .b-wide .b-cover {
+      width: 55%;
+      flex-shrink: 0;
+      object-fit: cover;
+      border-bottom: 0;
+      border-right: var(--bw) solid var(--ink);
+    }
+  }
+
+  /* Cards: the heading's link covers the block; the focus ring goes round the block. */
+  .b-card {
+    position: relative;
+  }
+  .b-card-link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+  /* Contact form. Inputs are 16 px (no zoom on iOS); errors are ink on a bordered lime sticker. */
+  .b-input {
+    display: block;
+    width: 100%;
+    margin-top: 0.5rem;
+    border: var(--bw) solid var(--ink);
+    background: var(--on-ink);
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+  }
+  .b-input[aria-invalid] {
+    box-shadow: var(--sh) var(--sh) 0 var(--ink);
+  }
+  .b-err {
+    margin-top: 0.75rem;
+    border: 2px solid var(--ink);
+    background: var(--lime);
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+  }
+  .b-opt {
+    background: var(--paper);
+  }
+  .b-opt:has(:checked) {
+    background: var(--lime);
+  }
+  /* The honeypot is off-screen, not display:none, so bots still fill it. */
+  .b-hp {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  /* Hover is an enhancement (guide §5 rule 7): colour for a fine pointer, offsets only with motion. */
+  @media (hover: hover) and (pointer: fine) {
+    .b-nav:not([aria-current]):hover,
+    .b-hl:hover {
+      background: var(--lime);
+      color: var(--ink);
+    }
+  }
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .b-press,
+    .b-card {
+      /* Snappy on purpose: the block moves, the shadow snaps (only transforms are animated). */
+      transition: translate 0.1s var(--ease-inout);
+    }
+    .b-press:hover,
+    .b-card:has(.b-card-link:hover) {
+      translate: -2px -2px;
+      box-shadow: calc(var(--sh) + 2px) calc(var(--sh) + 2px) 0 var(--shc);
+    }
+    .b-press:active,
+    .b-card:has(.b-card-link:active) {
+      translate: var(--sh) var(--sh);
+      box-shadow: none;
+    }
+  }
+}
