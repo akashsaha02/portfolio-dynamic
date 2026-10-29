@@ -168,6 +168,9 @@ test.describe("annotations", () => {
     await page.addInitScript(() => localStorage.setItem("folio:annotations", "on"));
     await gotoFolio(page, "/");
     await expect(page.locator("html")).toHaveAttribute("data-annotations", "");
+    // Notes fade in (@starting-style) and form choices tween colour: let every transition finish,
+    // or axe measures contrast on half-transparent text and fails at random.
+    await page.waitForFunction(() => document.getAnimations().every((a) => a.playState !== "running"), null, { timeout: 10_000 });
     await expectNoHorizontalScroll(page);
     await expectAxeClean(page);
   });
