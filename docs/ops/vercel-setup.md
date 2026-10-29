@@ -142,9 +142,9 @@ Two Vercel projects (`akashsaha` and `portfolio-dynamic`) were both connected to
 2. Open the `akashsaha` project's **Settings** > **Domains** and note its production domain. If `akashsaha.vercel.app` is listed there but still shows the old dark site, production is not being auto-assigned: open **Deployments**, pick the newest Ready Production deployment, **...** > **Promote**, then check section 9 step 1. If it is not listed, that address belongs to your old project (another account or team); remove it there first, then **Add** it here.
 3. Do sections 2, 3, 7, 8 and 9 on `akashsaha`.
 
-## Why there is no `vercel.json`
+## `vercel.json`: functions run in Mumbai
 
-Vercel detects Next.js and runs `next build` with the right output on its own, `.vercel/` is already in `.gitignore`, and the build needs no git-ignored files (a build from a fresh clone with `NEXT_PUBLIC_SITE_URL` set passes with no `.env` file). Redirects, headers and image limits live in `next.config.ts`. Add `vercel.json` only if we later need cron jobs, region pinning, or per-branch build skipping.
+The only setting in `vercel.json` is `"regions": ["bom1"]`. The Atlas cluster is in AWS `ap-south-1` (Mumbai); Vercel's default function region is `iad1` (Washington, D.C.), which put every database query on a ~230 ms round trip across the world and made the admin and the contact form slow (measured 2026-10-29: about 1.3 s per API request warm, 6.5 s cold). If the database ever moves, move this region with it (Atlas region → Vercel region list: https://vercel.com/docs/edge-network/regions). Everything else (framework, build, redirects, headers, image limits) is detected or lives in `next.config.ts`.
 
 ## What can go wrong
 

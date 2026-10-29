@@ -62,6 +62,11 @@ export async function submitContact(prev: ContactState, formData: FormData): Pro
 
   const ip = clientIpFromHeaders(await headers());
 
+  // Connect to the database while Cloudflare checks the token: on a cold start that saves the
+  // connection time. A failure here surfaces below, where the message is saved.
+  const payloadReady = getPayload({ config });
+  payloadReady.catch(() => {});
+
   const turnstile = await verifyTurnstile({
     token: formData.get(TURNSTILE_FIELD),
     secret: process.env.TURNSTILE_SECRET_KEY,
@@ -86,7 +91,7 @@ export async function submitContact(prev: ContactState, formData: FormData): Pro
   let payload: Payload;
   let messageId: string;
   try {
-    payload = await getPayload({ config });
+    payload = await payloadReady;
 
     const limit = await consumeContactRateLimit(payload, ip);
     if (limit.limited) {
@@ -98,6 +103,8 @@ export async function submitContact(prev: ContactState, formData: FormData): Pro
     const doc = await payload.create({
       collection: "messages",
       overrideAccess: true,
+      // One insert is atomic on its own; a transaction would add round trips to the database.
+      disableTransaction: true,
       data: { name: input.name, email: input.email, intent: input.intent, body: input.message, read: false },
       depth: 0,
     });

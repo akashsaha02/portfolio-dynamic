@@ -21,6 +21,8 @@ export const RateLimits: CollectionConfig = {
   },
   lockDocuments: false,
   timestamps: true,
+  // Every check reads "this key's hits since <time>, newest first" (lib/payload/rate-limit-store.ts).
+  indexes: [{ fields: ["key", "createdAt"] }],
   fields: [
     { name: "key", type: "text", required: true, index: true },
     // No `index: true` here: the TTL index on this path is created by the store, and a second,

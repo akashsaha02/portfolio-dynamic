@@ -99,6 +99,8 @@ async function consumeRateLimit(
   await payload.create({
     collection: SLUG,
     overrideAccess: true,
+    // A single insert: no transaction (saves database round trips on every form send).
+    disableTransaction: true,
     data: { key, expiresAt: new Date(now + lookback).toISOString() },
     depth: 0,
   });

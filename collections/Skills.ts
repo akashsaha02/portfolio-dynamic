@@ -39,6 +39,8 @@ export const Skills: CollectionConfig = {
       name: "showInToolkit",
       type: "checkbox",
       defaultValue: false,
+      // The About toolkit query filters on it (lib/payload/read.ts).
+      index: true,
       admin: { position: "sidebar", description: "List it in the toolkit on About." },
     },
   ],
